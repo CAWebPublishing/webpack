@@ -174,6 +174,8 @@ class JSHintPlugin {
     /**
      * Run JSHint
      *
+     * @link https://www.npmjs.com/package/jshint
+     * 
      * @param {Array} files
      * @param {Object}  options
      * @param {boolean} options.debug

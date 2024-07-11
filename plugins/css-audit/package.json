@@ -10,12 +10,13 @@
   "author": "CAWebPublishing",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/CAWebPublishing/html-webpack-plugin/issues"
+    "url": "https://github.com/CAWebPublishing/webpack/issues"
   },
-  "homepage": "https://github.com/CAWebPublishing/html-webpack-plugin#readme",
+  "homepage": "https://github.com/CAWebPublishing/webpack#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CAWebPublishing/html-webpack-plugin.git"
+    "url": "https://github.com/CAWebPublishing/webpack",
+    "directory": "plugins/css-audit"
   },
   "keywords": [
     "caweb",

@@ -1,7 +1,7 @@
 {
-  "name": "@caweb/jshint-webpack-plugin",
+  "name": "@caweb/a11y-webpack-plugin",
   "version": "1.0.0",
-  "description": "CAWebPublishing Webpack Plugin to run JSHint",
+  "description": "CAWebPublishing Webpack Plugin to run Accessibility Scans",
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/CAWebPublishing/webpack",
-    "directory": "plugins/jshint"
+    "directory": "plugins/a11y"
   },
   "keywords": [
     "caweb",
@@ -24,7 +24,7 @@
     "webpack"
   ],
   "dependencies": {
-    "html-format": "^1.1.7",
-    "jshint": "^2.13.6"
+    "accessibility-checker": "^3.1.73",
+    "check-valid-url": "^0.1.0"
   }
 }

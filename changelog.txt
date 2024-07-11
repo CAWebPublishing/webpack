@@ -5,3 +5,4 @@ v1.0.0
 - WordPress CSS Audit Webpack Plugin added
 - Added output folder option to WordPress CSS Audit Webpack Plugin
 - JSHint Webpack Plugin added
+- Accessibility Checker Webpack Plugin added
