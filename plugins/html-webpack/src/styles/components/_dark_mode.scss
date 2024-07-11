@@ -1,0 +1,18 @@
+/*
+ * Darkmode switch
+ */
+ .button__theme-toggle {
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	margin-bottom: 0;
+
+	&::before {
+		content: map.get($emojis, "moon");
+		font-size: 1.5rem;
+
+		.is-dark-mode &{
+			content: map.get($emojis, "sun");
+		}
+	}
+}

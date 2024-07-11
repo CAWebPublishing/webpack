@@ -1,0 +1,24 @@
+{
+  "name": "@caweb/webpack",
+  "version": "1.0.0",
+  "description": "CAWebPublishing Webpack Environment",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \\\"Error: run tests from root\\\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CAWebPublishing/webpack.git"
+  },
+  "keywords": [
+    "caweb",
+    "cagov",
+    "webpack"
+  ],
+  "author": "CAWebPublishing",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CAWebPublishing/webpack/issues"
+  },
+  "homepage": "https://github.com/CAWebPublishing/webpack#readme"
+}

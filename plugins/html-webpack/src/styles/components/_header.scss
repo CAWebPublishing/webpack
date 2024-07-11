@@ -1,0 +1,57 @@
+/*
+ * Header, nav, 'back to top' button
+ */
+ .site__header {
+	align-items: baseline;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+
+    nav {
+        margin-bottom: var(--component-margin-sm);
+
+        ul {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            list-style: none;
+            padding: 0;
+
+            li {
+                margin-bottom: var(--component-margin-sm);
+                margin: 0 0.5em 0 0;
+
+                a {
+                    display: block;
+                    height: 100%;
+                }
+                button {
+                    font-size: 1.2em;
+                    margin-bottom: var(--component-margin-sm);
+                    text-align: center;
+                }
+
+                
+                a, button {
+                    background-color: var(--nav-bg);
+                    padding: 0.5em;
+                    text-decoration: none;
+                    transition: background-color 0.2s ease;
+                }
+
+                a:hover,
+                a:focus,
+                button:hover,
+                button:focus {
+                    background-color: var(--nav-bg-hover);
+                }
+
+                a:focus,
+                button:focus {
+                    outline: 4px dashed var(--nav-fg);
+                }
+                
+            }
+        }
+    }
+}

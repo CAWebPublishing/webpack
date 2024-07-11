@@ -1,0 +1,18 @@
+//  Border style for bordered components
+$component-border: 1px solid #666 !default;
+
+$dark-variables: (
+    "body-margin": 2rem,
+    "body-bg": #111,
+    "body-fg": #fff,
+    "nav-bg": #444,
+    "nav-bg-hover": #222,
+    "nav-fg": #bcf,
+    "h-bg": #222,
+    "h-fg": #eee,
+    "component-margin-sm": 1.5rem,
+    "component-margin-lg": 3rem,
+    "component-border": $component-border,
+    "count-bg": #111,
+    "count-border": $component-border,
+);

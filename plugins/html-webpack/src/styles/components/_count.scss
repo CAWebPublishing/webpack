@@ -1,0 +1,19 @@
+/*
+ * Count component on colour chips
+ */
+ .count {
+	background-color: var(--count-bg);
+	border: var(--count-border);
+	border-radius: 50%;
+	box-sizing: border-box;
+	color: var(--count-fg);
+	display: inline-block;
+	height: auto;
+	min-width: 2.3em;
+	padding: 0.5em;
+	text-align: center;
+
+	/* Counteract .chip:hover */
+	font-weight: normal;
+	text-shadow: none;
+}

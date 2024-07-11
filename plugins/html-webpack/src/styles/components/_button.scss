@@ -1,0 +1,21 @@
+/*
+    Buttons
+*/
+.btn{
+	background-color: var(--nav-bg);
+	padding: 0.5em;
+	text-decoration: none;
+	transition: background-color 0.2s ease;
+    font-size: 1.2em;
+	margin-bottom: var(--component-margin-sm);
+	text-align: center;
+    
+    :hover,
+    :focus{
+	    background-color: var(--nav-bg-hover);
+    }
+
+    :focus{
+	    outline: 4px dashed var(--nav-fg);
+    }
+}

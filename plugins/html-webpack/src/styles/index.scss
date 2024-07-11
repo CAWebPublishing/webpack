@@ -1,0 +1,17 @@
+@use "sass:map";
+@use "sass:selector";
+
+@import './core/_mixins.scss';
+
+@import './core/_variables.scss';
+
+body {
+    @include include-variables("*", $variables);
+
+    @import './core/_variables-dark.scss';
+    @include include-variables(".is-dark-mode", $dark-variables);
+}
+
+@import './components/';
+
+@include generate-emojis();
