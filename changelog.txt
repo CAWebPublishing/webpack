@@ -1,5 +1,6 @@
 v1.0.0
 - Initial CAWeb HTML Webpack Plugin added
 - Updated Webpack Configurations
-- Added Page Template
+- Added Page Template to HTML Plugin
 - WordPress CSS Audit Webpack Plugin added
+- Added output folder option to WordPress CSS Audit Webpack Plugin

@@ -26,13 +26,17 @@ const currentPath = path.dirname(fileURLToPath(import.meta.url));
 class CSSAuditPlugin {
     config = {}
 
-    constructor(opts = {}) {
+    constructor(
+      opts = {
+        outputFolder: path.join(currentPath, 'bin', 'auditor', 'public')
+      }
+    ) {
       this.config = deepmerge(DefaultConfig, opts);
     }
 
     apply(compiler) {
       const staticDir = {
-        directory: path.join(currentPath, 'bin', 'auditor', 'public'),
+        directory: this.config.outputFolder,
         watch: true
       }
       let { devServer, output } = compiler.options;
@@ -165,13 +169,16 @@ class CSSAuditPlugin {
     }
 
     /**
-     * Run CSS Auditor
-     *
+     * Run WordPress CSS Audit
+     * 
+     * @link https://github.com/WordPress/css-audit/blob/trunk/README.md
+     * 
      * @param {Array} files
      * @param {Object}  options
      * @param {boolean} options.debug
      * @param {boolean} options.format
      * @param {boolean} options.filename
+     * @param {boolean} options.outputFolder   Where the audit should be saved.
      * @param {boolean} options.colors
      * @param {boolean} options.important
      * @param {boolean} options.displayNone
@@ -184,6 +191,7 @@ class CSSAuditPlugin {
       debug,
       format,
       filename,
+      outputFolder,
       colors,
       important,
       displayNone,
@@ -274,16 +282,35 @@ class CSSAuditPlugin {
       }
 
       if( stdout && stdout.toString() ){
+          // the css audit tool always outputs to its own public directory
+          let defaultOutputPath = path.join(currentPath, 'bin', 'auditor', 'public');
+
+          // we always make sure the output folder exists
+          fs.mkdirSync( outputFolder, { recursive: true } );
+
           // rename the file back to the intended file name instead of the project name
+          let outputFile = path.join(outputFolder, `${filename}.html`);
+
           fs.renameSync(
-            path.join(currentPath, 'bin', 'auditor', 'public', `${path.basename(process.cwd())}.html`),
-            path.join(currentPath, 'bin', 'auditor', 'public', `${filename}.html`)
+            path.join(defaultOutputPath, `${path.basename(process.cwd())}.html`),
+            outputFile
           )
           
+          // we also move the style.css as well case the output path is different than the default.
+          if( fs.existsSync( path.join( defaultOutputPath, 'style.css' ) ) ){
+            fs.renameSync(
+              path.join( defaultOutputPath, 'style.css' ),
+              path.join( outputFolder, 'style.css' )
+            )
+          }
+
           let msg = stdout.toString().replace('undefined', '');
       
+          // the command was ran via cli
           if( 'audit' === process.argv[2] ){
-              console.log( msg )
+              console.log( msg );
+              console.log( path.resolve(outputFile) )
+          // otherwise it's being applied during the webpack process.
           }else{
               return msg;
           }
