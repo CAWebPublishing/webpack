@@ -1,2 +1,5 @@
 v1.0.0
-- Initial Webpack Plugin Configurations and Sample Page Created
+- Initial CAWeb HTML Webpack Plugin added
+- Updated Webpack Configurations
+- Added Page Template
+- WordPress CSS Audit Webpack Plugin added

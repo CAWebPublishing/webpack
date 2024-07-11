@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/CAWebPublishing/html-webpack-plugin#readme",
   "dependencies": {
+    "@caweb/css-audit-webpack-plugin": "file:../css-audit/caweb-css-audit-webpack-plugin-1.0.0.tgz",
     "@wordpress/scripts": "^28.2.0",
     "handlebars-loader": "^1.7.3",
     "html-webpack-plugin": "^5.6.0",

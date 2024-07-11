@@ -1,0 +1,5 @@
+/**
+ * External dependencies
+ */
+
+module.exports = {};

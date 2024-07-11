@@ -15,6 +15,12 @@ import fs from 'fs';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import {HtmlWebpackSkipAssetsPlugin} from 'html-webpack-skip-assets-plugin';
 
+import CSSAuditPlugin from '@caweb/css-audit-webpack-plugin';
+/**
+ * 
+import A11yPlugin from '../lib/webpack/plugins/a11y/index.js';
+import JSHintPlugin from '../lib/webpack/plugins/jshint/index.js';
+ */
 /**
  * Internal dependencies
  */
@@ -139,6 +145,7 @@ if( 'serve' === webpackCommand ){
       }
     ]
   }
+
   let pageTemplate = {
     title : path.basename(appPath),
     filename: path.join( appPath, 'public', 'index.html'),
@@ -168,6 +175,7 @@ if( 'serve' === webpackCommand ){
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin(pageTemplate),
     new HtmlWebpackSkipAssetsPlugin(),
+    new CSSAuditPlugin()
   )
 }
 

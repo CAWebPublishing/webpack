@@ -12,6 +12,7 @@ public
 
 # large/disallowed file types
 # a CDN should be used for these
+*\.tgz
 *\.hqx
 *\.bin
 *\.exe
