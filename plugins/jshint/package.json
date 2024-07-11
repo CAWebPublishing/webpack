@@ -1,0 +1,29 @@
+{
+  "name": "@caweb/jshint-webpack-plugin",
+  "version": "1.0.0",
+  "description": "CAWebPublishing Webpack Plugin to run JSHint",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 0"
+  },
+  "author": "CAWebPublishing",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CAWebPublishing/html-webpack-plugin/issues"
+  },
+  "homepage": "https://github.com/CAWebPublishing/html-webpack-plugin#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CAWebPublishing/html-webpack-plugin.git"
+  },
+  "keywords": [
+    "caweb",
+    "cagov",
+    "webpack"
+  ],
+  "dependencies": {
+    "html-format": "^1.1.7",
+    "jshint": "^2.13.6"
+  }
+}

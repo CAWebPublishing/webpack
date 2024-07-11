@@ -16,10 +16,11 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import {HtmlWebpackSkipAssetsPlugin} from 'html-webpack-skip-assets-plugin';
 
 import CSSAuditPlugin from '@caweb/css-audit-webpack-plugin';
+import JSHintPlugin from '@caweb/jshint-webpack-plugin';
+
 /**
  * 
 import A11yPlugin from '../lib/webpack/plugins/a11y/index.js';
-import JSHintPlugin from '../lib/webpack/plugins/jshint/index.js';
  */
 /**
  * Internal dependencies
@@ -175,7 +176,8 @@ if( 'serve' === webpackCommand ){
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin(pageTemplate),
     new HtmlWebpackSkipAssetsPlugin(),
-    new CSSAuditPlugin()
+    new CSSAuditPlugin(),
+    new JSHintPlugin()
   )
 }
 
