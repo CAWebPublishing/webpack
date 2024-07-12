@@ -29,6 +29,9 @@
   "bugs": {
     "url": "https://github.com/CAWebPublishing/webpack/issues"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "homepage": "https://github.com/CAWebPublishing/webpack#readme",
   "dependencies": {
     "@wordpress/scripts": "^28.2.0",
