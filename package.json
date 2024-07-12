@@ -21,7 +21,8 @@
     "pack:html": "npm pack ./plugins/html/ --pack-destination ./plugins/html/",
     "postpack:plugins": "renamer --find /.*.tgz/ --replace package.tgz ./plugins/**/*.tgz -s",
     "test": "echo \\\"Error: run tests from root\\\" && exit 0",
-    "testing": ""
+    "i:local": "npm i plugins/a11y/ plugins/css-audit/ plugins/html/ plugins/jshint/ --save-dev",
+    "un:local": "npm un plugins/a11y/ plugins/css-audit/ plugins/html/ plugins/jshint/ --force"
   },
   "repository": {
     "type": "git",
@@ -39,8 +40,6 @@
   },
   "homepage": "https://github.com/CAWebPublishing/webpack#readme",
   "devDependencies": {
-    "@caweb/html-webpack-plugin": "file:plugins/html",
-    "@caweb/jshint-webpack-plugin": "file:plugins/jshint",
     "renamer": "^5.0.1",
     "rimraf": "^6.0.1",
     "webpack": "^5.93.0",

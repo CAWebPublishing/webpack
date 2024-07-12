@@ -7,6 +7,12 @@
   "bin": {
     "auditor": "bin/auditor/index.js"
   },
+  "files": [
+    "bin",
+    "css-audit.config.cjs",
+    "default.config.js",
+    "index.js"
+  ],
   "author": "CAWebPublishing",
   "license": "ISC",
   "bugs": {
