@@ -39,6 +39,8 @@
   },
   "homepage": "https://github.com/CAWebPublishing/webpack#readme",
   "devDependencies": {
+    "@caweb/html-webpack-plugin": "file:plugins/html",
+    "@caweb/jshint-webpack-plugin": "file:plugins/jshint",
     "renamer": "^5.0.1",
     "rimraf": "^6.0.1",
     "webpack": "^5.93.0",

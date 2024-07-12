@@ -4,6 +4,9 @@
   "description": "CAWebPublishing Webpack Plugin to run JSHint",
   "type": "module",
   "main": "index.js",
+  "files": [
+    "sample"
+  ],
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 0"
   },
@@ -12,10 +15,13 @@
   "bugs": {
     "url": "https://github.com/CAWebPublishing/webpack/issues"
   },
-  "homepage": "https://github.com/CAWebPublishing/webpack#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/CAWebPublishing/webpack/plugins/jshint#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/CAWebPublishing/webpack",
+    "url": "git+https://github.com/CAWebPublishing/webpack.git",
     "directory": "plugins/jshint"
   },
   "keywords": [
@@ -24,6 +30,7 @@
     "webpack"
   ],
   "dependencies": {
+    "get-all-files": "^5.0.0",
     "html-format": "^1.1.7",
     "jshint": "^2.13.6"
   }
