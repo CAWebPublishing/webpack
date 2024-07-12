@@ -38,6 +38,9 @@
   "bugs": {
     "url": "https://github.com/CAWebPublishing/webpack/issues"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "homepage": "https://github.com/CAWebPublishing/webpack#readme",
   "devDependencies": {
     "renamer": "^5.0.1",
