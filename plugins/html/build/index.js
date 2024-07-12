@@ -2,10 +2,10 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/styles/index.scss":
-/*!*******************************!*\
-  !*** ./src/styles/index.scss ***!
-  \*******************************/
+/***/ "./plugins/html/src/styles/index.scss":
+/*!********************************************!*\
+  !*** ./plugins/html/src/styles/index.scss ***!
+  \********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -14,10 +14,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/scripts/dark-mode.js":
-/*!**********************************!*\
-  !*** ./src/scripts/dark-mode.js ***!
-  \**********************************/
+/***/ "./plugins/html/src/scripts/dark-mode.js":
+/*!***********************************************!*\
+  !*** ./plugins/html/src/scripts/dark-mode.js ***!
+  \***********************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -43,14 +43,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /***/ }),
 
-/***/ "./src/scripts/index.js":
-/*!******************************!*\
-  !*** ./src/scripts/index.js ***!
-  \******************************/
+/***/ "./plugins/html/src/scripts/index.js":
+/*!*******************************************!*\
+  !*** ./plugins/html/src/scripts/index.js ***!
+  \*******************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _dark_mode_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dark-mode.js */ "./src/scripts/dark-mode.js");
+/* harmony import */ var _dark_mode_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dark-mode.js */ "./plugins/html/src/scripts/dark-mode.js");
 
 
 /***/ })
@@ -95,14 +95,14 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
+/*!***********************************!*\
+  !*** ./plugins/html/src/index.js ***!
+  \***********************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _styles_index_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/index.scss */ "./src/styles/index.scss");
-/* harmony import */ var _scripts_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./scripts/index.js */ "./src/scripts/index.js");
+/* harmony import */ var _styles_index_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/index.scss */ "./plugins/html/src/styles/index.scss");
+/* harmony import */ var _scripts_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./scripts/index.js */ "./plugins/html/src/scripts/index.js");
 
 
 /******/ })()
 ;
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=main.js.map

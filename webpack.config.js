@@ -14,21 +14,14 @@ import path from 'path';
 import fs from 'fs';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import {HtmlWebpackSkipAssetsPlugin} from 'html-webpack-skip-assets-plugin';
-
+/*
 import CSSAuditPlugin from '@caweb/css-audit-webpack-plugin';
 import JSHintPlugin from '@caweb/jshint-webpack-plugin';
 import A11yPlugin from '@caweb/a11y-webpack-plugin';
-
+*/
 /**
  * Internal dependencies
  */
-
-const appPath = process.cwd();
-const samplePath = path.join( appPath, 'sample');
-const srcPath = path.join( appPath, 'src');
-
-const dataPath = path.join( srcPath, 'data');
-
 const webpackCommand = 'build' === process.argv[2] ? 'build' : 'serve' ;
 
 // Update some of the default WordPress webpack rules.
@@ -90,6 +83,15 @@ let webpackConfig = {
  * Serve Only
  */
 if( 'serve' === webpackCommand ){
+  const appPath = process.cwd();
+
+  // if the project has a sample index page we load it,
+  // otherwise fallback to @caweb/html-webpack-plugin/sample
+  const samplePath = fs.existsSync(path.join(appPath, 'sample')) ?
+    path.join( appPath, 'sample') : path.join( appPath, 'node_modules', '@caweb', 'html-webpack-plugin', 'sample');
+  //const srcPath = path.join( appPath, 'src');
+  //const dataPath = path.join( srcPath, 'data');
+
   // Dev Server is added
   webpackConfig.devServer = { 
     ...baseConfig.devServer,
@@ -162,7 +164,7 @@ if( 'serve' === webpackCommand ){
       "title" : path.basename(appPath)
     },
     skipAssets: [
-      '**/index-rtl.css', // we skip the Right-to-Left Styles
+      '**/*-rtl.css', // we skip the Right-to-Left Styles
       '**/css-audit.*', // we skip the CSSAudit Files
       '**/a11y.*', // we skip the A11y Files
       '**/jshint.*', // we skip the JSHint Files
@@ -173,9 +175,9 @@ if( 'serve' === webpackCommand ){
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin(pageTemplate),
     new HtmlWebpackSkipAssetsPlugin(),
-    new CSSAuditPlugin(),
+    /*new CSSAuditPlugin(),
     new JSHintPlugin(),
-    new A11yPlugin()
+    new A11yPlugin()*/
   )
 }
 

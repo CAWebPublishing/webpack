@@ -8,7 +8,6 @@
 Thumbs.db
 node_modules
 private
-public
 
 # large/disallowed file types
 # a CDN should be used for these

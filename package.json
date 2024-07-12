@@ -1,10 +1,27 @@
 {
   "name": "@caweb/webpack",
   "version": "1.0.0",
-  "description": "CAWebPublishing Webpack Environment",
+  "description": "CAWebPublishing Webpack Configuration",
   "main": "index.js",
+  "type": "module",
+  "files": [
+    "webpack.config.js"
+  ],
   "scripts": {
-    "test": "echo \\\"Error: run tests from root\\\" && exit 0"
+    "webpack": "webpack",
+    "serve": "webpack serve --entry-reset --entry ./plugins/html/src/index.js",
+    "update": "npm run build:plugins && npm run install:plugins",
+    "build": "npm run build:plugins",
+    "build:plugins": "npm run build:html",
+    "build:html": "webpack build --entry-reset --entry ./plugins/html/src/index.js --output-path ./plugins/html/build/ && renamer --find main --replace index ./plugins/html/build/*.* -s",
+    "preinstall:plugins": "npm run pack:plugins",
+    "install:plugins": "npm i ./plugins/html/package.tgz",
+    "postinstall:plugins": "rimraf --glob ./plugins/**/package.tgz",
+    "pack:plugins": "npm run pack:html",
+    "pack:html": "npm pack ./plugins/html/ --pack-destination ./plugins/html/",
+    "postpack:plugins": "renamer --find /.*.tgz/ --replace package.tgz ./plugins/**/*.tgz -s",
+    "test": "echo \\\"Error: run tests from root\\\" && exit 0",
+    "testing": ""
   },
   "repository": {
     "type": "git",
@@ -20,5 +37,17 @@
   "bugs": {
     "url": "https://github.com/CAWebPublishing/webpack/issues"
   },
-  "homepage": "https://github.com/CAWebPublishing/webpack#readme"
+  "homepage": "https://github.com/CAWebPublishing/webpack#readme",
+  "devDependencies": {
+    "@wordpress/scripts": "^28.3.0",
+    "html-webpack-plugin": "^5.6.0",
+    "html-webpack-skip-assets-plugin": "^1.0.4",
+    "renamer": "^5.0.1",
+    "rimraf": "^6.0.1",
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "@caweb/html-webpack-plugin": "file:plugins/html/package.tgz"
+  }
 }
