@@ -5,7 +5,10 @@
   "type": "module",
   "main": "index.js",
   "files": [
-    "sample"
+    "sample",
+    ".jshintrc",
+    "index.js",
+    "reporter.cjs"
   ],
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 0"
