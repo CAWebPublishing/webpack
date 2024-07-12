@@ -4,6 +4,10 @@
   "description": "CAWebPublishing Sample Page and Configurations",
   "main": "index.js",
   "type": "module",
+  "files": [
+    "build",
+    "sample"
+  ],
   "scripts": {
     "webpack": "webpack",
     "build": "webpack build",
