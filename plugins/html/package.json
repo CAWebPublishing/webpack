@@ -1,6 +1,6 @@
 {
   "name": "@caweb/html-webpack-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CAWebPublishing Sample Page and Configurations",
   "main": "index.js",
   "type": "module",
@@ -32,7 +32,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://github.com/CAWebPublishing/webpack#readme",
+  "homepage": "https://github.com/CAWebPublishing/webpack/plugins/html#readme",
   "dependencies": {
     "@wordpress/scripts": "^28.2.0",
     "handlebars-loader": "^1.7.3",
