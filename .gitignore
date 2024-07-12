@@ -16,7 +16,6 @@ build
 # plugins can have built assets
 !plugins\/**\/build
 
-
 # large/disallowed file types
 # a CDN should be used for these
 *\.tgz
