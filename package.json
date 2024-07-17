@@ -1,6 +1,6 @@
 {
   "name": "@caweb/webpack",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CAWebPublishing Webpack Configuration",
   "main": "index.js",
   "type": "module",
@@ -52,7 +52,7 @@
     "@caweb/a11y-webpack-plugin": "^1.0.0",
     "@caweb/css-audit-webpack-plugin": "^1.0.0",
     "@caweb/html-webpack-plugin": "^1.0.1",
-    "@caweb/jshint-webpack-plugin": "^1.0.0",
+    "@caweb/jshint-webpack-plugin": "^1.0.1",
     "@wordpress/scripts": "^28.3.0",
     "html-webpack-plugin": "^5.6.0",
     "html-webpack-skip-assets-plugin": "^1.0.4"
