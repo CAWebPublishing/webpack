@@ -278,7 +278,16 @@ class CSSAuditPlugin {
       )
 
       if( stderr && stderr.toString() ){
-        console.log( stderr.toString())
+        let errMsg = stderr.toString();
+        // we remove any node deprecation warnings unless the node --trace-deprecation flag is explicitly passed.
+        if( ! processArgs.includes('--trace-deprecation') ){
+          errMsg = stderr.toString().replace(/.* DeprecationWarning:[\s\S]*\n|.* --trace-deprecation.*/, '');
+        }
+
+        // we only display if not blank.
+        if( errMsg.toString() ){
+          console.log( errMsg )
+        }
       }
 
       if( stdout && stdout.toString() ){
