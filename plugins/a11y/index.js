@@ -133,7 +133,17 @@ class A11yPlugin {
                   
                 console.log(`<i> ${boldGreen('[webpack-dev-middleware] Running IBM Accessibility scan...')}`);
 
-                this.a11yCheck(path.join(process.cwd(), output.publicPath ?? '/' ), this.config );
+                let result = this.a11yCheck(path.join(process.cwd(), output.publicPath ?? '/' ), this.config );
+
+                if( result ){
+                  // we have to inject the a11y.update.js file into the head in order for the webpack-dev-server scripts to load.
+                  let pageContent = fs.readFileSync(path.join(staticDir.directory, `${this.config.outputFilename}.html`))
+                  
+                  fs.writeFileSync(
+                    path.join(staticDir.directory, `${this.config.outputFilename}.html`),
+                    pageContent.toString().replace('</head>', '<script src="/a11y.update.js"></script>\n</head>')
+                  )
+                }
 
                 console.log(`<i> ${boldGreen('[webpack-dev-middleware] IBM Accessibilty Report can be viewed at')} ${ boldBlue(new URL(`${hostUrl}/${this.config.outputFilename}.html`).toString())  }`);
 
@@ -228,8 +238,7 @@ class A11yPlugin {
           resolveBin('accessibility-checker', {executable: 'achecker'}),
           acheckerArgs,
           {
-            stdio: 'pipe',
-            timeout: 30000 // stop after 30 seconds
+            stdio: 'pipe'
           }
         )
 

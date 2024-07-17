@@ -1,0 +1,6 @@
+v1.0.1
+- Removed timeout from a11y check
+- Fixed issue with hot module replacement
+
+v1.0.0
+- Accessibility Checker Webpack Plugin
