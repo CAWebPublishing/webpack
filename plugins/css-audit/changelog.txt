@@ -1,0 +1,5 @@
+v1.0.1
+- Removed node deprecation warnings
+
+v1.0.0
+- CSS Audit Webpack Plugin
