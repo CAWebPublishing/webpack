@@ -147,8 +147,18 @@ class JSHintPlugin {
 
                   console.log(`<i> ${boldGreen('[webpack-dev-middleware] Running JSHint...')}`);
 
-                  this.hint(files, this.config);
-                  
+                  let result = this.hint(files, this.config);
+
+                  if( result ){
+                    // we have to inject the jshint.update.js file into the head in order for the webpack-dev-server scripts to load.
+                    let pageContent = fs.readFileSync(path.join(staticDir.directory, `${this.config.outputFilename}.html`))
+                    
+                    fs.writeFileSync(
+                      path.join(staticDir.directory, `${this.config.outputFilename}.html`),
+                      pageContent.toString().replace('</head>', '<script src="/jshint.update.js"></script>\n</head>')
+                    )
+                  }
+
                   console.log(`<i> ${boldGreen('[webpack-dev-middleware] JSHint can be viewed at')} ${ boldBlue(new URL(`${hostUrl}/${this.config.outputFilename}.html`).toString())  }`);
                   
                   callback();
@@ -270,11 +280,13 @@ class JSHintPlugin {
       }
 
       if( stdout  ){
+        let outputLocation = path.resolve(path.join(outputFolder, `${outputFilename}.html`));
+
         if( 'jshint' === process.argv[2] ){
           console.log( stdout.toString() );
-          console.log( path.resolve(path.join(outputFolder, `${outputFilename}.html`)) )
+          console.log( outputLocation )
         }else{
-          return stdout.toString();
+          return outputLocation;
         }
       }else{
         console.log( 'No output generated.')

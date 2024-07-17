@@ -1,3 +1,6 @@
+v1.0.2
+- Update npm packages
+
 v1.0.1
 - Update jshint plugin
 
