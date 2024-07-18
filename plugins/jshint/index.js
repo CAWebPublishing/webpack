@@ -76,7 +76,7 @@ class JSHintPlugin {
 		      const { entry, options, context } = {
             entry: path.join( this.config.outputFolder, 'jshint.update.js'),
             options: {
-              name: 'jshint'
+              name: 'jshint.update'
             },
             context: 'jshint'
           };
@@ -152,10 +152,10 @@ class JSHintPlugin {
                   if( result ){
                     // we have to inject the jshint.update.js file into the head in order for the webpack-dev-server scripts to load.
                     let pageContent = fs.readFileSync(path.join(staticDir.directory, `${this.config.outputFilename}.html`))
-                    
+
                     fs.writeFileSync(
                       path.join(staticDir.directory, `${this.config.outputFilename}.html`),
-                      pageContent.toString().replace('</head>', '<script src="/jshint.update.js"></script>\n</head>')
+                      pageContent.toString().replace('</head>', `<script src="${compilation.options.output.publicPath}/jshint.update.js"></script>\n</head>`)
                     )
                   }
 
@@ -164,17 +164,6 @@ class JSHintPlugin {
                   callback();
               });
 
-                  
-              compiler.hooks.watchClose.tap( 'JSHint Plugin', () => {
-                getAllFilesSync(compiler.options.output.path).toArray().forEach(f => {
-                  if( 
-                    f.includes('jshint') || // delete any jshint files
-                    f.includes('.hot-update.js') // delete any HMR files
-                  ){
-                    fs.rmSync(f)
-                  }
-                })
-              })
           });
 
       });
