@@ -1,3 +1,6 @@
+v1.0.3
+- Fixed issue with hot module replacement
+
 v1.0.2
 - Fixed issue with hot module replacement
 

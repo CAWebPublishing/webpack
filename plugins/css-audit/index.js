@@ -110,62 +110,41 @@ class CSSAuditPlugin {
                 callback(err);
               });
             });
-
-            // process assets and run the css-audit on appropriate assets.
-            compilation.hooks.processAssets.tapAsync(
-              {
-                name: 'CSS Audit Plugin',
-                stage: compiler.webpack.Compilation.PROCESS_ASSETS_STAGE_ADDITIONAL  
-              },
-              /**
-               * Hook into the process assets hook
-               * @param {any} _
-               * @param {(err?: Error) => void} callback
-               */
-              (assets, callback) => {
-                let files = [];
-                
-                Object.entries(assets).forEach(([pathname, source]) => {
-                  // We only audit .css files
-                  if( pathname.endsWith('.css') ){
-                    files.push( path.join( compiler.options.output.path,pathname) )
-                  }
-                })
-                
-                console.log(`<i> ${boldGreen('[webpack-dev-middleware] Running CSS Audit...')}`);
-
-                let result = this.audit(files, this.config );
-    
-                if( result ){
-                  // we have to inject the css-audit.update.js file into the head in order for the webpack-dev-server scripts to load.
-                  let pageContent = fs.readFileSync(path.join(staticDir.directory, `${this.config.filename}.html`))
-                  
-                  fs.writeFileSync(
-                    path.join(staticDir.directory, `${this.config.filename}.html`),
-                    pageContent.toString().replace('</head>', '<script src="/css-audit.update.js"></script>\n</head>')
-                  )
-                }
-                
-                console.log(`<i> ${boldGreen('[webpack-dev-middleware] CSS Audit can be viewed at')} ${ boldBlue(new URL(`${hostUrl}/${this.config.filename}.html`).toString())  }`);
-    
-                callback();
-            });
             
 
-            compiler.hooks.watchClose.tap( 'CSS Audit Plugin', () => {
-              getAllFilesSync(compiler.options.output.path).toArray().forEach(f => {
-                if( 
-                  f.includes('css-audit') || // delete any css-audit files
-                  f.includes('.hot-update.js') // delete any HMR files
-                ){
-                  fs.rmSync(f)
-                }
-              })
-            })
+            
         });
 
+        compiler.hooks.done.tapAsync('CSS Audit Plugin',
+          (stats, callback) => {
+            let files = [];
+            getAllFilesSync(compiler.options.output.path).toArray().forEach(f => {
+                if( f.endsWith('.css') ){
+                  files.push(f)
+                }
+            })
+            console.log(`<i> ${boldGreen('[webpack-dev-middleware] Running CSS Audit...')}`);
+
+            let result = this.audit(files, this.config );
+
+            if( result ){
+              // we have to inject the css-audit.update.js file into the head in order for the webpack-dev-server scripts to load.
+              let pageContent = fs.readFileSync(path.join(staticDir.directory, `${this.config.filename}.html`))
+              
+              fs.writeFileSync(
+                path.join(staticDir.directory, `${this.config.filename}.html`),
+                pageContent.toString().replace('</head>', `<script src="${compiler.options.output.publicPath}/css-audit.update.js"></script>\n</head>`)
+              )
+            }
+            
+            console.log(`<i> ${boldGreen('[webpack-dev-middleware] CSS Audit can be viewed at')} ${ boldBlue(new URL(`${hostUrl}/${this.config.filename}.html`).toString())  }`);
+
+            callback();
+          }
+        )
+
       });
-    
+      
     }
 
     /**
@@ -278,16 +257,7 @@ class CSSAuditPlugin {
       )
 
       if( stderr && stderr.toString() ){
-        let errMsg = stderr.toString();
-        // we remove any node deprecation warnings unless the node --trace-deprecation flag is explicitly passed.
-        if( ! processArgs.includes('--trace-deprecation') ){
-          errMsg = stderr.toString().replace(/.* DeprecationWarning:[\s\S]*\n|.* --trace-deprecation.*/, '');
-        }
-
-        // we only display if not blank.
-        if( errMsg.toString() ){
-          console.log( errMsg )
-        }
+        console.log( stderr.toString() )
       }
 
       if( stdout && stdout.toString() ){

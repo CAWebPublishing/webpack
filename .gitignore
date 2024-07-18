@@ -10,6 +10,8 @@ node_modules
 private
 public
 
+package-lock.json
+
 # the root doesn't need build or public folders
 build
 
