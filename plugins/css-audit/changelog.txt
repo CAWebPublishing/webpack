@@ -1,3 +1,7 @@
+v1.0.2
+- Reverted removal of node deprecation warnings
+- Fixed issue with Hot Module Replacement not triggering
+
 v1.0.1
 - Removed node deprecation warnings
 

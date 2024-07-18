@@ -1,3 +1,6 @@
+v1.0.2
+- Report is ran once compilation is done
+
 v1.0.1
 - Removed timeout from a11y check
 - Fixed issue with hot module replacement
