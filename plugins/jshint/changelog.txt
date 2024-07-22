@@ -1,0 +1,11 @@
+v1.0.3
+- Fixed issue with hot module replacement
+
+v1.0.2
+- Fixed issue with hot module replacement
+
+v1.0.1
+- Fixed issue with reporter file missing
+
+v1.0.0
+- JSHint Webpack Plugin

@@ -85,7 +85,7 @@ class A11yPlugin {
         const { entry, options, context } = {
           entry: path.join( this.config.outputFolder, 'a11y.update.js'),
           options: {
-            name: 'a11y'
+            name: 'a11y.update'
           },
           context: 'a11y'
         };
@@ -122,37 +122,36 @@ class A11yPlugin {
               });
             });
 
-            compiler.hooks.done.tapAsync(
-              'IBM Accessibility Plugin',
-              /**
-               * Hook into the process assets hook
-               * @param {any} _
-               * @param {(err?: Error) => void} callback
-               */
-              ({compilation}, callback) => {
-                  
-                console.log(`<i> ${boldGreen('[webpack-dev-middleware] Running IBM Accessibility scan...')}`);
-
-                this.a11yCheck(path.join(process.cwd(), output.publicPath ?? '/' ), this.config );
-
-                console.log(`<i> ${boldGreen('[webpack-dev-middleware] IBM Accessibilty Report can be viewed at')} ${ boldBlue(new URL(`${hostUrl}/${this.config.outputFilename}.html`).toString())  }`);
-
-                callback();
-            });
-
-            compiler.hooks.watchClose.tap( 'IBM Accessibility Plugin', () => {
-              getAllFilesSync(compiler.options.output.path).toArray().forEach(f => {
-                if( 
-                  f.includes('a11y') || // delete any a11y files
-                  f.includes('.hot-update.js') // delete any HMR files
-                ){
-                  fs.rmSync(f)
-                }
-              })
-            });
-            
         });
 
+        compiler.hooks.done.tapAsync(
+          'IBM Accessibility Plugin',
+          /**
+           * Hook into the process assets hook
+           * @param {any} _
+           * @param {(err?: Error) => void} callback
+           */
+          (stats, callback) => {
+              
+            console.log(`<i> ${boldGreen('[webpack-dev-middleware] Running IBM Accessibility scan...')}`);
+
+            let result = this.a11yCheck(path.join(process.cwd(), output.publicPath ?? '/' ), this.config );
+
+            if( result ){
+              // we have to inject the a11y.update.js file into the head in order for the webpack-dev-server scripts to load.
+              let pageContent = fs.readFileSync(path.join(staticDir.directory, `${this.config.outputFilename}.html`))
+              
+              fs.writeFileSync(
+                path.join(staticDir.directory, `${this.config.outputFilename}.html`),
+                pageContent.toString().replace('</head>', `<script src="${compiler.options.output.publicPath}/a11y.update.js"></script>\n</head>`)
+              )
+            }
+
+            console.log(`<i> ${boldGreen('[webpack-dev-middleware] IBM Accessibilty Report can be viewed at')} ${ boldBlue(new URL(`${hostUrl}/${this.config.outputFilename}.html`).toString())  }`);
+
+            callback();
+        });
+       
     });
     
     }
@@ -228,8 +227,7 @@ class A11yPlugin {
           resolveBin('accessibility-checker', {executable: 'achecker'}),
           acheckerArgs,
           {
-            stdio: 'pipe',
-            timeout: 30000 // stop after 30 seconds
+            stdio: 'pipe'
           }
         )
 

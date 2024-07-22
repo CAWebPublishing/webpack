@@ -1,3 +1,15 @@
+v1.0.4
+- Update npm packages
+
+v1.0.3
+- Update npm packages
+
+v1.0.2
+- Update npm packages
+
+v1.0.1
+- Update jshint plugin
+
 v1.0.0
 - Initial CAWeb HTML Webpack Plugin added
 - Updated Webpack Configurations
