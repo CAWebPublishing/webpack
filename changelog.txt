@@ -1,5 +1,6 @@
 v1.0.5
 - Update npm packages
+- Added partialResolver to handlebars-loader
 
 v1.0.4
 - Update npm packages
