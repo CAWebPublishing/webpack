@@ -1,3 +1,6 @@
+v1.0.4
+- Updated jshint esversion from 6 to 
+
 v1.0.3
 - Fixed issue with hot module replacement
 
