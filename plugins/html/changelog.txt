@@ -1,3 +1,6 @@
+v1.1.2
+- Renamed index.html to blank.html to match args
+
 v1.1.1
 - Rolled changes back to index.html
 - Added default.html for templating

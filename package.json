@@ -1,6 +1,6 @@
 {
   "name": "@caweb/webpack",
-  "version": "1.1.1",
+  "version": "1.1.4",
   "description": "CAWebPublishing Webpack Configuration",
   "main": "index.js",
   "type": "module",
@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "webpack": "webpack",
+    "preserve": "cd plugins/html && npm i",
     "serve": "set NODE_OPTIONS='--no-selectors' &&  webpack serve --config ./webpack.config.js ./plugins/html/entry/oceanside.js --merge",
     "build": "npm run build:html",
     "build:html": "cd ./plugins/html/ && npm run build",
@@ -43,9 +44,9 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "@caweb/a11y-webpack-plugin": "^1.0.3",
-    "@caweb/css-audit-webpack-plugin": "^1.0.3",
-    "@caweb/html-webpack-plugin": "^1.1.0",
+    "@caweb/a11y-webpack-plugin": "^1.0.4",
+    "@caweb/css-audit-webpack-plugin": "^1.0.4",
+    "@caweb/html-webpack-plugin": "^1.1.1",
     "@caweb/jshint-webpack-plugin": "^1.0.5",
     "@wordpress/scripts": "^28.4.0",
     "handlebars-loader": "^1.7.3",

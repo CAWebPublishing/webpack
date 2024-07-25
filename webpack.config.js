@@ -118,7 +118,20 @@ let webpackConfig = {
 if( 'serve' === webpackCommand ){
   const appPath = process.cwd();
   const samplePath = path.join( appPath, 'sample');
+  const templates =  ['blank', 'default'];
 
+  let template;
+
+  // Allow for template to be selected via NODE_OPTIONS env variable
+  if( process.env.NODE_OPTIONS ){
+    let opts = process.env.NODE_OPTIONS.split(' ').filter(e=>e).map(o=>o.replaceAll("'", ''))
+    if( opts.includes('--template') ){
+      template = opts[opts.indexOf('--template') + 1]
+    }
+  }
+
+  template = templates.includes(template) ? template : 'default';
+  
   // Dev Server is added
   webpackConfig.devServer = { 
     ...baseConfig.devServer,
@@ -176,7 +189,7 @@ if( 'serve' === webpackCommand ){
   let pageTemplate = {
     title : path.basename(appPath),
     filename: path.join( appPath, 'public', 'index.html'),
-    template: path.join( appPath, 'node_modules', '@caweb', 'html-webpack-plugin', 'sample', 'index.html'),
+    template: path.join( appPath, 'node_modules', '@caweb', 'html-webpack-plugin', 'sample', `${template}.html`),
     favicon: fs.existsSync(path.join(samplePath, 'favicon.ico')) ? path.join(samplePath, 'favicon.ico') : false,
     minify: false,
     scriptLoading: 'blocking',
