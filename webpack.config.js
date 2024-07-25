@@ -137,8 +137,6 @@ if( 'serve' === webpackCommand ){
 
   template = templates.includes(template) ? template : 'default';
 
-  console.log( template );
-
   // Dev Server is added
   webpackConfig.devServer = { 
     ...baseConfig.devServer,
