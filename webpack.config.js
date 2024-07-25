@@ -122,7 +122,7 @@ if( 'serve' === webpackCommand ){
 
   let template;
 
-  // Allow for template to be selected via NODE_OPTIOS env variable
+  // Allow for template to be selected via NODE_OPTIONS env variable
   if( process.env.NODE_OPTIONS ){
     let opts = process.env.NODE_OPTIONS.split(' ').filter(e=>e).map(o=>o.replaceAll("'", ''))
     if( opts.includes('--template') ){
@@ -130,13 +130,8 @@ if( 'serve' === webpackCommand ){
     }
   }
 
-  // Arguments passed to the process supersede env vars
-  if( process.argv.includes('--template') ){
-    template = process.argv[process.argv.indexOf('--template') + 1];
-  }
-
   template = templates.includes(template) ? template : 'default';
-
+  
   // Dev Server is added
   webpackConfig.devServer = { 
     ...baseConfig.devServer,
