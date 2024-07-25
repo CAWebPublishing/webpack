@@ -1,3 +1,6 @@
+v1.0.3
+- If output.publicPath is set to auto the scanner will scan the public directory
+
 v1.0.2
 - Report is ran once compilation is done
 
