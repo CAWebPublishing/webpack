@@ -135,7 +135,7 @@ class A11yPlugin {
               
             console.log(`<i> ${boldGreen('[webpack-dev-middleware] Running IBM Accessibility scan...')}`);
 
-            let result = this.a11yCheck(path.join(process.cwd(), output.publicPath ?? '/' ), this.config );
+            let result = this.a11yCheck(path.join(process.cwd(), 'auto' === output.publicPath ? 'public' : output.publicPath ), this.config );
 
             if( result ){
               // we have to inject the a11y.update.js file into the head in order for the webpack-dev-server scripts to load.
@@ -183,7 +183,7 @@ class A11yPlugin {
       outputFolder,
       outputFilenameTimestamp
     }){
-
+console.log( url )
       let acheckerArgs = [
         '--ruleArchive',
         ruleArchive,

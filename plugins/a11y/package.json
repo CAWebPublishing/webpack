@@ -1,12 +1,13 @@
 {
   "name": "@caweb/a11y-webpack-plugin",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "CAWebPublishing Webpack Plugin to run Accessibility Scans",
   "type": "module",
   "main": "index.js",
   "files": [
     "aceconfig.js",
-    "index.js"
+    "index.js",
+    "README.md"
   ],
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 0"

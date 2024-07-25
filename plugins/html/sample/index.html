@@ -3,6 +3,14 @@
     <title>{{ title }}</title>
   </head>
   <body>
-         {{> content }}
+      {{> header }}
+      <div id="page-container" class="page-container ">
+          <div id="main-content" class="main-content " tabindex="-1">
+            <main class="main-primary">
+            {{> content }}
+            </main>
+          </div>
+      </div>
+      {{> footer }}
   </body>
 </html>
