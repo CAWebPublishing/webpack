@@ -136,7 +136,9 @@ class JSHintPlugin {
                             'string' === typeof s && // is a string and
                             0 < s.indexOf('.js') && // has a .js reference and
                             0 > s.indexOf('node_modules') && // not referencing node_modules directory
-                            0 > s.indexOf('jshint.update.js') // not referencing our update javascript
+                            0 > s.indexOf('jshint.update.js') && // not referencing our update javascript
+                            0 > s.indexOf('a11y.update.js') && // not referencing our a11y javascript
+                            0 > s.indexOf('audit.update.js') // not referencing our css-audit javascript
                           ){
                             files.push( path.resolve(s.replace(/[\n\s\S\w]*"(.*)"[\n\s\S\w]*/, '$1')) )
                           }

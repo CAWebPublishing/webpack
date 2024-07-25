@@ -1,0 +1,14 @@
+v1.1.0
+- Added State Template 6.3.2 source files
+- Added script to generate multiple entrypoints for use when serving
+- Added webconfig for multiple entrypoints based on colorschemes
+- Added header/footer initial structural markup
+
+v1.0.2
+- Added content to template parameters
+
+v1.0.1
+- Added Page Template to HTML Plugin
+
+v1.0.0
+- Initial CAWeb HTML Webpack Plugin added

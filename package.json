@@ -1,6 +1,6 @@
 {
   "name": "@caweb/webpack",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "CAWebPublishing Webpack Configuration",
   "main": "index.js",
   "type": "module",
@@ -9,10 +9,11 @@
   ],
   "scripts": {
     "webpack": "webpack",
-    "serve": "webpack serve --entry-reset --entry ./plugins/html/src/index.js",
+    "serve": "set NODE_OPTIONS='--no-selectors' &&  webpack serve --config ./webpack.config.js ./plugins/html/entry/oceanside.js --merge",
     "build": "npm run build:html",
-    "build:html": "webpack build --entry-reset --entry ./plugins/html/src/index.js --output-path ./plugins/html/build/ && renamer --find main --replace index ./plugins/html/build/*.* -s",
+    "build:html": "cd ./plugins/html/ && npm run build",
     "u:deps": "node ./scripts/update-deps.js ./plugins",
+    "config:test": "webpack configtest ./webpack.config.js",
     "test": "echo \\\"Error: run tests from root\\\" && exit 0",
     "i:local": "npm i plugins/a11y/ plugins/css-audit/ plugins/html/ plugins/jshint/ ",
     "un:local": "npm un plugins/a11y/ plugins/css-audit/ plugins/html/ plugins/jshint/ --force"
@@ -42,10 +43,10 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "@caweb/a11y-webpack-plugin": "^1.0.2",
-    "@caweb/css-audit-webpack-plugin": "^1.0.2",
-    "@caweb/html-webpack-plugin": "^1.0.1",
-    "@caweb/jshint-webpack-plugin": "^1.0.3",
+    "@caweb/a11y-webpack-plugin": "file:plugins/a11y",
+    "@caweb/css-audit-webpack-plugin": "file:plugins/css-audit",
+    "@caweb/html-webpack-plugin": "file:plugins/html",
+    "@caweb/jshint-webpack-plugin": "file:plugins/jshint",
     "@wordpress/scripts": "^28.3.0",
     "html-webpack-plugin": "^5.6.0",
     "html-webpack-skip-assets-plugin": "^1.0.4"

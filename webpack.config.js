@@ -53,11 +53,11 @@ let webpackConfig = {
   ...baseConfig,
   target: 'web',
   cache: false,
-  stats: 'errors-warnings',
+  stats: 'errors',
   output: {
     ...baseConfig.output,
     clean: true,
-    publicPath: `/public`
+    //publicPath: `/public`
   },
   module: {
     ...baseConfig.module,
@@ -69,7 +69,40 @@ let webpackConfig = {
        */
       {
         test: /\.html$/,
-        loader: 'handlebars-loader'
+        loader: 'handlebars-loader',
+        options:{
+          rootRelative: process.cwd(),
+          partialResolver: function(partial, callback){
+              // all template partials are loaded from the root sample directory
+              let partialPath = path.join( process.cwd(), 'sample' );
+              let partialStructurePath = path.join( partialPath, 'structural' );
+
+              // template parameter specific partials
+              switch( partial ){
+                // header/footer is served from the /sample/structural/ directory
+                case 'footer':
+                case 'header': 
+                  partialPath = fs.existsSync(path.join( partialStructurePath, `/${partial}.html` )) ? path.join( partialStructurePath, `/${partial}.html` ) :
+                  `./structural/${partial}.html`
+                  
+                  break;
+                
+                // content is served from the /sample/index.html
+                case 'content': 
+                  partialPath = fs.existsSync(path.join( partialPath, '/index.html' )) ? path.join( partialPath, '/index.html' ) :
+                  './missing/content.html';
+                  
+                  break;
+                
+                // if not a template parameter we let the loader handle it
+                default:
+                  partialPath = partial;
+              }
+
+
+              callback(false, partialPath );
+          }
+        }
       }
     ]
   },
@@ -84,13 +117,7 @@ let webpackConfig = {
  */
 if( 'serve' === webpackCommand ){
   const appPath = process.cwd();
-
-  // if the project has a sample index page we load it,
-  // otherwise fallback to @caweb/html-webpack-plugin/sample
-  const samplePath = fs.existsSync(path.join(appPath, 'sample')) ?
-    path.join( appPath, 'sample') : path.join( appPath, 'node_modules', '@caweb', 'html-webpack-plugin', 'sample');
-  //const srcPath = path.join( appPath, 'src');
-  //const dataPath = path.join( srcPath, 'data');
+  const samplePath = path.join( appPath, 'sample');
 
   // Dev Server is added
   webpackConfig.devServer = { 
@@ -149,7 +176,7 @@ if( 'serve' === webpackCommand ){
   let pageTemplate = {
     title : path.basename(appPath),
     filename: path.join( appPath, 'public', 'index.html'),
-    template: path.join(samplePath, 'index.html'),
+    template: path.join( appPath, 'node_modules', '@caweb', 'html-webpack-plugin', 'sample', 'index.html'),
     favicon: fs.existsSync(path.join(samplePath, 'favicon.ico')) ? path.join(samplePath, 'favicon.ico') : false,
     minify: false,
     scriptLoading: 'blocking',
@@ -161,13 +188,16 @@ if( 'serve' === webpackCommand ){
       "viewport": "width=device-width, initial-scale=1.0, minimum-scale=1.0"
     },
     templateParameters: {
-      "title" : path.basename(appPath)
+      "title" : path.basename(appPath),
+      "header": '/sample/structural/header.html',
+      "content": '/sample/index.html',
+      "footer": '/sample/structural/footer.html'
     },
     skipAssets: [
-      '**/*-rtl.css', // we skip the Right-to-Left Styles
-      '**/css-audit.*', // we skip the CSSAudit Files
-      '**/a11y.*', // we skip the A11y Files
-      '**/jshint.*', // we skip the JSHint Files
+      /.*-rtl.css/, // we skip the Right-to-Left Styles
+      /css-audit.*/, // we skip the CSSAudit Files
+      /a11y.*/, // we skip the A11y Files
+      /jshint.*/, // we skip the JSHint Files
     ]
   }
 
