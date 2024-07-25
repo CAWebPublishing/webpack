@@ -46,7 +46,7 @@
   "dependencies": {
     "@caweb/a11y-webpack-plugin": "^1.0.4",
     "@caweb/css-audit-webpack-plugin": "^1.0.4",
-    "@caweb/html-webpack-plugin": "^1.1.1",
+    "@caweb/html-webpack-plugin": "^1.1.2",
     "@caweb/jshint-webpack-plugin": "^1.0.5",
     "@wordpress/scripts": "^28.4.0",
     "handlebars-loader": "^1.7.3",
