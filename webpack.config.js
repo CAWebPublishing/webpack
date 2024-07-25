@@ -53,11 +53,11 @@ let webpackConfig = {
   ...baseConfig,
   target: 'web',
   cache: false,
-  stats: 'errors-warnings',
+  stats: 'errors',
   output: {
     ...baseConfig.output,
     clean: true,
-    publicPath: `/public`
+    //publicPath: `/public`
   },
   module: {
     ...baseConfig.module,
@@ -75,10 +75,20 @@ let webpackConfig = {
           partialResolver: function(partial, callback){
               // all template partials are loaded from the root sample directory
               let partialPath = path.join( process.cwd(), 'sample' );
+              let partialStructurePath = path.join( partialPath, 'structural' );
 
               // template parameter specific partials
               switch( partial ){
-                case 'content': // content is served from the /sample/index.html
+                // header/footer is served from the /sample/structural/ directory
+                case 'footer':
+                case 'header': 
+                  partialPath = fs.existsSync(path.join( partialStructurePath, `/${partial}.html` )) ? path.join( partialStructurePath, `/${partial}.html` ) :
+                  `./structural/${partial}.html`
+                  
+                  break;
+                
+                // content is served from the /sample/index.html
+                case 'content': 
                   partialPath = fs.existsSync(path.join( partialPath, '/index.html' )) ? path.join( partialPath, '/index.html' ) :
                   './missing/content.html';
                   
@@ -179,13 +189,15 @@ if( 'serve' === webpackCommand ){
     },
     templateParameters: {
       "title" : path.basename(appPath),
-      "content": '/sample/index.html'
+      "header": '/sample/structural/header.html',
+      "content": '/sample/index.html',
+      "footer": '/sample/structural/footer.html'
     },
     skipAssets: [
-      '**/*-rtl.css', // we skip the Right-to-Left Styles
-      '**/css-audit.*', // we skip the CSSAudit Files
-      '**/a11y.*', // we skip the A11y Files
-      '**/jshint.*', // we skip the JSHint Files
+      /.*-rtl.css/, // we skip the Right-to-Left Styles
+      /css-audit.*/, // we skip the CSSAudit Files
+      /a11y.*/, // we skip the A11y Files
+      /jshint.*/, // we skip the JSHint Files
     ]
   }
 

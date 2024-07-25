@@ -1,3 +1,7 @@
+v1.0.3
+- Arguments can be passed via NODE_OPTIONS env variable now
+- We no longer scan rtl stylesheets
+
 v1.0.2
 - Reverted removal of node deprecation warnings
 - Fixed issue with Hot Module Replacement not triggering
