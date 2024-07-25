@@ -119,7 +119,8 @@ class CSSAuditPlugin {
           (stats, callback) => {
             let files = [];
             getAllFilesSync(compiler.options.output.path).toArray().forEach(f => {
-                if( f.endsWith('.css') ){
+                // we skip any Right to Left style sheets
+                if( f.endsWith('.css') && ! f.endsWith('-rtl.css') ){
                   files.push(f)
                 }
             })
@@ -214,13 +215,14 @@ class CSSAuditPlugin {
       }
 
       /**
-       * We combine process arguments from argv and argv0
+       * We combine process arguments from argv, argv0, env.NODE_OPTIONS
        */
       const processArgs = [
         ...process.argv,
-        ...process.argv0.split(' ')
+        ...process.argv0.split(' '),
+        ...process.env.NODE_OPTIONS.split(' ').filter(e=>e).map((o) => o.replaceAll("'", ''))
       ]
-      
+
       /**
        * the css audit uses the filename for the title, rather than the project name
        * we fix that by passing the project name for the file name
