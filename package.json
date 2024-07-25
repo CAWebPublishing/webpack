@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "webpack": "webpack",
+    "preserve": "cd plugins/html && npm i",
     "serve": "set NODE_OPTIONS='--no-selectors' &&  webpack serve --config ./webpack.config.js ./plugins/html/entry/oceanside.js --merge",
     "build": "npm run build:html",
     "build:html": "cd ./plugins/html/ && npm run build",
