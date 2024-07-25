@@ -1,6 +1,6 @@
 {
   "name": "@caweb/jshint-webpack-plugin",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "CAWebPublishing Webpack Plugin to run JSHint",
   "type": "module",
   "main": "index.js",
@@ -8,7 +8,8 @@
     "sample",
     ".jshintrc",
     "index.js",
-    "reporter.cjs"
+    "reporter.cjs",
+    "README.md"
   ],
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 0"

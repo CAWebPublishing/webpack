@@ -1,3 +1,6 @@
+v1.0.5
+- Added a11y and css-audit HRM update file to ignore list
+
 v1.0.4
 - Updated jshint esversion from 6 to 
 
