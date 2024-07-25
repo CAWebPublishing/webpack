@@ -183,7 +183,7 @@ class A11yPlugin {
       outputFolder,
       outputFilenameTimestamp
     }){
-console.log( url )
+
       let acheckerArgs = [
         '--ruleArchive',
         ruleArchive,

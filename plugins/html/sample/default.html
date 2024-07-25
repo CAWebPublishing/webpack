@@ -1,0 +1,16 @@
+<html lang="en">
+  <head>
+    <title>{{ title }}</title>
+  </head>
+  <body>
+      {{> header }}
+      <div id="page-container" class="page-container ">
+          <div id="main-content" class="main-content " tabindex="-1">
+            <main class="main-primary">
+            {{> content }}
+            </main>
+          </div>
+      </div>
+      {{> footer }}
+  </body>
+</html>
