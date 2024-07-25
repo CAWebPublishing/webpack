@@ -1,3 +1,6 @@
+v1.0.4
+- Resolved issue when NODE_OPTIONS not defined
+
 v1.0.3
 - Arguments can be passed via NODE_OPTIONS env variable now
 - We no longer scan rtl stylesheets

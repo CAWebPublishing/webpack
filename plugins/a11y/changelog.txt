@@ -1,3 +1,6 @@
+v1.0.4
+- Removed console message
+
 v1.0.3
 - If output.publicPath is set to auto the scanner will scan the public directory
 
