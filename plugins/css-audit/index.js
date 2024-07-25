@@ -215,14 +215,19 @@ class CSSAuditPlugin {
       }
 
       /**
-       * We combine process arguments from argv, argv0, env.NODE_OPTIONS
+       * We combine process arguments from argv, argv0
        */
       const processArgs = [
         ...process.argv,
         ...process.argv0.split(' '),
-        ...process.env.NODE_OPTIONS.split(' ').filter(e=>e).map((o) => o.replaceAll("'", ''))
+        
       ]
 
+      // we also add args from env.NODE_OPTIONS
+      if( process.env.NODE_OPTIONS ){
+        processArgs.push( ...process.env.NODE_OPTIONS.split(' ').filter(e=>e).map((o) => o.replaceAll("'", '')) )
+      }
+      
       /**
        * the css audit uses the filename for the title, rather than the project name
        * we fix that by passing the project name for the file name
