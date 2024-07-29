@@ -74,7 +74,6 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
 
   apply(compiler) {
     super.apply(compiler);
-    console.log( compiler.options );
   }
 } // end of class
   
