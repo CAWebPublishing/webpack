@@ -183,6 +183,12 @@ class CSSAuditPlugin {
 
       let filesToBeAudited = [];
       let filesWithIssues = [];
+ 
+      // the css audit tool always outputs to its own public directory
+      let defaultOutputPath = path.join(currentPath, 'bin', 'auditor', 'public');
+      
+      // we always make sure the output folder exists
+      fs.mkdirSync( outputFolder, { recursive: true } );
 
       files.forEach( (paths, i) => {
         let resolvePath = path.resolve(paths);
@@ -211,6 +217,12 @@ class CSSAuditPlugin {
       if( ! filesToBeAudited.length ){
         console.log('No file(s) or directory path(s) were given or default directory was not found.')
         console.log('Auditor did not execute.');
+
+        fs.copyFileSync(
+          path.join(currentPath, 'sample', 'no-files.html'),
+          path.join(defaultOutputPath, `${filename}.html`),
+        )
+
         return false;
       }
 
@@ -268,11 +280,7 @@ class CSSAuditPlugin {
       }
 
       if( stdout && stdout.toString() ){
-          // the css audit tool always outputs to its own public directory
-          let defaultOutputPath = path.join(currentPath, 'bin', 'auditor', 'public');
-
-          // we always make sure the output folder exists
-          fs.mkdirSync( outputFolder, { recursive: true } );
+          
 
           // rename the file back to the intended file name instead of the project name
           let outputFile = path.join(outputFolder, `${filename}.html`);

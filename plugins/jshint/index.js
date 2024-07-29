@@ -189,6 +189,7 @@ class JSHintPlugin {
       outputFilename
     }){
 
+      let outputLocation = path.resolve(path.join(outputFolder, `${outputFilename}.html`));
       let filesToBeAuditted = [];
       let filesWithIssues = [];
 
@@ -219,6 +220,11 @@ class JSHintPlugin {
       if( ! filesToBeAuditted.length ){
         console.log('No file(s) or directory path(s) were given or default directory was not found.')
         console.log('Hinter did not execute.');
+
+        fs.copyFileSync(
+          path.join(currentPath, 'sample', 'no-files.html'),
+          outputLocation,
+        )
         return
       }
 
@@ -271,8 +277,6 @@ class JSHintPlugin {
       }
 
       if( stdout  ){
-        let outputLocation = path.resolve(path.join(outputFolder, `${outputFilename}.html`));
-
         if( 'jshint' === process.argv[2] ){
           console.log( stdout.toString() );
           console.log( outputLocation )

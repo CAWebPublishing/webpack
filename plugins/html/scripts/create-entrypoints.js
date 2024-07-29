@@ -5,9 +5,11 @@
  */
 import fs from 'fs';
 import path from 'path';
-import {default as config} from '../webpack.config.js';
+import { fileURLToPath } from 'url';
 
-const { entry } = config;
+const currentPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+let entry = {};
 
 // create the entry directory
 fs.mkdirSync('entry', {recursive: true});
@@ -17,8 +19,17 @@ let heading = `/**
  *  DO NOT MODIFY
  */\n`;
 
+// iterate over all colorschemes
+fs.readdirSync(path.join(currentPath, 'src', 'styles', 'colorschemes')).forEach((c) => {
+    let scheme = c.substring(0, c.indexOf('.')).replace(' ', '');
+    let files = [
+        path.join(currentPath, 'src', 'styles', 'colorschemes', c),
+        path.join(currentPath, 'src', 'styles', 'index.scss'),
+        path.join(currentPath, 'src', 'scripts', 'index.js')
+      ]
+    // add entries for each colorscheme 
+    entry[scheme] = files;
 
-Object.entries(entry).forEach(([e, files]) => {
     let correctFiles = files.map(f => `'${f.replace(process.cwd(), '').replaceAll('\\', '/')}'`)
     let output = `
 import path from 'path';
@@ -27,7 +38,7 @@ const currentPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '
 
 export default {
     entry: {
-        ${e}: [
+        ${scheme}: [
             path.join(currentPath, ${correctFiles.join('),\n' + `\t`.repeat(3) + 'path.join(currentPath, ')})
         ]
     }
@@ -38,7 +49,11 @@ export default {
     // write and entrypoint 
     // this allows for serving of a specific entry.
     fs.writeFileSync(
-        `./entry/${e}.js`,
+        `./entry/${scheme}.js`,
         `${heading} ${output}`
     )
-});
+
+  })
+
+
+export default {entry};
