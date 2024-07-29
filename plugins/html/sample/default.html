@@ -1,6 +1,9 @@
 <html lang="en">
   <head>
     <title>{{ title }}</title>
+    {{#if scheme }}
+    <link rel="stylesheet" href="node_modules/@caweb/html-webpack-plugin/build/{{ scheme }}.css" />
+    {{/if}}
   </head>
   <body>
       {{> header }}
@@ -12,5 +15,9 @@
           </div>
       </div>
       {{> footer }}
+      
+      {{#if scheme }}
+      <script src="node_modules/@caweb/html-webpack-plugin/build/{{ scheme }}.js"></script>
+      {{/if}}
   </body>
 </html>

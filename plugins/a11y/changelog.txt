@@ -1,3 +1,6 @@
+v1.0.5
+- Fixed issue when publicPath is set to auto
+
 v1.0.4
 - Removed console message
 
