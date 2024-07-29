@@ -1,3 +1,6 @@
+v1.0.6
+- Added sample file for when no files are reported
+
 v1.0.5
 - Added a11y and css-audit HRM update file to ignore list
 
