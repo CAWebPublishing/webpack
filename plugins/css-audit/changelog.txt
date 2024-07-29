@@ -1,3 +1,6 @@
+v1.0.5
+- Added sample file for when no files are audited
+
 v1.0.4
 - Resolved issue when NODE_OPTIONS not defined
 

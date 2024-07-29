@@ -1,3 +1,7 @@
+v1.2.0
+- Added new CAWebHTMLPlugin class which extends HtmlWebpackPlugin
+- Moved @wordpress/scripts defaults to base configurations
+
 v1.1.2
 - Renamed index.html to blank.html to match args
 

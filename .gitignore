@@ -8,13 +8,15 @@
 Thumbs.db
 node_modules
 private
-public
 
-# the root doesn't need build or public folders
+# the root doesn't need build, public, or src folders
 build
+public
+src
 
-# plugins can have built assets
+# plugins can have built and src assets
 !plugins\/**\/build
+!plugins\/**\/src
 
 # large/disallowed file types
 # a CDN should be used for these
