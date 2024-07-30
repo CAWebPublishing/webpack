@@ -1,10 +1,10 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./node_modules/bootstrap/dist/js/bootstrap.bundle.js":
-/*!************************************************************!*\
-  !*** ./node_modules/bootstrap/dist/js/bootstrap.bundle.js ***!
-  \************************************************************/
+/***/ "../../node_modules/bootstrap/dist/js/bootstrap.bundle.js":
+/*!****************************************************************!*\
+  !*** ../../node_modules/bootstrap/dist/js/bootstrap.bundle.js ***!
+  \****************************************************************/
 /***/ (function(module) {
 
 /*!
@@ -8600,7 +8600,7 @@ __webpack_require__.r(__webpack_exports__);
   !*** ./src/scripts/index.js ***!
   \******************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var bootstrap_dist_js_bootstrap_bundle_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap/dist/js/bootstrap.bundle.js */ "./node_modules/bootstrap/dist/js/bootstrap.bundle.js");
+/* harmony import */ var bootstrap_dist_js_bootstrap_bundle_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap/dist/js/bootstrap.bundle.js */ "../../node_modules/bootstrap/dist/js/bootstrap.bundle.js");
 /* harmony import */ var _components_fixed_header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/fixed-header.js */ "./src/scripts/components/fixed-header.js");
 /* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/accordion.js */ "./src/scripts/components/accordion.js");
 /* harmony import */ var _components_accordion_list_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/accordion-list.js */ "./src/scripts/components/accordion-list.js");

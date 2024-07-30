@@ -1,6 +1,6 @@
 {
   "name": "@caweb/webpack",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "CAWebPublishing Webpack Configuration",
   "main": "index.js",
   "type": "module",
