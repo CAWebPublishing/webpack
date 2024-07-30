@@ -26,7 +26,7 @@ const currentPath = path.dirname(fileURLToPath(import.meta.url));
 class CSSAuditPlugin {
     config = {}
 
-    constructor(opts) {
+    constructor(opts = {}) {
 
      // if no outputFolder is defined fallback to the default path
      if( ! opts.outputFolder ){
