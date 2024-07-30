@@ -1,3 +1,6 @@
+v1.0.6
+- Fixed issue with outputfolder not existing
+
 v1.0.5
 - Added sample file for when no files are audited
 
