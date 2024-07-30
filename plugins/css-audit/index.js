@@ -26,11 +26,16 @@ const currentPath = path.dirname(fileURLToPath(import.meta.url));
 class CSSAuditPlugin {
     config = {}
 
-    constructor(
-      opts = {
-        outputFolder: path.join(currentPath, 'bin', 'auditor', 'public')
+    constructor(opts) {
+
+     // if no outputFolder is defined fallback to the default path
+     if( ! opts.outputFolder ){
+        opts.outputFolder = path.join(currentPath, 'bin', 'auditor', 'public')
+      // path must be absolute
+      }else if( ! path.isAbsolute(opts.outputFolder) ){
+        opts.outputFolder = path.join(process.cwd(), opts.outputFolder );
       }
-    ) {
+
       this.config = deepmerge(DefaultConfig, opts);
     }
 
@@ -63,6 +68,9 @@ class CSSAuditPlugin {
         devServer.static = [].concat(devServer.static, staticDir );
       }
       
+      // we always make sure the output folder exists
+      fs.mkdirSync( staticDir.directory, { recursive: true } );
+
       // Wait for configuration preset plugins to apply all configure webpack defaults
       compiler.hooks.initialize.tap('CSS Audit Plugin', () => {
         compiler.hooks.compilation.tap(
@@ -239,7 +247,7 @@ class CSSAuditPlugin {
       if( process.env.NODE_OPTIONS ){
         processArgs.push( ...process.env.NODE_OPTIONS.split(' ').filter(e=>e).map((o) => o.replaceAll("'", '')) )
       }
-      
+ 
       /**
        * the css audit uses the filename for the title, rather than the project name
        * we fix that by passing the project name for the file name
@@ -256,7 +264,6 @@ class CSSAuditPlugin {
         filename ? `--filename=${path.basename(process.cwd())}` : ''
       ].filter( e => e)
       
-
       if( propertyValues && ! processArgs.includes('--no-property-values') ){
         propertyValues.forEach((p) => {
           auditArgs.push(`--property-values=${p.replace(' ',',')}`)

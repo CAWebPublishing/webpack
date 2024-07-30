@@ -39,6 +39,9 @@
   },
   "homepage": "https://github.com/CAWebPublishing/webpack/plugins/html#readme",
   "devDependencies": {
+    "@caweb/a11y-webpack-plugin": "^1.0.5",
+    "@caweb/css-audit-webpack-plugin": "^1.0.5",
+    "@caweb/jshint-webpack-plugin": "^1.0.6",
     "bootstrap": "^5.3.3",
     "html-webpack-skip-assets-plugin": "^1.0.4",
     "webpack": "^5.93.0",

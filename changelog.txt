@@ -1,3 +1,6 @@
+v1.2.2
+- Added jshint, css-audit, and a11y files to skipAssets
+
 v1.2.1
 - Added  missing dependency
 

@@ -37,7 +37,13 @@ webpackConfig.plugins.push(
         template,
         templateParameters: {
             scheme
-        }
+        },
+        skipAssets: [
+            /.*-rtl.css/, // we skip the Right-to-Left Styles
+            /css-audit.*/, // we skip the CSSAudit Files
+            /a11y.*/, // we skip the A11y Files
+            /jshint.*/, // we skip the JSHint Files
+          ]
     }),
     new HtmlWebpackSkipAssetsPlugin(),
     new JSHintPlugin(),
