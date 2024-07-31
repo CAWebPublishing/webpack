@@ -1,3 +1,6 @@
+v1.2.6
+- We only add plugin if serving 
+
 v1.2.5
 - Updated npm packages
 
