@@ -1,6 +1,6 @@
 //@ts-check
 
-window.addEventListener("load", () => {
+window.addEventListener('load', () => {
   /**
    * Accordion web component that collapses and expands content inside itself on click.
    *
@@ -18,20 +18,20 @@ window.addEventListener("load", () => {
    */
   class CaGovAccordion extends HTMLElement {
     connectedCallback() {
-      this.summaryEl = this.querySelector("summary");
+      this.summaryEl = this.querySelector('summary');
       // trigger the opening and closing height change animation on summary click
 
       this.setHeight();
-      this.summaryEl.addEventListener("click", this.listen.bind(this));
+      this.summaryEl.addEventListener('click', this.listen.bind(this));
       this.summaryEl.insertAdjacentHTML(
-        "beforeend",
+        'beforeend',
         `<div class="cagov-open-indicator" aria-hidden="true" />`
       );
-      this.detailsEl = this.querySelector("details");
-      this.bodyEl = this.querySelector(".accordion-body");
+      this.detailsEl = this.querySelector('details');
+      this.bodyEl = this.querySelector('.accordion-body');
 
       window.addEventListener(
-        "resize",
+        'resize',
         this.debounce(this.setHeight).bind(this)
       );
     }
@@ -43,7 +43,7 @@ window.addEventListener("load", () => {
         this.closedHeight = `${this.closedHeightInt}px`;
 
         // apply initial height
-        if (this.detailsEl.hasAttribute("open")) {
+        if (this.detailsEl.hasAttribute('open')) {
           // if open get scrollHeight
           this.detailsEl.style.height = `${
             this.bodyEl.scrollHeight + this.closedHeightInt
@@ -56,7 +56,7 @@ window.addEventListener("load", () => {
     }
 
     listen() {
-      if (this.detailsEl.hasAttribute("open")) {
+      if (this.detailsEl.hasAttribute('open')) {
         // was open, now closing
         this.detailsEl.style.height = this.closedHeight;
       } else {
@@ -84,5 +84,5 @@ window.addEventListener("load", () => {
     }
   }
 
-  window.customElements.define("cagov-accordion", CaGovAccordion);
+  window.customElements.define('cagov-accordion', CaGovAccordion);
 });

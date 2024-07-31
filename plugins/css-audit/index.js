@@ -142,7 +142,7 @@ class CSSAuditPlugin {
               
               fs.writeFileSync(
                 path.join(staticDir.directory, `${this.config.filename}.html`),
-                pageContent.toString().replace('</head>', `<script src="${compiler.options.output.publicPath}/css-audit.update.js"></script>\n</head>`)
+                pageContent.toString().replace('</head>', `<script src="./css-audit.update.js"></script>\n</head>`)
               )
             }
             

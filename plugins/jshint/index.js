@@ -157,7 +157,7 @@ class JSHintPlugin {
 
                     fs.writeFileSync(
                       path.join(staticDir.directory, `${this.config.outputFilename}.html`),
-                      pageContent.toString().replace('</head>', `<script src="${compilation.options.output.publicPath}/jshint.update.js"></script>\n</head>`)
+                      pageContent.toString().replace('</head>', `<script src="./jshint.update.js"></script>\n</head>`)
                     )
                   }
 

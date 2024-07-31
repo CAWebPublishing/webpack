@@ -1,3 +1,6 @@
+v1.3.0
+- Remediated State Template 6.3.2 source files
+
 v1.2.2
 - Added favicon to default
 
