@@ -1,6 +1,6 @@
 {
   "name": "@caweb/webpack",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "CAWebPublishing Webpack Configuration",
   "main": "index.js",
   "type": "module",
@@ -12,7 +12,7 @@
     "preserve": "cd plugins/html && npm i",
     "serve": "set NODE_OPTIONS='--no-selectors' &&  webpack serve --config ./webpack.config.js",
     "build": "npm run build:html",
-    "build:html": "cd ./plugins/html/ && npm run build",
+    "build:html": "cd ./plugins/html/ && npm i && npm run build",
     "u:deps": "node ./scripts/update-deps.js ./plugins",
     "config:test": "webpack configtest ./webpack.config.js",
     "test": "echo \\\"Error: run tests from root\\\" && exit 0",
