@@ -9,10 +9,11 @@ Thumbs.db
 node_modules
 private
 
-# the root doesn't need build, public, or src folders
+# the root doesn't need audit, build, public, or src folders
 build
 public
 src
+audit
 
 # plugins can have built and src assets
 !plugins\/**\/build

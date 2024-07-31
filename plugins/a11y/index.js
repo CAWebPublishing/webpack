@@ -143,7 +143,7 @@ class A11yPlugin {
               
               fs.writeFileSync(
                 path.join(staticDir.directory, `${this.config.outputFilename}.html`),
-                pageContent.toString().replace('</head>', `<script src="${compiler.options.output.publicPath}/a11y.update.js"></script>\n</head>`)
+                pageContent.toString().replace('</head>', `<script src="./a11y.update.js"></script>\n</head>`)
               )
             }
 
