@@ -27,7 +27,6 @@ export default {
     new HtmlWebpackSkipAssetsPlugin(),
     new JSHintPlugin(),
     new CSSAuditPlugin({
-      outputFolder: 'audit',
       selectors: false
     }),
     new A11yPlugin()
