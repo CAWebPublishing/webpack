@@ -1,7 +1,7 @@
 //@ts-check
-window.addEventListener("load", () => {
-  document.querySelectorAll(".return-top").forEach(returnTop =>
-    returnTop.addEventListener("click", () => {
+window.addEventListener('load', () => {
+  document.querySelectorAll('.return-top').forEach(returnTop =>
+    returnTop.addEventListener('click', () => {
       document.body.scrollTop = 0; // For Safari
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     })
@@ -9,9 +9,9 @@ window.addEventListener("load", () => {
 
   // Back to top link in the global footer
   document
-    .querySelectorAll("a[href='#skip-to-content']")
+    .querySelectorAll('a[href="#skip-to-content"]')
     .forEach(backToTop =>
-      backToTop.addEventListener("click", backToTopFunction)
+      backToTop.addEventListener('click', backToTopFunction)
     );
 
   /**
@@ -30,15 +30,17 @@ window.addEventListener("load", () => {
   let lastScrollTop = 0;
 
   window.addEventListener(
-    "scroll",
+    'scroll',
     () => {
-      const returnTopButton = document.querySelector(".return-top");
-      if (!returnTopButton) return;
+      const returnTopButton = document.querySelector('.return-top');
+      if (!returnTopButton) {
+        return;
+      }
 
       const st = window.pageYOffset || document.documentElement.scrollTop;
       if (st > lastScrollTop) {
         // downscroll code
-        returnTopButton.classList.remove("is-visible");
+        returnTopButton.classList.remove('is-visible');
       } else if (
         document.body.scrollTop >= 400 ||
         document.documentElement.scrollTop >= 400
@@ -48,15 +50,15 @@ window.addEventListener("load", () => {
         if (timer) {
           window.clearTimeout(timer);
         }
-        returnTopButton.classList.add("is-visible");
+        returnTopButton.classList.add('is-visible');
 
         timer = window.setTimeout(() => {
-          returnTopButton.classList.remove("is-visible");
+          returnTopButton.classList.remove('is-visible');
         }, 2000); //Back to top removes itself after 2 sec of inactivity
       }
       // bottom of the page
       else {
-        returnTopButton.classList.remove("is-visible");
+        returnTopButton.classList.remove('is-visible');
       }
 
       lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
@@ -65,11 +67,13 @@ window.addEventListener("load", () => {
   );
 
   // Hittin' rock bottom
-  window.addEventListener("scroll", () => {
-    const returnTopButton = document.querySelector(".return-top");
-    if (!returnTopButton) return;
+  window.addEventListener('scroll', () => {
+    const returnTopButton = document.querySelector('.return-top');
+    if (!returnTopButton) {
+      return;
+    } 
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-      returnTopButton.classList.add("is-visible");
+      returnTopButton.classList.add('is-visible');
     }
   });
 });

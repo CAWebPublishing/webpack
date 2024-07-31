@@ -8,26 +8,26 @@ window.addEventListener('load', () => {
    * and define script meta-data
    */
   const ARIAaccordion = {};
-  w["ARIAaccordion"] = ARIAaccordion;
+  w.ARIAaccordion = ARIAaccordion;
 
-  ARIAaccordion.NS = "ARIAaccordion";
-  ARIAaccordion.AUTHOR = "Scott O'Hara";
-  ARIAaccordion.VERSION = "3.2.1";
+  ARIAaccordion.NS = 'ARIAaccordion';
+  ARIAaccordion.AUTHOR = 'Scott O\'Hara';
+  ARIAaccordion.VERSION = '3.2.1';
   ARIAaccordion.LICENSE =
-    "https://github.com/scottaohara/accessible_accordions/blob/master/LICENSE";
+    'https://github.com/scottaohara/accessible_accordions/blob/master/LICENSE';
 
-  const widgetClass = "accordion";
+  const widgetClass = 'accordion';
   const widgetTriggerClass = `${widgetClass}__trigger`;
   const widgetHeadingClass = `${widgetClass}__heading`;
   const widgetPanelClass = `${widgetClass}__panel`;
 
-  const widgetHeading = "[data-aria-accordion-heading]";
-  const widgetPanel = "[data-aria-accordion-panel]";
+  const widgetHeading = '[data-aria-accordion-heading]';
+  const widgetPanel = '[data-aria-accordion-panel]';
 
   let idCounter = 0;
 
   /**
-   * gets the correct selector, "LI" children or not
+   * gets the correct selector, 'LI' children or not
    * @param {string} id
    */
   const getChildSelector = id =>
@@ -43,9 +43,9 @@ window.addEventListener('load', () => {
    * will be generated via this function.
    */
   ARIAaccordion.create = () => {
-    let defaultPanel = "none";
+    let defaultPanel = 'none';
 
-    const widget = doc.querySelectorAll("[data-aria-accordion]");
+    const widget = doc.querySelectorAll('[data-aria-accordion]');
 
     idCounter += 1;
 
@@ -56,7 +56,7 @@ window.addEventListener('load', () => {
        * Check for IDs and create arrays of necessary
        * panels & headings for further setup functions.
        */
-      if (!self.hasAttribute("id")) {
+      if (!self.hasAttribute('id')) {
         self.id = `acc_${idCounter}-${i}`;
       }
 
@@ -83,8 +83,8 @@ window.addEventListener('load', () => {
        * data-default - is there a default opened panel?
        * data-constant - should the accordion always have A panel open?
        */
-      if (self.hasAttribute("data-default")) {
-        defaultPanel = self.getAttribute("data-default");
+      if (self.hasAttribute('data-default')) {
+        defaultPanel = self.getAttribute('data-default');
       }
 
       /**
@@ -92,20 +92,20 @@ window.addEventListener('load', () => {
        * but if a data-constant attribute is used, then we need this
        * to be true.
        */
-      const constantPanel = self.hasAttribute("data-constant");
+      const constantPanel = self.hasAttribute('data-constant');
 
       /**
        * Accordions can have multiple panels open at a time,
        * if they have a data-multi attribute.
        */
-      //const multiPanel = self.hasAttribute("data-multi");
+      //const multiPanel = self.hasAttribute('data-multi');
 
       /**
        * If accordion panels are meant to transition, apply this inline style.
        * This is to help mitigate a quick flash of CSS being applied to the
        * no-js styling, and having an unwanted transition on initial page load.
        */
-      if (self.hasAttribute("data-transition")) {
+      if (self.hasAttribute('data-transition')) {
         const thesePanels = self.querySelectorAll(widgetPanel);
 
         for (let t = 0; t < thesePanels.length; t++) {
@@ -128,8 +128,8 @@ window.addEventListener('load', () => {
        * we can grab all the triggers and setup their functionality.
        */
       for (let t = 0; t < triggers.length; t++) {
-        triggers[t].addEventListener("click", ARIAaccordion.actions);
-        triggers[t].addEventListener("keydown", ARIAaccordion.keytrolls);
+        triggers[t].addEventListener('click', ARIAaccordion.actions);
+        triggers[t].addEventListener('keydown', ARIAaccordion.keytrolls);
       }
     } // for(widget.length)
   }; // ARIAaccordion.create()
@@ -146,7 +146,7 @@ window.addEventListener('load', () => {
       const setPanel = defaultPanel;
       const constant = constantPanel;
 
-      panel.setAttribute("id", panelID);
+      panel.setAttribute('id', panelID);
       ariaHidden(panels[0], true);
 
       panel.classList.add(widgetPanelClass);
@@ -158,7 +158,7 @@ window.addEventListener('load', () => {
        */
       //Removing broken code...
       //if (setPanel !== 'none' && parseInt(setPanel) !== NaN) {
-      if (setPanel !== "none" && !Number.isNaN(parseInt(setPanel))) {
+      if (setPanel !== 'none' && !Number.isNaN(parseInt(setPanel))) {
         const setPanelInt = parseInt(setPanel);
 
         // if value is 1 or less
@@ -184,10 +184,10 @@ window.addEventListener('load', () => {
        * then run one more check.
        */
       // removing broken code...
-      // if ((constant && setPanel === "none") || parseInt(setPanel) === NaN) {
+      // if ((constant && setPanel === 'none') || parseInt(setPanel) === NaN) {
       if (
         constant &&
-        (setPanel === "none" || Number.isNaN(parseInt(setPanel)))
+        (setPanel === 'none' || Number.isNaN(parseInt(setPanel)))
       ) {
         ariaHidden(panels[0], false);
       }
@@ -203,19 +203,19 @@ window.addEventListener('load', () => {
       const targetID = heading.nextElementSibling.id;
       const targetState = doc
         .getElementById(targetID)
-        .getAttribute("aria-hidden");
+        .getAttribute('aria-hidden');
 
       // setup new heading buttons
-      const newButton = doc.createElement("button");
+      const newButton = doc.createElement('button');
       const buttonText = heading.textContent;
       // clear out the heading's content
-      heading.innerHTML = "";
+      heading.innerHTML = '';
       // provide the heading with a class for styling
       heading.classList.add(widgetHeadingClass);
 
-      newButton.setAttribute("type", "button");
-      newButton.setAttribute("aria-controls", targetID);
-      newButton.setAttribute("id", `${targetID}_trigger`);
+      newButton.setAttribute('type', 'button');
+      newButton.setAttribute('aria-controls', targetID);
+      newButton.setAttribute('id', `${targetID}_trigger`);
       newButton.classList.add(widgetTriggerClass);
 
       /**
@@ -223,7 +223,7 @@ window.addEventListener('load', () => {
        * to be hidden or shown by default. Add an aria-expanded
        * attribute value that is appropriate.
        */
-      if (targetState === "false") {
+      if (targetState === 'false') {
         ariaExpanded(newButton, true);
         isCurrent(newButton, true);
 
@@ -232,7 +232,7 @@ window.addEventListener('load', () => {
          * opened panel, and if the button's target is not hidden.
          */
         if (constantPanel) {
-          newButton.setAttribute("aria-disabled", "true");
+          newButton.setAttribute('aria-disabled', 'true');
         }
       } else {
         ariaExpanded(newButton, false);
@@ -248,8 +248,8 @@ window.addEventListener('load', () => {
   ARIAaccordion.actions = function (/** @type {Event} */ e) {
     // Need to pass in if this is a multi accordion or not.
     // Also need to pass in existing trigger arrays.
-    const thisAccordion = this.id.replace(/_panel.*$/g, "");
-    const thisTarget = doc.getElementById(this.getAttribute("aria-controls"));
+    const thisAccordion = this.id.replace(/_panel.*$/g, '');
+    const thisTarget = doc.getElementById(this.getAttribute('aria-controls'));
 
     const childSelector = getChildSelector(thisAccordion);
     const thisTriggers = doc.querySelectorAll(
@@ -270,33 +270,35 @@ window.addEventListener('load', () => {
     const thisTrigger = /** @type {Element} */ (e.target);
 
     // check to see if a trigger is disabled
-    if (thisTrigger.getAttribute("aria-disabled") !== "true") {
+    if (thisTrigger.getAttribute('aria-disabled') !== 'true') {
       isCurrent(thisTrigger, true);
 
-      if (thisTrigger.getAttribute("aria-expanded") === "true") {
+      if (thisTrigger.getAttribute('aria-expanded') === 'true') {
         ariaExpanded(thisTrigger, false);
         ariaHidden(targetPanel, true);
       } else {
         ariaExpanded(thisTrigger, true);
         ariaHidden(targetPanel, false);
 
-        if (doc.getElementById(thisAccordion).hasAttribute("data-constant"))
+        if (doc.getElementById(thisAccordion).hasAttribute('data-constant')){
           ariaDisabled(thisTrigger, true);
+        }
       }
 
       if (
-        doc.getElementById(thisAccordion).hasAttribute("data-constant") ||
-        !doc.getElementById(thisAccordion).hasAttribute("data-multi")
+        doc.getElementById(thisAccordion).hasAttribute('data-constant') ||
+        !doc.getElementById(thisAccordion).hasAttribute('data-multi')
       ) {
         // swap expanded when there is a single constant panel
-        for (const trigger of triggers)
+        for (const trigger of triggers){
           if (thisTrigger !== trigger) {
             isCurrent(trigger, false);
-            const getID = trigger.getAttribute("aria-controls");
+            const getID = trigger.getAttribute('aria-controls');
             ariaDisabled(trigger, false);
             ariaExpanded(trigger, false);
             ariaHidden(doc.getElementById(getID), true);
           }
+        }
       }
     }
   };
@@ -314,7 +316,7 @@ window.addEventListener('load', () => {
       const keyHome = 36;
       const keyEnd = 35;
 
-      const thisAccordion = this.id.replace(/_panel.*$/g, "");
+      const thisAccordion = this.id.replace(/_panel.*$/g, '');
 
       const childSelector = getChildSelector(thisAccordion);
 
@@ -378,28 +380,28 @@ window.addEventListener('load', () => {
     /** @type {Element} */ el,
     /** @type {boolean} */ state
   ) {
-    el.setAttribute("aria-hidden", state.toString());
+    el.setAttribute('aria-hidden', state.toString());
   };
 
   const ariaExpanded = function (
     /** @type {Element} */ el,
     /** @type {boolean} */ state
   ) {
-    el.setAttribute("aria-expanded", state.toString());
+    el.setAttribute('aria-expanded', state.toString());
   };
 
   const ariaDisabled = function (
     /** @type {Element} */ el,
     /** @type {boolean} */ state
   ) {
-    el.setAttribute("aria-disabled", state.toString());
+    el.setAttribute('aria-disabled', state.toString());
   };
 
   const isCurrent = function (
     /** @type {Element} */ el,
     /** @type {boolean} */ state
   ) {
-    el.setAttribute("data-current", state.toString());
+    el.setAttribute('data-current', state.toString());
   };
 
   // go go JavaScript
