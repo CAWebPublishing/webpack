@@ -11,15 +11,15 @@
  * @typedef {HTMLElement & ScrollCounter_Properties} ScrollCounter
  */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   // You can change this class to specify which elements are going to behave as counters.
   /** @type {NodeListOf<ScrollCounter>} */
-  const elements = document.querySelectorAll(".scroll-counter");
+  const elements = document.querySelectorAll('.scroll-counter');
 
   elements.forEach(item => {
     // Add new attributes to the elements with the '.scroll-counter' HTML class
     item.counterAlreadyFired = false;
-    item.counterSpeed = Number(item.getAttribute("data-counter-time")) / 45;
+    item.counterSpeed = Number(item.getAttribute('data-counter-time')) / 45;
     item.counterTarget = +item.innerText;
     item.counterCount = 0;
     item.counterStep = item.counterTarget / item.counterSpeed;
@@ -57,14 +57,18 @@ document.addEventListener("DOMContentLoaded", () => {
   // Funciton that will get fired uppon scrolling
   const handleScroll = () => {
     elements.forEach(item => {
-      if (item.counterAlreadyFired) return;
-      if (!isElementVisible(item)) return;
+      if (item.counterAlreadyFired) {
+        return;
+      }
+      if (!isElementVisible(item)) {
+        return;
+      }
       item.updateCounter();
       item.counterAlreadyFired = true;
     });
   };
 
   // Fire the function on load and scroll
-  window.addEventListener("load", handleScroll);
-  window.addEventListener("scroll", handleScroll);
+  window.addEventListener('load', handleScroll);
+  window.addEventListener('scroll', handleScroll);
 });
