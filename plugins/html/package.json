@@ -1,6 +1,6 @@
 {
   "name": "@caweb/html-webpack-plugin",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "description": "CAWebPublishing Sample Page and Configurations",
   "main": "index.js",
   "type": "module",
@@ -39,15 +39,15 @@
   },
   "homepage": "https://github.com/CAWebPublishing/webpack/plugins/html#readme",
   "devDependencies": {
-    "@caweb/jshint-webpack-plugin": "file:../jshint",
+    "@caweb/a11y-webpack-plugin": "^1.0.6",
+    "@caweb/css-audit-webpack-plugin": "^1.0.8",
+    "@caweb/jshint-webpack-plugin": "^1.0.7",
     "bootstrap": "^5.3.3",
     "html-webpack-skip-assets-plugin": "^1.0.4",
     "webpack": "^5.93.0",
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "@caweb/a11y-webpack-plugin": "file:../a11y",
-    "@caweb/css-audit-webpack-plugin": "file:../css-audit",
     "@wordpress/scripts": "^28.4.0",
     "handlebars-loader": "^1.7.3",
     "html-webpack-plugin": "^5.6.0"

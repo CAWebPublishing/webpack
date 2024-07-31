@@ -1,3 +1,6 @@
+v1.0.9
+- Added sample directory
+
 v1.0.8
 - Fixed issue with hot module replacement not loading
 

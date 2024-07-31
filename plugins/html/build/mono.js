@@ -6342,21 +6342,21 @@ window.addEventListener('load', () => {
    * and define script meta-data
    */
   const ARIAaccordion = {};
-  w["ARIAaccordion"] = ARIAaccordion;
-  ARIAaccordion.NS = "ARIAaccordion";
-  ARIAaccordion.AUTHOR = "Scott O'Hara";
-  ARIAaccordion.VERSION = "3.2.1";
-  ARIAaccordion.LICENSE = "https://github.com/scottaohara/accessible_accordions/blob/master/LICENSE";
-  const widgetClass = "accordion";
+  w.ARIAaccordion = ARIAaccordion;
+  ARIAaccordion.NS = 'ARIAaccordion';
+  ARIAaccordion.AUTHOR = 'Scott O\'Hara';
+  ARIAaccordion.VERSION = '3.2.1';
+  ARIAaccordion.LICENSE = 'https://github.com/scottaohara/accessible_accordions/blob/master/LICENSE';
+  const widgetClass = 'accordion';
   const widgetTriggerClass = `${widgetClass}__trigger`;
   const widgetHeadingClass = `${widgetClass}__heading`;
   const widgetPanelClass = `${widgetClass}__panel`;
-  const widgetHeading = "[data-aria-accordion-heading]";
-  const widgetPanel = "[data-aria-accordion-panel]";
+  const widgetHeading = '[data-aria-accordion-heading]';
+  const widgetPanel = '[data-aria-accordion-panel]';
   let idCounter = 0;
 
   /**
-   * gets the correct selector, "LI" children or not
+   * gets the correct selector, 'LI' children or not
    * @param {string} id
    */
   const getChildSelector = id => doc.querySelectorAll(`#${id}> li`).length ? `#${id} li > ` : `#${id} > `;
@@ -6371,8 +6371,8 @@ window.addEventListener('load', () => {
    * will be generated via this function.
    */
   ARIAaccordion.create = () => {
-    let defaultPanel = "none";
-    const widget = doc.querySelectorAll("[data-aria-accordion]");
+    let defaultPanel = 'none';
+    const widget = doc.querySelectorAll('[data-aria-accordion]');
     idCounter += 1;
     for (let i = 0; i < widget.length; i++) {
       const self = widget[i];
@@ -6381,7 +6381,7 @@ window.addEventListener('load', () => {
        * Check for IDs and create arrays of necessary
        * panels & headings for further setup functions.
        */
-      if (!self.hasAttribute("id")) {
+      if (!self.hasAttribute('id')) {
         self.id = `acc_${idCounter}-${i}`;
       }
 
@@ -6408,8 +6408,8 @@ window.addEventListener('load', () => {
        * data-default - is there a default opened panel?
        * data-constant - should the accordion always have A panel open?
        */
-      if (self.hasAttribute("data-default")) {
-        defaultPanel = self.getAttribute("data-default");
+      if (self.hasAttribute('data-default')) {
+        defaultPanel = self.getAttribute('data-default');
       }
 
       /**
@@ -6417,20 +6417,20 @@ window.addEventListener('load', () => {
        * but if a data-constant attribute is used, then we need this
        * to be true.
        */
-      const constantPanel = self.hasAttribute("data-constant");
+      const constantPanel = self.hasAttribute('data-constant');
 
       /**
        * Accordions can have multiple panels open at a time,
        * if they have a data-multi attribute.
        */
-      //const multiPanel = self.hasAttribute("data-multi");
+      //const multiPanel = self.hasAttribute('data-multi');
 
       /**
        * If accordion panels are meant to transition, apply this inline style.
        * This is to help mitigate a quick flash of CSS being applied to the
        * no-js styling, and having an unwanted transition on initial page load.
        */
-      if (self.hasAttribute("data-transition")) {
+      if (self.hasAttribute('data-transition')) {
         const thesePanels = self.querySelectorAll(widgetPanel);
         for (let t = 0; t < thesePanels.length; t++) {
           thesePanels[t].classList.add(`${widgetPanelClass}--transition`);
@@ -6449,8 +6449,8 @@ window.addEventListener('load', () => {
        * we can grab all the triggers and setup their functionality.
        */
       for (let t = 0; t < triggers.length; t++) {
-        triggers[t].addEventListener("click", ARIAaccordion.actions);
-        triggers[t].addEventListener("keydown", ARIAaccordion.keytrolls);
+        triggers[t].addEventListener('click', ARIAaccordion.actions);
+        triggers[t].addEventListener('keydown', ARIAaccordion.keytrolls);
       }
     } // for(widget.length)
   }; // ARIAaccordion.create()
@@ -6461,7 +6461,7 @@ window.addEventListener('load', () => {
       const panelID = `${id}_panel_${i + 1}`;
       const setPanel = defaultPanel;
       const constant = constantPanel;
-      panel.setAttribute("id", panelID);
+      panel.setAttribute('id', panelID);
       ariaHidden(panels[0], true);
       panel.classList.add(widgetPanelClass);
 
@@ -6472,7 +6472,7 @@ window.addEventListener('load', () => {
        */
       //Removing broken code...
       //if (setPanel !== 'none' && parseInt(setPanel) !== NaN) {
-      if (setPanel !== "none" && !Number.isNaN(parseInt(setPanel))) {
+      if (setPanel !== 'none' && !Number.isNaN(parseInt(setPanel))) {
         const setPanelInt = parseInt(setPanel);
 
         // if value is 1 or less
@@ -6498,8 +6498,8 @@ window.addEventListener('load', () => {
        * then run one more check.
        */
       // removing broken code...
-      // if ((constant && setPanel === "none") || parseInt(setPanel) === NaN) {
-      if (constant && (setPanel === "none" || Number.isNaN(parseInt(setPanel)))) {
+      // if ((constant && setPanel === 'none') || parseInt(setPanel) === NaN) {
+      if (constant && (setPanel === 'none' || Number.isNaN(parseInt(setPanel)))) {
         ariaHidden(panels[0], false);
       }
     }
@@ -6509,18 +6509,18 @@ window.addEventListener('load', () => {
     for (let i = 0; i < headings.length; i++) {
       const heading = headings[i];
       const targetID = heading.nextElementSibling.id;
-      const targetState = doc.getElementById(targetID).getAttribute("aria-hidden");
+      const targetState = doc.getElementById(targetID).getAttribute('aria-hidden');
 
       // setup new heading buttons
-      const newButton = doc.createElement("button");
+      const newButton = doc.createElement('button');
       const buttonText = heading.textContent;
       // clear out the heading's content
-      heading.innerHTML = "";
+      heading.innerHTML = '';
       // provide the heading with a class for styling
       heading.classList.add(widgetHeadingClass);
-      newButton.setAttribute("type", "button");
-      newButton.setAttribute("aria-controls", targetID);
-      newButton.setAttribute("id", `${targetID}_trigger`);
+      newButton.setAttribute('type', 'button');
+      newButton.setAttribute('aria-controls', targetID);
+      newButton.setAttribute('id', `${targetID}_trigger`);
       newButton.classList.add(widgetTriggerClass);
 
       /**
@@ -6528,7 +6528,7 @@ window.addEventListener('load', () => {
        * to be hidden or shown by default. Add an aria-expanded
        * attribute value that is appropriate.
        */
-      if (targetState === "false") {
+      if (targetState === 'false') {
         ariaExpanded(newButton, true);
         isCurrent(newButton, true);
 
@@ -6537,7 +6537,7 @@ window.addEventListener('load', () => {
          * opened panel, and if the button's target is not hidden.
          */
         if (constantPanel) {
-          newButton.setAttribute("aria-disabled", "true");
+          newButton.setAttribute('aria-disabled', 'true');
         }
       } else {
         ariaExpanded(newButton, false);
@@ -6553,8 +6553,8 @@ window.addEventListener('load', () => {
   ARIAaccordion.actions = function ( /** @type {Event} */e) {
     // Need to pass in if this is a multi accordion or not.
     // Also need to pass in existing trigger arrays.
-    const thisAccordion = this.id.replace(/_panel.*$/g, "");
-    const thisTarget = doc.getElementById(this.getAttribute("aria-controls"));
+    const thisAccordion = this.id.replace(/_panel.*$/g, '');
+    const thisTarget = doc.getElementById(this.getAttribute('aria-controls'));
     const childSelector = getChildSelector(thisAccordion);
     const thisTriggers = doc.querySelectorAll(`${childSelector}${widgetHeading} .${widgetTriggerClass}`);
     e.preventDefault();
@@ -6565,24 +6565,28 @@ window.addEventListener('load', () => {
     const thisTrigger = /** @type {Element} */e.target;
 
     // check to see if a trigger is disabled
-    if (thisTrigger.getAttribute("aria-disabled") !== "true") {
+    if (thisTrigger.getAttribute('aria-disabled') !== 'true') {
       isCurrent(thisTrigger, true);
-      if (thisTrigger.getAttribute("aria-expanded") === "true") {
+      if (thisTrigger.getAttribute('aria-expanded') === 'true') {
         ariaExpanded(thisTrigger, false);
         ariaHidden(targetPanel, true);
       } else {
         ariaExpanded(thisTrigger, true);
         ariaHidden(targetPanel, false);
-        if (doc.getElementById(thisAccordion).hasAttribute("data-constant")) ariaDisabled(thisTrigger, true);
+        if (doc.getElementById(thisAccordion).hasAttribute('data-constant')) {
+          ariaDisabled(thisTrigger, true);
+        }
       }
-      if (doc.getElementById(thisAccordion).hasAttribute("data-constant") || !doc.getElementById(thisAccordion).hasAttribute("data-multi")) {
+      if (doc.getElementById(thisAccordion).hasAttribute('data-constant') || !doc.getElementById(thisAccordion).hasAttribute('data-multi')) {
         // swap expanded when there is a single constant panel
-        for (const trigger of triggers) if (thisTrigger !== trigger) {
-          isCurrent(trigger, false);
-          const getID = trigger.getAttribute("aria-controls");
-          ariaDisabled(trigger, false);
-          ariaExpanded(trigger, false);
-          ariaHidden(doc.getElementById(getID), true);
+        for (const trigger of triggers) {
+          if (thisTrigger !== trigger) {
+            isCurrent(trigger, false);
+            const getID = trigger.getAttribute('aria-controls');
+            ariaDisabled(trigger, false);
+            ariaExpanded(trigger, false);
+            ariaHidden(doc.getElementById(getID), true);
+          }
         }
       }
     }
@@ -6595,7 +6599,7 @@ window.addEventListener('load', () => {
       // const keyDown = 40;
       const keyHome = 36;
       const keyEnd = 35;
-      const thisAccordion = this.id.replace(/_panel.*$/g, "");
+      const thisAccordion = this.id.replace(/_panel.*$/g, '');
       const childSelector = getChildSelector(thisAccordion);
 
       /** @type {NodeListOf<HTMLElement>} */
@@ -6650,16 +6654,16 @@ window.addEventListener('load', () => {
    * Just to cut down on the verboseness of some declarations
    */
   const ariaHidden = function ( /** @type {Element} */el, /** @type {boolean} */state) {
-    el.setAttribute("aria-hidden", state.toString());
+    el.setAttribute('aria-hidden', state.toString());
   };
   const ariaExpanded = function ( /** @type {Element} */el, /** @type {boolean} */state) {
-    el.setAttribute("aria-expanded", state.toString());
+    el.setAttribute('aria-expanded', state.toString());
   };
   const ariaDisabled = function ( /** @type {Element} */el, /** @type {boolean} */state) {
-    el.setAttribute("aria-disabled", state.toString());
+    el.setAttribute('aria-disabled', state.toString());
   };
   const isCurrent = function ( /** @type {Element} */el, /** @type {boolean} */state) {
-    el.setAttribute("data-current", state.toString());
+    el.setAttribute('data-current', state.toString());
   };
 
   // go go JavaScript
@@ -6678,7 +6682,7 @@ window.addEventListener('load', () => {
 __webpack_require__.r(__webpack_exports__);
 //@ts-check
 
-window.addEventListener("load", () => {
+window.addEventListener('load', () => {
   /**
    * Accordion web component that collapses and expands content inside itself on click.
    *
@@ -6696,15 +6700,15 @@ window.addEventListener("load", () => {
    */
   class CaGovAccordion extends HTMLElement {
     connectedCallback() {
-      this.summaryEl = this.querySelector("summary");
+      this.summaryEl = this.querySelector('summary');
       // trigger the opening and closing height change animation on summary click
 
       this.setHeight();
-      this.summaryEl.addEventListener("click", this.listen.bind(this));
-      this.summaryEl.insertAdjacentHTML("beforeend", `<div class="cagov-open-indicator" aria-hidden="true" />`);
-      this.detailsEl = this.querySelector("details");
-      this.bodyEl = this.querySelector(".accordion-body");
-      window.addEventListener("resize", this.debounce(this.setHeight).bind(this));
+      this.summaryEl.addEventListener('click', this.listen.bind(this));
+      this.summaryEl.insertAdjacentHTML('beforeend', `<div class="cagov-open-indicator" aria-hidden="true" />`);
+      this.detailsEl = this.querySelector('details');
+      this.bodyEl = this.querySelector('.accordion-body');
+      window.addEventListener('resize', this.debounce(this.setHeight).bind(this));
     }
     setHeight() {
       window.requestAnimationFrame(() => {
@@ -6713,7 +6717,7 @@ window.addEventListener("load", () => {
         this.closedHeight = `${this.closedHeightInt}px`;
 
         // apply initial height
-        if (this.detailsEl.hasAttribute("open")) {
+        if (this.detailsEl.hasAttribute('open')) {
           // if open get scrollHeight
           this.detailsEl.style.height = `${this.bodyEl.scrollHeight + this.closedHeightInt}px`;
         } else {
@@ -6723,7 +6727,7 @@ window.addEventListener("load", () => {
       });
     }
     listen() {
-      if (this.detailsEl.hasAttribute("open")) {
+      if (this.detailsEl.hasAttribute('open')) {
         // was open, now closing
         this.detailsEl.style.height = this.closedHeight;
       } else {
@@ -6748,7 +6752,7 @@ window.addEventListener("load", () => {
       };
     }
   }
-  window.customElements.define("cagov-accordion", CaGovAccordion);
+  window.customElements.define('cagov-accordion', CaGovAccordion);
 });
 
 /***/ }),
@@ -6764,7 +6768,7 @@ __webpack_require__.r(__webpack_exports__);
 //@ts-check
 
 /* EXTERNAL LINK ICON */
-window.addEventListener("load", () => {
+window.addEventListener('load', () => {
   const ext = '<span class="external-link-icon" aria-hidden="true"></span>';
 
   // Check if link is external function
@@ -6782,9 +6786,9 @@ window.addEventListener("load", () => {
   /** @type {NodeListOf<HTMLAnchorElement>} */
   const externalLink = document.querySelectorAll(`main a${cssExceptions}, .agency-footer a${cssExceptions}, .site-footer a${cssExceptions}, footer a${cssExceptions}`);
   externalLink.forEach(element => {
-    const anchorLink = element.href.indexOf("#") === 0;
-    const localHost = element.href.indexOf("localhost") > -1;
-    const localEmail = element.href.indexOf("@") > -1;
+    const anchorLink = element.href.indexOf('#') === 0;
+    const localHost = element.href.indexOf('localhost') > -1;
+    const localEmail = element.href.indexOf('@') > -1;
     const linkElement = element;
     if (linkIsExternal(linkElement) === false && !anchorLink && !localEmail && !localHost) {
       linkElement.innerHTML += ext; // += concatenates to external links
@@ -6805,17 +6809,19 @@ __webpack_require__.r(__webpack_exports__);
 //@ts-check
 
 /* sticky header / hiding official header on scroll */
-window.addEventListener("load", () => {
+window.addEventListener('load', () => {
   const doc = document.documentElement;
   let prevScroll = window.scrollY || doc.scrollTop;
   let curScroll;
   let direction = 0;
   let prevDirection = 0;
-  const headerAlert = document.querySelector("header .alert");
-  const header = document.querySelector(".utility-header");
-  const mainheader = document.querySelector("header");
-  if (!header || !mainheader) return;
-  window.addEventListener("scroll", () => {
+  const headerAlert = document.querySelector('header .alert');
+  const header = document.querySelector('.utility-header');
+  const mainheader = document.querySelector('header');
+  if (!header || !mainheader) {
+    return;
+  }
+  window.addEventListener('scroll', () => {
     /*
      ** Find the direction of scroll
      ** 0 - initial, 1 - up, 2 - down
@@ -6838,8 +6844,8 @@ window.addEventListener("load", () => {
       } else if (direction === 1 && curScroll < 40) {
         // mainheader.classList.remove('scrolled');
         // header.classList.remove('is-hidden');
-        // header.removeAttribute("style");
-        mainheader.style.removeProperty("top");
+        // header.removeAttribute('style');
+        mainheader.style.removeProperty('top');
         prevDirection = direction;
       }
     }
@@ -6861,76 +6867,82 @@ window.addEventListener("load", () => {
 __webpack_require__.r(__webpack_exports__);
 //@ts-check
 
-window.addEventListener("load", () => {
+window.addEventListener('load', () => {
   const isDesktopWidth = () => window.innerWidth > 991; //Maximum px for mobile width
 
   /** @type {HTMLButtonElement} */
-  const navToggleBtn = document.querySelector(".toggle-menu");
-  if (!navToggleBtn) return;
+  const navToggleBtn = document.querySelector('.toggle-menu');
+  if (!navToggleBtn) {
+    return;
+  }
   /** @type {HTMLElement} */
-  const mainNav = document.querySelector(".main-navigation");
+  const mainNav = document.querySelector('.main-navigation');
   // create container for drawer mobile nav items
-  const mobileItemsCont = document.createElement("div");
-  mobileItemsCont.className = "nav-drawer";
+  const mobileItemsCont = document.createElement('div');
+  mobileItemsCont.className = 'nav-drawer';
 
   // Create close mobile meu button
-  const navMobileMenuToggleBtn = document.createElement("button");
-  navMobileMenuToggleBtn.classList.add("mobile-control", "toggle-menu");
-  navMobileMenuToggleBtn.ariaExpanded = "false";
-  navMobileMenuToggleBtn.setAttribute("aria-controls", "navigation");
+  const navMobileMenuToggleBtn = document.createElement('button');
+  navMobileMenuToggleBtn.classList.add('mobile-control', 'toggle-menu');
+  navMobileMenuToggleBtn.ariaExpanded = 'false';
+  navMobileMenuToggleBtn.setAttribute('aria-controls', 'navigation');
   navMobileMenuToggleBtn.tabIndex = -1;
-  const navCloseBtnSpans = [0, 1, 2, 3, 4].map(() => document.createElement("span"));
-  navCloseBtnSpans[4].classList.add("sr-only");
-  navCloseBtnSpans[4].innerText = "Menu";
+  const navCloseBtnSpans = [0, 1, 2, 3, 4].map(() => document.createElement('span'));
+  navCloseBtnSpans[4].classList.add('sr-only');
+  navCloseBtnSpans[4].innerText = 'Menu';
   navMobileMenuToggleBtn.append(...navCloseBtnSpans);
   mobileItemsCont.append(navMobileMenuToggleBtn);
 
   // VARIABLES
   /** @type {HTMLDivElement} */
-  const navSearchCont = document.querySelector(".navigation-search");
-  if (!navSearchCont) return;
-  const mobileCntls = document.querySelector(".global-header .mobile-controls");
-  const mobileControlsDisplay = mobileCntls ? window.getComputedStyle(mobileCntls).display : "";
+  const navSearchCont = document.querySelector('.navigation-search');
+  if (!navSearchCont) {
+    return;
+  }
+  const mobileCntls = document.querySelector('.global-header .mobile-controls');
+  const mobileControlsDisplay = mobileCntls ? window.getComputedStyle(mobileCntls).display : '';
 
   //Used for hiding/showing main elements
-  const mainElements = document.querySelectorAll(".main-content, footer, .site-footer, .utility-header, .branding, header");
-  const regularHeader = document.querySelector("header");
+  const mainElements = document.querySelectorAll('.main-content, footer, .site-footer, .utility-header, .branding, header');
+  const regularHeader = document.querySelector('header');
 
   // reset navigation function
   const NavReset = () => {
     //RESET
-    document.querySelectorAll(".first-level-btn").forEach(el => el.ariaExpanded = "false"); //Must be false and not blank for CSS
+    document.querySelectorAll('.first-level-btn').forEach(el => el.ariaExpanded = 'false'); //Must be false and not blank for CSS
 
-    document.querySelectorAll(".sub-nav").forEach(el => {
-      el.ariaHidden = "true";
-      el.classList.remove("open");
+    document.querySelectorAll('.sub-nav').forEach(el => {
+      el.ariaHidden = 'true';
+      el.classList.remove('open');
     });
-    document.querySelectorAll(".second-level-link").forEach(( /**@type {HTMLElement} */el) => el.tabIndex = -1);
-    document.querySelectorAll(".rotate").forEach(( /**@type {HTMLElement} */el) => el.style.display = isDesktopWidth() ? "none" : "block");
-    const targetAriaHidden = isDesktopWidth() ? null : "true";
-    if (navSearchCont.ariaHidden != targetAriaHidden) navSearchCont.ariaHidden = targetAriaHidden;
+    document.querySelectorAll('.second-level-link').forEach(( /**@type {HTMLElement} */el) => el.tabIndex = -1);
+    document.querySelectorAll('.rotate').forEach(( /**@type {HTMLElement} */el) => el.style.display = isDesktopWidth() ? 'none' : 'block');
+    const targetAriaHidden = isDesktopWidth() ? null : 'true';
+    if (navSearchCont.ariaHidden !== targetAriaHidden) {
+      navSearchCont.ariaHidden = targetAriaHidden;
+    }
   };
   const getAllNavLinks = () => ( /** @type { NodeListOf<HTMLElement>} */
   navSearchCont.querySelectorAll('a.first-level-link, button.first-level-btn, input, button, [tabindex]:not([tabindex="-1"])'));
   const getAllFirstLevelNavLinks = () => ( /** @type { NodeListOf<HTMLElement>} */
-  navSearchCont.querySelectorAll("a.first-level-link, button.first-level-btn"));
+  navSearchCont.querySelectorAll('a.first-level-link, button.first-level-btn'));
 
   // Escape key event listener
-  document.addEventListener("keydown", e => {
-    if (navSearchCont.classList.contains("visible")) {
-      if (e.key === "Escape") {
+  document.addEventListener('keydown', e => {
+    if (navSearchCont.classList.contains('visible')) {
+      if (e.key === 'Escape') {
         e.stopPropagation();
         closeMenu();
       }
     }
   });
   const checkIfMobileView = () => {
-    const mobileElement = document.querySelector(".global-header .mobile-controls");
-    return mobileElement ? getComputedStyle(mobileElement)["display"] !== "none" : false;
+    const mobileElement = document.querySelector('.global-header .mobile-controls');
+    return mobileElement ? getComputedStyle(mobileElement).display !== 'none' : false;
   };
 
   // Close menu on focusout (tabbing out) event (if target is outside of mobile menu and ignore if focus target is navToggleBtn button)
-  navSearchCont.addEventListener("focusout", e => {
+  navSearchCont.addEventListener('focusout', e => {
     if (checkIfMobileView()) {
       const child = /** @type {Node} **/e.relatedTarget;
       const parent = /** @type {Node} **/e.currentTarget;
@@ -6942,79 +6954,81 @@ window.addEventListener("load", () => {
 
   // Button click open menu function
   const openMenu = () => {
-    navSearchCont.classList.add("visible");
-    navSearchCont.classList.remove("not-visible");
-    document.body.classList.add("overflow-hidden");
-    navToggleBtn.ariaExpanded = "true";
+    navSearchCont.classList.add('visible');
+    navSearchCont.classList.remove('not-visible');
+    document.body.classList.add('overflow-hidden');
+    navToggleBtn.ariaExpanded = 'true';
     setOpen();
     // Hide all the website areas (add aria-hidden)
-    mainElements.forEach(x => x.ariaHidden = "true");
-    regularHeader?.classList.add("nav-overlay");
+    mainElements.forEach(x => x.ariaHidden = 'true');
+    regularHeader?.classList.add('nav-overlay');
     navMobileMenuToggleBtn.focus();
   };
   const setOpen = () => {
-    navMobileMenuToggleBtn.ariaExpanded = "true";
+    navMobileMenuToggleBtn.ariaExpanded = 'true';
     navSearchCont.ariaHidden = null;
     // make links focusable
-    getAllNavLinks().forEach(el => el.removeAttribute("tabindex"));
+    getAllNavLinks().forEach(el => el.removeAttribute('tabindex'));
     // desktop
-    if (mobileControlsDisplay !== "block" && navToggleBtn.ariaExpanded !== "false") {
-      navToggleBtn.ariaExpanded = "false";
+    if (mobileControlsDisplay !== 'block' && navToggleBtn.ariaExpanded !== 'false') {
+      navToggleBtn.ariaExpanded = 'false';
     }
   };
 
   // Button click close menu function
   const closeMenu = () => {
-    if (navSearchCont.classList.contains("visible")) {
-      navSearchCont.classList.remove("visible");
+    if (navSearchCont.classList.contains('visible')) {
+      navSearchCont.classList.remove('visible');
 
       //Set focus only when close actually happens
       navToggleBtn.focus();
     }
-    navSearchCont.classList.add("not-visible");
+    navSearchCont.classList.add('not-visible');
     setClosed();
   };
   const setClosed = () => {
-    if (navToggleBtn.ariaExpanded !== "false") {
-      navToggleBtn.ariaExpanded = "false";
+    if (navToggleBtn.ariaExpanded !== 'false') {
+      navToggleBtn.ariaExpanded = 'false';
     }
-    if (navMobileMenuToggleBtn.ariaExpanded !== "false") {
-      navMobileMenuToggleBtn.ariaExpanded = "false";
+    if (navMobileMenuToggleBtn.ariaExpanded !== 'false') {
+      navMobileMenuToggleBtn.ariaExpanded = 'false';
     }
-    if (mainNav) document.body.classList.remove("overflow-hidden");
+    if (mainNav) {
+      document.body.classList.remove('overflow-hidden');
+    }
 
     // removing focus
     getAllNavLinks().forEach(el => el.tabIndex = -1);
     // remove aria hidden for the rest of the site
     mainElements.forEach(x => x.ariaHidden = null);
-    regularHeader?.classList.remove("nav-overlay");
+    regularHeader?.classList.remove('nav-overlay');
     NavReset();
   };
 
   // Button Click event
-  navToggleBtn.addEventListener("click", openMenu);
+  navToggleBtn.addEventListener('click', openMenu);
   // Button Click event
-  navMobileMenuToggleBtn.addEventListener("click", closeMenu);
+  navMobileMenuToggleBtn.addEventListener('click', closeMenu);
   const mobileCheck = () => {
-    const searchInput = document.querySelector(".search-textfield");
+    const searchInput = document.querySelector('.search-textfield');
 
     // Add a focus event listener to add the class on focus
-    searchInput.addEventListener("focus", () => {
-      searchInput.classList.add("is-in-focus");
+    searchInput.addEventListener('focus', () => {
+      searchInput.classList.add('is-in-focus');
     });
 
     // Add a blur event listener to remove the class on blur
-    searchInput.addEventListener("blur", () => {
+    searchInput.addEventListener('blur', () => {
       // Remove the class after a delay
       setTimeout(() => {
-        searchInput.classList.remove("is-in-focus");
+        searchInput.classList.remove('is-in-focus');
       }, 500);
     });
-    if (!searchInput.classList.contains("is-in-focus")) {
+    if (!searchInput.classList.contains('is-in-focus')) {
       NavReset();
       // desktop
       if (isDesktopWidth()) {
-        getAllFirstLevelNavLinks().forEach(el => el.removeAttribute("tabindex"));
+        getAllFirstLevelNavLinks().forEach(el => el.removeAttribute('tabindex'));
       }
       // mobile
       else {
@@ -7025,7 +7039,7 @@ window.addEventListener("load", () => {
   };
 
   // Close mobile nav if click outside of nav
-  regularHeader.addEventListener("mouseup", e => {
+  regularHeader.addEventListener('mouseup', e => {
     // if the target of the click isn't the navigation container nor a descendant of the navigation
     if (checkIfMobileView()) {
       if (navSearchCont !== e.target && !navSearchCont?.contains( /**@type {Node} */e.target)) {
@@ -7035,11 +7049,11 @@ window.addEventListener("load", () => {
   });
 
   // on resize function (hide mobile nav)
-  window.addEventListener("resize", mobileCheck);
+  window.addEventListener('resize', mobileCheck);
 
   // ONLOAD
   // move duplicated logo to navigation drawer section
-  document.querySelector(".navigation-search")?.prepend(mobileItemsCont);
+  document.querySelector('.navigation-search')?.prepend(mobileItemsCont);
   mobileCheck();
 });
 
@@ -7117,7 +7131,7 @@ __webpack_require__.r(__webpack_exports__);
       remove: remove
     };
   };
-  const DATA_HASH_ID = "data-nav-id";
+  const DATA_HASH_ID = 'data-nav-id';
   const pluginConfig = loadConfig();
 
   /** Find an element based on an Id
@@ -7151,7 +7165,7 @@ __webpack_require__.r(__webpack_exports__);
         parentElement = parentElement.parentElement;
       }
     }
-    return "";
+    return '';
   };
 
   /**
@@ -7163,16 +7177,16 @@ __webpack_require__.r(__webpack_exports__);
     let parentElement = el;
     while (parentElement) {
       if (parentElement.classList.contains(parentClass) && parentElement.getAttribute(DATA_HASH_ID) === hashId) {
-        return parentElement.getAttribute("id");
+        return parentElement.getAttribute('id');
       } else {
         parentElement = parentElement.parentElement;
       }
     }
-    return "";
+    return '';
   };
   const mobileView = () => {
-    const mobileElement = document.querySelector(".global-header .mobile-controls");
-    return mobileElement ? getComputedStyle(mobileElement)["display"] !== "none" : false;
+    const mobileElement = document.querySelector('.global-header .mobile-controls');
+    return mobileElement ? getComputedStyle(mobileElement).display !== 'none' : false;
   };
 
   /**
@@ -7184,38 +7198,38 @@ __webpack_require__.r(__webpack_exports__);
 
     const config = pluginArgs.length <= 0 || pluginArgs[0] === undefined ? {} : pluginArgs[0];
     // Finding if first-level-link has sub-nav then changing its clasee to first-level-btn
-    const className = "first-level-btn";
+    const className = 'first-level-btn';
 
     //Change all the links next to sub-navs to first-level-btn
-    document.querySelectorAll(".main-navigation .sub-nav").forEach(node => {
-      node.parentElement.querySelector("a").className = className;
+    document.querySelectorAll('.main-navigation .sub-nav').forEach(node => {
+      node.parentElement.querySelector('a').className = className;
     });
     let CONFIG = {
-      ACCORDION_JS: "main-navigation",
+      ACCORDION_JS: 'main-navigation',
       ACCORDION_JS_HEADER: className,
       // Assigning button class to link that has sub-nav
-      ACCORDION_JS_PANEL: "nav-panel",
-      ACCORDION_DATA_PREFIX_CLASS: "data-nav-prefix-classes",
-      ACCORDION_DATA_OPENED: "data-nav-opened",
-      ACCORDION_DATA_MULTISELECTABLE: "data-nav-multiselectable",
+      ACCORDION_JS_PANEL: 'nav-panel',
+      ACCORDION_DATA_PREFIX_CLASS: 'data-nav-prefix-classes',
+      ACCORDION_DATA_OPENED: 'data-nav-opened',
+      ACCORDION_DATA_MULTISELECTABLE: 'data-nav-multiselectable',
       ACCORDION_DATA_COOL_SELECTORS: true,
-      ACCORDION_PREFIX_IDS: "nav",
-      ACCORDION_BUTTON_ID: "_tab",
-      ACCORDION_PANEL_ID: "_panel",
-      ACCORDION_STYLE: "nav",
-      ACCORDION_TITLE_STYLE: "has-sub-btn",
-      ACCORDION_HEADER_STYLE: "nav-header",
-      ACCORDION_PANEL_STYLE: "sub-nav",
-      ACCORDION_ROLE_TABLIST: "tablist",
-      ACCORDION_ROLE_TAB: "tab",
-      ACCORDION_ROLE_TABPANEL: "tabpanel",
-      ATTR_ROLE: "role",
-      ATTR_MULTISELECTABLE: "data-multiselectable",
-      ATTR_EXPANDED: "aria-expanded",
-      ATTR_LABELLEDBY: "aria-labelledby",
-      ATTR_HIDDEN: "aria-hidden",
-      ATTR_CONTROLS: "aria-controls",
-      ATTR_SELECTED: "aria-selected"
+      ACCORDION_PREFIX_IDS: 'nav',
+      ACCORDION_BUTTON_ID: '_tab',
+      ACCORDION_PANEL_ID: '_panel',
+      ACCORDION_STYLE: 'nav',
+      ACCORDION_TITLE_STYLE: 'has-sub-btn',
+      ACCORDION_HEADER_STYLE: 'nav-header',
+      ACCORDION_PANEL_STYLE: 'sub-nav',
+      ACCORDION_ROLE_TABLIST: 'tablist',
+      ACCORDION_ROLE_TAB: 'tab',
+      ACCORDION_ROLE_TABPANEL: 'tabpanel',
+      ATTR_ROLE: 'role',
+      ATTR_MULTISELECTABLE: 'data-multiselectable',
+      ATTR_EXPANDED: 'aria-expanded',
+      ATTR_LABELLEDBY: 'aria-labelledby',
+      ATTR_HIDDEN: 'aria-hidden',
+      ATTR_CONTROLS: 'aria-controls',
+      ATTR_SELECTED: 'aria-selected'
     };
     CONFIG = Object.assign(CONFIG, config);
     const HASH_ID = Math.random().toString(32).slice(2, 12);
@@ -7243,12 +7257,12 @@ __webpack_require__.r(__webpack_exports__);
       listAccordions(node).forEach(accordion_node => {
         const iLisible = `z${Math.random().toString(32).slice(2, 12)}`; // avoid selector exception when starting by a number
 
-        const prefixClassName = accordion_node.hasAttribute(CONFIG.ACCORDION_DATA_PREFIX_CLASS) ? `${accordion_node.getAttribute(CONFIG.ACCORDION_DATA_PREFIX_CLASS)}-` : "";
+        const prefixClassName = accordion_node.hasAttribute(CONFIG.ACCORDION_DATA_PREFIX_CLASS) ? `${accordion_node.getAttribute(CONFIG.ACCORDION_DATA_PREFIX_CLASS)}-` : '';
         const coolSelectors = CONFIG.ACCORDION_DATA_COOL_SELECTORS;
-        const childClassName = "first-level-btn";
+        const childClassName = 'first-level-btn';
 
         // Init attributes accordion
-        accordion_node.setAttribute(CONFIG.ATTR_MULTISELECTABLE, mobileView() ? "true" : "false");
+        accordion_node.setAttribute(CONFIG.ATTR_MULTISELECTABLE, mobileView() ? 'true' : 'false');
         accordion_node.setAttribute(DATA_HASH_ID, HASH_ID);
         accordion_node.classList.add(prefixClassName + CONFIG.ACCORDION_STYLE);
 
@@ -7264,18 +7278,20 @@ __webpack_require__.r(__webpack_exports__);
           }
           const indexHeaderLisible = index_header + 1;
           const accordionPanel = header_node.nextElementSibling;
-          if (!accordionPanel) return;
+          if (!accordionPanel) {
+            return;
+          }
           const accordionHeaderText = header_node.innerHTML;
-          const accordionButton = document.createElement("BUTTON");
-          const accordionOpenedAttribute = header_node.hasAttribute(CONFIG.ACCORDION_DATA_OPENED) ? header_node.getAttribute(CONFIG.ACCORDION_DATA_OPENED) : "";
+          const accordionButton = document.createElement('BUTTON');
+          const accordionOpenedAttribute = header_node.hasAttribute(CONFIG.ACCORDION_DATA_OPENED) ? header_node.getAttribute(CONFIG.ACCORDION_DATA_OPENED) : '';
 
           // set button with attributes
           accordionButton.innerHTML = accordionHeaderText;
           accordionButton.classList.add(childClassName, prefixClassName + CONFIG.ACCORDION_HEADER_STYLE);
-          setAttributes(accordionButton, (_setAttributes2 = {}, _defineProperty(_setAttributes2, "id", CONFIG.ACCORDION_PREFIX_IDS + iLisible + CONFIG.ACCORDION_BUTTON_ID + indexHeaderLisible), _defineProperty(_setAttributes2, CONFIG.ATTR_CONTROLS, CONFIG.ACCORDION_PREFIX_IDS + iLisible + CONFIG.ACCORDION_PANEL_ID + indexHeaderLisible), _defineProperty(_setAttributes2, DATA_HASH_ID, HASH_ID), _setAttributes2));
+          setAttributes(accordionButton, (_setAttributes2 = {}, _defineProperty(_setAttributes2, 'id', CONFIG.ACCORDION_PREFIX_IDS + iLisible + CONFIG.ACCORDION_BUTTON_ID + indexHeaderLisible), _defineProperty(_setAttributes2, CONFIG.ATTR_CONTROLS, CONFIG.ACCORDION_PREFIX_IDS + iLisible + CONFIG.ACCORDION_PANEL_ID + indexHeaderLisible), _defineProperty(_setAttributes2, DATA_HASH_ID, HASH_ID), _setAttributes2));
 
           // place button
-          header_node.innerHTML = "";
+          header_node.innerHTML = '';
           header_node.appendChild(accordionButton);
 
           // set title with attributes
@@ -7284,19 +7300,19 @@ __webpack_require__.r(__webpack_exports__);
 
           // set attributes to panels
           accordionPanel.classList.add(prefixClassName + CONFIG.ACCORDION_PANEL_STYLE);
-          setAttributes(accordionPanel, (_setAttributes3 = {}, _defineProperty(_setAttributes3, CONFIG.ATTR_ROLE, CONFIG.ACCORDION_ROLE_TABPANEL), _defineProperty(_setAttributes3, CONFIG.ATTR_LABELLEDBY, CONFIG.ACCORDION_PREFIX_IDS + iLisible + CONFIG.ACCORDION_BUTTON_ID + indexHeaderLisible), _defineProperty(_setAttributes3, "id", CONFIG.ACCORDION_PREFIX_IDS + iLisible + CONFIG.ACCORDION_PANEL_ID + indexHeaderLisible), _defineProperty(_setAttributes3, DATA_HASH_ID, HASH_ID), _setAttributes3));
-          if (accordionOpenedAttribute === "true") {
-            accordionButton.setAttribute(CONFIG.ATTR_EXPANDED, "true");
+          setAttributes(accordionPanel, (_setAttributes3 = {}, _defineProperty(_setAttributes3, CONFIG.ATTR_ROLE, CONFIG.ACCORDION_ROLE_TABPANEL), _defineProperty(_setAttributes3, CONFIG.ATTR_LABELLEDBY, CONFIG.ACCORDION_PREFIX_IDS + iLisible + CONFIG.ACCORDION_BUTTON_ID + indexHeaderLisible), _defineProperty(_setAttributes3, 'id', CONFIG.ACCORDION_PREFIX_IDS + iLisible + CONFIG.ACCORDION_PANEL_ID + indexHeaderLisible), _defineProperty(_setAttributes3, DATA_HASH_ID, HASH_ID), _setAttributes3));
+          if (accordionOpenedAttribute === 'true') {
+            accordionButton.setAttribute(CONFIG.ATTR_EXPANDED, 'true');
             header_node.removeAttribute(CONFIG.ACCORDION_DATA_OPENED);
-            accordionPanel.setAttribute(CONFIG.ATTR_HIDDEN, "false");
-            accordionPanel.querySelectorAll(".second-level-link").forEach(item => {
-              item.removeAttribute("tabindex");
+            accordionPanel.setAttribute(CONFIG.ATTR_HIDDEN, 'false');
+            accordionPanel.querySelectorAll('.second-level-link').forEach(item => {
+              item.removeAttribute('tabindex');
             });
           } else {
-            accordionButton.setAttribute(CONFIG.ATTR_EXPANDED, "false");
-            accordionPanel.setAttribute(CONFIG.ATTR_HIDDEN, "true");
+            accordionButton.setAttribute(CONFIG.ATTR_EXPANDED, 'false');
+            accordionPanel.setAttribute(CONFIG.ATTR_HIDDEN, 'true');
             // making sure all second level links are not tabable
-            accordionPanel.querySelectorAll(".second-level-link").forEach(( /** @type {HTMLElement} **/item) => {
+            accordionPanel.querySelectorAll('.second-level-link').forEach(( /** @type {HTMLElement} **/item) => {
               item.tabIndex = -1;
             });
           }
@@ -7309,25 +7325,25 @@ __webpack_require__.r(__webpack_exports__);
   };
   const main = function main() {
     /* listeners for all configs */
-    ["click", "keydown", "focus"].forEach(eventName => {
+    ['click', 'keydown', 'focus'].forEach(eventName => {
       document.body.addEventListener(eventName, e => {
         const hashId = searchParentHashId( /** @type {Element} */e.target, DATA_HASH_ID);
         // search if click on button or on element in a button contains data-hash-id (it is needed to load config and know which class to search)
 
-        if (hashId !== "") {
+        if (hashId !== '') {
           (() => {
             // loading config from element
             const CONFIG = pluginConfig.get(hashId);
 
             // click on button
-            if ( /** @type {Element} */e.target.classList.contains("first-level-btn") && eventName === "click") {
+            if ( /** @type {Element} */e.target.classList.contains('first-level-btn') && eventName === 'click') {
               (() => {
                 const buttonTag = /** @type {HTMLInputElement} */e.target;
                 const accordionContainer = findById(searchParent(buttonTag, CONFIG.ACCORDION_JS, hashId), hashId);
                 const coolSelectors = CONFIG.ACCORDION_DATA_COOL_SELECTORS === true;
 
                 /**@type {Element[]} */
-                let accordionAllHeaders = [].slice.call(accordionContainer.querySelectorAll(".first-level-btn"));
+                let accordionAllHeaders = [].slice.call(accordionContainer.querySelectorAll('.first-level-btn'));
                 const destination = findById(buttonTag.getAttribute(CONFIG.ATTR_CONTROLS), hashId);
                 const stateButton = buttonTag.getAttribute(CONFIG.ATTR_EXPANDED);
                 if (!coolSelectors) {
@@ -7335,18 +7351,18 @@ __webpack_require__.r(__webpack_exports__);
                 }
 
                 // if closed
-                if (stateButton === "false") {
-                  buttonTag.setAttribute(CONFIG.ATTR_EXPANDED, "true");
+                if (stateButton === 'false') {
+                  buttonTag.setAttribute(CONFIG.ATTR_EXPANDED, 'true');
                   destination.removeAttribute(CONFIG.ATTR_HIDDEN);
-                  destination.classList.add("open");
+                  destination.classList.add('open');
                   // making second level links tabbable if sub nav panel is opened
-                  destination.querySelectorAll(".second-level-link").forEach(item => item.removeAttribute("tabindex"));
+                  destination.querySelectorAll('.second-level-link').forEach(item => item.removeAttribute('tabindex'));
                 } else {
-                  buttonTag.setAttribute(CONFIG.ATTR_EXPANDED, "false");
-                  destination.setAttribute(CONFIG.ATTR_HIDDEN, "true");
-                  destination.classList.remove("open");
+                  buttonTag.setAttribute(CONFIG.ATTR_EXPANDED, 'false');
+                  destination.setAttribute(CONFIG.ATTR_HIDDEN, 'true');
+                  destination.classList.remove('open');
                   // adding tabindex to links to make sure they are not tabable if sub nav panel is closed
-                  destination.querySelectorAll(".second-level-link").forEach(( /** @type {HTMLElement} **/item) => item.tabIndex = -1);
+                  destination.querySelectorAll('.second-level-link').forEach(( /** @type {HTMLElement} **/item) => item.tabIndex = -1);
                 }
                 if (!mobileView()) {
                   accordionAllHeaders.forEach(header_node => {
@@ -7354,11 +7370,11 @@ __webpack_require__.r(__webpack_exports__);
 
                     const destinationPanel = findById(header_node.getAttribute(CONFIG.ATTR_CONTROLS), hashId);
                     if (header_node !== buttonTag) {
-                      header_node.setAttribute(CONFIG.ATTR_EXPANDED, "false");
-                      destinationPanel.classList.remove("open");
+                      header_node.setAttribute(CONFIG.ATTR_EXPANDED, 'false');
+                      destinationPanel.classList.remove('open');
 
                       //Added fix to make closed panels non-tabbable
-                      destinationPanel.querySelectorAll(".second-level-link").forEach(( /** @type {HTMLElement} **/item) => item.tabIndex = -1);
+                      destinationPanel.querySelectorAll('.second-level-link').forEach(( /** @type {HTMLElement} **/item) => item.tabIndex = -1);
                     }
                   });
                 }
@@ -7379,33 +7395,35 @@ __webpack_require__.r(__webpack_exports__);
   // reset navigation function
   const NavReset = () => {
     //RESET
-    document.querySelectorAll(".first-level-btn").forEach(el => el.ariaExpanded = "false"); //Must be false and not blank for CSS
+    document.querySelectorAll('.first-level-btn').forEach(el => el.ariaExpanded = 'false'); //Must be false and not blank for CSS
 
-    document.querySelectorAll(".sub-nav").forEach(el => {
-      el.ariaHidden = "true";
-      el.classList.remove("open");
+    document.querySelectorAll('.sub-nav').forEach(el => {
+      el.ariaHidden = 'true';
+      el.classList.remove('open');
     });
-    document.querySelectorAll(".second-level-link").forEach(( /**@type {HTMLElement} */el) => el.tabIndex = -1);
-    document.querySelectorAll(".rotate").forEach(( /**@type {HTMLElement} */el) => el.style.display = isDesktopWidth() ? "none" : "block");
+    document.querySelectorAll('.second-level-link').forEach(( /**@type {HTMLElement} */el) => el.tabIndex = -1);
+    document.querySelectorAll('.rotate').forEach(( /**@type {HTMLElement} */el) => el.style.display = isDesktopWidth() ? 'none' : 'block');
   };
 
   // Remove href if <a> has a link
-  window.addEventListener("load", () => {
+  window.addEventListener('load', () => {
     main()().attach(); //This is way more abstract than it needs to be
 
-    const navigationJS = document.querySelector(".main-navigation");
-    if (!navigationJS) return;
-    const subnavbtnJS = document.querySelectorAll(".main-navigation .nav-item a.has-sub-btn");
+    const navigationJS = document.querySelector('.main-navigation');
+    if (!navigationJS) {
+      return;
+    }
+    const subnavbtnJS = document.querySelectorAll('.main-navigation .nav-item a.has-sub-btn');
     subnavbtnJS.forEach(item => {
       // Change <a> tag to div since you can't place button into <a> tag
-      const newDiv = document.createElement("div");
+      const newDiv = document.createElement('div');
       newDiv.innerHTML = item.innerHTML;
-      newDiv.classList.add("has-sub-btn");
+      newDiv.classList.add('has-sub-btn');
       item.replaceWith(newDiv);
     });
-    const setActiveLinkByFolder = navigationJS.classList.contains("auto-highlight");
-    const navItemsJS = document.querySelectorAll(".main-navigation .nav-item");
-    const navItemsWithSubsJS = /** @type {Element[]} */[].slice.call(navItemsJS).filter(x => x.querySelector(".sub-nav"));
+    const setActiveLinkByFolder = navigationJS.classList.contains('auto-highlight');
+    const navItemsJS = document.querySelectorAll('.main-navigation .nav-item');
+    const navItemsWithSubsJS = /** @type {Element[]} */[].slice.call(navItemsJS).filter(x => x.querySelector('.sub-nav'));
 
     // HIGHLIGHT APPROPRIATE NAV ITEM
 
@@ -7414,30 +7432,30 @@ __webpack_require__.r(__webpack_exports__);
     //TODO: Why is this always blank?  History, we used to ask them to put a var like this in the root of their page to set default menu.
 
     //Globally set var
-    const reMainNav = typeof defaultActiveLink !== "undefined" ? new RegExp(`^${defaultActiveLink}$`, "i") : null; // Regex for finding the index of the default main list item
+    const reMainNav = typeof defaultActiveLink !== 'undefined' ? new RegExp(`^${defaultActiveLink}$`, 'i') : null; // Regex for finding the index of the default main list item
 
     navItemsJS.forEach(navItem => {
       /** @type {HTMLElement | null} */
-      const link = navItem.querySelector(".first-level-btn, .first-level-link");
+      const link = navItem.querySelector('.first-level-btn, .first-level-link');
       if (link) {
         if (reMainNav) {
           if (link.textContent && link.textContent.match(reMainNav)) {
-            navItem.classList.add("active");
+            navItem.classList.add('active');
           }
-        } else if (setActiveLinkByFolder && link.getAttribute("href")) {
-          const arrNavLink = link.getAttribute("href")?.split("/");
-          const arrCurrentURL = location.href.split("/");
+        } else if (setActiveLinkByFolder && link.getAttribute('href')) {
+          const arrNavLink = link.getAttribute('href')?.split('/');
+          const arrCurrentURL = location.href.split('/');
           if (arrNavLink && arrNavLink.length > 4 && arrCurrentURL[3] === arrNavLink[3]) {
             // folder of current URL matches this nav link
-            navItem.classList.add("active");
+            navItem.classList.add('active');
           }
         }
       }
     });
 
     // Reset if click outside of nav
-    document.addEventListener("mouseup", e => {
-      const navContainer = document.querySelector(".main-navigation");
+    document.addEventListener('mouseup', e => {
+      const navContainer = document.querySelector('.main-navigation');
 
       // if the target of the click isn't the navigation container nor a descendant of the navigation
       if (navContainer !== e.target && !navContainer?.contains( /**@type {Node} */e.target)) {
@@ -7447,24 +7465,26 @@ __webpack_require__.r(__webpack_exports__);
 
     // Nav items with subs
     navItemsWithSubsJS.forEach(el => {
-      const itemCount = el.querySelectorAll(".second-level-nav > li").length;
+      const itemCount = el.querySelectorAll('.second-level-nav > li').length;
       if (itemCount <= 2) {
-        const subnav = el.querySelector(".sub-nav");
-        if (subnav) subnav.classList.add("with-few-items");
+        const subnav = el.querySelector('.sub-nav');
+        if (subnav) {
+          subnav.classList.add('with-few-items');
+        }
       }
     });
 
     // Add class has-sub, then add carrots
-    if (!navigationJS.classList.contains("singleLevel")) {
-      document.querySelectorAll(".first-level-btn").forEach(el => {
-        el.classList.add("has-sub");
-        const carrot = document.createElement("span");
-        carrot.classList.add("ca-gov-icon-caret-down", "carrot");
-        carrot.ariaHidden = "true";
-        const toggleSubNav = document.createElement("div");
-        toggleSubNav.classList.add("ca-gov-icon-caret-right", "rotate");
-        toggleSubNav.ariaHidden = "true";
-        toggleSubNav.style.display = mobileView() ? "block" : "none";
+    if (!navigationJS.classList.contains('singleLevel')) {
+      document.querySelectorAll('.first-level-btn').forEach(el => {
+        el.classList.add('has-sub');
+        const carrot = document.createElement('span');
+        carrot.classList.add('ca-gov-icon-caret-down', 'carrot');
+        carrot.ariaHidden = 'true';
+        const toggleSubNav = document.createElement('div');
+        toggleSubNav.classList.add('ca-gov-icon-caret-right', 'rotate');
+        toggleSubNav.ariaHidden = 'true';
+        toggleSubNav.style.display = mobileView() ? 'block' : 'none';
         el.appendChild(toggleSubNav);
         el.appendChild(carrot);
       });
@@ -7473,10 +7493,10 @@ __webpack_require__.r(__webpack_exports__);
   });
 
   // Reset on escape
-  document.addEventListener("keyup", e => {
+  document.addEventListener('keyup', e => {
     // keyCode has been deprecated
     // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
-    if (e.key === "Escape") {
+    if (e.key === 'Escape') {
       NavReset();
     }
   });
@@ -7484,14 +7504,14 @@ __webpack_require__.r(__webpack_exports__);
   // Add bold to current subnav link
   const addActive = () => {
     /** @type {NodeListOf<HTMLAnchorElement>} */
-    const activeLink = document.querySelectorAll(".second-level-link"),
+    const activeLink = document.querySelectorAll('.second-level-link'),
       len = activeLink.length,
-      full_path = location.href.split("#")[0]; //Ignore hashes?
+      full_path = location.href.split('#')[0]; //Ignore hashes?
 
     // Loop through each link.
     for (let i = 0; i < len; i++) {
-      if (activeLink[i].href.split("#")[0] == full_path) {
-        activeLink[i].className += " bold";
+      if (activeLink[i].href.split('#')[0] === full_path) {
+        activeLink[i].className += ' bold';
       }
     }
   };
@@ -7520,14 +7540,14 @@ __webpack_require__.r(__webpack_exports__);
  * @typedef {HTMLElement & ScrollCounter_Properties} ScrollCounter
  */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   // You can change this class to specify which elements are going to behave as counters.
   /** @type {NodeListOf<ScrollCounter>} */
-  const elements = document.querySelectorAll(".scroll-counter");
+  const elements = document.querySelectorAll('.scroll-counter');
   elements.forEach(item => {
     // Add new attributes to the elements with the '.scroll-counter' HTML class
     item.counterAlreadyFired = false;
-    item.counterSpeed = Number(item.getAttribute("data-counter-time")) / 45;
+    item.counterSpeed = Number(item.getAttribute('data-counter-time')) / 45;
     item.counterTarget = +item.innerText;
     item.counterCount = 0;
     item.counterStep = item.counterTarget / item.counterSpeed;
@@ -7560,16 +7580,20 @@ document.addEventListener("DOMContentLoaded", () => {
   // Funciton that will get fired uppon scrolling
   const handleScroll = () => {
     elements.forEach(item => {
-      if (item.counterAlreadyFired) return;
-      if (!isElementVisible(item)) return;
+      if (item.counterAlreadyFired) {
+        return;
+      }
+      if (!isElementVisible(item)) {
+        return;
+      }
       item.updateCounter();
       item.counterAlreadyFired = true;
     });
   };
 
   // Fire the function on load and scroll
-  window.addEventListener("load", handleScroll);
-  window.addEventListener("scroll", handleScroll);
+  window.addEventListener('load', handleScroll);
+  window.addEventListener('scroll', handleScroll);
 });
 
 /***/ }),
@@ -7586,28 +7610,28 @@ __webpack_require__.r(__webpack_exports__);
 /* -----------------------------------------
    PAGE NAVIGATION - /source/js/cagov/page-navigation.js
 ----------------------------------------- */
-window.addEventListener("load", () => {
-  const headings = document.querySelectorAll("h2");
-  const h2heading = document.querySelector("h2");
-  const pagenav = document.querySelector(".page-navigation");
+window.addEventListener('load', () => {
+  const headings = document.querySelectorAll('h2');
+  const h2heading = document.querySelector('h2');
+  const pagenav = document.querySelector('.page-navigation');
   // check if page navigation is empty and page has h2 headings
   if (pagenav && pagenav.childNodes.length === 0 && h2heading) {
-    const pagenavUL = document.createElement("ul");
+    const pagenavUL = document.createElement('ul');
     headings.forEach(h2 => {
       // find each h2 and their innter text
       const innertext = h2.innerHTML;
 
       // add dashes for inner text for IDs
-      const innertextID = h2.innerHTML.replace(/\s+/g, "-");
+      const innertextID = h2.innerHTML.replace(/\s+/g, '-');
 
       // set ID for each h2 based on inner taxt
-      h2.setAttribute("id", innertextID);
+      h2.setAttribute('id', innertextID);
 
       // Create anchor links
       const anchorlinks = `<a href="#${innertextID}">${innertext}</a>`;
 
       // create li element
-      const listnav = document.createElement("li");
+      const listnav = document.createElement('li');
 
       // Add achor links into list item
       listnav.innerHTML = anchorlinks;
@@ -7618,9 +7642,9 @@ window.addEventListener("load", () => {
       // count number of h2 and add columns class to the ul if there are too many list items
       const h2number = headings.length;
       if (h2number > 8) {
-        pagenavUL.classList.add("columns-3");
+        pagenavUL.classList.add('columns-3');
       } else if (h2number > 5) {
-        pagenavUL.classList.add("columns-2");
+        pagenavUL.classList.add('columns-2');
       }
     });
 
@@ -7630,7 +7654,7 @@ window.addEventListener("load", () => {
 
     // add ul item to the nav and set aria labelledby
     pagenav.appendChild(pagenavUL);
-    pagenav.setAttribute("aria-labelledby", "on-this-page-navigation-label");
+    pagenav.setAttribute('aria-labelledby', 'on-this-page-navigation-label');
   }
 }); // call out the function on the page load
 
@@ -7648,7 +7672,7 @@ __webpack_require__.r(__webpack_exports__);
 /* -----------------------------------------
    PAGINATION - /src/js/cagov/pagination.js
 ----------------------------------------- */
-window.addEventListener("load", () => {
+window.addEventListener('load', () => {
   /**
    * @param {string} label
    * @param {number} number
@@ -7682,7 +7706,7 @@ window.addEventListener("load", () => {
    * @param {number} totalPages
    */
   function templateHTML(next, previous, page, currentPage, totalPages) {
-    const unbounded = totalPages == -1;
+    const unbounded = totalPages === -1;
     return `<nav aria-label="Pagination" class="cagov-pagination">
     <ul class="cagov-pagination__list">
       <li class="cagov-pagination__item">
@@ -7691,15 +7715,15 @@ window.addEventListener("load", () => {
           class="cagov-pagination__link cagov-pagination__previous-page"
           aria-label="previous page"
         >
-          <span class="cagov-pagination__link-text ${currentPage > 1 ? "" : "cagov-pagination__link-inactive"}"> ${previous} </span>
+          <span class="cagov-pagination__link-text ${currentPage > 1 ? '' : 'cagov-pagination__link-inactive'}"> ${previous} </span>
         </a>
       </li>
-      ${currentPage > 2 ? pageListItem(page, 1) : ""}
+      ${currentPage > 2 ? pageListItem(page, 1) : ''}
 
-      ${currentPage == 4 ? pageListItem(page, 2) : ""}
-      ${currentPage > 4 ? pageOverflow() : ""}
+      ${currentPage === 4 ? pageListItem(page, 2) : ''}
+      ${currentPage > 4 ? pageOverflow() : ''}
 
-      ${currentPage > 1 ? pageListItem(page, currentPage - 1) : ""}
+      ${currentPage > 1 ? pageListItem(page, currentPage - 1) : ''}
 
       <li class="cagov-pagination__item cagov-pagination-current">
         <a
@@ -7713,13 +7737,13 @@ window.addEventListener("load", () => {
         </a>
       </li>
 
-      ${unbounded || currentPage < totalPages ? pageListItem(page, currentPage + 1) : ""}
+      ${unbounded || currentPage < totalPages ? pageListItem(page, currentPage + 1) : ''}
 
-      ${!unbounded && currentPage < totalPages - 2 ? pageOverflow() : ""}
-      ${unbounded ? pageListItem(page, currentPage + 2) : ""}
+      ${!unbounded && currentPage < totalPages - 2 ? pageOverflow() : ''}
+      ${unbounded ? pageListItem(page, currentPage + 2) : ''}
 
-      ${currentPage < totalPages - 1 ? pageListItem(page, totalPages) : ""}
-      ${unbounded ? pageOverflow() : ""}
+      ${currentPage < totalPages - 1 ? pageListItem(page, totalPages) : ''}
+      ${unbounded ? pageOverflow() : ''}
 
       <li class="cagov-pagination__item">
         <a
@@ -7727,7 +7751,7 @@ window.addEventListener("load", () => {
           class="cagov-pagination__link cagov-pagination__next-page"
           aria-label="next page"
         >
-          <span class="cagov-pagination__link-text ${!unbounded && currentPage > totalPages - 1 ? "cagov-pagination__link-inactive" : ""}"> ${next} </span>
+          <span class="cagov-pagination__link-text ${!unbounded && currentPage > totalPages - 1 ? 'cagov-pagination__link-inactive' : ''}"> ${next} </span>
         </a>
       </li>
     </ul>
@@ -7784,82 +7808,82 @@ cagov-pagination .cagov-pagination__item:has(.cagov-pagination__link-inactive) {
    *
    * @fires paginationClick - custom event with object with detail value of current page: {detail: 1}
    *
-   * @attr {string} [data-yes] - "Yes";
-   * @attr {string} [data-no] - "No";
+   * @attr {string} [data-yes] - 'Yes';
+   * @attr {string} [data-no] - 'No';
    *
    * @cssprop --primary-700 - Default value of #165ac2, used for text, border color
    */
   class CAGovPagination extends HTMLElement {
     constructor() {
       super();
-      if (!document.querySelector("#cagov-pagination-styles")) {
-        const style = document.createElement("style");
-        style.id = "cagov-pagination-styles";
+      if (!document.querySelector('#cagov-pagination-styles')) {
+        const style = document.createElement('style');
+        style.id = 'cagov-pagination-styles';
         style.textContent = styles;
         document.head.appendChild(style);
       }
     }
     connectedCallback() {
-      this.currentPage = parseInt(this.dataset.currentPage ? this.dataset.currentPage : "1", 10);
+      this.currentPage = parseInt(this.dataset.currentPage ? this.dataset.currentPage : '1', 10);
       this.render();
     }
     render() {
       //console.log(this.dataset);
       const previous = this.dataset.previous ? this.dataset.previous : '<span class="ca-gov-icon-arrow-prev" aria-hidden="true"></span> Previous';
       const next = this.dataset.next ? this.dataset.next : 'Next <span class="ca-gov-icon-arrow-next" aria-hidden="true"></span>';
-      const page = this.dataset.page ? this.dataset.page : "Page";
+      const page = this.dataset.page ? this.dataset.page : 'Page';
       this.totalPages = this.dataset.totalPages ? Number(this.dataset.totalPages) : 1;
       if (this.totalPages < 0 || this.totalPages > 1) {
         const html = templateHTML(next, previous, page, this.currentPage, this.totalPages);
         this.innerHTML = html;
         this.applyListeners();
       } else {
-        this.innerHTML = "";
+        this.innerHTML = '';
       }
     }
     static get observedAttributes() {
-      return ["data-current-page", "data-total-pages"];
+      return ['data-current-page', 'data-total-pages'];
     }
     attributeChangedCallback(name, oldValue, newValue) {
-      if (name === "data-current-page") {
+      if (name === 'data-current-page') {
         this.currentPage = parseInt(newValue, 10);
         this.render();
       }
-      if (name === "data-total-pages") {
+      if (name === 'data-total-pages') {
         this.totalPages = parseInt(newValue, 10);
         this.render();
       }
     }
     applyListeners() {
-      const pageLinks = this.querySelectorAll(".cagov-pagination__button");
+      const pageLinks = this.querySelectorAll('.cagov-pagination__button');
       pageLinks.forEach(pl => {
-        pl.addEventListener("click", event => {
+        pl.addEventListener('click', event => {
           this.currentPage = parseInt( /** @type {CAGovPagination} */event.target.dataset.pageNum, 10);
-          this.dispatchEvent(new CustomEvent("paginationClick", {
+          this.dispatchEvent(new CustomEvent('paginationClick', {
             detail: this.currentPage
           }));
           this.dataset.currentPage = this.currentPage.toString();
         });
       });
-      this.querySelector(".cagov-pagination__previous-page").addEventListener("click", event => {
-        if (!( /** @type {Element} */event.target.classList.contains("cagov-pagination__link-inactive"))) {
+      this.querySelector('.cagov-pagination__previous-page').addEventListener('click', event => {
+        if (!( /** @type {Element} */event.target.classList.contains('cagov-pagination__link-inactive'))) {
           this.currentPage -= 1;
           if (this.currentPage < 1) {
             this.currentPage = 1;
           }
-          this.dispatchEvent(new CustomEvent("paginationClick", {
+          this.dispatchEvent(new CustomEvent('paginationClick', {
             detail: this.currentPage
           }));
           this.dataset.currentPage = this.currentPage.toString();
         }
       });
-      this.querySelector(".cagov-pagination__next-page").addEventListener("click", event => {
-        if (!( /** @type {Element} */event.target.classList.contains("cagov-pagination__link-inactive"))) {
+      this.querySelector('.cagov-pagination__next-page').addEventListener('click', event => {
+        if (!( /** @type {Element} */event.target.classList.contains('cagov-pagination__link-inactive'))) {
           this.currentPage += 1;
-          if (this.totalPages != -1 && this.currentPage > this.totalPages) {
+          if (this.totalPages !== -1 && this.currentPage > this.totalPages) {
             this.currentPage = this.totalPages;
           }
-          this.dispatchEvent(new CustomEvent("paginationClick", {
+          this.dispatchEvent(new CustomEvent('paginationClick', {
             detail: this.currentPage
           }));
           this.dataset.currentPage = this.currentPage.toString();
@@ -7867,7 +7891,7 @@ cagov-pagination .cagov-pagination__item:has(.cagov-pagination__link-inactive) {
       });
     }
   }
-  window.customElements.define("cagov-pagination", CAGovPagination);
+  window.customElements.define('cagov-pagination', CAGovPagination);
 });
 
 /***/ }),
@@ -7881,14 +7905,14 @@ cagov-pagination .cagov-pagination__item:has(.cagov-pagination__link-inactive) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 //@ts-check
-window.addEventListener("load", () => {
-  document.querySelectorAll(".return-top").forEach(returnTop => returnTop.addEventListener("click", () => {
+window.addEventListener('load', () => {
+  document.querySelectorAll('.return-top').forEach(returnTop => returnTop.addEventListener('click', () => {
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   }));
 
   // Back to top link in the global footer
-  document.querySelectorAll("a[href='#skip-to-content']").forEach(backToTop => backToTop.addEventListener("click", backToTopFunction));
+  document.querySelectorAll('a[href="#skip-to-content"]').forEach(backToTop => backToTop.addEventListener('click', backToTopFunction));
 
   /**
    * @param {Event} event
@@ -7903,37 +7927,41 @@ window.addEventListener("load", () => {
   // othervise keep it invisible
   let timer = 0;
   let lastScrollTop = 0;
-  window.addEventListener("scroll", () => {
-    const returnTopButton = document.querySelector(".return-top");
-    if (!returnTopButton) return;
+  window.addEventListener('scroll', () => {
+    const returnTopButton = document.querySelector('.return-top');
+    if (!returnTopButton) {
+      return;
+    }
     const st = window.pageYOffset || document.documentElement.scrollTop;
     if (st > lastScrollTop) {
       // downscroll code
-      returnTopButton.classList.remove("is-visible");
+      returnTopButton.classList.remove('is-visible');
     } else if (document.body.scrollTop >= 400 || document.documentElement.scrollTop >= 400) {
       // upscroll code
 
       if (timer) {
         window.clearTimeout(timer);
       }
-      returnTopButton.classList.add("is-visible");
+      returnTopButton.classList.add('is-visible');
       timer = window.setTimeout(() => {
-        returnTopButton.classList.remove("is-visible");
+        returnTopButton.classList.remove('is-visible');
       }, 2000); //Back to top removes itself after 2 sec of inactivity
     }
     // bottom of the page
     else {
-      returnTopButton.classList.remove("is-visible");
+      returnTopButton.classList.remove('is-visible');
     }
     lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
   }, false);
 
   // Hittin' rock bottom
-  window.addEventListener("scroll", () => {
-    const returnTopButton = document.querySelector(".return-top");
-    if (!returnTopButton) return;
+  window.addEventListener('scroll', () => {
+    const returnTopButton = document.querySelector('.return-top');
+    if (!returnTopButton) {
+      return;
+    }
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-      returnTopButton.classList.add("is-visible");
+      returnTopButton.classList.add('is-visible');
     }
   });
 });
@@ -7953,73 +7981,77 @@ __webpack_require__.r(__webpack_exports__);
    SEARCH - /source/js/cagov/search.js
 ----------------------------------------- */
 
-window.addEventListener("load", () => {
+window.addEventListener('load', () => {
   const setSearchContainerAriaHidden = () => {
     if (searchContainer) {
       if (featuredsearch) {
-        searchContainer.removeAttribute("aria-hidden");
-        document.querySelector("[name='q']")?.removeAttribute("tabindex");
-        document.querySelector(".gsc-search-button")?.removeAttribute("tabindex");
+        searchContainer.removeAttribute('aria-hidden');
+        document.querySelector('[name="q"]')?.removeAttribute('tabindex');
+        document.querySelector('.gsc-search-button')?.removeAttribute('tabindex');
       } else {
-        searchContainer.setAttribute("aria-hidden", "true");
+        searchContainer.setAttribute('aria-hidden', 'true');
       }
     }
   };
   const mobileControlVisible = () => {
-    const mobileElement = document.querySelector(".global-header .mobile-controls");
+    const mobileElement = document.querySelector('.global-header .mobile-controls');
     if (mobileElement) {
-      return getComputedStyle(mobileElement)["display"] !== "none";
+      return getComputedStyle(mobileElement).display !== 'none';
     } else {
       return false; // or whatever is supposed to be returned when there is no header
     }
   };
   const removeSearchResults = () => {
-    document.body.classList.remove("active-search");
-    if (searchText) searchText.value = "";
-    searchContainer?.classList.remove("active");
-    searchContainer?.setAttribute("aria-hidden", "true");
-    document.querySelector(".search-results-container")?.classList.remove("visible");
-    document.querySelectorAll(".ask-group").forEach(a => a.classList.remove("fade-out"));
+    document.body.classList.remove('active-search');
+    if (searchText) {
+      searchText.value = '';
+    }
+    searchContainer?.classList.remove('active');
+    searchContainer?.setAttribute('aria-hidden', 'true');
+    document.querySelector('.search-results-container')?.classList.remove('visible');
+    document.querySelectorAll('.ask-group').forEach(a => a.classList.remove('fade-out'));
     if (!featuredsearch) {
       // added aria expaned attr for accessibility
-      document.querySelector("button.first-level-link")?.setAttribute("aria-expanded", "false");
+      document.querySelector('button.first-level-link')?.setAttribute('aria-expanded', 'false');
       setSearchAttr();
     }
     // fire a scroll event to help update headers if need be
-    window.dispatchEvent(new CustomEvent("scroll"));
+    window.dispatchEvent(new CustomEvent('scroll'));
 
     //        document.dispatchEvent('cagov.searchresults.hide'); // ???
 
-    if (mobileControlVisible()) setSearchContainerAriaHidden();
+    if (mobileControlVisible()) {
+      setSearchContainerAriaHidden();
+    }
   };
 
   /** @type {HTMLInputElement | null} */
-  const searchText = document.querySelector(".search-textfield"); // search textfield, unique
-  const searchInput = document.querySelector("#head-search #Search .search-textfield"); // search textfield -- same as searchText ?
+  const searchText = document.querySelector('.search-textfield'); // search textfield, unique
+  const searchInput = document.querySelector('#head-search #Search .search-textfield'); // search textfield -- same as searchText ?
 
-  const searchSubmit = document.querySelector("#head-search #Search .gsc-search-button"); // search button, unique
+  const searchSubmit = document.querySelector('#head-search #Search .gsc-search-button'); // search button, unique
 
-  const searchReset = document.querySelector("#head-search #Search .close-search"); // hide search form on subpages, unique
+  const searchReset = document.querySelector('#head-search #Search .close-search'); // hide search form on subpages, unique
 
-  const searchContainer = document.querySelector("#head-search"); // contains the search form
-  const featuredsearch = searchContainer?.classList.contains("featured-search"); // only exists on the home page (featured search) layout, and /sample/navigation-full-width-utility.html
-  const searchactive = searchContainer?.classList.contains("active"); // "active" is applied on subpages when search form is visible
+  const searchContainer = document.querySelector('#head-search'); // contains the search form
+  const featuredsearch = searchContainer?.classList.contains('featured-search'); // only exists on the home page (featured search) layout, and /sample/navigation-full-width-utility.html
+  const searchactive = searchContainer?.classList.contains('active'); // 'active' is applied on subpages when search form is visible
 
-  const searchlabel = document.querySelector("#SearchInput"); // label for textfield
+  const searchlabel = document.querySelector('#SearchInput'); // label for textfield
 
   /** @type {HTMLElement | null} */
-  const searchbox = document.querySelector(".search-container:not(.featured-search)"); // only on subpages, unique, same as #head-search
+  const searchbox = document.querySelector('.search-container:not(.featured-search)'); // only on subpages, unique, same as #head-search
 
   // header, contains nav, search form, etc, unique
-  const headerHeight = /** @type {HTMLElement} */document.querySelector(".global-header")?.offsetHeight; // header height
+  const headerHeight = /** @type {HTMLElement} */document.querySelector('.global-header')?.offsetHeight; // header height
 
   /** @type {HTMLElement | null} */
-  const utility = document.querySelector(".utility-header"); // utility header, unique
+  const utility = document.querySelector('.utility-header'); // utility header, unique
   const utilityHeight = utility?.offsetHeight || 0;
   // utility header height
 
   /** @type {NodeListOf<HTMLElement>} */
-  const alertBanner = document.querySelectorAll(".alert-banner"); // page can have multiple
+  const alertBanner = document.querySelectorAll('.alert-banner'); // page can have multiple
 
   let alertbannerHeight = 0;
   // taking into account multiple alert banners
@@ -8027,31 +8059,31 @@ window.addEventListener("load", () => {
     alertbannerHeight += oneBanner.offsetHeight;
   });
 
-  //const fullnav = document.querySelector(".top-level-nav"); // navigation ul tag, unique
+  //const fullnav = document.querySelector('.top-level-nav'); // navigation ul tag, unique
 
   // contains navigation and search form, unique
   // Full width navigation
-  const navigationHeight = document.querySelector(".navigation-search")?.classList.contains("full-width-nav") ? 82 : 0;
+  const navigationHeight = document.querySelector('.navigation-search')?.classList.contains('full-width-nav') ? 82 : 0;
   if (searchText && searchContainer) {
     // Unfreeze search width when blured.
     const unfreezeSearchWidth = () => {
-      searchContainer.classList.remove("focus");
-      document.querySelector(".search-container")?.classList.add("focus"); // search-container is unique
+      searchContainer.classList.remove('focus');
+      document.querySelector('.search-container')?.classList.add('focus'); // search-container is unique
     };
-    searchText.addEventListener("blur", unfreezeSearchWidth, false);
-    searchText.addEventListener("focus", unfreezeSearchWidth, false);
+    searchText.addEventListener('blur', unfreezeSearchWidth, false);
+    searchText.addEventListener('focus', unfreezeSearchWidth, false);
     const chgHandler = function () {
       if (this.value) {
-        document.body.classList.add("active-search");
+        document.body.classList.add('active-search');
       }
     };
-    searchText.addEventListener("change", chgHandler, false);
-    searchText.addEventListener("keyup", chgHandler, false);
-    searchText.addEventListener("paste", chgHandler, false);
+    searchText.addEventListener('change', chgHandler, false);
+    searchText.addEventListener('keyup', chgHandler, false);
+    searchText.addEventListener('paste', chgHandler, false);
   }
   if (!featuredsearch) {
     // added aria expaned attr for accessibility
-    document.querySelector("button.first-level-link")?.setAttribute("aria-expanded", "false");
+    document.querySelector('button.first-level-link')?.setAttribute('aria-expanded', 'false');
   }
 
   //  search box top position
@@ -8066,73 +8098,75 @@ window.addEventListener("load", () => {
 
   // have the close button remove search results and the applied classes
   //resultsContainer.find('.close').on('click', removeSearchResults);
-  document.querySelector(".search-results-container .close")?.addEventListener("click", removeSearchResults, false);
+  document.querySelector('.search-results-container .close')?.addEventListener('click', removeSearchResults, false);
 
   //searchContainer.find('.close').on('click', removeSearchResults);
-  document.querySelector("#head-search .close")?.addEventListener("click", removeSearchResults, false);
+  document.querySelector('#head-search .close')?.addEventListener('click', removeSearchResults, false);
 
   // Our special nav icon which we need to hook into for starting the search
   // $('#nav-item-search')
 
   // so instead we are binding to what I'm assuming will always be the search
-  const searchButton = document.querySelector("#nav-item-search");
+  const searchButton = document.querySelector('#nav-item-search');
   if (searchButton && searchText) {
-    searchButton.addEventListener("click", function (e) {
+    searchButton.addEventListener('click', function (e) {
       e.preventDefault();
       searchText.focus();
-      //".search-container:not(.featured-search)"
+      //'.search-container:not(.featured-search)'
       if (!featuredsearch && searchbox) {
-        searchbox.classList.toggle("active");
+        searchbox.classList.toggle('active');
       }
 
       // hide Search form if it's not active
       if (searchactive) {
         // added aria expanded attr for accessibility
-        this.querySelector("button")?.setAttribute("aria-expanded", "true");
+        this.querySelector('button')?.setAttribute('aria-expanded', 'true');
         removeSearchAttr();
       } else {
         // added aria expaned attr for accessibility
-        this.querySelector("button")?.setAttribute("aria-expanded", "false");
+        this.querySelector('button')?.setAttribute('aria-expanded', 'false');
         setSearchAttr();
       }
-      if (featuredsearch) removeSearchAttr();
+      if (featuredsearch) {
+        removeSearchAttr();
+      }
 
       // let the user know the input box is where they should search
       if (searchContainer) {
-        searchContainer.classList.add("play-animation");
-        searchContainer.addEventListener("animationend", () => {
-          this.classList.remove("play-animation");
+        searchContainer.classList.add('play-animation');
+        searchContainer.addEventListener('animationend', () => {
+          this.classList.remove('play-animation');
         });
       }
     }, false);
   }
 
   // Close search when close icon is clicked
-  searchReset?.addEventListener("click", removeSearchResults);
+  searchReset?.addEventListener('click', removeSearchResults);
   const removeSearchAttr = () => {
-    searchInput?.removeAttribute("tabindex");
-    searchInput?.removeAttribute("aria-hidden");
-    searchSubmit?.removeAttribute("tabindex");
-    searchSubmit?.removeAttribute("aria-hidden");
-    searchReset?.removeAttribute("tabindex");
-    searchReset?.removeAttribute("aria-hidden");
-    searchlabel?.removeAttribute("aria-hidden");
-    searchContainer?.removeAttribute("aria-hidden");
+    searchInput?.removeAttribute('tabindex');
+    searchInput?.removeAttribute('aria-hidden');
+    searchSubmit?.removeAttribute('tabindex');
+    searchSubmit?.removeAttribute('aria-hidden');
+    searchReset?.removeAttribute('tabindex');
+    searchReset?.removeAttribute('aria-hidden');
+    searchlabel?.removeAttribute('aria-hidden');
+    searchContainer?.removeAttribute('aria-hidden');
   };
   const setSearchAttr = () => {
-    searchInput?.setAttribute("tabindex", "-1");
-    searchInput?.setAttribute("aria-hidden", "true");
-    searchSubmit?.setAttribute("tabindex", "-1");
-    searchSubmit?.setAttribute("aria-hidden", "true");
-    searchReset?.setAttribute("tabindex", "-1");
-    searchReset?.setAttribute("aria-hidden", "true");
-    searchlabel?.setAttribute("aria-hidden", "true");
-    searchContainer?.setAttribute("aria-hidden", "true");
+    searchInput?.setAttribute('tabindex', '-1');
+    searchInput?.setAttribute('aria-hidden', 'true');
+    searchSubmit?.setAttribute('tabindex', '-1');
+    searchSubmit?.setAttribute('aria-hidden', 'true');
+    searchReset?.setAttribute('tabindex', '-1');
+    searchReset?.setAttribute('aria-hidden', 'true');
+    searchlabel?.setAttribute('aria-hidden', 'true');
+    searchContainer?.setAttribute('aria-hidden', 'true');
   };
 
   // Make Search form tabable if it's featured
   if (searchContainer) {
-    if (searchContainer.classList.contains("featured-search")) {
+    if (searchContainer.classList.contains('featured-search')) {
       removeSearchAttr();
     } else {
       setSearchAttr();
@@ -8147,30 +8181,30 @@ window.addEventListener("load", () => {
   };
 
   // on alert close event
-  document.querySelectorAll(".alert-banner .close").forEach(oneClose => {
-    oneClose.addEventListener("click", setSearchTop);
+  document.querySelectorAll('.alert-banner .close').forEach(oneClose => {
+    oneClose.addEventListener('click', setSearchTop);
   });
 
   // Calculation search box top property on the scroll for the fixed nav
-  window.addEventListener("scroll", () => {
+  window.addEventListener('scroll', () => {
     if (!mobileControlVisible()) {
       // setting timeout before calculating the search box top property otherwise it can take into account transitional values.
       setTimeout(setSearchTop, 400);
 
       // remove featured search on scroll in desktop
-      const FeaturedSearch = document.querySelector("nav ~ #head-search");
+      const FeaturedSearch = document.querySelector('nav ~ #head-search');
       if (FeaturedSearch) {
         if (document.body.scrollTop >= 100 || document.documentElement.scrollTop >= 100) {
-          FeaturedSearch.classList.add("hidden-up");
+          FeaturedSearch.classList.add('hidden-up');
         } else {
-          FeaturedSearch.classList.remove("hidden-up");
+          FeaturedSearch.classList.remove('hidden-up');
         }
       }
     }
   });
 
   //  search box top position if browser window is resized
-  window.addEventListener("resize", () => {
+  window.addEventListener('resize', () => {
     setSearchTop();
     setSearchContainerAriaHidden();
   });
@@ -8195,19 +8229,23 @@ __webpack_require__.r(__webpack_exports__);
  SIDE NAVIGATION - /source/js/cagov/side-navigation.js
 ----------------------------------------- */
 
-window.addEventListener("load", () => {
-  const siteHeader = document.querySelector("header");
-  const sidenavigation = document.querySelector(".side-navigation");
-  if (!sidenavigation || !siteHeader) return;
-  const allSidenavLinks = sidenavigation.querySelectorAll(".side-navigation a");
-  const mainContentSideNavCont = sidenavigation.closest("div");
-  sidenavigation.setAttribute("id", "side-navigation");
-  const topposition = localStorage.getItem("sidebar-scroll");
-  const mobileCntls = document.querySelector(".global-header .mobile-controls");
-  if (!mobileCntls) return;
+window.addEventListener('load', () => {
+  const siteHeader = document.querySelector('header');
+  const sidenavigation = document.querySelector('.side-navigation');
+  if (!sidenavigation || !siteHeader) {
+    return;
+  }
+  const allSidenavLinks = sidenavigation.querySelectorAll('.side-navigation a');
+  const mainContentSideNavCont = sidenavigation.closest('div');
+  sidenavigation.setAttribute('id', 'side-navigation');
+  const topposition = localStorage.getItem('sidebar-scroll');
+  const mobileCntls = document.querySelector('.global-header .mobile-controls');
+  if (!mobileCntls) {
+    return;
+  }
   let mobileControlsDisplay = window.getComputedStyle(mobileCntls).display; // Side nav height vs viewport
   const siteHeaderHeight = siteHeader ? siteHeader.clientHeight : 0;
-  const mobileView$3 = () => getComputedStyle(mobileCntls)["display"] !== "none";
+  const mobileView$3 = () => getComputedStyle(mobileCntls).display !== 'none';
   let timeout = 0;
   const delay = 250; // delay between calls
   /** @type {HTMLElement} */
@@ -8215,41 +8253,41 @@ window.addEventListener("load", () => {
   const createMobileSideNavButton = () => {
     // get first side nav element
     /** @type {HTMLAnchorElement | null} */
-    const sidenavTItle = document.querySelector(".side-navigation a, .sidenav");
+    const sidenavTItle = document.querySelector('.side-navigation a, .sidenav');
     if (sidenavTItle) {
       // get text for the button for first side nav element
       let btnText = sidenavTItle.innerText;
-      const btnTextSpan = sidenavTItle.querySelector("span")?.innerText || ""; // removing the sr-only span and it's content
-      btnText = btnText.replace(btnTextSpan, "").trim();
+      const btnTextSpan = sidenavTItle.querySelector('span')?.innerText || ''; // removing the sr-only span and it's content
+      btnText = btnText.replace(btnTextSpan, '').trim();
       // create button container
-      const sidenavMobile = document.createElement("aside");
-      sidenavMobile.setAttribute("class", "sidenav-mobile-btn");
-      const sidenavMobileCont = document.createElement("div");
-      sidenavMobileCont.setAttribute("class", "container");
+      const sidenavMobile = document.createElement('aside');
+      sidenavMobile.setAttribute('class', 'sidenav-mobile-btn');
+      const sidenavMobileCont = document.createElement('div');
+      sidenavMobileCont.setAttribute('class', 'container');
       sidenavMobile.append(sidenavMobileCont);
       // create button
-      sidenavToggleBtn = document.createElement("button");
-      sidenavToggleBtn.setAttribute("class", "sidenav-toggle");
-      sidenavToggleBtn.setAttribute("aria-expanded", "false");
-      sidenavToggleBtn.setAttribute("aria-controls", "side-navigation");
+      sidenavToggleBtn = document.createElement('button');
+      sidenavToggleBtn.setAttribute('class', 'sidenav-toggle');
+      sidenavToggleBtn.setAttribute('aria-expanded', 'false');
+      sidenavToggleBtn.setAttribute('aria-controls', 'side-navigation');
       sidenavToggleBtn.innerText = btnText;
       // create icon
-      const arrowIcon = document.createElement("span");
-      arrowIcon.setAttribute("aria-hidden", "true");
-      arrowIcon.setAttribute("class", "ca-gov-icon-caret-down");
+      const arrowIcon = document.createElement('span');
+      arrowIcon.setAttribute('aria-hidden', 'true');
+      arrowIcon.setAttribute('class', 'ca-gov-icon-caret-down');
       sidenavToggleBtn.append(arrowIcon);
       // append button into the header
       sidenavMobileCont.append(sidenavToggleBtn);
       siteHeader.after(sidenavMobile);
       // add click event
-      sidenavToggleBtn.addEventListener("click", toggleSideNav);
+      sidenavToggleBtn.addEventListener('click', toggleSideNav);
     }
   };
   const createmobileSideNavDiv = () => {
-    mobileSideNavDiv = document.createElement("aside");
-    mobileSideNavDiv.setAttribute("class", "mobile-sidenav");
-    mobileSideNavCont = document.createElement("div");
-    mobileSideNavCont.setAttribute("class", "container");
+    mobileSideNavDiv = document.createElement('aside');
+    mobileSideNavDiv.setAttribute('class', 'mobile-sidenav');
+    mobileSideNavCont = document.createElement('div');
+    mobileSideNavCont.setAttribute('class', 'container');
     mobileSideNavDiv.append(mobileSideNavCont);
     siteHeader.after(mobileSideNavDiv);
   };
@@ -8259,40 +8297,41 @@ window.addEventListener("load", () => {
     if (mobileSideNavCont) {
       mobileSideNavCont.append(sidenavigation);
     }
-    sidenavigation.setAttribute("aria-hidden", "true");
+    sidenavigation.setAttribute('aria-hidden', 'true');
     allSidenavLinks?.forEach(el => {
-      el.setAttribute("tabindex", "-1");
+      el.setAttribute('tabindex', '-1');
     });
   };
 
   // DESKTOP Side nav
   const moveSideNavToMainContent = () => {
-    if (sidenavigation === mainContentSideNavCont) return; //Prevents an error if sidenav is not set up correctly
-
+    if (sidenavigation === mainContentSideNavCont) {
+      return; //Prevents an error if sidenav is not set up correctly
+    }
     mainContentSideNavCont?.append(sidenavigation);
-    sidenavigation.removeAttribute("aria-hidden");
+    sidenavigation.removeAttribute('aria-hidden');
     allSidenavLinks?.forEach(el => {
-      el.removeAttribute("tabindex");
+      el.removeAttribute('tabindex');
     });
   };
 
   // Mobile Side Nav Button click function
   const toggleSideNav = () => {
-    mobileSideNavDiv.classList.toggle("visible");
+    mobileSideNavDiv.classList.toggle('visible');
     // Open
-    if (mobileSideNavDiv.classList.contains("visible")) {
-      sidenavigation.removeAttribute("aria-hidden");
-      sidenavToggleBtn.setAttribute("aria-expanded", "true");
+    if (mobileSideNavDiv.classList.contains('visible')) {
+      sidenavigation.removeAttribute('aria-hidden');
+      sidenavToggleBtn.setAttribute('aria-expanded', 'true');
       allSidenavLinks?.forEach(el => {
-        el.removeAttribute("tabindex");
+        el.removeAttribute('tabindex');
       });
 
       // Closed
     } else {
-      sidenavToggleBtn.setAttribute("aria-expanded", "false");
-      sidenavigation.setAttribute("aria-hidden", "true");
+      sidenavToggleBtn.setAttribute('aria-expanded', 'false');
+      sidenavigation.setAttribute('aria-hidden', 'true');
       allSidenavLinks?.forEach(el => {
-        el.setAttribute("tabindex", "-1");
+        el.setAttribute('tabindex', '-1');
       });
     }
   };
@@ -8300,33 +8339,37 @@ window.addEventListener("load", () => {
   // Set active class on nav-heading links
   function addActiveClass() {
     /** @type {NodeListOf<HTMLAnchorElement>} */
-    const active_link = document.querySelectorAll("a.nav-heading"),
+    const active_link = document.querySelectorAll('a.nav-heading'),
       len = active_link.length,
-      full_path = location.href.split("#")[0]; //Ignore hashes? // Loop through each link.
-    for (let i = 0; i < len; i++) if (active_link[i].href.split("#")[0] == full_path) active_link[i].className += " active";
+      full_path = location.href.split('#')[0]; //Ignore hashes? // Loop through each link.
+    for (let i = 0; i < len; i++) {
+      if (active_link[i].href.split('#')[0] === full_path) {
+        active_link[i].className += ' active';
+      }
+    }
   }
   const sidenavOverflow = () => {
     if (!mobileView$3()) {
       const viewportheight = document.documentElement.clientHeight;
       const viewportMinusHeader = viewportheight - siteHeaderHeight - 100;
-      if (viewportMinusHeader <= (document.querySelector(".side-navigation")?.clientHeight || 0)) {
-        sidenavigation.classList.add("overflow-auto"); // sidenavigation.setAttribute("style", "max-height:" + viewportMinusHeader + "px")
+      if (viewportMinusHeader <= (document.querySelector('.side-navigation')?.clientHeight || 0)) {
+        sidenavigation.classList.add('overflow-auto'); // sidenavigation.setAttribute('style', 'max-height:' + viewportMinusHeader + 'px')
       } else {
-        sidenavigation.classList.remove("overflow-auto");
-        sidenavigation.removeAttribute("style");
+        sidenavigation.classList.remove('overflow-auto');
+        sidenavigation.removeAttribute('style');
       }
-      if ([...sidenavigation.classList].includes("overflow-auto")) {
-        sidenavigation.setAttribute("style", `max-height:${viewportMinusHeader}px`);
+      if ([...sidenavigation.classList].includes('overflow-auto')) {
+        sidenavigation.setAttribute('style', `max-height:${viewportMinusHeader}px`);
       }
     } else {
-      sidenavigation.classList.remove("overflow-auto");
-      sidenavigation.removeAttribute("style");
+      sidenavigation.classList.remove('overflow-auto');
+      sidenavigation.removeAttribute('style');
     } // Remebemering scrolling position
     if (topposition !== null) {
       sidenavigation.scrollTop = parseInt(topposition, 10);
     }
-    window.addEventListener("beforeunload", () => {
-      localStorage.setItem("sidebar-scroll", sidenavigation.scrollTop.toString());
+    window.addEventListener('beforeunload', () => {
+      localStorage.setItem('sidebar-scroll', sidenavigation.scrollTop.toString());
     });
   };
 
@@ -8334,16 +8377,16 @@ window.addEventListener("load", () => {
   addActiveClass();
   createmobileSideNavDiv();
   createMobileSideNavButton();
-  if (mobileControlsDisplay == "block") {
+  if (mobileControlsDisplay === 'block') {
     moveSideNavToHeader();
   }
   // on resize
-  window.addEventListener("resize", () => {
+  window.addEventListener('resize', () => {
     mobileControlsDisplay = getComputedStyle(mobileCntls).display; // clear the timeout
 
-    window.clearTimeout(timeout); // start timing for event "completion"
+    window.clearTimeout(timeout); // start timing for event 'completion'
     timeout = window.setTimeout(sidenavOverflow, delay); // if mobile
-    if (mobileControlsDisplay == "block") {
+    if (mobileControlsDisplay === 'block') {
       moveSideNavToHeader(); // if desctop
     } else {
       moveSideNavToMainContent();
@@ -8371,20 +8414,20 @@ __webpack_require__.r(__webpack_exports__);
 // Displaying HTML Source code in HTML Page
 (() => {
   const entityMap = {
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;",
-    "/": "&#x2F;"
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    '\'': '&#39;',
+    '/': '&#x2F;'
   };
   const escapeHtml = ( /** @type {string} */string) => string.replace(/[&<>"'/]/g, s => entityMap[s]);
   function copyCode( /** @type {Element} */btnElem) {
     const codeblock = btnElem.previousElementSibling;
     if (codeblock) {
       // copy the text
-      if (codeblock.tagName.toLowerCase() == "pre") {
-        const code = codeblock.querySelector("code")?.innerText;
+      if (codeblock.tagName.toLowerCase() === 'pre') {
+        const code = codeblock.querySelector('code')?.innerText;
         if (code) {
           navigator.clipboard.writeText(code);
         }
@@ -8398,28 +8441,29 @@ __webpack_require__.r(__webpack_exports__);
       window.getSelection()?.removeAllRanges();
       window.getSelection()?.addRange(range);
       // replace the button icon
-      //btnElem.querySelector("span").classList.remove("ca-gov-icon-copy");
-      //btnElem.querySelector("span").classList.add("ca-gov-icon-check-mark");
+      //btnElem.querySelector('span').classList.remove('ca-gov-icon-copy');
+      //btnElem.querySelector('span').classList.add('ca-gov-icon-check-mark');
       btnElem.innerHTML = '<span class="ca-gov-icon-check-mark"></span> Code copied';
     }
   }
-  window.addEventListener("load", () => {
-    const codeblock = document.querySelectorAll("pre code, textarea.sourcecode");
+  window.addEventListener('load', () => {
+    const codeblock = document.querySelectorAll('pre code, textarea.sourcecode');
+    const clickEvent = function () {
+      copyCode( /** @type {HTMLElement} */this);
+    };
     for (let i = 0, len = codeblock.length; i < len; i++) {
       const dom = codeblock[i];
-      if (dom.tagName.toLowerCase() == "code") {
+      if (dom.tagName.toLowerCase() === 'code') {
         let html = dom.innerHTML;
         html = escapeHtml(html);
         dom.innerHTML = html;
       }
       // Create a 'copy code' button, insert it after the <pre> tag
-      const newDiv = document.createElement("button");
-      newDiv.onclick = function () {
-        copyCode( /** @type {HTMLElement} */this);
-      };
-      newDiv.classList.add("btn", "btn-outline-primary");
-      newDiv.innerHTML = "<span class='ca-gov-icon-copy'></span> Copy code";
-      if (dom.tagName.toLowerCase() == "code") {
+      const newDiv = document.createElement('button');
+      newDiv.onclick = clickEvent;
+      newDiv.classList.add('btn', 'btn-outline-primary');
+      newDiv.innerHTML = '<span class="ca-gov-icon-copy"></span> Copy code';
+      if (dom.tagName.toLowerCase() === 'code') {
         dom.parentElement?.after(newDiv);
       } else {
         dom.after(newDiv);
@@ -8444,13 +8488,15 @@ __webpack_require__.r(__webpack_exports__);
    TABS -- custom accessible tabs
 ----------------------------------------- */
 
-window.addEventListener("load", () => {
+window.addEventListener('load', () => {
   // Get relevant elements and collections
-  const allTabs = document.querySelectorAll(".tabs");
+  const allTabs = document.querySelectorAll('.tabs');
   allTabs.forEach(tabbed => {
-    const tablist = tabbed.querySelector("ul");
-    if (!tablist) return;
-    const tabs = tablist.querySelectorAll("a");
+    const tablist = tabbed.querySelector('ul');
+    if (!tablist) {
+      return;
+    }
+    const tabs = tablist.querySelectorAll('a');
     /** @type {NodeListOf<HTMLElement>} */
     const panels = tabbed.querySelectorAll('[id^="section"]');
 
@@ -8463,11 +8509,11 @@ window.addEventListener("load", () => {
     const switchTab = (oldTab, newTab) => {
       newTab.focus();
       // Make the active tab focusable by the user (Tab key)
-      newTab.removeAttribute("tabindex");
+      newTab.removeAttribute('tabindex');
       // Set the selected state
-      newTab.setAttribute("aria-selected", "true");
-      oldTab.removeAttribute("aria-selected");
-      oldTab.setAttribute("tabindex", "-1");
+      newTab.setAttribute('aria-selected', 'true');
+      oldTab.removeAttribute('aria-selected');
+      oldTab.setAttribute('tabindex', '-1');
       // Get the indices of the new and old tabs to find the correct
       // tab panels to show and hide
       const index = Array.prototype.indexOf.call(tabs, newTab);
@@ -8477,52 +8523,52 @@ window.addEventListener("load", () => {
     };
 
     // Add the tablist role to the first <ul> in the .tabbed container
-    tablist.setAttribute("role", "tablist");
+    tablist.setAttribute('role', 'tablist');
 
     // Add semantics are remove user focusability for each tab
 
     tabs.forEach((tab, i) => {
-      tab.setAttribute("role", "tab");
-      tab.setAttribute("tabindex", "-1");
+      tab.setAttribute('role', 'tab');
+      tab.setAttribute('tabindex', '-1');
       /** @type {Element} */
-      tab.parentNode.setAttribute("role", "presentation");
+      tab.parentNode.setAttribute('role', 'presentation');
 
       // Handle clicking of tabs for mouse users
-      tab.addEventListener("click", e => {
+      tab.addEventListener('click', e => {
         e.preventDefault();
-        const currentTab = tablist.querySelector("[aria-selected]");
+        const currentTab = tablist.querySelector('[aria-selected]');
         if (currentTab && e.currentTarget !== currentTab) {
           switchTab(currentTab, /** @type {HTMLElement} */e.currentTarget);
         }
       });
 
       // Handle keydown events for keyboard users
-      tab.addEventListener("keydown", e => {
+      tab.addEventListener('keydown', e => {
         // Get the index of the current tab in the tabs node list
         const index = Array.prototype.indexOf.call(tabs, e.currentTarget);
         // Work out which key the user is pressing and
         // Calculate the new tab's index where appropriate
-        const dir = ["ArrowLeft", "Left"].includes(e.key) ? index - 1 : ["ArrowRight", "Right"].includes(e.key) ? index + 1 : ["ArrowDown", "Down"].includes(e.key) ? "down" : null;
+        const dir = ['ArrowLeft', 'Left'].includes(e.key) ? index - 1 : ['ArrowRight', 'Right'].includes(e.key) ? index + 1 : ['ArrowDown', 'Down'].includes(e.key) ? 'down' : null;
         if (dir !== null) {
           e.preventDefault();
           // If the down key is pressed, move focus to the open panel,
           // otherwise switch to the adjacent tab
-          dir === "down" ? panels[i].focus() : tabs[dir] ? switchTab( /** @type {Element} */e.currentTarget, tabs[dir]) : void 0;
+          dir === 'down' ? panels[i].focus() : tabs[dir] ? switchTab( /** @type {Element} */e.currentTarget, tabs[dir]) : void 0;
         }
       });
     });
 
     // Add tab panel semantics and hide them all
     panels.forEach((panel, i) => {
-      panel.setAttribute("role", "tabpanel");
-      panel.setAttribute("tabindex", "-1");
-      panel.setAttribute("aria-label", tabs[i].innerText);
+      panel.setAttribute('role', 'tabpanel');
+      panel.setAttribute('tabindex', '-1');
+      panel.setAttribute('aria-label', tabs[i].innerText);
       panel.hidden = true;
     });
 
     // Initially activate the first tab and reveal the first tab panel
-    tabs[0].removeAttribute("tabindex");
-    tabs[0].setAttribute("aria-selected", "true");
+    tabs[0].removeAttribute('tabindex');
+    tabs[0].setAttribute('aria-selected', 'true');
     panels[0].hidden = false;
   });
 });
