@@ -3,6 +3,7 @@
 /**
  * External dependencies
  */
+import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
 import deepmerge from 'deepmerge';
@@ -42,6 +43,7 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
 
     let defaultOptions = {
       title: path.basename( appPath ),
+      favicon: fs.existsSync(path.join(currentPath, 'sample', 'favicon.ico')) ? path.join(currentPath, 'sample', 'favicon.ico') : false,
       inject: 'body',
       template: path.join( currentPath, 'sample', 'default.html'),
       scriptLoading: 'blocking',
@@ -74,7 +76,6 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
 
   apply(compiler) {
     super.apply(compiler);
-    console.log( compiler.options );
   }
 } // end of class
   

@@ -1,5 +1,5 @@
 //@ts-check
-window.addEventListener("load", () => {
+window.addEventListener('load', () => {
   const w = window;
   const doc = document;
 

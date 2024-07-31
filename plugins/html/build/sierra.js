@@ -6333,7 +6333,7 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 //@ts-check
-window.addEventListener("load", () => {
+window.addEventListener('load', () => {
   const w = window;
   const doc = document;
 

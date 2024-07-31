@@ -7,6 +7,9 @@ import {HtmlWebpackSkipAssetsPlugin} from 'html-webpack-skip-assets-plugin';
  * Internal dependencies
  */
 import CAWebHTMLPlugin from '../index.js';
+import JSHintPlugin from '@caweb/jshint-webpack-plugin';
+import CSSAuditPlugin from '@caweb/css-audit-webpack-plugin';
+import A11yPlugin from '@caweb/a11y-webpack-plugin';
 
 export default {
   plugins: [
@@ -21,6 +24,11 @@ export default {
         /jshint.*/, // we skip the JSHint Files
       ]
     }),
-    new HtmlWebpackSkipAssetsPlugin()
+    new HtmlWebpackSkipAssetsPlugin(),
+    new JSHintPlugin(),
+    new CSSAuditPlugin({
+      selectors: false
+    }),
+    new A11yPlugin()
   ]
 };
