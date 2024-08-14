@@ -22,6 +22,7 @@ export default {
         /css-audit.*/, // we skip the CSSAudit Files
         /a11y.*/, // we skip the A11y Files
         /jshint.*/, // we skip the JSHint Files
+        /font-only.js/, // we skip the font-only Files
       ]
     }),
     new HtmlWebpackSkipAssetsPlugin(),

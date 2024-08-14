@@ -1,3 +1,8 @@
+v1.3.1
+- Updated icon font library
+- Moved icon font out of components directory
+- Updated entrypoints to generate font-only sheet
+
 v1.3.0
 - Remediated State Template 6.3.2 source files
 
