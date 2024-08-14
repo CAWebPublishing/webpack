@@ -9,6 +9,7 @@ const currentPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '
 
 export default {
     entry: {
+        'font-only': path.join(currentPath, 'src', 'styles', 'font-only.css'),
         sacramento: [
             path.join(currentPath, '/src/styles/colorschemes/sacramento.scss'),
 			path.join(currentPath, '/src/styles/index.scss'),
