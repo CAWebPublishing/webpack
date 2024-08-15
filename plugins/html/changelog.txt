@@ -1,5 +1,6 @@
 v1.3.2
 - Removed extra year from footer sample
+- Added new font json script file
 - Updated npm packages
 
 v1.3.1
