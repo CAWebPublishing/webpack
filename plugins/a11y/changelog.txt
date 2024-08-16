@@ -1,3 +1,6 @@
+v1.0.7
+- Updated Readme
+
 v1.0.6
 - Fixed issue with hot module replacement not loading
 
