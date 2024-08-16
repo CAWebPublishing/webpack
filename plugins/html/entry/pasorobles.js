@@ -9,6 +9,7 @@ const currentPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '
 
 export default {
     entry: {
+        'font-only': path.join(currentPath, 'src', 'styles', 'font-only.css'),
         pasorobles: [
             path.join(currentPath, '/src/styles/colorschemes/pasorobles.scss'),
 			path.join(currentPath, '/src/styles/index.scss'),
