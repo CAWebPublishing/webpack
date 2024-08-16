@@ -9,7 +9,9 @@ import { fileURLToPath } from 'url';
 
 const currentPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-let entry = {};
+let entry = {
+    'font-only': path.join(currentPath, 'src', 'styles', 'font-only.css')
+};
 
 // create the entry directory
 fs.mkdirSync('entry', {recursive: true});
@@ -38,6 +40,7 @@ const currentPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '
 
 export default {
     entry: {
+        'font-only': path.join(currentPath, 'src', 'styles', 'font-only.css'),
         ${scheme}: [
             path.join(currentPath, ${correctFiles.join('),\n' + `\t`.repeat(3) + 'path.join(currentPath, ')})
         ]
