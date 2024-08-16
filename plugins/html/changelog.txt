@@ -1,3 +1,6 @@
+v1.3.3
+- Updated Readme
+
 v1.3.2
 - Removed extra year from footer sample
 - Added new font json script file
