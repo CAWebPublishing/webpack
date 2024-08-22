@@ -1,0 +1,25 @@
+// scss-docs-start colors-map
+$colors: () !default;
+
+$colors: map-merge(
+    $colors,
+    (
+        "main": $main, // main
+        "alt": $alt, // alternate
+        "highlight": $highlight, // highlight
+        "standout": $standout, // standout
+        "standout-light": tint($standout, 20%), // standout-light
+    )
+);
+// scss-docs-end colors-map
+
+// scss-docs-start breakpoint-map
+$grid-breakpoints: (
+  xs: 0,
+  sm: $breakpoint-sm,
+  md: $breakpoint-md,
+  lg: $breakpoint-lg,
+  xl: $breakpoint-xl,
+  xxl: $breakpoint-xxl
+);
+// scss-docs-end breakpoint-map

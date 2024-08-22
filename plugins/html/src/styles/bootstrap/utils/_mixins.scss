@@ -1,0 +1,15 @@
+@use "sass:selector";
+
+// adds variables
+@mixin include-variables($child, $map) {
+    @at-root #{selector.unify(&, $child)} {
+        @each $key, $val in $map {
+                --bs-#{$key}: #{$val};
+        }
+      @content;
+    }
+}
+
+@mixin outline($size) {
+    outline: $outline-default-style $size $outline-default-color !important;
+}

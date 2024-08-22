@@ -1,0 +1,31 @@
+<html lang="en">
+  <head>
+    <title>{{ title }}</title>
+    {{#if scheme }}
+    <!-- Icon Font Library -->
+    <link rel="stylesheet" href="node_modules/@caweb/html-webpack-plugin/build/font-only.css" />
+
+    <!-- Template Scheme CSS -->
+    <link rel="stylesheet" href="node_modules/@caweb/html-webpack-plugin/build/{{ scheme }}.css" />
+    {{/if}}
+  </head>
+  <body>
+      {{> header }}
+      <div id="page-container" class="page-container" style="height:1000px;">
+          <div id="main-content" class="main-content" tabindex="-1">
+            <main class="main-primary">
+              <div class="container">
+                <h3> Components</h3>
+                {{> './components/accordion.html' }}
+                {{> './components/blockquotes.html' }}
+              </div>
+            </main>
+          </div>
+      </div>
+      {{> footer }}
+      
+      {{#if scheme }}
+      <script src="node_modules/@caweb/html-webpack-plugin/build/{{ scheme }}.js"></script>
+      {{/if}}
+  </body>
+</html>

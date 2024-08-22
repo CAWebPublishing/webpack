@@ -259,27 +259,6 @@
   border: 0;
 }
 
-@mixin container {
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 1rem;
-
-  @media (min-width: $screen-xs-min) {
-    max-width: $breakpoint-xm;
-  }
-
-  @media (min-width: $screen-sm-min) {
-    max-width: $breakpoint-sm;
-  }
-
-  @media (min-width: $screen-md-min) {
-    max-width: $breakpoint-md;
-  }
-
-  @media (min-width: $screen-lg-min) {
-    max-width: $breakpoint-lg;
-  }
-}
 
 @mixin text-muted {
   color: $text-muted;
@@ -1047,9 +1026,6 @@
   text-decoration: underline;
 }
 
-@mixin outline($size) {
-  outline: $outline-default-style $size $outline-default-color !important;
-}
 
 @mixin image-thumbnail(
   $bg: $thumbnail-bg,

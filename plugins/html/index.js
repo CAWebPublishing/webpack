@@ -39,7 +39,7 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
 
   // we change some of the html-webpack-plugin defaults
   constructor(opts = {}) {
-    let templates = ['blank', 'default'];
+    let templates = ['blank', 'default', 'test'];
 
     let defaultOptions = {
       title: path.basename( appPath ),
@@ -69,7 +69,6 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
       opts.template = path.join( currentPath, 'sample', `${opts.template}.html`);
     }
 
-    // console.log(deepmerge(defaultOptions, opts))
     super(deepmerge(defaultOptions, opts));
 
   }

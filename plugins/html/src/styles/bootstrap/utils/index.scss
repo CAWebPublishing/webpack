@@ -1,0 +1,10 @@
+@import '../variables';
+@import './functions';
+@import './mixins';
+@import './maps';
+
+
+:root {
+    @include include-variables("*", $colors);
+}
+  

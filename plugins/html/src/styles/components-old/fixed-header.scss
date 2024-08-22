@@ -43,19 +43,6 @@
   }
 }
 
-.global-header.fixed {
-  transition: all 0.3s ease;
-  position: sticky;
-  top: 0;
-  width: 100%;
-  z-index: 3;
-
-  @media (min-width: $screen-md-min) {
-    z-index: 7;
-    position: sticky;
-  }
-}
-
 .is-hidden,
 .scrolled {
   top: -40px !important;

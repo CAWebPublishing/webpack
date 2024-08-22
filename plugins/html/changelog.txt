@@ -1,3 +1,5 @@
+v1.3.4
+- Added new test template and sample files
 v1.3.3
 - Updated Readme
 

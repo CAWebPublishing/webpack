@@ -14,6 +14,7 @@ import A11yPlugin from '@caweb/a11y-webpack-plugin';
 export default {
   plugins: [
     new CAWebHTMLPlugin({
+      template: 'test', // we use the test page for testing
       templateParameters: {
         scheme: false // we use the entrypoints for testing
       },
