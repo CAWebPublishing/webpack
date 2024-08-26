@@ -11,8 +11,7 @@ export default {
     entry: {
         'font-only': path.join(currentPath, 'src', 'styles', 'font-only.css'),
         shasta: [
-            path.join(currentPath, '/src/styles/index.scss'),
-			path.join(currentPath, '/src/styles/colorschemes/shasta.scss'),
+            path.join(currentPath, '/src/styles/colorschemes/shasta.scss'),
 			path.join(currentPath, '/src/scripts/index.js')
         ]
     }

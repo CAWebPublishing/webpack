@@ -1,0 +1,115 @@
+/* -----------------------------------------
+   CARDS - /src/styles/components/cards.scss
+----------------------------------------- */
+/*
+    Cards and Panels function the same way and utilize all the same classes
+*/
+.card{
+    margin-bottom: $spacer * 1.5;
+
+    .card-header{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        
+        .card-title{
+            font-size: 1.25rem;
+            font-weight: normal;
+
+            > [class*="ca-gov-icon-"]{
+                vertical-align: middle;
+                margin-right: .5rem;
+            }
+        }
+
+        .options{
+            margin-left: auto;
+
+            .btn{
+                border-color: var(--bs-border-color-translucent, $border-color);
+                background-color: var(--bs-gray-75, $gray-75);
+
+                &:hover,
+                &:focus{
+                    background-color: var(--bs-gray-100, $gray-100);
+                }
+            }
+        }
+    }
+
+
+    // Standout
+    &.card-standout{
+        &.highlight{
+            // Add triangle to center of header
+            .card-header:before{
+                content: "";
+                display: block;
+                width: 0;
+                height: 0;
+                position: absolute;
+                border-left: 12px solid transparent;
+                border-right: 12px solid transparent;
+                border-top: 12px solid var(--bs-standout, $standout);
+                bottom: 65px;
+                left: 50%;
+            }
+        }
+
+        .card-header{
+            color: var(--bs-white, $white);
+            background-color: var(--bs-standout, $standout);
+
+            .options{
+                .btn{
+                    background-color: var(--bs-standout-dark, $standout);
+    
+                    &:hover,
+                    &:focus{
+                        background-color: var(--bs-standout-darker, $standout);
+                    }
+                }
+            }
+        }
+    }
+
+    // overstated
+    &.card-overstated{
+        
+        .card-header{
+            color: var(--bs-white, $white);
+            background-color: var(--bs-main, $main);
+
+            .options{
+                .btn{
+                    color: var(--bs-white, $white);
+                    background-color: var(--bs-main-dark, $main);
+
+                    &:hover,
+                    &:focus{
+                        background-color: var(--bs-main-darker, $main);
+                    }
+                }
+            }
+        }
+    }
+    // understated
+    &.card-understated{
+        .card-header{
+            color: inherit;
+            background-color: var(--bs-alt, $alt);
+
+            .options{
+                .btn{
+                    color: inherit;
+                    background-color: var(--bs-alt-dark, $alt);
+
+                    &:hover,
+                    &:focus{
+                        background-color: var(--bs-alt-darker, $alt);
+                    }
+                }
+            }
+        }
+    }
+}

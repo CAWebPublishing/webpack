@@ -1,5 +1,9 @@
-v1.3.4
+v1.4.0
 - Added new test template and sample files
+- Template source files have been completely redone
+- Added Animate.css https://animate.style/
+- Updated npm packages
+
 v1.3.3
 - Updated Readme
 

@@ -1,23 +1,74 @@
 <html lang="en">
   <head>
     <title>{{ title }}</title>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans" rel="stylesheet">
+        
     {{#if scheme }}
-    <!-- Icon Font Library -->
-    <link rel="stylesheet" href="node_modules/@caweb/html-webpack-plugin/build/font-only.css" />
+      <!-- Icon Font Library -->
+      <link rel="stylesheet" href="node_modules/@caweb/html-webpack-plugin/build/font-only.css" />
 
-    <!-- Template Scheme CSS -->
-    <link rel="stylesheet" href="node_modules/@caweb/html-webpack-plugin/build/{{ scheme }}.css" />
+      <!-- Template Scheme CSS -->
+      <link rel="stylesheet" href="node_modules/@caweb/html-webpack-plugin/build/{{ scheme }}.css" />
     {{/if}}
   </head>
   <body>
       {{> header }}
-      <div id="page-container" class="page-container" style="height:1000px;">
+      <div id="page-container" class="page-container">
           <div id="main-content" class="main-content" tabindex="-1">
             <main class="main-primary">
               <div class="container">
                 <h3> Components</h3>
+
+                <h4>Accordion</h4>
                 {{> './components/accordion.html' }}
+
+                <h4>Alerts</h4>
+                {{> './components/alerts.html' }}
+
+
+                <h4>Blockquote</h4>
                 {{> './components/blockquotes.html' }}
+
+                <h2>Buttons</h2>
+                {{> './components/buttons.html' }}
+
+                <h2>Cards</h2>
+                {{> './components/cards.html' }}
+                
+                <h2 class="align-sub">Typography</h2>
+                {{> './components/typography.html' }}
+                
+                <h4>Lists</h4>
+                {{> './components/lists.html' }}
+                
+                <h4>Profile Banners</h4>
+                {{> './components/profile-banners.html' }}
+
+                <h4>Locations</h4>
+                {{> './components/locations.html' }}
+
+                <h4>Service Tiles</h4>
+                {{> './components/service-tiles.html' }}
+
+                <div class="section bg-main">
+                  <div class="col-4 pe-3 animate__animated  animate__fadeInLeft float-start">
+                    <img decoding="async" src="http://danny.com/wp-content/uploads/2024/08/istockphoto-517188688-612x612-1.jpg" class="mw-100 w-100 h-auto d-inline-block" alt="">
+                  </div>
+                  <div class="px-3 clearfix">
+                    <h2>asdfasdfas</h2>
+                    <p>adfadffasdfassdffasdff</p>
+                    <div>
+                      <a href="http://afadfa" class="btn btn-outline-dark" target="_blank">More Information<span class="sr-only">More information about asdfasdfas</span></a>
+                    </div>
+                  </div>
+                </div>
+
+                <footer class="keywords">Categories<ul><li>All</li><li>Content Types</li><li>Courses</li></ul></footer>
+                <div class="animate__animated animate__bounce">
+                  <span class="ca-gov-icon-logo fs-1"></span>
+                </div>
+                <aside class="featured-narrative">adadfsadfasdfasda</aside>
               </div>
             </main>
           </div>

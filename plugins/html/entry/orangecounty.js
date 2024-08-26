@@ -11,8 +11,7 @@ export default {
     entry: {
         'font-only': path.join(currentPath, 'src', 'styles', 'font-only.css'),
         orangecounty: [
-            path.join(currentPath, '/src/styles/index.scss'),
-			path.join(currentPath, '/src/styles/colorschemes/orangecounty.scss'),
+            path.join(currentPath, '/src/styles/colorschemes/orangecounty.scss'),
 			path.join(currentPath, '/src/scripts/index.js')
         ]
     }

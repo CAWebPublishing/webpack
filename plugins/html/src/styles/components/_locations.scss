@@ -1,0 +1,64 @@
+.location{
+    display: flex;
+
+    & > [class*="ca-gov-icon-"]:first-child{
+        font-size: 3.5rem;
+        margin-right: $spacer;
+        color: var(--bs-gray-300, $gray-300);
+    }
+
+    & .contact{
+        margin: $spacer;
+        margin-left: 0;
+            
+        p{
+            margin-bottom: 0;
+        }
+
+        a:not(.btn) {
+            display: block;
+        }
+    }
+
+    &.contact{
+        .btn {
+            margin-top: $spacer;
+        }
+    }
+
+    &.mini{
+        & > [class*="ca-gov-icon-"]:first-child{
+            background-color: var(--bs-black, $black);
+
+            @include social-media(false);
+        }
+    }
+
+    &.banner{
+        background-color: var(--bs-gray-75, $gray-75);
+
+        .thumbnail{
+            width: 225px;
+            height: 100%;
+            margin: $spacer;
+        }
+
+        .contact .address{
+            display: flex;
+        }
+
+        .summary{
+            margin: $spacer;
+            width: 100%;
+
+            .description{
+                padding-bottom: $spacer * .5;
+            }
+            
+            .btn {
+                background-color: var(--bs-white, $white);
+                float: right;
+            }
+        }
+    }
+}

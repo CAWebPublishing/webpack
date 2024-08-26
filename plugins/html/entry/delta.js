@@ -11,8 +11,7 @@ export default {
     entry: {
         'font-only': path.join(currentPath, 'src', 'styles', 'font-only.css'),
         delta: [
-            path.join(currentPath, '/src/styles/index.scss'),
-			path.join(currentPath, '/src/styles/colorschemes/delta.scss'),
+            path.join(currentPath, '/src/styles/colorschemes/delta.scss'),
 			path.join(currentPath, '/src/scripts/index.js')
         ]
     }

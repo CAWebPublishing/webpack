@@ -12,20 +12,23 @@
 @import "bootstrap/scss/functions";
 
 // 2. Include any default variable overrides here
-//@import "./variables";
+@import "./variables";
+@import "./utils/mixins";
 
-// 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
+// 3. Include Bootstrap variables, maps, mixins
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/variables-dark";
-
-// 4. Include any additional utilites here
-@import "./utils";
-
-// 5. Include remainder of required parts
 @import "bootstrap/scss/maps";
 @import "bootstrap/scss/mixins";
+
+// 4. Include any additional maps or utilites
+@import "./utils/maps";
+
+// 5. Include remainder of required parts
 @import "bootstrap/scss/utilities";
- 
+
+@import "./utils/utilities";
+
 // Layout & components
 @import "bootstrap/scss/root";
 @import "bootstrap/scss/reboot";

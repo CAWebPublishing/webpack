@@ -6324,6 +6324,47 @@
 
 /***/ }),
 
+/***/ "./src/scripts/components/external-link.js":
+/*!*************************************************!*\
+  !*** ./src/scripts/components/external-link.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//@ts-check
+
+/* EXTERNAL LINK ICON */
+window.addEventListener('load', () => {
+  const ext = '<span class="ca-gov-icon-external-link" aria-hidden="true"></span>';
+
+  // Check if link is external function
+  /**
+   * @param {HTMLAnchorElement} linkElement
+   */
+  function linkIsExternal(linkElement) {
+    return window.location.host.indexOf(linkElement.host) > -1;
+  }
+
+  // Add any exceptions to not render here
+  const cssExceptions = `:not(code *):not(.cagov-logo)`;
+
+  // Looping thru all links inside of the main content body footer links
+  /** @type {NodeListOf<HTMLAnchorElement>} */
+  const externalLink = document.querySelectorAll(`main a${cssExceptions}, .footer-links a${cssExceptions}`);
+  externalLink.forEach(element => {
+    const anchorLink = element.href.indexOf('#') === 0;
+    const localHost = element.href.indexOf('localhost') > -1;
+    const localEmail = element.href.indexOf('@') > -1;
+    const linkElement = element;
+    if (linkIsExternal(linkElement) === false && !anchorLink && !localEmail && !localHost) {
+      linkElement.innerHTML += ext; // += concatenates to external links
+    }
+  });
+});
+
+/***/ }),
+
 /***/ "./src/scripts/components/mobile-controls.js":
 /*!***************************************************!*\
   !*** ./src/scripts/components/mobile-controls.js ***!
@@ -6395,6 +6436,65 @@ window.addEventListener('load', () => {
   mobileCheck();
 });
 
+/***/ }),
+
+/***/ "./src/scripts/components/return-top.js":
+/*!**********************************************!*\
+  !*** ./src/scripts/components/return-top.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//@ts-check
+window.addEventListener('load', () => {
+  document.querySelectorAll('.return-top').forEach(returnTop => returnTop.addEventListener('click', () => {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  }));
+
+  // If an use scrolls down the page for more than 400px activate back to top button
+  // othervise keep it invisible
+  let timer = 0;
+  let lastScrollTop = 0;
+  const returnTopButton = document.querySelector('.return-top');
+  window.addEventListener('scroll', () => {
+    if (!returnTopButton) {
+      return;
+    }
+    const st = document.documentElement.scrollTop;
+    if (st > lastScrollTop) {
+      // downscroll code
+      returnTopButton.classList.remove('visible');
+    } else if (document.body.scrollTop >= 400 || document.documentElement.scrollTop >= 400) {
+      // upscroll code
+
+      if (timer) {
+        window.clearTimeout(timer);
+      }
+      returnTopButton.classList.add('visible');
+      timer = window.setTimeout(() => {
+        returnTopButton.classList.remove('visible');
+      }, 2000); //Back to top removes itself after 2 sec of inactivity
+    }
+    // bottom of the page
+    else {
+      returnTopButton.classList.remove('visible');
+    }
+    lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+  }, false);
+
+  // Hittin' rock bottom
+  window.addEventListener('scroll', () => {
+    if (!returnTopButton) {
+      return;
+    }
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+      //returnTopButton.classList.add('visible');
+    }
+  });
+});
+
 /***/ })
 
 /******/ 	});
@@ -6441,18 +6541,6 @@ var __webpack_exports__ = {};
 (() => {
 "use strict";
 var __webpack_exports__ = {};
-/*!*******************************!*\
-  !*** ./src/styles/index.scss ***!
-  \*******************************/
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-})();
-
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
-(() => {
-"use strict";
-var __webpack_exports__ = {};
 /*!*********************************************!*\
   !*** ./src/styles/colorschemes/eureka.scss ***!
   \*********************************************/
@@ -6470,6 +6558,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var bootstrap_dist_js_bootstrap_bundle_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap/dist/js/bootstrap.bundle.js */ "./node_modules/bootstrap/dist/js/bootstrap.bundle.js");
 /* harmony import */ var _components_mobile_controls_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/mobile-controls.js */ "./src/scripts/components/mobile-controls.js");
+/* harmony import */ var _components_return_top_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/return-top.js */ "./src/scripts/components/return-top.js");
+/* harmony import */ var _components_external_link_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/external-link.js */ "./src/scripts/components/external-link.js");
+
+
 
 
 
@@ -6482,9 +6574,7 @@ import './components/search.js';
 import './components/sourcecode.js';
 import './components/tabs.js';
 import './components/number-counter.js';
-import './components/return-top.js';
 import './components/side-navigation.js';
-import './components/external-link.js';
 import './components/page-navigation.js';
 import './components/pagination.js';
 */

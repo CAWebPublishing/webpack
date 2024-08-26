@@ -13,3 +13,19 @@
 @mixin outline($size) {
     outline: $outline-default-style $size $outline-default-color !important;
 }
+
+@mixin social-media($hover: true){
+    @each $social, $color in $social-media-colors{
+        &.ca-gov-icon-#{$social},
+        &.ca-gov-icon-share-#{$social}{
+            color: $color;
+  
+            @if( $hover ){
+                &:hover,
+                &:focus {
+                  color: darken($color, 10%);
+                }
+            }
+        }
+    }
+}

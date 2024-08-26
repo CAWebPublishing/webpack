@@ -2,11 +2,11 @@
    OCEANSIDE
 ----------------------------------------- */
 
-// scss-docs-start color-variables
+// scss-docs-start custom-color-variables
 $main: #046b99 !default;
 $alt: #eef8fb !default;
 $highlight: #fdb81e !default;
 $standout: #323a45 !default;
-// scss-docs-end color-variables
+// scss-docs-end custom-color-variables
 
-@import '../bootstrap/utils/';
+@import '../';
