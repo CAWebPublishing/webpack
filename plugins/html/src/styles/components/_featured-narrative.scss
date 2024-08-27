@@ -1,0 +1,11 @@
+/* -----------------------------------------
+   Featured Narrative
+   /src/styles/components/featured-narrative.scss
+----------------------------------------- */
+.featured-narrative{
+    padding: .25rem .5rem;
+    margin: .25rem;
+    border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+    border-left: 0;
+    border-right: 0;
+}
