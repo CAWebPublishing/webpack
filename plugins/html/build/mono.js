@@ -6324,6 +6324,37 @@
 
 /***/ }),
 
+/***/ "./src/scripts/components/dark-mode.js":
+/*!*********************************************!*\
+  !*** ./src/scripts/components/dark-mode.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+document.addEventListener('DOMContentLoaded', () => {
+  //const button = document.querySelector( '.button__theme-toggle' );
+
+  /*button.addEventListener('click', () => {
+      const isDarkMode = document.body.classList.contains( 'is-dark-mode' );
+  if ( isDarkMode ) {
+  button.setAttribute( 'aria-pressed', 'false' );
+  document.body.classList.remove( 'is-dark-mode' );
+  } else {
+  button.setAttribute( 'aria-pressed', 'true' );
+  document.body.classList.add( 'is-dark-mode' );
+  }
+  })*/
+
+  // Set is-dark-mode class if user has requested dark mode.
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.documentElement.setAttribute('data-bs-theme', 'dark');
+    //button.setAttribute( 'aria-pressed', 'true' );
+  }
+});
+
+/***/ }),
+
 /***/ "./src/scripts/components/external-link.js":
 /*!*************************************************!*\
   !*** ./src/scripts/components/external-link.js ***!
@@ -6380,7 +6411,6 @@ window.addEventListener('load', () => {
   const searchContainer = mainHeader ? mainHeader.querySelector('.search-container') : null;
   const mainNav = mainHeader ? mainHeader.querySelector('.navigation') : null;
   const mainNavUl = mainNav ? mainNav.querySelector('.nav') : null;
-  const toggleMenuButton = mainHeader ? mainHeader.querySelector('.mobile-control.ca-gov-icon-menu') : null;
   const toggleMenuCloseButton = mainHeader ? mainHeader.querySelector('.mobile-control.ca-gov-icon-close-mark') : null;
   const mobileCheck = () => {
     if (isDesktopWidth()) {
@@ -6423,10 +6453,10 @@ window.addEventListener('load', () => {
     }
   });
   if (mainNav) {
-    mainNav.addEventListener('shown.bs.collapse', e => {
+    mainNav.addEventListener('shown.bs.collapse', () => {
       mainHeader?.classList.add('overlay');
     });
-    mainNav.addEventListener('hide.bs.collapse', e => {
+    mainNav.addEventListener('hide.bs.collapse', () => {
       mainHeader?.classList.remove('overlay');
     });
   }
@@ -6541,6 +6571,18 @@ var __webpack_exports__ = {};
 (() => {
 "use strict";
 var __webpack_exports__ = {};
+/*!**********************************!*\
+  !*** ./src/styles/font-only.css ***!
+  \**********************************/
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+})();
+
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+var __webpack_exports__ = {};
 /*!*******************************************!*\
   !*** ./src/styles/colorschemes/mono.scss ***!
   \*******************************************/
@@ -6560,6 +6602,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_mobile_controls_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/mobile-controls.js */ "./src/scripts/components/mobile-controls.js");
 /* harmony import */ var _components_return_top_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/return-top.js */ "./src/scripts/components/return-top.js");
 /* harmony import */ var _components_external_link_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/external-link.js */ "./src/scripts/components/external-link.js");
+/* harmony import */ var _components_dark_mode_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/dark-mode.js */ "./src/scripts/components/dark-mode.js");
+
 
 
 

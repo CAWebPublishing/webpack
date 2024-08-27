@@ -93,6 +93,11 @@ $grid-breakpoints: (
 ) !default;
 // scss-docs-end breakpoint-map
 
+// Responsive Font Ratio (for responsive typography (body))
+// scss-docs-start ratio-variables
+$ratio: 0.1vw;
+// scss-docs-end ratio-variables
+
 // scss-docs-start font-variables
 // Public Sans requires <link href="https://fonts.googleapis.com/css2?family=Public+Sans" rel="stylesheet"> in the head section
 $font-family-sans-serif: "Public Sans", system-ui, -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", "Noto Sans", sans-serif; // Public Sans was added
@@ -126,3 +131,4 @@ $outline-default-color: #2ea3f2 !default;
 // scss-docs-start card-variables
 $card-title-spacer-y:  0 !default;
 // scss-docs-end card-variables
+

@@ -1,12 +1,22 @@
 /*! State Web Template Version 6.3.2 ( Revamped ) */
 
 // -------------------------------------------------
+// Google Fonts
+// -------------------------------------------------
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans');
+
+// -------------------------------------------------
 // BOOTSTRAP CORE
 // -------------------------------------------------
 @import "./bootstrap";
 
-@import "components/globals";
+// -------------------------------------------------
+// Bootstrap Forced CSS
+// @link https://www.npmjs.com/package/bootstrap-forced-colors-css
+// -------------------------------------------------
+@import 'bootstrap-forced-colors-css/scss/bootstrap-forced-colors';
 
+@import "components/globals";
 @import "components/alerts";
 @import "components/branding";
 @import "components/footers";

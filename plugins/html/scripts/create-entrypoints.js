@@ -25,6 +25,7 @@ let heading = `/**
 fs.readdirSync(path.join(currentPath, 'src', 'styles', 'colorschemes')).forEach((c) => {
     let scheme = c.substring(0, c.indexOf('.')).replace(' ', '');
     let files = [
+        path.join(currentPath, 'src', 'styles', 'font-only.css'),
         path.join(currentPath, 'src', 'styles', 'colorschemes', c),
         path.join(currentPath, 'src', 'scripts', 'index.js')
       ]

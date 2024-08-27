@@ -7,26 +7,31 @@
 header{
 
     .alert{
+        
         border-radius: 0;
         margin-bottom: 0;
         padding: .5rem 0;
+        
+    }    
+}
 
-        .container{
-            display: flex;
-            flex-direction: row;
-            align-items: center;
+.alert{
+            
+    .container{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
 
-            .alert-level{
-                font-weight: bold;
-                margin: 0 5px;
-            }
-
-            button[data-bs-dismiss="alert"]{
-                position: relative;
-                margin-left: auto;
-                padding: 0.25rem 0.25rem;
-            }
+        .alert-level{
+            font-weight: bold;
+            margin: 0 5px;
         }
 
-    }    
+
+        button[data-bs-dismiss="alert"]{
+            position: relative;
+            margin-left: auto;
+            padding: 0.05rem;
+        }
+    }
 }

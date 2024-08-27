@@ -14,6 +14,7 @@ footer.global-footer{
          &:hover,
          &:focus{
             color: var(--bs-gray-800, $gray-800);
+            @include outline(2px);
          }
    
          &[class*="ca-gov-icon-"]{

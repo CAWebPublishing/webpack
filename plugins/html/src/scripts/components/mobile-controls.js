@@ -7,7 +7,6 @@ window.addEventListener('load', () => {
   const mainNav = mainHeader ? mainHeader.querySelector('.navigation') : null;
 
   const mainNavUl = mainNav ? mainNav.querySelector('.nav') : null;
-  const toggleMenuButton = mainHeader ? mainHeader.querySelector('.mobile-control.ca-gov-icon-menu') : null;
   const toggleMenuCloseButton = mainHeader ? mainHeader.querySelector('.mobile-control.ca-gov-icon-close-mark') : null;
 
   const mobileCheck = () => { 
@@ -19,7 +18,7 @@ window.addEventListener('load', () => {
           mainNav.classList.add('show');
         }
         if( searchContainer && mainHeader ){
-          mainHeader.querySelector('.header-organization-banner')?.after(searchContainer)
+          mainHeader.querySelector('.header-organization-banner')?.after(searchContainer);
         }
       }else{
         if( mainNavUl ){
@@ -29,7 +28,7 @@ window.addEventListener('load', () => {
           mainNav.classList.remove('show');
         }
         if( searchContainer && mainHeader ){
-          mainHeader.querySelector('.mobile-controlled.overlay')?.append(searchContainer)
+          mainHeader.querySelector('.mobile-controlled.overlay')?.append(searchContainer);
         }
 
       }
@@ -41,24 +40,24 @@ window.addEventListener('load', () => {
 
   mainHeader?.addEventListener('mouseup', ({target}) => {
     if( [...target.classList].includes('global-header') && 'true' === toggleMenuCloseButton.getAttribute('aria-expanded')  ){
-      toggleMenuCloseButton.click()
+      toggleMenuCloseButton.click();
     }
-  })
+  });
 
   // Escape key event listener
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && 'true' === toggleMenuCloseButton.getAttribute('aria-expanded') ) {
-      toggleMenuCloseButton.click()
+      toggleMenuCloseButton.click();
     }
   });
 
   if( mainNav ){
-    mainNav.addEventListener('shown.bs.collapse', e => {
+    mainNav.addEventListener('shown.bs.collapse', () => {
       mainHeader?.classList.add('overlay');
     });
-    mainNav.addEventListener('hide.bs.collapse', e => {
+    mainNav.addEventListener('hide.bs.collapse', () => {
       mainHeader?.classList.remove('overlay');
-    })
+    });
   }
 
   // ONLOAD

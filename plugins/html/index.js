@@ -51,7 +51,7 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
         "Author": "CAWebPublishing",
         "Description": "State of California",
         "Keywords": "California,government",
-        "viewport": "width=device-width, initial-scale=1.0, minimum-scale=1.0"
+        "viewport": "width=device-width, initial-scale=1.0, maximum-scale=2.0"
       },
       templateParameters: {
         "title": path.basename( appPath ),

@@ -11,6 +11,7 @@
         margin: $spacer;
         margin-left: 0;
             
+
         p{
             margin-bottom: 0;
         }
@@ -19,6 +20,12 @@
             display: block;
         }
     }
+
+    & .contact p:first-child,
+    & .summary p:first-child{
+        margin-bottom: 0;
+        font-weight: bold;
+    }   
 
     &.contact{
         .btn {
