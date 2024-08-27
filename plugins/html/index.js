@@ -39,7 +39,7 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
 
   // we change some of the html-webpack-plugin defaults
   constructor(opts = {}) {
-    let templates = ['blank', 'default'];
+    let templates = ['blank', 'default', 'test'];
 
     let defaultOptions = {
       title: path.basename( appPath ),
@@ -51,7 +51,7 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
         "Author": "CAWebPublishing",
         "Description": "State of California",
         "Keywords": "California,government",
-        "viewport": "width=device-width, initial-scale=1.0, minimum-scale=1.0"
+        "viewport": "width=device-width, initial-scale=1.0, maximum-scale=2.0"
       },
       templateParameters: {
         "title": path.basename( appPath ),
@@ -69,7 +69,6 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
       opts.template = path.join( currentPath, 'sample', `${opts.template}.html`);
     }
 
-    // console.log(deepmerge(defaultOptions, opts))
     super(deepmerge(defaultOptions, opts));
 
   }
