@@ -1,0 +1,37 @@
+/* -----------------------------------------
+   BRANDING
+   /src/styles/components/branding.scss
+----------------------------------------- */
+header.global-header{
+  .branding {
+  
+    .header-organization-banner {
+      padding: 0.5rem 0;
+  
+      a{ 
+        
+        &:focus {
+          @include outline(2px);
+        }
+  
+        img {
+          max-width: 300px;
+          max-height: 55px;
+          object-fit: contain !important;
+          object-position: left;
+  
+          @media (max-width: $breakpoint-lg) and (min-width: $breakpoint-md) {
+            max-width: 225px;
+          }
+  
+          @media (max-width: $breakpoint-lg) {
+            max-height: 44px;
+          }
+        }
+      }
+  
+  
+    }
+  
+  }
+}

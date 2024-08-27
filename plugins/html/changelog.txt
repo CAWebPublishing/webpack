@@ -1,3 +1,11 @@
+v1.4.0
+- Added new test template and sample files
+- Template source files have been completely redone
+- Added Animate.css https://animate.style/
+- Added Bootstrap Forced Colors CSS https://www.npmjs.com/package/bootstrap-forced-colors-css
+- Updated npm packages
+- Added html-webpack-link-type-plugin 
+
 v1.3.3
 - Updated Readme
 

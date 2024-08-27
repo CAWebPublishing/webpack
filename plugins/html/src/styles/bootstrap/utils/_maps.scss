@@ -1,0 +1,50 @@
+@use "sass:map";
+
+// scss-docs-start theme-colors-map
+$theme-colors: map-merge-multiple(
+  $theme-colors,
+  $custom-colors,
+  $social-media-colors
+);
+// scss-docs-end theme-colors-map
+
+// scss-docs-start theme-colors-rgb
+$theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
+// scss-docs-end theme-colors-rgb
+
+// scss-docs-start utilities-colors
+$utilities-colors: $theme-colors-rgb;
+// scss-docs-end utilities-colors
+
+// scss-docs-start utilities-text-colors
+$utilities-text: $utilities-colors;
+
+$utilities-text-colors: map-loop($utilities-text, rgba-css-var, "$key", "text");
+// scss-docs-end utilities-text-colors
+
+// scss-docs-start utilities-bg-colors
+$utilities-bg: () !default;
+
+$utilities-bg: map-merge(
+    $utilities-bg,
+    $utilities-colors,
+);
+
+$utilities-bg-colors: map-loop($utilities-bg, rgba-css-var, "$key", "bg");
+// scss-docs-end utilities-bg-colors
+
+// scss-docs-start colors-map
+@each $c, $val in $custom-colors {
+    $colors: map-merge(
+        $colors,
+        (
+            #{$c}-light: tint-color($val, 20%),
+            #{$c}-lighter: tint-color($val, 40%),
+            #{$c}-lightest: tint-color($val, 60%),
+            #{$c}-dark: darken($val, 4%),
+            #{$c}-darker: darken($val, 7%),
+            #{$c}-darkest: darken($val, 14%),
+        )
+    );
+}
+// scss-docs-end colors-map

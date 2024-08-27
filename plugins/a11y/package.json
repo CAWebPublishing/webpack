@@ -32,7 +32,7 @@
     "webpack"
   ],
   "dependencies": {
-    "accessibility-checker": "^3.1.73",
+    "accessibility-checker": "^3.1.74",
     "check-valid-url": "^0.1.0"
   }
 }
