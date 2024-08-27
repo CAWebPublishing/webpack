@@ -2,7 +2,7 @@
 
 /* EXTERNAL LINK ICON */
 window.addEventListener('load', () => {
-  const ext = '<span class="external-link-icon" aria-hidden="true"></span>';
+  const ext = '<span class="ca-gov-icon-external-link" aria-hidden="true"></span>';
 
   // Check if link is external function
   /**
@@ -15,10 +15,10 @@ window.addEventListener('load', () => {
   // Add any exceptions to not render here
   const cssExceptions = `:not(code *):not(.cagov-logo)`;
 
-  // Looping thru all links inside of the main content body, agency footer and statewide footer
+  // Looping thru all links inside of the main content body footer links
   /** @type {NodeListOf<HTMLAnchorElement>} */
   const externalLink = document.querySelectorAll(
-    `main a${cssExceptions}, .agency-footer a${cssExceptions}, .site-footer a${cssExceptions}, footer a${cssExceptions}`
+    `main a${cssExceptions}, .footer-links a${cssExceptions}`
   );
   externalLink.forEach(element => {
     const anchorLink = element.href.indexOf('#') === 0;

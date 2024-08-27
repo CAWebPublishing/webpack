@@ -1,0 +1,129 @@
+/* -----------------------------------------
+   MOBILE-CONTROLS
+   /src/styles/components/mobile-controls.scss
+----------------------------------------- */
+header.global-header {
+
+    // Mobile
+    @media (max-width: $breakpoint-lg) {
+        .search-container{
+            width: 80%;
+            margin: auto;
+
+            form {
+
+                .search-button{
+                    color: var(--bs-standout, $standout);
+                    background-color: var(--bs-white, $white);
+                    border-color: var(--bs-standout, $standout);
+                    border-left: 0;
+                    
+                    &:focus{
+                        background-color: var(--bs-gray-75, $gray-75);
+                    }
+                    &:hover{
+                        background-color: var(--bs-gray-75, $gray-75);
+                        outline: 0 !important;
+                    }
+                }
+                .search-textfield{
+                    border-color: var(--bs-standout, $standout);
+                    border-right: 0;
+                }
+            }
+        }
+
+        // navigation
+        .mobile-controlled{
+            position: fixed;
+            width: 85%;
+            height: 100%;
+            background-color: var(--bs-standout, $standout );
+            right: -100%;
+            z-index: 16;
+            transition: right .25s ease-in-out, width .25s ease !important;
+            
+            &.show{
+                right: 0;
+            }
+
+            &.navigation{
+
+                .container {
+                    margin-left: 0;
+                    margin-right: 0;
+                    max-width: 100%;
+    
+                    .nav-item {
+                        &:first-child .nav-link{
+                            border-top: .5px solid var(--bs-gray-100, $gray-100);
+                        }
+
+                        a {
+                            color: var(--bs-white, $white);
+                            margin: 0 5px;
+                            border-left: 1px solid transparent !important;
+                            border-right: 1px solid transparent !important;
+                            border-bottom: .5px solid var(--bs-gray-100, $gray-100);
+                            
+                            &[aria-current="page"]{
+                                color: var(--bs-white, $white);
+                                background-color: var(--bs-standout-light, $standout);
+                            }
+
+                            &:hover,
+                            &:focus{
+                                background-color: var(--bs-standout-light, $standout);
+                            }
+    
+                            &.dropdown-toggle{
+                                &:after{
+                                    content: '5';
+                                    float: right;
+                                }
+                                &.show:after{
+                                    transform: rotate(90deg);
+                                }
+                            }
+                        }
+    
+                        .dropdown-menu.show{
+                            display: contents;
+                        }
+                    }
+                }
+            }
+        }
+
+        // show mobile-control
+        .mobile-control.toggle-menu{
+            display: inline-block;
+        }
+    }
+}
+
+footer.global-footer{
+    
+    // Mobile
+    @media (max-width: $breakpoint-lg) {
+        a{
+            padding: 0;
+        }
+
+        .d-flex{
+            flex-direction: column;
+        }
+
+        .footer-links{
+            flex-direction: column;
+
+            .nav-item:first-child {
+                margin-bottom: 1rem;
+            }
+        }
+
+        .social-share-links{
+            margin-left: 0;
+        }
+    }
+}
