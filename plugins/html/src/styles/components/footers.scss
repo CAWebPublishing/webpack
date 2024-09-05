@@ -3,7 +3,8 @@
    /src/styles/components/footer.scss
 ----------------------------------------- */
 footer.global-footer{
-
+   background-color: var(--bs-gray-50, $gray-50);
+   
    .nav-item {
       line-height: var(--bs-body-line-height, $line-height-base);
       
