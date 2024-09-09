@@ -1,3 +1,9 @@
+v1.4.2
+- Added sample images
+- Test template was removed
+- Updated test scripts
+- Updated template files 
+
 v1.4.1
 - Added gray-50 to bootstrap gray mapping
 - Added background color to footer
