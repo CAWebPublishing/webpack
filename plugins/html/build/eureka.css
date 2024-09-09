@@ -20446,7 +20446,7 @@ header.global-header .navigation .container .nav-item a.dropdown-toggle.show::af
   transform: rotate(180deg);
 }
 header.global-header .navigation .container .nav-item .dropdown-menu {
-  max-width: 250px;
+  width: auto;
   border-top: 0;
   border-radius: 0;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
