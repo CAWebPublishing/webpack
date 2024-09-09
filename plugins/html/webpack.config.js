@@ -72,7 +72,10 @@ let webpackConfig = {
         options:{
           rootRelative: process.cwd(),
           partialResolver: function(partial, callback){
-              // all template partials are loaded from the root sample directory
+              /**
+               * All template partials are loaded from the root sample directory
+               * if the file doesn't exist we fallback to our sample template partials
+               */
               let partialPath = path.join( process.cwd(), 'sample' );
               let partialStructurePath = path.join( partialPath, 'structural' );
 
@@ -86,11 +89,11 @@ let webpackConfig = {
                   
                   break;
                 
-                // content is served from the /sample/index.html
                 case 'content': 
+                  // content is served from /sample/index.html
                   partialPath = fs.existsSync(path.join( partialPath, '/index.html' )) ? path.join( partialPath, '/index.html' ) :
                   './missing/content.html';
-                  
+
                   break;
                 
                 // if not a template parameter we let the loader handle it
@@ -125,11 +128,15 @@ if( 'serve' === webpackCommand ){
        * Static files are served from the following files in the following order
        * we don't have to add the build directory since that is the output.path and proxied
        * public - Default
+       * sample - Allows loading sample files
        * node_modules - Allows loading files from other npm packages
        * src - Allows loading files that aren't compiled
        */
       {
         directory: path.join(appPath, 'public'),
+      },
+      {
+        directory: path.join(appPath, 'sample'),
       },
       {
         directory: path.join(appPath, 'node_modules'),
