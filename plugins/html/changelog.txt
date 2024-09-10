@@ -1,5 +1,6 @@
 v1.4.3
 - Dropdown nav menu width set to auto
+- Removed background color from location banner more details button
 
 v1.4.2
 - Added sample images

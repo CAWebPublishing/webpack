@@ -6396,7 +6396,6 @@
 /* -----------------------------------------
    DELTA
 ----------------------------------------- */
-/*! State Web Template Version 6.3.2 ( Revamped ) */
 /*!
  * Custom Bootstrap v5.3.3 (https://getbootstrap.com/)
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -20928,7 +20927,6 @@ figure.executive-profile.vertical .body {
   padding-bottom: 0.5rem;
 }
 .location.banner .summary .btn {
-  background-color: var(--bs-white, #fff);
   float: left;
 }
 
