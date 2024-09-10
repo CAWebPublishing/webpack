@@ -39,7 +39,7 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
 
   // we change some of the html-webpack-plugin defaults
   constructor(opts = {}) {
-    let templates = ['blank', 'default', 'test'];
+    let templates = ['blank', 'default'];
 
     let defaultOptions = {
       title: path.basename( appPath ),
