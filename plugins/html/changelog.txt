@@ -1,3 +1,6 @@
+v1.4.5
+- Fixed issue with project sample favicon not picking up
+
 v1.4.4
 - External link now apply to all links with target = _blank
 

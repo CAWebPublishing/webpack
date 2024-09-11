@@ -43,7 +43,7 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
 
     let defaultOptions = {
       title: path.basename( appPath ),
-      favicon: fs.existsSync(path.join(currentPath, 'sample', 'favicon.ico')) ? path.join(currentPath, 'sample', 'favicon.ico') : false,
+      favicon: fs.existsSync(path.join(appPath, 'sample', 'favicon.ico')) ? path.join(appPath, 'sample', 'favicon.ico') : path.join(currentPath, 'sample', 'favicon.ico'),
       inject: 'body',
       template: path.join( currentPath, 'sample', 'default.html'),
       scriptLoading: 'blocking',
