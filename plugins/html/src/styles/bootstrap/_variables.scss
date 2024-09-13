@@ -33,7 +33,7 @@ $github: #25292e !default; // github
 $social-media-colors: (
   facebook: $facebook, // facebook
   twitter: $twitter, // twitter
-  googleplus: $googleplus, // googleplus
+  google-plus: $googleplus, // googleplus
   flickr: $flickr, // flickr
   linkedin: $linkedin, // linkedin
   instagram: $instagram, // instagram
@@ -134,3 +134,12 @@ $outline-default-color: #2ea3f2 !default;
 $card-title-spacer-y:  0 !default;
 // scss-docs-end card-variables
 
+// scss-docs-start headings-variables
+$headings-margin-bottom:      0 !default;
+// scss-docs-end headings-variables
+
+
+// -----------------------
+// Dark Variables
+// -----------------------
+$body-color-dark: #FFF;
