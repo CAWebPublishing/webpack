@@ -57,8 +57,8 @@
         }
 
         .card-header{
-            color: var(--bs-white, $white);
             background-color: var(--bs-standout, $standout);
+            color: var(--bs-white, $white);
 
             .options{
                 .btn{
@@ -73,12 +73,12 @@
         }
     }
 
-    // overstated
+    // Overstated
     &.card-overstated{
         
         .card-header{
-            color: var(--bs-white, $white);
             background-color: var(--bs-main, $main);
+            color: var(--bs-white, $white);
 
             .options{
                 .btn{
@@ -93,11 +93,12 @@
             }
         }
     }
-    // understated
+
+    // Understated
     &.card-understated{
         .card-header{
-            color: inherit;
             background-color: var(--bs-alt, $alt);
+            color: var(--bs-white, $white);
 
             .options{
                 .btn{

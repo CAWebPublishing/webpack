@@ -1,3 +1,8 @@
+v1.4.6
+- Removed margin-bottom from headings
+- Fixed issue with social-share-colors
+- Added new dark theme support for High Contrast Mode
+
 v1.4.5
 - Fixed issue with project sample favicon not picking up
 
