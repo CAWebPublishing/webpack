@@ -16,6 +16,7 @@ import CSSAuditPlugin from '@caweb/css-audit-webpack-plugin';
 import A11yPlugin from '@caweb/a11y-webpack-plugin';
 
 import {HtmlWebpackSkipAssetsPlugin} from 'html-webpack-skip-assets-plugin';
+import {HtmlWebpackLinkTypePlugin} from 'html-webpack-link-type-plugin';
 
 const webpackCommand = 'build' === process.argv[2] ? 'build' : 'serve' ;
 
@@ -51,6 +52,7 @@ if( 'serve' === webpackCommand ){
               ]
         }),
         new HtmlWebpackSkipAssetsPlugin(),
+        new HtmlWebpackLinkTypePlugin(),
         new JSHintPlugin(),
         new CSSAuditPlugin(),
         new A11yPlugin()

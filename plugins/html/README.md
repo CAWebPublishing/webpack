@@ -1,4 +1,4 @@
-This plugin utilizes the HTML Webpack Plugin to launch static generated pages using the CAWebPublishing Template (formerly the California State Template)
+This plugin utilizes the HTML Webpack Plugin to launch static generated pages using the CAWeb Template (formerly the California State Template)
 
 <i>This package is inspired by [wp-scripts](https://www.npmjs.com/package/@wordpress/scripts)</i>
 
@@ -22,3 +22,19 @@ export default {
 </pre>
 
 ## Options
+All html-webpack-plugin [options](https://github.com/jantimon/html-webpack-plugin?tab=readme-ov-file#options) are available along with the following:  
+<code>template</code> - blank or default, Default will launch a site with a templated header/footer area, blank will not.  
+<code>scheme</code> - Colorscheme to utilitze.  
+**Available schemes:**  
+* delta
+* eureka
+* mono
+* oceanside
+* orangecounty
+* pasorobles
+* sacramento
+* santabarbara
+* santacruz
+* shasta
+* sierra
+* trinity
