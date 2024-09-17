@@ -1,0 +1,25 @@
+/* -----------------------------------------
+   BLOCKQUOTE
+   /src/styles/components/blockquote.scss
+----------------------------------------- */
+
+blockquote {
+  font-size: $font-size-base;
+  padding: 11px 22px;
+  margin: 0 0 22px;
+  border-left: 4px solid;
+  border-color: $blue;
+  //border-color: var(--color-p2, #046b99);
+
+  footer {
+    display: block;
+    font-size: 80%; // back to default font-size
+    color: $gray-700;
+    font-weight: $font-weight-bold;
+    margin-top: 1rem;
+
+    &::before {
+      content: "\2014 \00A0"; // em dash, nbsp
+    }
+  }
+}

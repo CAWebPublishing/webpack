@@ -1,3 +1,42 @@
+v1.4.8
+- Increased font size for Service Tile more button
+
+v1.4.7
+- Fixed issue with Service Tile more button
+
+v1.4.6
+- Removed margin-bottom from headings
+- Fixed issue with social-share-colors
+- Added new dark theme support for High Contrast Mode
+
+v1.4.5
+- Fixed issue with project sample favicon not picking up
+
+v1.4.4
+- External link now apply to all links with target = _blank
+
+v1.4.3
+- Dropdown nav menu width set to auto
+- Removed background color from location banner more details button
+
+v1.4.2
+- Added sample images
+- Test template was removed
+- Updated test scripts
+- Updated template files 
+
+v1.4.1
+- Added gray-50 to bootstrap gray mapping
+- Added background color to footer
+
+v1.4.0
+- Added new test template and sample files
+- Template source files have been completely redone
+- Added Animate.css https://animate.style/
+- Added Bootstrap Forced Colors CSS https://www.npmjs.com/package/bootstrap-forced-colors-css
+- Updated npm packages
+- Added html-webpack-link-type-plugin 
+
 v1.3.3
 - Updated Readme
 

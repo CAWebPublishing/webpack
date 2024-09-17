@@ -1,8 +1,13 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>{{ title }}</title>
   </head>
   <body>
+    {{#if htmlWebpackPlugin.options.templateParameters.bodyHtmlSnippet }}
+    {{{ htmlWebpackPlugin.options.templateParameters.bodyHtmlSnippet }}}
+    {{else}}
     {{> content }}
+    {{/if}}
   </body>
 </html>

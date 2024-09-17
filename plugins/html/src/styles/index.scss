@@ -1,46 +1,72 @@
-/*! State Web Template Version 6.3.2 */
+// -------------------------------------------------
+// Google Fonts
+// -------------------------------------------------
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&amp;display=block');
+
+// -------------------------------------------------
 // BOOTSTRAP CORE
 // -------------------------------------------------
+@import "./bootstrap";
 
-@import "bootstrap/scss/bootstrap";
+// -------------------------------------------------
+// Bootstrap Forced CSS
+// @link https://www.npmjs.com/package/bootstrap-forced-colors-css
+// -------------------------------------------------
+@import 'bootstrap-forced-colors-css/scss/bootstrap-forced-colors';
+
+// -------------------------------------------------
+// Animate
+// @link https://animate.style/
+// -------------------------------------------------
+@import 'animate.css';
+
+// -------------------------------------------------
+// Structural Elements
+// -------------------------------------------------
+@import "components/globals";
+@import "components/branding";
+@import "components/footers";
+@import "components/header";
+@import "components/mobile-controls";
+@import "components/navigation";
+@import "components/return-top";
+@import "components/search";
+@import "components/utility-header";
+
+// -------------------------------------------------
+// Content Modules
+// -------------------------------------------------
+@import "components/alerts";
+@import "components/blockquote";
+@import "components/cards";
+@import "components/executive-profiles";
+@import "components/featured-narrative";
+@import "components/lists";
+@import "components/locations";
+@import "components/sections";
+@import "components/service-tiles";
+
+
+// -------------------------------------------------
+// Themes
+// -------------------------------------------------
+@import "theme/dark";
 
 // State Template Variables
+/*
 @import "variables";
 
-@import "components/reset";
-@import "components/mixins";
-@import "components/type";
-@import "components/socialsharer";
 @import "components/layout";
 @import "components/grid";
-@import "components/global-header";
 @import "components/header-banner";
-@import "components/fixed-header";
-@import "components/site-header";
 @import "components/explore-banner";
-@import "components/global-footer";
-@import "components/search";
-@import "components/search-results";
-@import "components/search-google-cse";
-@import "components/navigation";
-@import "components/nav-megamenu";
-@import "components/nav-media";
-@import "components/nav-mobile-controls";
-@import "components/utility-header";
 @import "components/sections";
 @import "components/ask-group";
 @import "components/spacing";
-@import "components/return-top";
 
 // content modules
-@import "components/alert-banner";
-@import "components/tabs";
-@import "components/accordion";
-@import "components/accordion-list";
-@import "components/accordion-side-nav";
 @import "components/breadcrumbs";
 @import "components/keywords";
-@import "components/horizontal-rules";
 @import "components/profiles";
 @import "components/media";
 @import "components/youtube";
@@ -51,19 +77,10 @@
 @import "components/forms";
 @import "components/publications";
 @import "components/location";
-@import "components/gallery";
-@import "components/cards";
-@import "components/hero-info";
-@import "components/icon-blocks";
 @import "components/jobs";
-@import "components/tables";
-@import "components/lists";
 @import "components/testimonials";
-@import "components/blockquote";
-@import "components/button";
 @import "components/service-profile";
 @import "components/service-group";
-@import "components/number-counter";
 @import "components/carousel";
 @import "components/charts";
 @import "components/filter-group";
@@ -72,8 +89,6 @@
 @import "components/progress-bar";
 @import "components/progress-block";
 @import "components/gradient-backgrounds";
-@import "components/side-navigation";
-@import "components/step-list";
-@import "components/link-grid";
 @import "components/feature-card";
-@import "components/globals";
+
+*/

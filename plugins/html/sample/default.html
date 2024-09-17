@@ -1,12 +1,13 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>{{ title }}</title>
     {{#if scheme }}
-    <!-- Icon Font Library -->
-    <link rel="stylesheet" href="node_modules/@caweb/html-webpack-plugin/build/font-only.css" />
+      <!-- Icon Font Library -->
+      <link rel="stylesheet" href="node_modules/@caweb/html-webpack-plugin/build/font-only.css" />
 
-    <!-- Template Scheme CSS -->
-    <link rel="stylesheet" href="node_modules/@caweb/html-webpack-plugin/build/{{ scheme }}.css" />
+      <!-- Template Scheme CSS -->
+      <link rel="stylesheet" href="node_modules/@caweb/html-webpack-plugin/build/{{ scheme }}.css" />
     {{/if}}
   </head>
   <body>
@@ -14,12 +15,15 @@
       <div id="page-container" class="page-container ">
           <div id="main-content" class="main-content " tabindex="-1">
             <main class="main-primary">
-            {{> content }}
+              {{#if htmlWebpackPlugin.options.templateParameters.bodyHtmlSnippet }}
+              {{{ htmlWebpackPlugin.options.templateParameters.bodyHtmlSnippet }}}
+              {{else}}
+              {{> content }}
+              {{/if}}
             </main>
           </div>
       </div>
       {{> footer }}
-      
       {{#if scheme }}
       <script src="node_modules/@caweb/html-webpack-plugin/build/{{ scheme }}.js"></script>
       {{/if}}

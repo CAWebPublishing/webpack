@@ -1,0 +1,96 @@
+/* -----------------------------------------
+   SERVICE TILES
+   /src/styles/components/service-tiles.scss
+----------------------------------------- */
+
+.service-tiles {
+    .row{
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .more-button{
+        background-color: var(--bs-black, $black);
+        text-align: center;
+
+        a{
+            color: var(--bs-white, $white);
+            text-decoration: none;
+            display: block;
+            font-size: var(--bs-body-font-size, $font-size-base);
+
+            span{
+                display: block;
+            }
+
+            &:hover,
+            &:focus{
+                color: #FDB81E;
+                @include outline(2px);
+            }
+        }
+    }
+
+    .service-tile{
+        padding: 0;
+
+        img{
+            height: 320px;
+            width: 100%;
+        }
+
+        .teaser {
+            background-color: var(--bs-black, $black);
+            text-align: center;
+            color: var( --bs-white, $white);
+            padding: $spacer * .25 0;
+
+            a{
+                font-size: $h4-font-size;
+                text-decoration: none;
+                color: var(--bs-white, $white);
+                line-height: $line-height-base;
+                display: block;
+
+                &:hover,
+                &:focus{
+                    color: #FDB81E;
+                    @include outline(2px);
+                }
+            }
+
+            .ca-gov-icon-external-link{
+                display: none;
+            }
+        }
+    
+        &:hover,
+        &:focus{
+            @include outline(2px);
+        }
+    }
+
+    .collapse {
+        padding: 0;
+
+        .card {
+            margin-bottom: 0;
+            padding: $spacer * 1.5 $spacer;
+            display: block;
+
+            .card-block{
+                background-color: var(--bs-white, $white);
+                padding: $spacer;
+                margin-bottom: 0;
+
+                .ca-gov-icon-close-mark{
+                    float: right;
+                }
+
+                .group{
+                    padding: $spacer 0;
+                }
+            }
+        }
+    }
+}

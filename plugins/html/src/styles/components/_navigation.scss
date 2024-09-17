@@ -1,0 +1,73 @@
+/* -----------------------------------------
+   NAVIGATION 
+   /src/styles/components/navigation.scss
+----------------------------------------- */
+header.global-header .navigation {
+    .container{
+        padding-left: 0;
+        padding-right: 0;
+
+        .nav-item {
+            line-height: var(--bs-body-line-height, $line-height-base);
+
+            a {
+                color: var(--bs-main, $main);
+
+                &[aria-current="page"]{
+                    color: var(--bs-black, $black);
+                    border-left: 1px solid var(--bs-gray-100, $gray-100);
+                    border-right: 1px solid var(--bs-gray-100, $gray-100);
+                }
+
+                &:hover,
+                &:focus {
+                    background-color: var(--bs-gray-75, $gray-75);
+                }
+
+                &:focus {
+                    @include outline(2px);
+    
+                    outline-offset: -2px;
+                }
+
+                &.dropdown-toggle {
+                    &::after{
+                        font-family: 'CaGov';
+                        border: none;
+                        vertical-align: baseline;
+                        content: "3";
+
+                        transition: all 0.5s cubic-bezier(0.57, 0.2, 0.21, 0.89);
+                    }
+                    &.show::after{
+                        transform: rotate(180deg);
+
+                    }
+                }
+            }
+    
+            // Dropdown Sub navigation 
+            .dropdown-menu{
+                width: auto;
+                border-top: 0;
+                border-radius: 0;
+                box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
+                background: var(--bs-white, $white);
+
+                a:active {
+                    background-color: transparent;
+                }
+
+                &.show{
+                    visibility: visible;
+                    opacity: 1;
+                }
+
+                .link-description{
+                    color: var(--bs-gray-700, $gray-700);
+                    font-size: $nav-link-font-size * .85;
+                }
+            }
+        }
+    }
+}

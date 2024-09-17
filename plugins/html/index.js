@@ -43,7 +43,7 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
 
     let defaultOptions = {
       title: path.basename( appPath ),
-      favicon: fs.existsSync(path.join(currentPath, 'sample', 'favicon.ico')) ? path.join(currentPath, 'sample', 'favicon.ico') : false,
+      favicon: fs.existsSync(path.join(appPath, 'sample', 'favicon.ico')) ? path.join(appPath, 'sample', 'favicon.ico') : path.join(currentPath, 'sample', 'favicon.ico'),
       inject: 'body',
       template: path.join( currentPath, 'sample', 'default.html'),
       scriptLoading: 'blocking',
@@ -51,7 +51,7 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
         "Author": "CAWebPublishing",
         "Description": "State of California",
         "Keywords": "California,government",
-        "viewport": "width=device-width, initial-scale=1.0, minimum-scale=1.0"
+        "viewport": "width=device-width, initial-scale=1.0, maximum-scale=2.0"
       },
       templateParameters: {
         "title": path.basename( appPath ),
@@ -69,7 +69,6 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
       opts.template = path.join( currentPath, 'sample', `${opts.template}.html`);
     }
 
-    // console.log(deepmerge(defaultOptions, opts))
     super(deepmerge(defaultOptions, opts));
 
   }
