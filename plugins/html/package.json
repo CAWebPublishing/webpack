@@ -1,6 +1,6 @@
 {
   "name": "@caweb/html-webpack-plugin",
-  "version": "1.4.7",
+  "version": "1.4.8",
   "description": "CAWebPublishing Sample Page and Configurations",
   "main": "index.js",
   "type": "module",

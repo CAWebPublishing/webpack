@@ -1,3 +1,6 @@
+v1.4.8
+- Increased font size for Service Tile more button
+
 v1.4.7
 - Fixed issue with Service Tile more button
 
