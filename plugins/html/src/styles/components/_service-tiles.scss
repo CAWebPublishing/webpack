@@ -9,6 +9,28 @@
         margin-right: 0;
     }
     
+    .more-button{
+        background-color: var(--bs-black, $black);
+        text-align: center;
+
+        a{
+            color: var(--bs-white, $white);
+            text-decoration: none;
+            display: block;
+            font-size: var(--bs-body-font-size, $font-size-base);
+
+            span{
+                display: block;
+            }
+
+            &:hover,
+            &:focus{
+                color: #FDB81E;
+                @include outline(2px);
+            }
+        }
+    }
+
     .service-tile{
         padding: 0;
 
@@ -23,16 +45,28 @@
             color: var( --bs-white, $white);
             padding: $spacer * .25 0;
 
-            .title{
+            a{
                 font-size: $h4-font-size;
                 text-decoration: none;
                 color: var(--bs-white, $white);
                 line-height: $line-height-base;
+                display: block;
+
+                &:hover,
+                &:focus{
+                    color: #FDB81E;
+                    @include outline(2px);
+                }
             }
 
             .ca-gov-icon-external-link{
                 display: none;
             }
+        }
+    
+        &:hover,
+        &:focus{
+            @include outline(2px);
         }
     }
 
