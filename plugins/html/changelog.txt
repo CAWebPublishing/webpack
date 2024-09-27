@@ -1,3 +1,6 @@
+v1.4.11
+- Added cursor- utility classes
+
 v1.4.10
 - Unnested search styles
 
