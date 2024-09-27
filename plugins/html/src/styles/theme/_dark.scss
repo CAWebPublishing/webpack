@@ -88,9 +88,16 @@
             .card-header{
                 background-color: var(--bs-alt-darkest, darken($alt, 14%));
                 color: var(--bs-black);
-
             }
         }
-
     }
- }
+
+    /* ---------------------------------------------------------------
+    Profile Banners - /src/styles/components/executive-profiles.scss
+    --------------------------------------------------------------- */
+    figure.executive-profile{
+        .body *:not(a){
+            color: var(--bs-black, $black);
+        }
+    }
+}
