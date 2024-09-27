@@ -6414,6 +6414,7 @@
   3. Add 25%, 50%, 75%, 100% to rounded- utility
   4. Add dotted, solid, dashed, wavy to text-decoration- utility
   5. Add sm, md, lg to font-size- utility
+  6. Add default, pointer, grab, crosshair to cursor- utility classes
 */
 :root,
 [data-bs-theme=light] {
@@ -16963,6 +16964,22 @@ textarea.form-control-lg {
 
 .text-decoration-wavy {
   text-decoration-style: wavy !important;
+}
+
+.cursor-default {
+  cursor: default !important;
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.cursor-grab {
+  cursor: grab !important;
+}
+
+.cursor-crosshair {
+  cursor: crosshair !important;
 }
 
 @media (min-width: 576px) {
