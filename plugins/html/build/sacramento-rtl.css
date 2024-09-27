@@ -20603,34 +20603,34 @@ header.global-header .navigation .container .nav-item .dropdown-menu .link-descr
    SEARCH 
    /src/styles/components/search.scss
 ----------------------------------------- */
-header.global-header .search-container {
+.search-container {
   align-self: center;
   margin-right: auto;
   width: 32%;
 }
-header.global-header .search-container form {
+.search-container form {
   margin-top: 0;
   margin-bottom: 0;
 }
-header.global-header .search-container form .search-textfield {
+.search-container form .search-textfield {
   max-height: 38px;
   border-radius: 0 5px 5px 0 !important;
   border: 1px solid var(--bs-gray-600, #72717c);
 }
-header.global-header .search-container form .search-textfield::-moz-placeholder {
+.search-container form .search-textfield::-moz-placeholder {
   color: var(--bs-black, #000);
   opacity: 1;
 }
-header.global-header .search-container form .search-textfield::placeholder {
+.search-container form .search-textfield::placeholder {
   color: var(--bs-black, #000);
   opacity: 1;
 }
-header.global-header .search-container form .search-textfield:focus {
+.search-container form .search-textfield:focus {
   outline: solid 2px #2ea3f2 !important;
   outline-offset: -2px;
   box-shadow: none;
 }
-header.global-header .search-container form .search-button {
+.search-container form .search-button {
   padding: 0 12px;
   border: 1px solid;
   border-radius: 5px 0 0 5px;
@@ -20640,7 +20640,7 @@ header.global-header .search-container form .search-button {
   background-color: var(--bs-gray-600, #72717c);
   border-color: var(--bs-gray-600, #72717c);
 }
-header.global-header .search-container form .search-button:hover, header.global-header .search-container form .search-button:focus {
+.search-container form .search-button:hover, .search-container form .search-button:focus {
   outline: solid 2px #2ea3f2 !important;
   background-color: var(--bs-gray-800, #4a4958);
   border-color: var(--bs-gray-800, #4a4958);
