@@ -98,7 +98,7 @@
     &.card-understated{
         .card-header{
             background-color: var(--bs-alt, $alt);
-            color: var(--bs-white, $white);
+            color: inherit;
 
             .options{
                 .btn{

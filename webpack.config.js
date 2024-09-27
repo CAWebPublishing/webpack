@@ -20,28 +20,20 @@ import {HtmlWebpackLinkTypePlugin} from 'html-webpack-link-type-plugin';
 
 const webpackCommand = 'build' === process.argv[2] ? 'build' : 'serve' ;
 
+const flags = process.argv0.split(' ');
+
 // only if serving do we add the plugins
 if( 'serve' === webpackCommand ){
-    let template = 'default';
-    let scheme = 'oceanside';
-    
-    // Allow for template to be selected via NODE_OPTIONS env variable
-    if( process.env.NODE_OPTIONS ){
-        let opts = process.env.NODE_OPTIONS.split(' ').filter(e=>e).map(o=>o.replaceAll("'", ''))
-        if( opts.includes('--template') ){
-            template = opts[opts.indexOf('--template') + 1]
-        }
-        if( opts.includes('--scheme') ){
-            scheme = opts[opts.indexOf('--scheme') + 1]
-        }
-    }
-    
+
+    let template = flags.includes('--template') ? flags[flags.indexOf('--template') + 1] : 'default';
+    let scheme = flags.includes('--scheme') ? flags[flags.indexOf('--scheme') + 1] : 'oceanside';
+       
     // Page Template and additional plugins
     webpackConfig.plugins.push(
         new CAWebHTMLPlugin({
             template,
             templateParameters: {
-                scheme
+                scheme: 'false' !== scheme ? scheme : false 
             },
             skipAssets: [
                 /.*-rtl.css/, // we skip the Right-to-Left Styles
@@ -53,9 +45,9 @@ if( 'serve' === webpackCommand ){
         }),
         new HtmlWebpackSkipAssetsPlugin(),
         new HtmlWebpackLinkTypePlugin(),
-        new JSHintPlugin(),
-        new CSSAuditPlugin(),
-        new A11yPlugin()
+        ! flags.includes('--no-jshint') ? new JSHintPlugin() : false,
+        ! flags.includes('--no-audit') ? new CSSAuditPlugin() : false,
+        ! flags.includes('--no-a11y') ? new A11yPlugin() : false
     )
 }
 
