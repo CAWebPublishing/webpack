@@ -1,3 +1,6 @@
+v1.4.13
+- Dark mode script turned off
+
 v1.4.12
 - Updated ca-gov-logo-svg
 - Added link grid styles back
