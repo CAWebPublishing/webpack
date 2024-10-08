@@ -1,3 +1,9 @@
+v1.4.12
+- Updated ca-gov-logo-svg
+- Added link grid styles back
+- Added breadcrumbs styles back
+- Added side-navigation styles back
+
 v1.4.11
 - Added cursor- utility classes
 
