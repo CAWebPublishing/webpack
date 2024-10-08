@@ -21,31 +21,9 @@
 @import 'animate.css';
 
 // -------------------------------------------------
-// Structural Elements
+// Components
 // -------------------------------------------------
-@import "components/globals";
-@import "components/branding";
-@import "components/footers";
-@import "components/header";
-@import "components/mobile-controls";
-@import "components/navigation";
-@import "components/return-top";
-@import "components/search";
-@import "components/utility-header";
-
-// -------------------------------------------------
-// Content Modules
-// -------------------------------------------------
-@import "components/alerts";
-@import "components/blockquote";
-@import "components/cards";
-@import "components/executive-profiles";
-@import "components/featured-narrative";
-@import "components/lists";
-@import "components/locations";
-@import "components/sections";
-@import "components/service-tiles";
-
+@import './components/';
 
 // -------------------------------------------------
 // Themes
