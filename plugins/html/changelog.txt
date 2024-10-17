@@ -1,3 +1,8 @@
+v1.4.14
+- Font weight variables removed
+- Side navigation List and Step Lists styles added back to lists
+- Fixed issue with mobile controls
+
 v1.4.13
 - Dark mode script turned off
 
