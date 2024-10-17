@@ -6372,24 +6372,39 @@ window.addEventListener('load', () => {
   const toggleMenuCloseButton = mainHeader ? mainHeader.querySelector('.mobile-control.ca-gov-icon-close-mark') : null;
   const mobileCheck = () => {
     if (isDesktopWidth()) {
-      if (mainNavUl) {
-        mainNavUl.classList.remove('flex-column');
-      }
       if (mainNav) {
+        // navigation is always shown in desktop mode
         mainNav.classList.add('show');
+
+        // navigation ul should render as a row
+        if (mainNavUl) {
+          mainNavUl.classList.remove('flex-column');
+        }
       }
+      // if in desktop we append the search container after the branding logo
       if (searchContainer && mainHeader) {
         mainHeader.querySelector('.header-organization-banner')?.after(searchContainer);
       }
     } else {
-      if (mainNavUl) {
-        mainNavUl.classList.add('flex-column');
-      }
-      if (mainNav) {
-        mainNav.classList.remove('show');
-      }
-      if (searchContainer && mainHeader) {
-        mainHeader.querySelector('.mobile-controlled.overlay')?.append(searchContainer);
+      // if mobile menu is open
+      if ('true' === toggleMenuCloseButton.getAttribute('aria-expanded')) {
+        // we make sure to close the mobile menu.
+        toggleMenuCloseButton.click();
+      } else {
+        // we hide the main navigation in mobile
+        if (mainNav) {
+          mainNav.classList.remove('show');
+
+          // navigation ul should render as a column
+          if (mainNavUl) {
+            mainNavUl.classList.add('flex-column');
+          }
+        }
+
+        // if in mobile we append the search container to the mobile overlay
+        if (searchContainer && mainHeader) {
+          mainHeader.querySelector('.mobile-controlled.overlay')?.append(searchContainer);
+        }
       }
     }
   };

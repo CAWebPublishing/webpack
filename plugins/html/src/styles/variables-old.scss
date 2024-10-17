@@ -146,17 +146,6 @@ $font-lineheight-6: 2;
 // Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
 $line-height-computed: floor((16px * $line-height-base)) !default; // ~20px
 
-// Font weight variables
-$font-weight-1: 100;
-$font-weight-2: 200;
-$font-weight-3: 300;
-$font-weight-4: 400;
-$font-weight-5: 500;
-$font-weight-6: 600;
-$font-weight-7: 700;
-$font-weight-8: 800;
-$font-weight-9: 900;
-
 // By default, this inherits from the `<body>`.
 $headings-font-family: $font-family-sans-serif;
 $headings-line-height: $line-height-base;
