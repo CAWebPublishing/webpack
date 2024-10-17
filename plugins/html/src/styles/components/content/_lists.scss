@@ -37,3 +37,176 @@
         }
     }
 }
+
+.cagov-step-list {
+    padding-left: 0 !important;
+    margin-left: 1.5rem !important;
+    counter-reset: step-list-count;
+  
+    > li {
+      list-style: none;
+      border-left: 5px solid;
+      font-size: 1.75rem;
+      font-weight: $font-weight-bold;
+      position: relative;
+      padding-left: 45px;
+      line-height: $line-height-base;
+      margin-bottom: 0;
+      border-color: var(--bs-highlight, $highlight );
+  
+      // The circle bullet
+      &::before {
+        font-size: 1.625rem;
+        font-weight: 700;
+        border: 5px solid;
+        background-color: #fff;
+        border-radius: 50%;
+        text-align: center;
+        position: absolute;
+        left: -27px;
+        top: -3px;
+        counter-increment: step-list-count;
+        content: counter(step-list-count);
+        width: 50px;
+        border-color: var(--bs-highlight, $highlight );
+      }
+  
+      // Don't draw the last verticle line
+      &:last-child {
+        border-left: none;
+  
+        // Indent to compensate for the border
+        &::before {
+          margin-left: 5px;
+        }
+      }
+  
+      // list content
+      .cagov-step-list-content {
+        margin-top: 1rem;
+        padding-bottom: 1.75rem;
+        font-size: calc($font-size-base + $ratio);
+        font-weight: $font-weight-normal;
+        display: block;
+      }
+    }
+}
+
+.list-navigation,
+.side-navigation ul {
+  margin-left: 0;
+  padding-left: 0;
+
+  li {
+    list-style: none;
+    margin: 0;
+    font-size: calc($font-size-base + $ratio);
+    padding-left: 0;
+
+    a {
+      position: relative;
+      display: block;
+      text-decoration: none !important;
+      color: var(--bs-gray-700, $gray-700);
+      padding-bottom: 0.7rem;
+      padding-top: 0.7rem;
+      padding-left: 1rem;
+      border-bottom: 1px solid var(--bs-gray-75, $gray-75);
+
+      &:hover {
+        color: var(--bs-gray-900, $gray-900);
+      }
+
+      &.landing {
+        font-weight: $font-weight-bold;
+
+        &.active {
+          background-color: var(--bs-gray-75, $gray-75);
+
+          &:hover,
+          &:focus {
+            background-color: var(--bs-gray-75, $gray-75);
+          }
+        }
+
+        &.back {
+          padding-left: 1.5rem;
+
+          &::after {
+            content: "\e668";
+            position: absolute;
+            font-family: CaGov;
+            left: 0;
+            top: 0.65rem;
+          }
+        }
+      }
+
+      &.active {
+        color: var(--bs-gray-800, $gray-800);
+        text-decoration: none;
+        background-color: var(--bs-gray-75, $gray-75);
+
+        &:hover,
+        &:focus {
+          color: var(--bs-black, $black);
+          text-decoration: none;
+          background-color: var(--bs-gray-75, $gray-75);
+        }
+
+        &::before {
+          content: "";
+          border-left: 3px solid;
+          border-left-color: var(--bs-highlight, $highlight);
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 3px;
+          height: 100%;
+          border-radius: 0;
+        }
+      }
+    }
+
+    a:hover,
+    a:focus {
+      text-decoration: none;
+      background-color: var(--bs-gray-50, $gray-50);
+      color: var(--bs-gray-900, $gray-900);
+    }
+
+    a:focus {
+      @include outline(2px);
+
+      outline-offset: -2px;
+    }
+
+    // second level
+    ul {
+      padding-left: 0;
+
+      li {
+        margin: 0;
+
+        a {
+          padding-left: 2.5rem;
+
+          &.active {
+            color: var(--bs-gray-800, $gray-800);
+            text-decoration: none;
+
+            &:hover,
+            &:focus {
+              color: var(--bs-black, $black);
+              text-decoration: none;
+            }
+
+            ::before {
+              border-left-color: var(--bs-highlight, $highlight);
+            }
+          }
+        }
+      }
+    }
+  }
+}
