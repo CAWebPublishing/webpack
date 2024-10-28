@@ -6558,9 +6558,9 @@ __webpack_require__.r(__webpack_exports__);
 (() => {
 "use strict";
 var __webpack_exports__ = {};
-/*!************************************************!*\
-  !*** ./src/styles/colorschemes/oceanside.scss ***!
-  \************************************************/
+/*!*******************************************!*\
+  !*** ./src/styles/colorschemes/mono.scss ***!
+  \*******************************************/
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
@@ -6600,4 +6600,4 @@ import './components/pagination.js';
 
 /******/ })()
 ;
-//# sourceMappingURL=oceanside.js.map
+//# sourceMappingURL=mono.js.map
