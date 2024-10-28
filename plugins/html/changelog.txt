@@ -1,3 +1,6 @@
+v1.4.17
+- Fixed issue with alerts rendering in mobile
+
 v1.4.16
 - Fixed issue with Card Standout triangle not centering properly
 

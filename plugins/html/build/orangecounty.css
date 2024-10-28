@@ -20584,7 +20584,8 @@ header.global-header .mobile-controlled.overlay {
   header.global-header .mobile-controlled.navigation .container .nav-item .dropdown-menu.show {
     display: contents;
   }
-  header.global-header .alerts {
+  header.global-header .alerts,
+  header.global-header .alert {
     display: none;
   }
 }
