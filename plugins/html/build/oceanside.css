@@ -20511,9 +20511,13 @@ header.global-header .mobile-controlled.overlay {
    /src/styles/components/mobile-controls.scss
 ----------------------------------------- */
 @media (max-width: 992px) {
+  header.global-header .mobile-control.toggle-menu {
+    display: inline-block;
+  }
   header.global-header .search-container {
     width: 80%;
     margin: auto;
+    visibility: hidden;
   }
   header.global-header .search-container form .search-button {
     color: var(--bs-standout, #323a45);
@@ -20543,6 +20547,10 @@ header.global-header .mobile-controlled.overlay {
   }
   header.global-header .mobile-controlled.show {
     right: 0;
+  }
+  header.global-header .mobile-controlled.navigation {
+    visibility: hidden;
+    margin-top: 20px;
   }
   header.global-header .mobile-controlled.navigation .container {
     margin-left: 0;
@@ -20576,8 +20584,8 @@ header.global-header .mobile-controlled.overlay {
   header.global-header .mobile-controlled.navigation .container .nav-item .dropdown-menu.show {
     display: contents;
   }
-  header.global-header .mobile-control.toggle-menu {
-    display: inline-block;
+  header.global-header .alerts {
+    display: none;
   }
 }
 
