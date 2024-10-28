@@ -1,6 +1,6 @@
 {
   "name": "@caweb/webpack",
-  "version": "1.2.25",
+  "version": "1.2.26",
   "description": "CAWebPublishing Webpack Configuration",
   "main": "index.js",
   "type": "module",
@@ -41,7 +41,7 @@
   "dependencies": {
     "@caweb/a11y-webpack-plugin": "^1.0.8",
     "@caweb/css-audit-webpack-plugin": "^1.0.11",
-    "@caweb/html-webpack-plugin": "^1.4.15",
+    "@caweb/html-webpack-plugin": "^1.4.16",
     "@caweb/jshint-webpack-plugin": "^1.0.8",
     "@wordpress/scripts": "^30.3.0",
     "html-webpack-link-type-plugin": "^1.1.1",
