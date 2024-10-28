@@ -61,9 +61,7 @@ export default {
   new HtmlWebpackSkipAssetsPlugin(),
   new HtmlWebpackLinkTypePlugin(),
   new JSHintPlugin(),
-  new CSSAuditPlugin({
-    selectors: false
-  }),
+  new CSSAuditPlugin(),
   new A11yPlugin()
   ]
 };

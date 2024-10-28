@@ -70,6 +70,8 @@ window.addEventListener('load', () => {
   if( mainNav ){
     mainNav.addEventListener('shown.bs.collapse', () => {
       mainHeader?.classList.add('overlay');
+      mainNav.classList.add('visible');
+      searchContainer?.classList.add('visible');
     });
     mainNav.addEventListener('hide.bs.collapse', () => {
       mainHeader?.classList.remove('overlay');

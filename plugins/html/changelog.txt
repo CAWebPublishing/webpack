@@ -1,3 +1,7 @@
+v1.4.15
+- Removed selector false from test script
+- Fixed issue with search and navigation flickering when loaded on mobile
+
 v1.4.14
 - Font weight variables removed
 - Side navigation List and Step Lists styles added back to lists
