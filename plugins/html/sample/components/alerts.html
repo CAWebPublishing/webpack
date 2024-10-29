@@ -1,16 +1,32 @@
 <!-- Alerts -->
-<div class="alerts">
-    <div class="alert alert-primary alert-dismissible">
-        <div class="container">
-            <h6 class="alert-level" >
-                <span class="ca-gov-icon-construction"></span>Under Construction
-            </h6>
-            <div>
-                This codebase is currently being worked on
+{{#if alerts }}
+    {{#each alerts }}
+    <div class="alerts">
+        <div class="alert alert-primary alert-dismissible">
+            <div class="container">
+                {{#if this.header }}
+                <h6 class="alert-level" >
+                    {{#if this.icon }}
+                    <span class="ca-gov-icon-{{ this.icon }}"></span>
+                    {{/if}}
+                    {{ this.header }}
+                </h6>
+                {{/if}}
+
+                {{#if this.msg }}
+                <div>
+                    {{ this.msg }}
+                </div>
+                {{/if}}
+                {{#if this.url }}
+				<a href="{{ this.url }}" target="_blank" class="alert-link btn btn-outline-dark btn-sm">{{ this.text }}</a>
+                {{/if}}
+
+                <button class="btn btn-alt ca-gov-icon-close-mark" data-bs-dismiss="alert"  aria-label="Close Alert {{ @index }}">
+                    <span class="sr-only">x</span>
+                </button>
             </div>
-            <button class="btn btn-alt ca-gov-icon-close-mark" data-bs-dismiss="alert"  aria-label="Close Alert 1">
-                <span class="sr-only">x</span>
-            </button>
         </div>
     </div>
-</div>
+    {{/each}}
+{{/if}}
