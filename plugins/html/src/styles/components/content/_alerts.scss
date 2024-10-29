@@ -12,7 +12,15 @@ header{
         margin-bottom: 0;
         padding: .5rem 0;
         
-    }    
+        .alert-link{
+            margin-left: auto;
+
+            & + .btn.ca-gov-icon-close-mark {
+                margin-left: 10px;
+            }
+        }
+    }   
+
 }
 
 // General Alerts Styles
