@@ -21,8 +21,6 @@ import RtlCssPlugin from 'rtlcss-webpack-plugin';
 import {HtmlWebpackSkipAssetsPlugin} from 'html-webpack-skip-assets-plugin';
 import {HtmlWebpackLinkTypePlugin} from 'html-webpack-link-type-plugin';
 
-import TerserPlugin from 'terser-webpack-plugin';
-
 import JSHintPlugin from '@caweb/jshint-webpack-plugin';
 import CSSAuditPlugin from '@caweb/css-audit-webpack-plugin';
 import A11yPlugin from '@caweb/a11y-webpack-plugin';
@@ -86,6 +84,13 @@ baseConfig.module.rules.forEach((rule, i) => {
 // instead we use the Webpack output.clean definition
 baseConfig.plugins.splice(1,1, false);
 
+/**
+ * we remove the WordPress devServer declaration since we can only have 1 when exporting multiple configurations
+ * 
+ * @see https://github.com/webpack/webpack-cli/issues/2408#issuecomment-793052542
+ */
+delete baseConfig.devServer;
+
 // Wordpress ignores the webpack --mode flag
 // if the flag is passed we use that mode 
 // otherwise use whatever Wordpress is using
@@ -98,7 +103,7 @@ let webpackConfig = {
   cache: false,
   stats: 'errors',
   output: {
-    clean: false
+    clean: mode === 'production'
   },
   performance: {
     maxAssetSize: 500000,
@@ -164,10 +169,15 @@ if( 'serve' === webpackCommand ){
      
   // Dev Server is added
   webpackConfig.devServer = { 
+    devMiddleware: {
+      writeToDisk: true,
+    },
     hot: true,
     compress: true,
-    open: [  'http://localhost:9000' ],
+    allowedHosts: 'auto',
+    host: 'localhost',
     port: 9000,
+    open: [  'http://localhost:9000' ],
     static: [
       /**
        * Static files are served from the following files in the following order
@@ -220,7 +230,7 @@ if( 'serve' === webpackCommand ){
   }
 
   // Page Template and additional plugins
-  webpackConfig.plugins.push(
+  webpackConfig.plugins = [
     new CAWebHTMLPlugin({
         template,
         templateParameters: {
@@ -239,7 +249,7 @@ if( 'serve' === webpackCommand ){
     ! getArgVal('--no-jshint') ? new JSHintPlugin() : false,
     ! getArgVal('--no-audit') ? new CSSAuditPlugin() : false,
     ! getArgVal('--no-a11y') ? new A11yPlugin() : false
-  )
+  ]
 }
 
 export default [

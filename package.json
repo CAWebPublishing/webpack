@@ -4,17 +4,10 @@
   "description": "CAWebPublishing Webpack Configuration",
   "main": "index.js",
   "type": "module",
-  "files": [
-    "webpack.config.js"
-  ],
   "scripts": {
     "webpack": "webpack",
-    "preserve": "cd plugins/html && npm i",
-    "serve": "set NODE_OPTIONS='--no-selectors' &&  webpack serve --config ./webpack.config.js",
-    "build": "npm run build:html",
-    "build:html": "cd ./plugins/html/ && npm i && npm run build",
+    "serve": "webpack serve --config ./plugins/html/webpack.config.js",
     "u:deps": "node ./scripts/update-deps.js ./plugins",
-    "config:test": "webpack configtest ./webpack.config.js",
     "test": "echo \\\"Error: run tests from root\\\" && exit 0",
     "i:deps": "npm i @caweb/a11y-webpack-plugin @caweb/css-audit-webpack-plugin @caweb/html-webpack-plugin @caweb/jshint-webpack-plugin",
     "i:local": "npm i plugins/a11y/ plugins/css-audit/ plugins/html/ plugins/jshint/ ",
@@ -38,13 +31,13 @@
     "access": "public"
   },
   "homepage": "https://github.com/CAWebPublishing/webpack#readme",
+  "devDependencies": {
+    "webpack": "^5.96.1"
+  },
   "dependencies": {
     "@caweb/a11y-webpack-plugin": "^1.0.8",
     "@caweb/css-audit-webpack-plugin": "^1.0.11",
     "@caweb/html-webpack-plugin": "^1.5.0",
-    "@caweb/jshint-webpack-plugin": "^1.0.8",
-    "@wordpress/scripts": "^30.3.0",
-    "html-webpack-link-type-plugin": "^1.1.1",
-    "html-webpack-skip-assets-plugin": "^1.0.4"
+    "@caweb/jshint-webpack-plugin": "^1.0.8"
   }
 }
