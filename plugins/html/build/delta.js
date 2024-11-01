@@ -6324,37 +6324,6 @@
 
 /***/ }),
 
-/***/ "./src/scripts/components/dark-mode.js":
-/*!*********************************************!*\
-  !*** ./src/scripts/components/dark-mode.js ***!
-  \*********************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-document.addEventListener('DOMContentLoaded', () => {
-  //const button = document.querySelector( '.button__theme-toggle' );
-
-  /*button.addEventListener('click', () => {
-      const isDarkMode = document.body.classList.contains( 'is-dark-mode' );
-  if ( isDarkMode ) {
-  button.setAttribute( 'aria-pressed', 'false' );
-  document.body.classList.remove( 'is-dark-mode' );
-  } else {
-  button.setAttribute( 'aria-pressed', 'true' );
-  document.body.classList.add( 'is-dark-mode' );
-  }
-  })*/
-
-  // Set is-dark-mode class if user has requested dark mode.
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    document.documentElement.setAttribute('data-bs-theme', 'dark');
-    //button.setAttribute( 'aria-pressed', 'true' );
-  }
-});
-
-/***/ }),
-
 /***/ "./src/scripts/components/external-link.js":
 /*!*************************************************!*\
   !*** ./src/scripts/components/external-link.js ***!
@@ -6403,24 +6372,54 @@ window.addEventListener('load', () => {
   const toggleMenuCloseButton = mainHeader ? mainHeader.querySelector('.mobile-control.ca-gov-icon-close-mark') : null;
   const mobileCheck = () => {
     if (isDesktopWidth()) {
-      if (mainNavUl) {
-        mainNavUl.classList.remove('flex-column');
-      }
+      /**
+         * Desktop Mode
+         * - navigation is always shown in desktop mode
+         * - append the search container after the branding logo
+         * - append navigation after the mobile control overlay
+         */
       if (mainNav) {
+        // navigation is always shown in desktop mode
         mainNav.classList.add('show');
+
+        // navigation ul should render as a row
+        if (mainNavUl) {
+          mainNavUl.classList.remove('flex-column');
+        }
+        mainHeader.querySelector('.mobile-controlled.overlay')?.after(mainNav);
       }
-      if (searchContainer && mainHeader) {
+      // if in desktop we append the search container after the branding logo and the 
+      if (searchContainer) {
         mainHeader.querySelector('.header-organization-banner')?.after(searchContainer);
       }
     } else {
-      if (mainNavUl) {
-        mainNavUl.classList.add('flex-column');
-      }
-      if (mainNav) {
-        mainNav.classList.remove('show');
-      }
-      if (searchContainer && mainHeader) {
-        mainHeader.querySelector('.mobile-controlled.overlay')?.append(searchContainer);
+      // if mobile menu is open
+      if ('true' === toggleMenuCloseButton.getAttribute('aria-expanded')) {
+        // we make sure to close the mobile menu.
+        toggleMenuCloseButton.click();
+      } else {
+        /**
+         * Mobile Mode
+         * - hide the main navigation in mobile
+         * - append the search container and navigation to the mobile control overlay
+         * - navigation ul should render as a column
+         */
+
+        // append the search container to the mobile control overlay
+        if (searchContainer) {
+          mainHeader.querySelector('.mobile-controlled.overlay')?.append(searchContainer);
+        }
+
+        // we hide the main navigation in mobile
+        if (mainNav) {
+          mainHeader.querySelector('.mobile-controlled.overlay')?.append(mainNav);
+          mainNav.classList.remove('show');
+
+          // navigation ul should render as a column
+          if (mainNavUl) {
+            mainNavUl.classList.add('flex-column');
+          }
+        }
       }
     }
   };
@@ -6444,6 +6443,8 @@ window.addEventListener('load', () => {
   if (mainNav) {
     mainNav.addEventListener('shown.bs.collapse', () => {
       mainHeader?.classList.add('overlay');
+      mainNav.classList.add('visible');
+      searchContainer?.classList.add('visible');
     });
     mainNav.addEventListener('hide.bs.collapse', () => {
       mainHeader?.classList.remove('overlay');
@@ -6556,7 +6557,7 @@ window.addEventListener('load', () => {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
 (() => {
 "use strict";
 var __webpack_exports__ = {};
@@ -6568,7 +6569,7 @@ __webpack_require__.r(__webpack_exports__);
 
 })();
 
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
 (() => {
 "use strict";
 var __webpack_exports__ = {};
@@ -6580,7 +6581,7 @@ __webpack_require__.r(__webpack_exports__);
 
 })();
 
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
 (() => {
 "use strict";
 /*!******************************!*\
@@ -6591,14 +6592,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_mobile_controls_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/mobile-controls.js */ "./src/scripts/components/mobile-controls.js");
 /* harmony import */ var _components_return_top_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/return-top.js */ "./src/scripts/components/return-top.js");
 /* harmony import */ var _components_external_link_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/external-link.js */ "./src/scripts/components/external-link.js");
-/* harmony import */ var _components_dark_mode_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/dark-mode.js */ "./src/scripts/components/dark-mode.js");
-
 
 
 
 
 
 /*
+import './components/dark-mode.js';
 import './components/fixed-header.js';
 import './components/accordion.js';
 import './components/accordion-list.js';

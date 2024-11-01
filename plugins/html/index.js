@@ -55,13 +55,27 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
       },
       templateParameters: {
         "title": path.basename( appPath ),
-        "scheme": "oceanside"
+        "scheme": "oceanside",
+        "logo": "https://caweb.cdt.ca.gov/wp-content/uploads/sites/221/2023/06/caweb-publishing-logo.png"
       },
     }
 
     // update templateParameters.title to match user options.
     if( opts.title ){
       defaultOptions.templateParameters.title = opts.title;
+    }
+
+    if( fs.existsSync( path.join(appPath, 'caweb.json') ) ){
+
+      let dataFile = JSON.parse( fs.readFileSync( path.join(appPath, 'caweb.json') ) );
+      
+      if( dataFile.site ){
+        defaultOptions.templateParameters = {
+          ...defaultOptions.templateParameters,
+          ...dataFile.site
+        }
+      }
+      
     }
 
     // select template file based on template selection if template is one of ours

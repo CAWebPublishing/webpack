@@ -6,9 +6,18 @@ header.global-header {
 
     // Mobile
     @media (max-width: $breakpoint-lg) {
+        // show mobile-control
+        .mobile-control.toggle-menu{
+            display: inline-block;
+        }
+
+        // Search
         .search-container{
             width: 80%;
             margin: auto;
+
+            // hide the search container until menu button is clicked
+            visibility: hidden;
 
             form {
 
@@ -48,6 +57,9 @@ header.global-header {
             }
 
             &.navigation{
+                // hide navigation in mobile until button is clicked
+                visibility: hidden;
+                margin-top: 20px;
 
                 .container {
                     margin-left: 0;
@@ -94,10 +106,11 @@ header.global-header {
                 }
             }
         }
-
-        // show mobile-control
-        .mobile-control.toggle-menu{
-            display: inline-block;
+        
+        // hide alerts in the header.
+        .alerts,
+        .alert{
+            display: none;
         }
     }
 }
