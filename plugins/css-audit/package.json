@@ -1,6 +1,6 @@
 {
   "name": "@caweb/css-audit-webpack-plugin",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "CAWebPublishing Webpack Plugin to run WordPress CSS Audit",
   "type": "module",
   "main": "index.js",
@@ -44,15 +44,10 @@
     "cross-spawn": "^7.0.3",
     "deepmerge": "^4.3.1",
     "get-all-files": "^5.0.0",
-    "resolve-bin": "^1.0.1",
-    "webpack": "^5.94.0"
+    "resolve-bin": "^1.0.1"
   },
   "devDependencies": {
-    "@wordpress/scripts": "^28.6.0",
-    "handlebars-loader": "^1.7.3",
-    "html-webpack-plugin": "^5.6.0",
-    "html-webpack-skip-assets-plugin": "^1.0.4",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.0.4"
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4"
   }
 }

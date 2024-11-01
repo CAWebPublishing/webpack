@@ -1,3 +1,9 @@
+v1.3.0
+- Webpack configuration has been moved to @caweb/html-webpack-plugin
+
+v1.2.28
+- Updated npm packages
+
 v1.2.27
 - Updated npm packages
 
