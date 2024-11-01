@@ -10,15 +10,52 @@
  * External Dependencies
  */
 import baseConfig from '@wordpress/scripts/config/webpack.config.js';
- import fs from 'fs';
+import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+
+// webpack plugins
+import MiniCSSExtractPlugin from 'mini-css-extract-plugin';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import RtlCssPlugin from 'rtlcss-webpack-plugin';
+import {HtmlWebpackSkipAssetsPlugin} from 'html-webpack-skip-assets-plugin';
+import {HtmlWebpackLinkTypePlugin} from 'html-webpack-link-type-plugin';
+
+import TerserPlugin from 'terser-webpack-plugin';
+
+import JSHintPlugin from '@caweb/jshint-webpack-plugin';
+import CSSAuditPlugin from '@caweb/css-audit-webpack-plugin';
+import A11yPlugin from '@caweb/a11y-webpack-plugin';
 
 /**
  * Internal dependencies
  */
+import CAWebHTMLPlugin from './index.js';
 
 const webpackCommand = 'build' === process.argv[2] ? 'build' : 'serve' ;
+
+// flags can be passed via argv0 
+// we also add args from NODE_OPTIONS
+const flags = [].concat(
+  processArgs(process.argv),
+  processArgs(process.argv0.split(' ')),
+  processArgs(process.env.NODE_OPTIONS ? process.env.NODE_OPTIONS.split(' ') : [])
+)
+
+function processArgs( arr ){
+  let tmp = [];
+
+  arr.filter(Boolean).map((o) => {
+    return o.replaceAll("'", '').split('=').forEach((e => tmp.push(e)))
+ })
+
+  return tmp
+}
+
+function getArgVal(flag){
+  return flags.includes(flag) ? flags[flags.indexOf(flag) + 1] : false;
+}
+
 
 // Update some of the default WordPress webpack rules.
 baseConfig.module.rules.forEach((rule, i) => {
@@ -45,23 +82,30 @@ baseConfig.module.rules.forEach((rule, i) => {
   }
 });
 
+// we remove the WordPress CleanWebpackPlugin definition
+// instead we use the Webpack output.clean definition
+baseConfig.plugins.splice(1,1, false);
+
+// Wordpress ignores the webpack --mode flag
+// if the flag is passed we use that mode 
+// otherwise use whatever Wordpress is using
+let mode = getArgVal('--mode') ? getArgVal('--mode') : baseConfig.mode;
+
 let webpackConfig = {
-  ...baseConfig,
-  output: {
-    ...baseConfig.output,
-    clean: true,
-  },
+  mode,
+  name: 'uncompressed',
   target: 'web',
   cache: false,
   stats: 'errors',
+  output: {
+    clean: false
+  },
   performance: {
     maxAssetSize: 500000,
     maxEntrypointSize: 500000
   },
   module:{
-    ...baseConfig.module,
     rules: [
-      ...baseConfig.module.rules,
       /**
        * Default template loader for html is lodash, 
        * lets switch to handlebars
@@ -107,7 +151,7 @@ let webpackConfig = {
         }
       }
     ]
-  }
+  },
 };
 
 /**
@@ -115,10 +159,11 @@ let webpackConfig = {
  */
 if( 'serve' === webpackCommand ){
   const appPath = process.cwd();
-  
+  let template = flags.includes('--template') ? getArgVal('--template') : 'default';
+  let scheme = flags.includes('--scheme') ? getArgVal('--scheme') : 'oceanside';
+     
   // Dev Server is added
   webpackConfig.devServer = { 
-    ...baseConfig.devServer,
     hot: true,
     compress: true,
     open: [  'http://localhost:9000' ],
@@ -174,6 +219,51 @@ if( 'serve' === webpackCommand ){
     ]
   }
 
+  // Page Template and additional plugins
+  webpackConfig.plugins.push(
+    new CAWebHTMLPlugin({
+        template,
+        templateParameters: {
+            scheme: 'false' !== scheme ? scheme : false 
+        },
+        skipAssets: [
+            /.*-rtl.css/, // we skip the Right-to-Left Styles
+            /css-audit.*/, // we skip the CSSAudit Files
+            /a11y.*/, // we skip the A11y Files
+            /jshint.*/, // we skip the JSHint Files
+            /font-only.js/, // we skip the font-only Files
+          ]
+    }),
+    new HtmlWebpackSkipAssetsPlugin(),
+    new HtmlWebpackLinkTypePlugin(),
+    ! getArgVal('--no-jshint') ? new JSHintPlugin() : false,
+    ! getArgVal('--no-audit') ? new CSSAuditPlugin() : false,
+    ! getArgVal('--no-a11y') ? new A11yPlugin() : false
+  )
 }
 
-export default webpackConfig;
+export default [
+  baseConfig,
+  webpackConfig,
+  mode === 'production' ?
+  {
+    name: 'compressed',
+    dependencies: ['uncompressed'],
+    devtool: false,
+    output: {
+      filename: '[name].min.js',
+      chunkFilename: '[name].min.js?v=[chunkhash]',
+    },
+    plugins: [
+  		new MiniCSSExtractPlugin( { filename: '[name].min.css' } ),
+  		new RtlCssPlugin( { filename: '[name]-rtl.min.css' } ),
+    ],
+    optimization:{
+      minimize: true,
+      minimizer: [
+        `...`,
+        new CssMinimizerPlugin({test: /\.min\.css$/})
+      ]
+    }
+  } : false
+].filter(Boolean);

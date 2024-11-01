@@ -1,41 +1,26 @@
 <!-- Navigation -->
 <div class="navigation border-bottom mobile-controlled collapse collapse-horizontal show">
     <div class="container">
+        {{#if nav.header }}
         <ul class="nav" aria-label="Main navigation">
-            <li class="nav-item">
-               <a class="nav-link" href="/template-updates.html">Template updates</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/get-started.html">Get started</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/structure.html">Structure</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" aria-current="page" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Visual design</a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="/visual-design/color.html" class="dropdown-item" tabindex="-1">Color
-                            <div class="link-description">Link Description</div>
-                        </a>
+            {{#each nav.header }}
+                {{#if this.sub }}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">{{ this.label }}</a>
+                        <ul class="dropdown-menu">
+                            {{#each this.sub }}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ this.url }}">{{ this.label }}</a>
+                                </li>
+                            {{/each}}
+                        </ul>
+                {{else}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ this.url }}">{{ this.label }}</a>
+                {{/if}}    
                     </li>
-                    <li>
-                        <a href="/visual-design/icons.html" class="dropdown-item" tabindex="-1">Icons</a>
-                    </li>
-                    <li>
-                        <a href="/visual-design/typography.html" class="dropdown-item" tabindex="-1">Typography</a>
-                    </li>
-                    <li>
-                        <a href="/visual-design/ui-kit.html" class="dropdown-item" tabindex="-1">UI kit</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/components.html">Components</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/patterns.html">Patterns</a>
-            </li>
+            {{/each}}
         </ul>
+        {{/if}}
     </div>
 </div>

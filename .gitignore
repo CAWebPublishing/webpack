@@ -15,6 +15,9 @@ public
 src
 audit
 
+# lets not save site data
+caweb.json
+
 # plugins can have built and src assets
 !plugins\/**\/build
 !plugins\/**\/src

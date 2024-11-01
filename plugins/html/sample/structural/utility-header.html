@@ -1,4 +1,4 @@
-	<!-- Utility Header -->
+<!-- Utility Header -->
   <div class="utility-header">
   <div class="container d-flex flex-row">
     <div class="social-media-links">
@@ -11,7 +11,13 @@
       <p class="official-tag">Official website of the State of California</p>
     </div>
     <div class="settings-links">
-      <a href="https://github.com/Office-of-Digital-Services/California-State-Web-Template-HTML/releases">Web template v6.3.2</a>
+      {{#if utility-links }}
+      {{#each utility-links }}
+      {{#if this.url }}{{#if this.label }}
+      <a href="{{ this.url }}">{{ this.label }}</a>
+      {{/if}}{{/if}}
+      {{/each}}
+      {{/if}}
     </div>
   </div>
 </div>
