@@ -11,24 +11,55 @@ window.addEventListener('load', () => {
 
   const mobileCheck = () => { 
       if( isDesktopWidth() ){
-        if( mainNavUl ){
-          mainNavUl.classList.remove('flex-column');
-        }
+        /**
+           * Desktop Mode
+           * - navigation is always shown in desktop mode
+           * - append the search container after the branding logo
+           * - append navigation after the mobile control overlay
+           */
         if( mainNav ){
+          // navigation is always shown in desktop mode
           mainNav.classList.add('show');
+
+          // navigation ul should render as a row
+          if( mainNavUl ){
+            mainNavUl.classList.remove('flex-column');
+          }
+          mainHeader.querySelector('.mobile-controlled.overlay')?.after(mainNav);
         }
-        if( searchContainer && mainHeader ){
+        // if in desktop we append the search container after the branding logo and the 
+        if( searchContainer ){
           mainHeader.querySelector('.header-organization-banner')?.after(searchContainer);
         }
       }else{
-        if( mainNavUl ){
-          mainNavUl.classList.add('flex-column');
-        }
-        if( mainNav ){
-          mainNav.classList.remove('show');
-        }
-        if( searchContainer && mainHeader ){
-          mainHeader.querySelector('.mobile-controlled.overlay')?.append(searchContainer);
+        // if mobile menu is open
+        if( 'true' === toggleMenuCloseButton.getAttribute('aria-expanded') ){
+          // we make sure to close the mobile menu.
+          toggleMenuCloseButton.click();
+        }else{
+          /**
+           * Mobile Mode
+           * - hide the main navigation in mobile
+           * - append the search container and navigation to the mobile control overlay
+           * - navigation ul should render as a column
+           */
+
+          // append the search container to the mobile control overlay
+          if( searchContainer ){
+            mainHeader.querySelector('.mobile-controlled.overlay')?.append(searchContainer);
+          }
+
+          // we hide the main navigation in mobile
+          if( mainNav ){
+            mainHeader.querySelector('.mobile-controlled.overlay')?.append(mainNav);
+            mainNav.classList.remove('show');
+
+            // navigation ul should render as a column
+            if( mainNavUl ){
+              mainNavUl.classList.add('flex-column');
+            }
+          }
+
         }
 
       }
@@ -54,6 +85,8 @@ window.addEventListener('load', () => {
   if( mainNav ){
     mainNav.addEventListener('shown.bs.collapse', () => {
       mainHeader?.classList.add('overlay');
+      mainNav.classList.add('visible');
+      searchContainer?.classList.add('visible');
     });
     mainNav.addEventListener('hide.bs.collapse', () => {
       mainHeader?.classList.remove('overlay');
