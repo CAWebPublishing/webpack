@@ -6372,6 +6372,12 @@ window.addEventListener('load', () => {
   const toggleMenuCloseButton = mainHeader ? mainHeader.querySelector('.mobile-control.ca-gov-icon-close-mark') : null;
   const mobileCheck = () => {
     if (isDesktopWidth()) {
+      /**
+         * Desktop Mode
+         * - navigation is always shown in desktop mode
+         * - append the search container after the branding logo
+         * - append navigation after the mobile control overlay
+         */
       if (mainNav) {
         // navigation is always shown in desktop mode
         mainNav.classList.add('show');
@@ -6380,9 +6386,10 @@ window.addEventListener('load', () => {
         if (mainNavUl) {
           mainNavUl.classList.remove('flex-column');
         }
+        mainHeader.querySelector('.mobile-controlled.overlay')?.after(mainNav);
       }
-      // if in desktop we append the search container after the branding logo
-      if (searchContainer && mainHeader) {
+      // if in desktop we append the search container after the branding logo and the 
+      if (searchContainer) {
         mainHeader.querySelector('.header-organization-banner')?.after(searchContainer);
       }
     } else {
@@ -6391,19 +6398,27 @@ window.addEventListener('load', () => {
         // we make sure to close the mobile menu.
         toggleMenuCloseButton.click();
       } else {
+        /**
+         * Mobile Mode
+         * - hide the main navigation in mobile
+         * - append the search container and navigation to the mobile control overlay
+         * - navigation ul should render as a column
+         */
+
+        // append the search container to the mobile control overlay
+        if (searchContainer) {
+          mainHeader.querySelector('.mobile-controlled.overlay')?.append(searchContainer);
+        }
+
         // we hide the main navigation in mobile
         if (mainNav) {
+          mainHeader.querySelector('.mobile-controlled.overlay')?.append(mainNav);
           mainNav.classList.remove('show');
 
           // navigation ul should render as a column
           if (mainNavUl) {
             mainNavUl.classList.add('flex-column');
           }
-        }
-
-        // if in mobile we append the search container to the mobile overlay
-        if (searchContainer && mainHeader) {
-          mainHeader.querySelector('.mobile-controlled.overlay')?.append(searchContainer);
         }
       }
     }
@@ -6542,7 +6557,7 @@ window.addEventListener('load', () => {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
 (() => {
 "use strict";
 var __webpack_exports__ = {};
@@ -6554,7 +6569,7 @@ __webpack_require__.r(__webpack_exports__);
 
 })();
 
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
 (() => {
 "use strict";
 var __webpack_exports__ = {};
@@ -6566,7 +6581,7 @@ __webpack_require__.r(__webpack_exports__);
 
 })();
 
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
 (() => {
 "use strict";
 /*!******************************!*\
