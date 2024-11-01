@@ -13,10 +13,10 @@
   list-style: none;
 
   // @include font-size(1);
-  font-size: $font-size-small;
+  font-size: $font-size-sm;
 
   @include media-breakpoint-up(sm) {
-    font-size: calc(#{$font-size-small} + #{$ratio});
+    font-size: calc(#{$font-size-sm} + #{$ratio});
   }
 
   li {
@@ -30,7 +30,7 @@
 
     &::after {
       content: "";
-      color: var(--gray-900, #3b3a48);
+      color: var(--bs-gray-900, $gray-900);
       border: none;
       margin: 0 calc($grid-gutter-width / 2);
       font-size: 1.125rem;
@@ -50,15 +50,5 @@
         margin: 0;
       }
     }
-  }
-}
-
-.breadcrumb > li + li::before {
-  padding: 0; // Overrides Bootstraps injected content
-}
-
-.section--overstated, .section-standout, .section-impact, .section-primary, .section-inverted, .bg-primary, .bg-standout, .bg-p2, .bg-p3 {
-  .breadcrumbs ul li::after, .breadcrumbs ol li::after {
-    color: var(--white, #FFF);
   }
 }

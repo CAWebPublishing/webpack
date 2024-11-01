@@ -41,8 +41,8 @@
     // Standout
     &.card-standout{
         &.highlight{
-            // Add triangle to center of header
-            .card-header:before{
+            // Add triangle to center of body
+            .card-body:before{
                 content: "";
                 display: block;
                 width: 0;
@@ -51,7 +51,7 @@
                 border-left: 12px solid transparent;
                 border-right: 12px solid transparent;
                 border-top: 12px solid var(--bs-standout, $standout);
-                bottom: 65px;
+                margin-top: calc(  var(--bs-card-spacer-y) * -1);
                 left: 50%;
             }
         }
@@ -98,7 +98,7 @@
     &.card-understated{
         .card-header{
             background-color: var(--bs-alt, $alt);
-            color: var(--bs-white, $white);
+            color: inherit;
 
             .options{
                 .btn{

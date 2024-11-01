@@ -1,3 +1,51 @@
+v1.5.1
+- updated npm packages
+- Changed mobile control structure, navigation and search are now in the mobile overlay
+- Added logic for header/footer nav, social share links, utility links, Google Search ID, template parameters passable via caweb.json
+- Webpack configuration from @caweb/webpack package moved into this configuration
+- Webpack config handles --mode flag appropriately 
+- Webpack config now exports multiple configurations
+- Webpack configuration now outputs minified files
+
+v1.5.0
+- Template parameters alerts, logo, passable via caweb.json
+- Added logic for alerts, logo
+
+v1.4.17
+- Fixed issue with alerts rendering in mobile
+
+v1.4.16
+- Fixed issue with Card Standout triangle not centering properly
+
+v1.4.15
+- Removed selector false from test script
+- Fixed issue with search and navigation flickering when loaded on mobile
+
+v1.4.14
+- Font weight variables removed
+- Side navigation List and Step Lists styles added back to lists
+- Fixed issue with mobile controls
+
+v1.4.13
+- Dark mode script turned off
+
+v1.4.12
+- Updated ca-gov-logo-svg
+- Added link grid styles back
+- Added breadcrumbs styles back
+- Added side-navigation styles back
+
+v1.4.11
+- Added cursor- utility classes
+
+v1.4.10
+- Unnested search styles
+
+v1.4.9
+- Fixed issue with page-title,page-date not styling like containers
+- Fixed issue with executive profiles dark text
+- Fixed issue with understated card header color
+
 v1.4.8
 - Increased font size for Service Tile more button
 
