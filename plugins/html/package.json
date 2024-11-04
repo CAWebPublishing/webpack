@@ -1,6 +1,6 @@
 {
   "name": "@caweb/html-webpack-plugin",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "CAWebPublishing Sample Page and Configurations",
   "main": "index.js",
   "type": "module",
@@ -25,7 +25,8 @@
     "generate-json": "node ./scripts/icon.js",
     "serve": "webpack serve --config ./webpack.config.js ./entry/oceanside.js ./scripts/webpack.test.js --merge",
     "serve:quick": "set NODE_OPTIONS='--no-jshint --no-audit --no-a11y' && webpack serve --config ./webpack.config.js ./entry/oceanside.js ./scripts/webpack.test.js --merge",
-    "test": "echo \"Error: run tests from root\" && exit 0"
+    "test": "echo \"Error: run tests from root\" && exit 0",
+    "t": "webpack build --config ./webpack.test.js"
   },
   "repository": {
     "type": "git",
