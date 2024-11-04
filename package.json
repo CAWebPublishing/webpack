@@ -37,7 +37,7 @@
   "dependencies": {
     "@caweb/a11y-webpack-plugin": "^1.0.9",
     "@caweb/css-audit-webpack-plugin": "^1.0.12",
-    "@caweb/html-webpack-plugin": "^1.5.1",
+    "@caweb/html-webpack-plugin": "^1.5.2",
     "@caweb/jshint-webpack-plugin": "^1.0.9"
   }
 }
