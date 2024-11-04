@@ -50,10 +50,13 @@ function processArgs( arr ){
   return tmp
 }
 
-function getArgVal(flag){
-  return flags.includes(flag) ? flags[flags.indexOf(flag) + 1] : false;
+function flagExists(flag){
+  return flags.includes(flag)
 }
 
+function getArgVal(flag){
+  return flagExists(flag) ? flags[flags.indexOf(flag) + 1] : false;
+}
 
 // Update some of the default WordPress webpack rules.
 baseConfig.module.rules.forEach((rule, i) => {
@@ -97,12 +100,14 @@ delete baseConfig.devServer;
 let mode = getArgVal('--mode') ? getArgVal('--mode') : baseConfig.mode;
 
 let webpackConfig = {
+  ...baseConfig,
   mode,
   name: 'uncompressed',
   target: 'web',
   cache: false,
   stats: 'errors',
   output: {
+    ...baseConfig.output,
     clean: mode === 'production'
   },
   performance: {
@@ -110,7 +115,9 @@ let webpackConfig = {
     maxEntrypointSize: 500000
   },
   module:{
+    ...baseConfig.module,
     rules: [
+      ...baseConfig.module.rules,
       /**
        * Default template loader for html is lodash, 
        * lets switch to handlebars
@@ -230,7 +237,7 @@ if( 'serve' === webpackCommand ){
   }
 
   // Page Template and additional plugins
-  webpackConfig.plugins = [
+  webpackConfig.plugins.push(
     new CAWebHTMLPlugin({
         template,
         templateParameters: {
@@ -246,34 +253,35 @@ if( 'serve' === webpackCommand ){
     }),
     new HtmlWebpackSkipAssetsPlugin(),
     new HtmlWebpackLinkTypePlugin(),
-    ! getArgVal('--no-jshint') ? new JSHintPlugin() : false,
-    ! getArgVal('--no-audit') ? new CSSAuditPlugin() : false,
-    ! getArgVal('--no-a11y') ? new A11yPlugin() : false
-  ]
+    ! flagExists('--no-jshint') ? new JSHintPlugin() : false,
+    ! flagExists('--no-audit') ? new CSSAuditPlugin() : false,
+    ! flagExists('--no-a11y') ? new A11yPlugin() : false
+  )
 }
 
-export default [
-  baseConfig,
-  webpackConfig,
-  mode === 'production' ?
-  {
-    name: 'compressed',
-    dependencies: ['uncompressed'],
-    devtool: false,
-    output: {
-      filename: '[name].min.js',
-      chunkFilename: '[name].min.js?v=[chunkhash]',
-    },
-    plugins: [
-  		new MiniCSSExtractPlugin( { filename: '[name].min.css' } ),
-  		new RtlCssPlugin( { filename: '[name]-rtl.min.css' } ),
-    ],
-    optimization:{
-      minimize: true,
-      minimizer: [
-        `...`,
-        new CssMinimizerPlugin({test: /\.min\.css$/})
-      ]
-    }
-  } : false
-].filter(Boolean);
+/**
+ * Production only
+ */
+if( mode === 'production' ){
+  // Config
+  webpackConfig.name = 'compressed';
+  webpackConfig.devtool = false;
+
+  // Output
+  webpackConfig.output.filename = '[name].min.js';
+  webpackConfig.output.chunkFilename = '[name].min.js?v=[chunkhash]';
+    
+  // Plugins
+  webpackConfig.plugins.push(
+    new MiniCSSExtractPlugin( { filename: '[name].min.css' } ),
+    new RtlCssPlugin( { filename: '[name]-rtl.min.css' } )
+  )
+
+  // Optimization
+  webpackConfig.optimization.minimize = true;
+  webpackConfig.optimization.minimizer.push(
+    new CssMinimizerPlugin({test: /\.min\.css$/})
+  )
+}
+
+export default webpackConfig;
