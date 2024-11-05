@@ -1,3 +1,7 @@
+v1.5.3
+- Updated anchor typography and nav-link variables colors to match schemes
+- Added update scripts script
+
 v1.5.2
 - Fixed issue with webpack plugins still being added even when flags are passed
 - Reverted multiple configuration export change back to single config export
