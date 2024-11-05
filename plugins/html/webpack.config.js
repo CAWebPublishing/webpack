@@ -31,6 +31,7 @@ import A11yPlugin from '@caweb/a11y-webpack-plugin';
 import CAWebHTMLPlugin from './index.js';
 
 const webpackCommand = 'build' === process.argv[2] ? 'build' : 'serve' ;
+const currentPath = path.dirname(fileURLToPath(import.meta.url));
 
 // flags can be passed via argv0 
 // we also add args from NODE_OPTIONS
@@ -127,6 +128,10 @@ let webpackConfig = {
         loader: 'handlebars-loader',
         options:{
           rootRelative: process.cwd(),
+          helperDirs: [
+            path.resolve(currentPath, 'helpers', 'string'),
+            path.resolve(currentPath, 'helpers', 'object')
+          ],
           partialResolver: function(partial, callback){
               /**
                * All template partials are loaded from the root sample directory
@@ -241,7 +246,7 @@ if( 'serve' === webpackCommand ){
     new CAWebHTMLPlugin({
         template,
         templateParameters: {
-          scheme 
+          scheme: 'false' !== scheme ? scheme : false 
         },
         skipAssets: [
             /.*-rtl.css/, // we skip the Right-to-Left Styles
