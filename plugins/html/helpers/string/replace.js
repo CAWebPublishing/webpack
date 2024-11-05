@@ -1,6 +1,15 @@
 export default function replace(value, search, replace){
-    // if value is passed 
+    let response = '';
+
+    // if parameter is passed 
     if( value && value.length ){
-        return value.replace(new RegExp(search, "g"), replace);
+        response = value.replace(new RegExp(search, "g"), replace);
     }
+
+    // if nested content exists
+    if( value.fn && value.fn().length ){
+        response +=  value.fn().replace(new RegExp(search, "g"), replace);
+    }
+
+    return response;
 }
