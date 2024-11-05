@@ -1,3 +1,8 @@
+v1.5.4
+- Updated npm scripts
+- Fixed issue with initial scheme selection for plugin
+- Added toLower, toUpper, toTitleCase, replace, jsonStringify, jsonParse handlebar loader helper functions
+
 v1.5.3
 - Updated anchor typography and nav-link variables colors to match schemes
 - Added update scripts script
