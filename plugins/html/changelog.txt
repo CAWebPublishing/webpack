@@ -1,3 +1,6 @@
+v1.5.5
+- Refined toLower, toUpper, toTitleCase, replace helper functions
+
 v1.5.4
 - Updated npm scripts
 - Fixed issue with initial scheme selection for plugin
