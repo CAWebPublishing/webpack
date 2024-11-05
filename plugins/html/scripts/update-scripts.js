@@ -31,7 +31,7 @@ fs.readdirSync(path.resolve('src', 'styles', 'colorschemes')).forEach((c) => {
     scripts[`build:${scheme}:dev`] = `webpack build --config ./webpack.config.js ./entry/${scheme}.js --merge --mode development`;
     
     // add serve scripts for each colorscheme 
-    scripts[`serve:${scheme}`] = `webpack serve --config ./webpack.config.js ./entry/${scheme}.js ./scripts/webpack.test.js --merge`;
+    scripts[`serve:${scheme}`] = `set NODE_OPTIONS='--scheme false' && webpack serve --config ./webpack.config.js ./entry/${scheme}.js ./scripts/webpack.test.js --merge`;
     scripts[`serve:${scheme}:quick`] = `set NODE_OPTIONS='--no-jshint --no-audit --no-a11y --scheme false' && webpack serve --config ./webpack.config.js ./entry/${scheme}.js ./scripts/webpack.test.js --merge`;
 
 })
