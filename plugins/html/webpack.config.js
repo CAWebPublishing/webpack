@@ -241,7 +241,7 @@ if( 'serve' === webpackCommand ){
     new CAWebHTMLPlugin({
         template,
         templateParameters: {
-            scheme: 'false' !== scheme ? scheme : false 
+          scheme 
         },
         skipAssets: [
             /.*-rtl.css/, // we skip the Right-to-Left Styles

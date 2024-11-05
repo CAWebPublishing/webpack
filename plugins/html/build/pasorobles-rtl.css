@@ -10831,8 +10831,8 @@ textarea.form-control-lg {
   --bs-nav-link-padding-y: 1rem;
   --bs-nav-link-font-size: 1rem;
   --bs-nav-link-font-weight: ;
-  --bs-nav-link-color: var(--bs-link-color);
-  --bs-nav-link-hover-color: var(--bs-link-hover-color);
+  --bs-nav-link-color: #691808;
+  --bs-nav-link-hover-color: var(--bs-main-darker);
   --bs-nav-link-disabled-color: var(--bs-secondary-color);
   display: flex;
   flex-wrap: wrap;
@@ -20091,6 +20091,47 @@ textarea.form-control-lg {
   }
 }
 /* -----------------------------------------
+   Typography - /src/styles/components/structural/type.scss
+----------------------------------------- */
+h1, .h1 {
+  line-height: 1.25;
+}
+
+h2, .h2 {
+  line-height: 1.375;
+}
+
+h3, .h3 {
+  line-height: 1.5;
+}
+
+h4, .h4 {
+  line-height: 1.625;
+}
+
+h5, .h5 {
+  line-height: 1.75;
+}
+
+h6, .h6 {
+  line-height: 1.75;
+}
+
+p {
+  padding-bottom: 0;
+}
+
+a {
+  color: var(--bs-main, #691808);
+}
+a:hover, a:focus {
+  color: var(--bs-main-darker, #691808);
+}
+a:focus {
+  outline: solid 2px #2ea3f2 !important;
+}
+
+/* -----------------------------------------
    GLOBALS 
    /src/styles/components/globals.scss
 ----------------------------------------- */
@@ -20173,37 +20214,6 @@ a .ca-gov-icon-external-link::before {
 
 .page-date {
   color: var(--bs-secondary-color, #72717c);
-}
-
-/* -----------------------------------------
-   Typography 
------------------------------------------ */
-h1, .h1 {
-  line-height: 1.25;
-}
-
-h2, .h2 {
-  line-height: 1.375;
-}
-
-h3, .h3 {
-  line-height: 1.5;
-}
-
-h4, .h4 {
-  line-height: 1.625;
-}
-
-h5, .h5 {
-  line-height: 1.75;
-}
-
-h6, .h6 {
-  line-height: 1.75;
-}
-
-p {
-  padding-bottom: 0;
 }
 
 /* -----------------------------------------
@@ -20592,9 +20602,6 @@ header.global-header .navigation .container {
 }
 header.global-header .navigation .container .nav-item {
   line-height: var(--bs-body-line-height, 1.5);
-}
-header.global-header .navigation .container .nav-item a {
-  color: var(--bs-main, #691808);
 }
 header.global-header .navigation .container .nav-item a[aria-current=page] {
   color: var(--bs-black, #000);

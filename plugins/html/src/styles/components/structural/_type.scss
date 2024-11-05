@@ -1,0 +1,43 @@
+/* -----------------------------------------
+   Typography - /src/styles/components/structural/type.scss
+----------------------------------------- */
+h1{
+  line-height: 1.25;
+}
+
+h2{
+  line-height: 1.375;
+}
+
+h3{
+  line-height: 1.5;
+}
+
+h4{
+  line-height: 1.625;
+}
+
+h5{
+  line-height: 1.75;
+}
+
+h6{
+  line-height: 1.75;
+}
+
+p{
+  padding-bottom: 0;
+}
+
+a {
+  color: var(--bs-main, $main);
+
+  &:hover,
+  &:focus {
+    color: var(--bs-main-darker, $main);
+  }
+
+  &:focus {
+    @include outline(2px);
+  }
+}
