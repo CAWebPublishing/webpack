@@ -1,3 +1,6 @@
+v1.5.6
+- Added new ifCond handlebar loader helper function
+
 v1.5.5
 - Refined toLower, toUpper, toTitleCase, replace helper functions
 
