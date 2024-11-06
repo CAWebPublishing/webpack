@@ -1,4 +1,4 @@
-export default function replace(value, search, replace){
+export default function replace(value, search, replace, options){
     let response = '';
 
     // if parameter is passed 
