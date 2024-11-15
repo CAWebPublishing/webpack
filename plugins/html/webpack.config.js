@@ -129,8 +129,9 @@ let webpackConfig = {
         options:{
           rootRelative: process.cwd(),
           helperDirs: [
-            path.resolve(currentPath, 'helpers', 'string'),
-            path.resolve(currentPath, 'helpers', 'object')
+            path.resolve(currentPath, 'helpers', 'logic'),
+            path.resolve(currentPath, 'helpers', 'object'),
+            path.resolve(currentPath, 'helpers', 'string')
           ],
           partialResolver: function(partial, callback){
               /**
