@@ -106,6 +106,8 @@
     a {
       position: relative;
       display: block;
+      word-wrap: break-word;
+      word-break: break-word;
       text-decoration: none !important;
       color: var(--bs-gray-700, $gray-700);
       padding-bottom: 0.7rem;

@@ -1,3 +1,8 @@
+v1.5.7
+- Added new endsWith handlebar loader helper function
+- Fixed issue with side navigatoin not word breaking
+- Fixed issue with cagov logo repeating
+
 v1.5.6
 - Added new ifCond handlebar loader helper function
 
