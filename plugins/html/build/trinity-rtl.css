@@ -20602,6 +20602,7 @@ header.global-header .navigation .container {
 }
 header.global-header .navigation .container .nav-item {
   line-height: var(--bs-body-line-height, 1.5);
+  align-self: baseline;
 }
 header.global-header .navigation .container .nav-item a[aria-current=page] {
   color: var(--bs-black, #000);
