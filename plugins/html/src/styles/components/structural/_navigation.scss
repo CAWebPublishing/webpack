@@ -9,6 +9,7 @@ header.global-header .navigation {
 
         .nav-item {
             line-height: var(--bs-body-line-height, $line-height-base);
+            align-self: baseline;
 
             a {
                 &[aria-current="page"]{
