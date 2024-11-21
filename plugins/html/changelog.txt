@@ -1,3 +1,6 @@
+v1.5.8
+- Updated favicon file
+
 v1.5.7
 - Added new endsWith handlebar loader helper function
 - Fixed issue with side navigatoin not word breaking
