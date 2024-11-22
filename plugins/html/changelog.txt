@@ -1,3 +1,6 @@
+v1.5.10
+- Fixed font size for dropdown menu item
+
 v1.5.9
 - Fixed issue with navigation alignment when using Dropdown
 
