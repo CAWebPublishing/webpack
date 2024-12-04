@@ -130,13 +130,17 @@ footer.global-footer{
         .footer-links{
             flex-direction: column;
 
-            .nav-item:first-child {
-                margin-bottom: 1rem;
+            .nav-item{
+                align-self: start;
+
+                &:first-child {
+                    margin: .5rem 0;
+                }
             }
         }
 
         .social-share-links{
-            margin-left: 0;
+            margin: .5rem 0;
         }
     }
 }
