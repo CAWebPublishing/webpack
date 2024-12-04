@@ -20610,11 +20610,14 @@ header.global-header .mobile-controlled.overlay {
   footer.global-footer .footer-links {
     flex-direction: column;
   }
+  footer.global-footer .footer-links .nav-item {
+    align-self: start;
+  }
   footer.global-footer .footer-links .nav-item:first-child {
-    margin-bottom: 1rem;
+    margin: 0.5rem 0;
   }
   footer.global-footer .social-share-links {
-    margin-left: 0;
+    margin: 0.5rem 0;
   }
 }
 
