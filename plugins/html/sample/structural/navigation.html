@@ -7,7 +7,7 @@
                 {{#if this.sub }}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">{{ this.label }}</a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" data-popper-placement="bottom-start">
                             {{#each this.sub }}
                                 <li>
                                     <a class="dropdown-item" href="{{ this.url }}">{{ this.label }}</a>
