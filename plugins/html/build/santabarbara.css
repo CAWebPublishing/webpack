@@ -20524,32 +20524,12 @@ header.global-header .mobile-controlled.overlay {
   header.global-header .mobile-control.toggle-menu {
     display: inline-block;
   }
-  header.global-header .search-container {
-    width: 80%;
-    margin: auto;
-    visibility: hidden;
-  }
-  header.global-header .search-container form .search-button {
-    color: var(--bs-standout, #664945);
-    background-color: var(--bs-white, #fff);
-    border-color: var(--bs-standout, #664945);
-    border-left: 0;
-  }
-  header.global-header .search-container form .search-button:focus {
-    background-color: var(--bs-gray-75, #f3f3f4);
-  }
-  header.global-header .search-container form .search-button:hover {
-    background-color: var(--bs-gray-75, #f3f3f4);
-    outline: 0 !important;
-  }
-  header.global-header .search-container form .search-textfield {
-    border-color: var(--bs-standout, #664945);
-    border-right: 0;
-  }
   header.global-header .mobile-controlled {
     position: fixed;
     width: 85%;
     height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
     background-color: var(--bs-standout, #664945);
     right: -100%;
     z-index: 16;
@@ -20558,40 +20538,69 @@ header.global-header .mobile-controlled.overlay {
   header.global-header .mobile-controlled.show {
     right: 0;
   }
-  header.global-header .mobile-controlled.navigation {
+  header.global-header .mobile-controlled .search-container {
+    width: 80%;
+    margin: auto;
+    padding-bottom: 20px;
     visibility: hidden;
-    margin-top: 20px;
   }
-  header.global-header .mobile-controlled.navigation .container {
+  header.global-header .mobile-controlled .search-container form .search-button {
+    color: var(--bs-standout, #664945);
+    background-color: var(--bs-white, #fff);
+    border-color: var(--bs-standout, #664945);
+    border-left: 0;
+  }
+  header.global-header .mobile-controlled .search-container form .search-button:focus {
+    background-color: var(--bs-gray-75, #f3f3f4);
+  }
+  header.global-header .mobile-controlled .search-container form .search-button:hover {
+    background-color: var(--bs-gray-75, #f3f3f4);
+    outline: 0 !important;
+  }
+  header.global-header .mobile-controlled .search-container form .search-textfield {
+    border-color: var(--bs-standout, #664945);
+    border-right: 0;
+  }
+  header.global-header .mobile-controlled .navigation {
+    visibility: hidden;
+    border-bottom: 0 !important;
+  }
+  header.global-header .mobile-controlled .navigation .container {
     margin-left: 0;
     margin-right: 0;
     max-width: 100%;
   }
-  header.global-header .mobile-controlled.navigation .container .nav-item:first-child .nav-link {
+  header.global-header .mobile-controlled .navigation .container .nav-item {
+    width: 100%;
+  }
+  header.global-header .mobile-controlled .navigation .container .nav-item:first-child .nav-link {
     border-top: 0.5px solid var(--bs-gray-100, #ededef);
   }
-  header.global-header .mobile-controlled.navigation .container .nav-item a {
-    color: var(--bs-white, #fff);
+  header.global-header .mobile-controlled .navigation .container .nav-item a {
+    color: var(--bs-white, #fff) !important;
     margin: 0 5px;
     border-left: 1px solid transparent !important;
     border-right: 1px solid transparent !important;
     border-bottom: 0.5px solid var(--bs-gray-100, #ededef);
   }
-  header.global-header .mobile-controlled.navigation .container .nav-item a[aria-current=page] {
+  header.global-header .mobile-controlled .navigation .container .nav-item a[aria-current=page], header.global-header .mobile-controlled .navigation .container .nav-item a.active {
     color: var(--bs-white, #fff);
     background-color: var(--bs-standout-light, #664945);
   }
-  header.global-header .mobile-controlled.navigation .container .nav-item a:hover, header.global-header .mobile-controlled.navigation .container .nav-item a:focus {
+  header.global-header .mobile-controlled .navigation .container .nav-item a:active, header.global-header .mobile-controlled .navigation .container .nav-item a:hover, header.global-header .mobile-controlled .navigation .container .nav-item a:focus, header.global-header .mobile-controlled .navigation .container .nav-item a.dropdown-item:active {
     background-color: var(--bs-standout-light, #664945);
   }
-  header.global-header .mobile-controlled.navigation .container .nav-item a.dropdown-toggle:after {
+  header.global-header .mobile-controlled .navigation .container .nav-item a.dropdown-toggle:after {
     content: "5";
     float: right;
   }
-  header.global-header .mobile-controlled.navigation .container .nav-item a.dropdown-toggle.show:after {
+  header.global-header .mobile-controlled .navigation .container .nav-item a.dropdown-toggle.show:after {
     transform: rotate(90deg);
   }
-  header.global-header .mobile-controlled.navigation .container .nav-item .dropdown-menu.show {
+  header.global-header .mobile-controlled .navigation .container .nav-item a.dropdown-item {
+    text-indent: 15px;
+  }
+  header.global-header .mobile-controlled .navigation .container .nav-item .dropdown-menu.show {
     display: contents;
   }
   header.global-header .alerts,
@@ -20632,6 +20641,7 @@ header.global-header .navigation .container {
 header.global-header .navigation .container .nav-item {
   line-height: var(--bs-body-line-height, 1.5);
   align-self: baseline;
+  text-align: left;
 }
 header.global-header .navigation .container .nav-item a {
   font-size: var(--bs-nav-link-font-size);

@@ -10,7 +10,8 @@ header.global-header .navigation {
         .nav-item {
             line-height: var(--bs-body-line-height, $line-height-base);
             align-self: baseline;
-
+            text-align: left;
+            
             a {
                 font-size: var(--bs-nav-link-font-size); 
                

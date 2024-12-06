@@ -11,42 +11,13 @@ header.global-header {
             display: inline-block;
         }
 
-        // Search
-        .search-container{
-            width: 80%;
-            margin: auto;
-
-            // hide the search container until menu button is clicked
-            visibility: hidden;
-
-            form {
-
-                .search-button{
-                    color: var(--bs-standout, $standout);
-                    background-color: var(--bs-white, $white);
-                    border-color: var(--bs-standout, $standout);
-                    border-left: 0;
-                    
-                    &:focus{
-                        background-color: var(--bs-gray-75, $gray-75);
-                    }
-                    &:hover{
-                        background-color: var(--bs-gray-75, $gray-75);
-                        outline: 0 !important;
-                    }
-                }
-                .search-textfield{
-                    border-color: var(--bs-standout, $standout);
-                    border-right: 0;
-                }
-            }
-        }
-
-        // navigation
+        // mobile control overlay
         .mobile-controlled{
             position: fixed;
             width: 85%;
             height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
             background-color: var(--bs-standout, $standout );
             right: -100%;
             z-index: 16;
@@ -56,10 +27,42 @@ header.global-header {
                 right: 0;
             }
 
-            &.navigation{
+            // Search
+            .search-container{
+                width: 80%;
+                margin: auto;
+                padding-bottom: 20px;
+                // hide the search container until menu button is clicked
+                visibility: hidden;
+
+                form {
+
+                    .search-button{
+                        color: var(--bs-standout, $standout);
+                        background-color: var(--bs-white, $white);
+                        border-color: var(--bs-standout, $standout);
+                        border-left: 0;
+                        
+                        &:focus{
+                            background-color: var(--bs-gray-75, $gray-75);
+                        }
+                        &:hover{
+                            background-color: var(--bs-gray-75, $gray-75);
+                            outline: 0 !important;
+                        }
+                    }
+                    .search-textfield{
+                        border-color: var(--bs-standout, $standout);
+                        border-right: 0;
+                    }
+                }
+            }
+
+            // Navigation 
+            .navigation{
                 // hide navigation in mobile until button is clicked
                 visibility: hidden;
-                margin-top: 20px;
+                border-bottom: 0 !important;
 
                 .container {
                     margin-left: 0;
@@ -67,27 +70,32 @@ header.global-header {
                     max-width: 100%;
     
                     .nav-item {
+                        width: 100%;
+
                         &:first-child .nav-link{
                             border-top: .5px solid var(--bs-gray-100, $gray-100);
                         }
 
                         a {
-                            color: var(--bs-white, $white);
+                            color: var(--bs-white, $white) !important;
                             margin: 0 5px;
                             border-left: 1px solid transparent !important;
                             border-right: 1px solid transparent !important;
                             border-bottom: .5px solid var(--bs-gray-100, $gray-100);
                             
-                            &[aria-current="page"]{
+                            &[aria-current="page"],
+                            &.active{
                                 color: var(--bs-white, $white);
                                 background-color: var(--bs-standout-light, $standout);
                             }
 
+                            &:active,
                             &:hover,
-                            &:focus{
+                            &:focus,
+                            &.dropdown-item:active{
                                 background-color: var(--bs-standout-light, $standout);
                             }
-    
+
                             &.dropdown-toggle{
                                 &:after{
                                     content: '5';
@@ -96,6 +104,10 @@ header.global-header {
                                 &.show:after{
                                     transform: rotate(90deg);
                                 }
+                            }
+
+                            &.dropdown-item {
+                                text-indent: 15px;
                             }
                         }
     
