@@ -3,11 +3,15 @@ window.addEventListener('load', () => {
   const isDesktopWidth = () => window.innerWidth > 992; //Maximum px for mobile width
 
   const mainHeader = document.querySelector('header');
-  const searchContainer = mainHeader ? mainHeader.querySelector('.search-container') : null;
-  const mainNav = mainHeader ? mainHeader.querySelector('.navigation') : null;
+  const mobileOverlay = mainHeader.querySelector('.mobile-controlled.overlay');
+  
+  const searchContainer = mainHeader.querySelector('.search-container');
 
-  const mainNavUl = mainNav ? mainNav.querySelector('.nav') : null;
-  const toggleMenuCloseButton = mainHeader ? mainHeader.querySelector('.mobile-control.ca-gov-icon-close-mark') : null;
+  const mainNav = mainHeader.querySelector('.navigation');
+  const mainNavUl = mainNav?.querySelector('.nav');
+
+  const toggleMenuOpenButton = mainHeader.querySelector('.mobile-control.ca-gov-icon-menu');
+  const toggleMenuCloseButton = mainHeader.querySelector('.mobile-control.ca-gov-icon-close-mark');
 
   const mobileCheck = () => { 
       if( isDesktopWidth() ){
@@ -25,7 +29,7 @@ window.addEventListener('load', () => {
           if( mainNavUl ){
             mainNavUl.classList.remove('flex-column');
           }
-          mainHeader.querySelector('.mobile-controlled.overlay')?.after(mainNav);
+          mobileOverlay.after(mainNav);
         }
         // if in desktop we append the search container after the branding logo and the 
         if( searchContainer ){
@@ -46,18 +50,15 @@ window.addEventListener('load', () => {
 
           // append the search container to the mobile control overlay
           if( searchContainer ){
-            mainHeader.querySelector('.mobile-controlled.overlay')?.append(searchContainer);
+            mobileOverlay.append(searchContainer);
           }
 
           // we hide the main navigation in mobile
           if( mainNav ){
-            mainHeader.querySelector('.mobile-controlled.overlay')?.append(mainNav);
-            mainNav.classList.remove('show');
+            mobileOverlay.append(mainNav);
 
             // navigation ul should render as a column
-            if( mainNavUl ){
-              mainNavUl.classList.add('flex-column');
-            }
+            mainNavUl?.classList.add('flex-column');
           }
 
         }
@@ -82,16 +83,25 @@ window.addEventListener('load', () => {
     }
   });
 
-  if( mainNav ){
-    mainNav.addEventListener('shown.bs.collapse', () => {
-      mainHeader?.classList.add('overlay');
-      mainNav.classList.add('visible');
-      searchContainer?.classList.add('visible');
-    });
-    mainNav.addEventListener('hide.bs.collapse', () => {
-      mainHeader?.classList.remove('overlay');
-    });
-  }
+
+  // Mobile Overlay is being shown
+  mobileOverlay.addEventListener('shown.bs.collapse', () => {
+    toggleMenuCloseButton.focus();
+    mainHeader.classList.add('overlay');
+    mainNav?.classList.add('visible');
+    searchContainer?.classList.add('visible');
+    document.body.classList.add('overflow-hidden');
+
+  });
+
+  // Mobile Overlay is hidden
+  mobileOverlay.addEventListener('hide.bs.collapse', () => {
+    toggleMenuOpenButton.focus()
+    mainHeader.classList.remove('overlay');
+    document.body.classList.remove('overflow-hidden');
+
+  });
+
 
   // ONLOAD
   // move duplicated logo to navigation drawer section

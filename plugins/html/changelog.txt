@@ -1,3 +1,6 @@
+v1.5.12
+- Restructured mobile controls to allow for menu to be scrollable
+
 v1.5.11
 - Added aria-labels to mobile open/close buttons
 - Fixed issue with Footer nav links being centered when in mobile mode
