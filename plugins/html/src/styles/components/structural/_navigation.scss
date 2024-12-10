@@ -14,11 +14,12 @@ header.global-header .navigation {
             
             a {
                 font-size: var(--bs-nav-link-font-size); 
-               
+                
+                &:active,
+                &.active,
                 &[aria-current="page"]{
-                    color: var(--bs-black, $black);
-                    border-left: 1px solid var(--bs-gray-100, $gray-100);
-                    border-right: 1px solid var(--bs-gray-100, $gray-100);
+                    color: var(--bs-dropdown-link-hover-color);
+                    background-color: var(--bs-dropdown-link-hover-bg);
                 }
 
                 &:hover,
@@ -28,7 +29,6 @@ header.global-header .navigation {
 
                 &:focus {
                     @include outline(2px);
-    
                     outline-offset: -2px;
                 }
 
@@ -56,11 +56,11 @@ header.global-header .navigation {
                 box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
                 background: var(--bs-white, $white);
                 padding: 0;
+                height: auto;
+                max-height: 500px;
+                overflow-y: auto;
+
                 
-                a:active{
-                    color: var(--bs-dropdown-link-hover-color);
-                    background-color: var(--bs-dropdown-link-hover-bg);
-                }
 
                 &.show{
                     visibility: visible;
