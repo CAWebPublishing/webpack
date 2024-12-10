@@ -1,3 +1,6 @@
+v1.5.13
+- Fixed issue with dropdown menu not scrolling in desktop mode
+
 v1.5.12
 - Restructured mobile controls to allow for menu to be scrollable
 
