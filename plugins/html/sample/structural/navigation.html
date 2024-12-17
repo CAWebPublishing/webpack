@@ -6,8 +6,8 @@
             {{#each nav.header }}
                 {{#if this.sub }}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">{{ this.label }}</a>
-                        <ul class="dropdown-menu" data-popper-placement="bottom-start">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" data-bs-popper-config='{"placement": "bottom-start", "strategy": "fixed"}'>{{ this.label }}</a>
+                        <ul class="dropdown-menu">
                             {{#each this.sub }}
                                 <li>
                                     <a class="dropdown-item nav-link" href="{{ this.url }}">{{ this.label }}</a>
