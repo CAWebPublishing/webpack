@@ -1,3 +1,6 @@
+v1.5.14
+- Added changes to dropdown menu popper config
+
 v1.5.13
 - Fixed issue with dropdown menu not scrolling in desktop mode
 
