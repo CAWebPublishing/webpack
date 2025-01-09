@@ -1,5 +1,6 @@
 v1.5.15
 - Silencing Dart Sass 3.0.0 deprecation warnings for 'global-builtin', 'import', 'color-functions', 'mixed-decls' until they are removed.
+- Added scheme script to allow for schemes to be easily created/removed.
 
 v1.5.14
 - Added changes to dropdown menu popper config
