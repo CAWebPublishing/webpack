@@ -1,4 +1,5 @@
 v1.5.15
+- Added default styles to nested ul/ol
 - Silencing Dart Sass 3.0.0 deprecation warnings for 'global-builtin', 'import', 'color-functions', 'mixed-decls' until they are removed.
 - Added scheme script to allow for schemes to be easily created/removed.
 

@@ -21044,6 +21044,31 @@ figure.executive-profile.vertical .body {
 /* -----------------------------------------
    LIST STYLES /src/styles/components/lists.scss
 ----------------------------------------- */
+/* We assign the specificity to the defaults as 1-1-1 */
+#page-container ul {
+  list-style-type: disc;
+}
+
+#page-container ul ul {
+  list-style-type: circle;
+}
+
+#page-container ul ul ul {
+  list-style-type: square;
+}
+
+#page-container ol {
+  list-style-type: decimal;
+}
+
+#page-container ol ol {
+  list-style-type: lower-alpha;
+}
+
+#page-container ol ol ol {
+  list-style-type: lower-roman;
+}
+
 .list-overstated,
 .list-understated {
   padding-left: 0;
