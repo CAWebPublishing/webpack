@@ -15,10 +15,12 @@ let scripts = {
     "create-entrypoint": "node ./scripts/create-entrypoints.js",
     "generate-json": "node ./scripts/icon.js",
     "update-scripts": "node ./scripts/update-scripts.js",
+    "new-scheme": "node ./scripts/schemes.js",
+    "remove-scheme": "node ./scripts/schemes.js -r",
     "test": "echo \"Error: run tests from root\" && exit 0",
-    "build": "npm run build:compressed && npm run build:uncompressed",
-    "build:uncompressed": "webpack build --config ./webpack.config.js ./scripts/create-entrypoints.js --merge --mode development",
-    "build:compressed": "webpack build --config ./webpack.config.js ./scripts/create-entrypoints.js --merge --mode production",
+    "build": "npm run build:prod && npm run build:dev",
+    "build:prod": "webpack build --config ./webpack.config.js ./scripts/create-entrypoints.js --merge --mode production",
+    "build:dev": "webpack build --config ./webpack.config.js ./scripts/create-entrypoints.js --merge --mode development"
 };
 
 // iterate over all colorschemes
