@@ -1,3 +1,6 @@
+v1.5.17
+- Added missing package rtlcss-webpack-plugin
+
 v1.5.16
 - Fixed issue with breadcrumbs being numbered
 - Resolved issue with anchor links being hidden behind fixed header
