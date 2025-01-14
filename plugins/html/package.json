@@ -1,6 +1,6 @@
 {
     "name": "@caweb/html-webpack-plugin",
-    "version": "1.5.15",
+    "version": "1.5.16",
     "description": "CAWebPublishing Sample Page and Configurations",
     "main": "index.js",
     "type": "module",
@@ -111,7 +111,7 @@
     },
     "homepage": "https://github.com/CAWebPublishing/webpack/plugins/html#readme",
     "devDependencies": {
-        "@inquirer/prompts": "^7.2.1",
+        "@inquirer/prompts": "^7.2.3",
         "animate.css": "^4.1.1",
         "bootstrap": "^5.3.3",
         "bootstrap-forced-colors-css": "^1.0.7",
