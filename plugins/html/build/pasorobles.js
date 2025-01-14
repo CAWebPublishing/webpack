@@ -6354,6 +6354,37 @@ window.addEventListener('load', () => {
 
 /***/ }),
 
+/***/ "./src/scripts/components/header.js":
+/*!******************************************!*\
+  !*** ./src/scripts/components/header.js ***!
+  \******************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//@ts-check
+window.addEventListener('load', () => {
+  const header = document.querySelector('header');
+  const alerts = document.querySelector('.alerts');
+  const utilityHeader = document.querySelector('.utility-header');
+  window.addEventListener('scroll', () => {
+    if (!header) {
+      return;
+    }
+    // downscroll code passed the header height
+    if (document.body.scrollTop >= header.offsetHeight || document.documentElement.scrollTop >= header.offsetHeight) {
+      var _alerts$scrollHeight, _utilityHeader$scroll;
+      // move the header up to the height of the alerts and utility if they exist, 
+      // this will hide the alerts and utility header on scroll
+      header.style.top = `-${((_alerts$scrollHeight = alerts?.scrollHeight) !== null && _alerts$scrollHeight !== void 0 ? _alerts$scrollHeight : 0) + ((_utilityHeader$scroll = utilityHeader?.scrollHeight) !== null && _utilityHeader$scroll !== void 0 ? _utilityHeader$scroll : 0)}px`;
+    } else {
+      header.style.top = '0';
+    }
+  });
+});
+
+/***/ }),
+
 /***/ "./src/scripts/components/mobile-controls.js":
 /*!***************************************************!*\
   !*** ./src/scripts/components/mobile-controls.js ***!
@@ -6520,6 +6551,35 @@ window.addEventListener('load', () => {
   });
 });
 
+/***/ }),
+
+/***/ "./src/scripts/components/scroll-margin-top.js":
+/*!*****************************************************!*\
+  !*** ./src/scripts/components/scroll-margin-top.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/**
+ * This script is used to add the scroll-margin-top to each element with an id
+ * This is used to ensure that the element is not hidden behind the header
+ */
+window.addEventListener('load', () => {
+  // Function to update the scroll-margin-top for each element with an id    
+  const updateScrollMarginTop = () => {
+    let mainHeader = document.querySelector('header');
+    // for each element with an id we add the scroll-margin-top
+    document.querySelectorAll('#page-container [id]').forEach(element => element.style.scrollMarginTop = `${mainHeader.offsetHeight}px`);
+  };
+
+  // on resize function (recalculate margin-top)
+  window.addEventListener('resize', updateScrollMarginTop);
+
+  // on load function (recalculate margin-top)
+  updateScrollMarginTop();
+});
+
 /***/ })
 
 /******/ 	});
@@ -6597,25 +6657,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_mobile_controls_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/mobile-controls.js */ "./src/scripts/components/mobile-controls.js");
 /* harmony import */ var _components_return_top_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/return-top.js */ "./src/scripts/components/return-top.js");
 /* harmony import */ var _components_external_link_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/external-link.js */ "./src/scripts/components/external-link.js");
+/* harmony import */ var _components_scroll_margin_top_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/scroll-margin-top.js */ "./src/scripts/components/scroll-margin-top.js");
+/* harmony import */ var _components_header_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/header.js */ "./src/scripts/components/header.js");
 
 
 
 
 
-/*
-import './components/dark-mode.js';
-import './components/fixed-header.js';
-import './components/accordion.js';
-import './components/accordion-list.js';
-import './components/navigation.js';
-import './components/search.js';
-import './components/sourcecode.js';
-import './components/tabs.js';
-import './components/number-counter.js';
-import './components/side-navigation.js';
-import './components/page-navigation.js';
-import './components/pagination.js';
-*/
+
 })();
 
 /******/ })()
