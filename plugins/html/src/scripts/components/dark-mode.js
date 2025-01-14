@@ -1,21 +1,7 @@
 document.addEventListener( 'DOMContentLoaded', () => {
-	//const button = document.querySelector( '.button__theme-toggle' );
-
-    /*button.addEventListener('click', () => {
-        const isDarkMode = document.body.classList.contains( 'is-dark-mode' );
-		if ( isDarkMode ) {
-			button.setAttribute( 'aria-pressed', 'false' );
-			document.body.classList.remove( 'is-dark-mode' );
-		} else {
-			button.setAttribute( 'aria-pressed', 'true' );
-			document.body.classList.add( 'is-dark-mode' );
-		}
-    })*/
-
 	// Set is-dark-mode class if user has requested dark mode.
 	if ( window.matchMedia( '(prefers-color-scheme: dark)' ).matches ){
 		document.documentElement.setAttribute('data-bs-theme', 'dark');
-		//button.setAttribute( 'aria-pressed', 'true' );
 	}
 
 });

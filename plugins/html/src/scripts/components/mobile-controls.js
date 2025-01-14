@@ -96,7 +96,7 @@ window.addEventListener('load', () => {
 
   // Mobile Overlay is hidden
   mobileOverlay.addEventListener('hide.bs.collapse', () => {
-    toggleMenuOpenButton.focus()
+    toggleMenuOpenButton.focus();
     mainHeader.classList.remove('overlay');
     document.body.classList.remove('overflow-hidden');
 
