@@ -1,3 +1,6 @@
+v1.5.20
+- Recompiled src files
+
 v1.5.19
 - Added new assets parameters to head/footer sections for external files to be loaded
 
