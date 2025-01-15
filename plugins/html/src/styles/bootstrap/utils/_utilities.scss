@@ -6,6 +6,8 @@
   4. Add dotted, solid, dashed, wavy to text-decoration- utility
   5. Add sm, md, lg to font-size- utility
   6. Add default, pointer, grab, crosshair to cursor- utility classes
+  7. Add height 0 and width 0 to utility classes
+  7. Add min-vh 0 and min-vw 0 to utility classes
 */
 $utilities: () !default;
 
@@ -20,9 +22,43 @@ $rounded_values: map-merge(
   )
 );
 
-$font-sizes: () !default;
+$height: map-get($utilities, 'height');
+$min-height: map-get($utilities, 'min-viewport-height');
+
+$height-values: map-merge(
+  map-get($height, 'values' ),
+  (
+    0: 0,
+  )
+);
+
+$min-height-values: map-merge(
+  map-get($min-height, 'values' ),
+  (
+    0: 0,
+  )
+);
+
+$width: map-get($utilities, 'width');
+$min-width: map-get($utilities, 'min-viewport-width');
+
+$width-values: map-merge(
+  map-get($width, 'values' ),
+  (
+    0: 0,
+  )
+);
+
+$min-width-values: map-merge(
+  map-get($min-width, 'values' ),
+  (
+    0: 0,
+  )
+);
+
+$font-size: map-get($utilities, 'font-size');
 $font-sizes: map-merge(
-  $font-sizes,
+  map-get($font-size, 'values' ),
   (
     sm: $font-size-sm,
     md: $font-size-base,
@@ -54,13 +90,13 @@ $utilities:  map-merge(
       values: dotted solid dashed wavy
     ),    
     "rounded": map-merge(
-      map-get($utilities, 'rounded'),
+      $rounded,
       (
         values: $rounded_values
       )
     ),
     "font-size": map-merge(
-      map-get($utilities, 'font-size'),
+      $font-size,
       (
         values: $font-sizes
       )
@@ -69,7 +105,31 @@ $utilities:  map-merge(
       property: cursor,
       class: cursor,
       values: default pointer grab crosshair
-    )
+    ),
+    "height": map-merge(
+      $height,
+      (
+        values: $height-values
+      )
+    ),
+    "min-viewport-height": map-merge(
+      $min-height,
+      (
+        values: $min-height-values
+      )
+    ),
+    "width": map-merge(
+      $width,
+      (
+        values: $width-values
+      )
+    ),
+    "min-width-height": map-merge(
+      $min-width,
+      (
+        values: $min-width-values
+      )
+    ),
   )
 );
 

@@ -6354,6 +6354,37 @@ window.addEventListener('load', () => {
 
 /***/ }),
 
+/***/ "./src/scripts/components/header.js":
+/*!******************************************!*\
+  !*** ./src/scripts/components/header.js ***!
+  \******************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//@ts-check
+window.addEventListener('load', () => {
+  const header = document.querySelector('header');
+  const alerts = document.querySelector('.alerts');
+  const utilityHeader = document.querySelector('.utility-header');
+  window.addEventListener('scroll', () => {
+    if (!header) {
+      return;
+    }
+    // downscroll code passed the header height
+    if (document.body.scrollTop >= header.offsetHeight || document.documentElement.scrollTop >= header.offsetHeight) {
+      var _alerts$scrollHeight, _utilityHeader$scroll;
+      // move the header up to the height of the alerts and utility if they exist, 
+      // this will hide the alerts and utility header on scroll
+      header.style.top = `-${((_alerts$scrollHeight = alerts?.scrollHeight) !== null && _alerts$scrollHeight !== void 0 ? _alerts$scrollHeight : 0) + ((_utilityHeader$scroll = utilityHeader?.scrollHeight) !== null && _utilityHeader$scroll !== void 0 ? _utilityHeader$scroll : 0)}px`;
+    } else {
+      header.style.top = '0';
+    }
+  });
+});
+
+/***/ }),
+
 /***/ "./src/scripts/components/mobile-controls.js":
 /*!***************************************************!*\
   !*** ./src/scripts/components/mobile-controls.js ***!
@@ -6366,10 +6397,12 @@ window.addEventListener('load', () => {
   const isDesktopWidth = () => window.innerWidth > 992; //Maximum px for mobile width
 
   const mainHeader = document.querySelector('header');
-  const searchContainer = mainHeader ? mainHeader.querySelector('.search-container') : null;
-  const mainNav = mainHeader ? mainHeader.querySelector('.navigation') : null;
-  const mainNavUl = mainNav ? mainNav.querySelector('.nav') : null;
-  const toggleMenuCloseButton = mainHeader ? mainHeader.querySelector('.mobile-control.ca-gov-icon-close-mark') : null;
+  const mobileOverlay = mainHeader.querySelector('.mobile-controlled.overlay');
+  const searchContainer = mainHeader.querySelector('.search-container');
+  const mainNav = mainHeader.querySelector('.navigation');
+  const mainNavUl = mainNav?.querySelector('.nav');
+  const toggleMenuOpenButton = mainHeader.querySelector('.mobile-control.ca-gov-icon-menu');
+  const toggleMenuCloseButton = mainHeader.querySelector('.mobile-control.ca-gov-icon-close-mark');
   const mobileCheck = () => {
     if (isDesktopWidth()) {
       /**
@@ -6386,7 +6419,7 @@ window.addEventListener('load', () => {
         if (mainNavUl) {
           mainNavUl.classList.remove('flex-column');
         }
-        mainHeader.querySelector('.mobile-controlled.overlay')?.after(mainNav);
+        mobileOverlay.after(mainNav);
       }
       // if in desktop we append the search container after the branding logo and the 
       if (searchContainer) {
@@ -6407,18 +6440,15 @@ window.addEventListener('load', () => {
 
         // append the search container to the mobile control overlay
         if (searchContainer) {
-          mainHeader.querySelector('.mobile-controlled.overlay')?.append(searchContainer);
+          mobileOverlay.append(searchContainer);
         }
 
         // we hide the main navigation in mobile
         if (mainNav) {
-          mainHeader.querySelector('.mobile-controlled.overlay')?.append(mainNav);
-          mainNav.classList.remove('show');
+          mobileOverlay.append(mainNav);
 
           // navigation ul should render as a column
-          if (mainNavUl) {
-            mainNavUl.classList.add('flex-column');
-          }
+          mainNavUl?.classList.add('flex-column');
         }
       }
     }
@@ -6440,16 +6470,22 @@ window.addEventListener('load', () => {
       toggleMenuCloseButton.click();
     }
   });
-  if (mainNav) {
-    mainNav.addEventListener('shown.bs.collapse', () => {
-      mainHeader?.classList.add('overlay');
-      mainNav.classList.add('visible');
-      searchContainer?.classList.add('visible');
-    });
-    mainNav.addEventListener('hide.bs.collapse', () => {
-      mainHeader?.classList.remove('overlay');
-    });
-  }
+
+  // Mobile Overlay is being shown
+  mobileOverlay.addEventListener('shown.bs.collapse', () => {
+    toggleMenuCloseButton.focus();
+    mainHeader.classList.add('overlay');
+    mainNav?.classList.add('visible');
+    searchContainer?.classList.add('visible');
+    document.body.classList.add('overflow-hidden');
+  });
+
+  // Mobile Overlay is hidden
+  mobileOverlay.addEventListener('hide.bs.collapse', () => {
+    toggleMenuOpenButton.focus();
+    mainHeader.classList.remove('overlay');
+    document.body.classList.remove('overflow-hidden');
+  });
 
   // ONLOAD
   // move duplicated logo to navigation drawer section
@@ -6513,6 +6549,35 @@ window.addEventListener('load', () => {
       //returnTopButton.classList.add('visible');
     }
   });
+});
+
+/***/ }),
+
+/***/ "./src/scripts/components/scroll-margin-top.js":
+/*!*****************************************************!*\
+  !*** ./src/scripts/components/scroll-margin-top.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/**
+ * This script is used to add the scroll-margin-top to each element with an id
+ * This is used to ensure that the element is not hidden behind the header
+ */
+window.addEventListener('load', () => {
+  // Function to update the scroll-margin-top for each element with an id    
+  const updateScrollMarginTop = () => {
+    let mainHeader = document.querySelector('header');
+    // for each element with an id we add the scroll-margin-top
+    document.querySelectorAll('#page-container [id]').forEach(element => element.style.scrollMarginTop = `${mainHeader.offsetHeight}px`);
+  };
+
+  // on resize function (recalculate margin-top)
+  window.addEventListener('resize', updateScrollMarginTop);
+
+  // on load function (recalculate margin-top)
+  updateScrollMarginTop();
 });
 
 /***/ })
@@ -6592,25 +6657,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_mobile_controls_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/mobile-controls.js */ "./src/scripts/components/mobile-controls.js");
 /* harmony import */ var _components_return_top_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/return-top.js */ "./src/scripts/components/return-top.js");
 /* harmony import */ var _components_external_link_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/external-link.js */ "./src/scripts/components/external-link.js");
+/* harmony import */ var _components_scroll_margin_top_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/scroll-margin-top.js */ "./src/scripts/components/scroll-margin-top.js");
+/* harmony import */ var _components_header_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/header.js */ "./src/scripts/components/header.js");
 
 
 
 
 
-/*
-import './components/dark-mode.js';
-import './components/fixed-header.js';
-import './components/accordion.js';
-import './components/accordion-list.js';
-import './components/navigation.js';
-import './components/search.js';
-import './components/sourcecode.js';
-import './components/tabs.js';
-import './components/number-counter.js';
-import './components/side-navigation.js';
-import './components/page-navigation.js';
-import './components/pagination.js';
-*/
+
 })();
 
 /******/ })()

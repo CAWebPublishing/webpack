@@ -9,6 +9,21 @@
       <!-- Template Scheme CSS -->
       <link rel="stylesheet" href="node_modules/@caweb/html-webpack-plugin/build/{{ scheme }}.css" />
     {{/if}}
+
+
+    {{#if htmlWebpackPlugin.options.meta }}
+    {{#each htmlWebpackPlugin.options.meta }}
+    <meta name="{{ @key }}" content="{{ this }}">
+    {{/each}}
+    {{/if}}
+
+    {{#if assets }}
+    {{#each assets }}
+    {{#if (endsWith this ".css") }}
+    <link rel="stylesheet" href="{{ this }}" />
+    {{/if}}
+    {{/each}}
+    {{/if}}
   </head>
   <body>
       {{> header }}
@@ -26,6 +41,13 @@
       {{> footer }}
       {{#if scheme }}
       <script src="node_modules/@caweb/html-webpack-plugin/build/{{ scheme }}.js"></script>
+      {{/if}}
+      {{#if assets }}
+      {{#each assets }}
+      {{#if (endsWith this ".js") }}
+      <script src="{{ this }}"></script>
+      {{/if}}
+      {{/each}}
       {{/if}}
   </body>
 </html>

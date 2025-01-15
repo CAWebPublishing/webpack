@@ -6,7 +6,8 @@ footer.global-footer{
    
    .nav-item {
       line-height: var(--bs-body-line-height, $line-height-base);
-      
+      align-self: center;
+
       a {
          color: var(--bs-black, $black);
    
@@ -18,9 +19,8 @@ footer.global-footer{
          }
    
          &[class*="ca-gov-icon-"]{
-            font-size: 1.75rem;
+            font-size: calc($font-size-md + $ratio);
             padding: 0;
-            padding-top: .25rem;
          }
 
          .ca-gov-logo-svg + .ca-gov-icon-external-link{

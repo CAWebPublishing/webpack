@@ -1,3 +1,69 @@
+v1.5.19
+- Added new assets parameters to head/footer sections for external files to be loaded
+
+v1.5.18
+- Added missing package rtlcss-webpack-plugin
+
+v1.5.17
+- Added missing package rtlcss-webpack-plugin
+
+v1.5.16
+- Fixed issue with breadcrumbs being numbered
+- Resolved issue with anchor links being hidden behind fixed header
+- Utility header and header alerts now hide when scrolled passed the header
+
+v1.5.15
+- Added default styles to nested ul/ol
+- Silencing Dart Sass 3.0.0 deprecation warnings for 'global-builtin', 'import', 'color-functions', 'mixed-decls' until they are removed.
+- Added scheme script to allow for schemes to be easily created/removed.
+
+v1.5.14
+- Added changes to dropdown menu popper config
+
+v1.5.13
+- Fixed issue with dropdown menu not scrolling in desktop mode
+
+v1.5.12
+- Restructured mobile controls to allow for menu to be scrollable
+
+v1.5.11
+- Added aria-labels to mobile open/close buttons
+- Fixed issue with Footer nav links being centered when in mobile mode
+
+v1.5.10
+- Fixed font size for dropdown menu item
+
+v1.5.9
+- Fixed issue with navigation alignment when using Dropdown
+
+v1.5.8
+- Updated favicon file
+
+v1.5.7
+- Added new endsWith handlebar loader helper function
+- Fixed issue with side navigatoin not word breaking
+- Fixed issue with cagov logo repeating
+
+v1.5.6
+- Added new ifCond handlebar loader helper function
+
+v1.5.5
+- Refined toLower, toUpper, toTitleCase, replace helper functions
+
+v1.5.4
+- Updated npm scripts
+- Fixed issue with initial scheme selection for plugin
+- Added toLower, toUpper, toTitleCase, replace, jsonStringify, jsonParse handlebar loader helper functions
+
+v1.5.3
+- Updated anchor typography and nav-link variables colors to match schemes
+- Added update scripts script
+
+v1.5.2
+- Fixed issue with webpack plugins still being added even when flags are passed
+- Reverted multiple configuration export change back to single config export
+- Reduced font size for footer social icons
+
 v1.5.1
 - updated npm packages
 - Changed mobile control structure, navigation and search are now in the mobile overlay

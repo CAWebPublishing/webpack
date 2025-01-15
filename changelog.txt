@@ -1,3 +1,54 @@
+v1.3.17
+- Updated npm packages
+
+v1.3.16
+- Updated npm packages
+
+v1.3.15
+- Updated npm packages
+
+v1.3.14
+- Updated npm packages
+
+v1.3.13
+- Updated npm packages
+
+v1.3.12
+- Updated npm packages
+
+v1.3.11
+- Updated npm packages
+
+v1.3.10
+- Updated npm packages
+
+v1.3.9
+- Updated npm packages
+
+v1.3.8
+- Updated npm packages
+
+v1.3.7
+- Updated npm packages
+
+v1.3.6
+- Updated npm packages
+
+v1.3.5
+- Updated npm packages
+
+v1.3.4
+- Updated npm packages
+
+v1.3.3
+- Updated npm packages
+
+v1.3.2
+- Updated npm packages
+
+v1.3.1
+- Updated npm packages
+
 v1.3.0
 - Webpack configuration has been moved to @caweb/html-webpack-plugin
 

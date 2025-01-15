@@ -31,6 +31,7 @@ import A11yPlugin from '@caweb/a11y-webpack-plugin';
 import CAWebHTMLPlugin from './index.js';
 
 const webpackCommand = 'build' === process.argv[2] ? 'build' : 'serve' ;
+const currentPath = path.dirname(fileURLToPath(import.meta.url));
 
 // flags can be passed via argv0 
 // we also add args from NODE_OPTIONS
@@ -50,10 +51,13 @@ function processArgs( arr ){
   return tmp
 }
 
-function getArgVal(flag){
-  return flags.includes(flag) ? flags[flags.indexOf(flag) + 1] : false;
+function flagExists(flag){
+  return flags.includes(flag)
 }
 
+function getArgVal(flag){
+  return flagExists(flag) ? flags[flags.indexOf(flag) + 1] : false;
+}
 
 // Update some of the default WordPress webpack rules.
 baseConfig.module.rules.forEach((rule, i) => {
@@ -77,6 +81,11 @@ baseConfig.module.rules.forEach((rule, i) => {
         delete rule.issuer;
       }
       break;
+    case new RegExp(/\.(sc|sa)ss$/).toString():
+      rule.use[rule.use.length-1].options.sassOptions = {
+        silenceDeprecations: ['global-builtin', 'import', 'color-functions', 'mixed-decls']
+      };
+      break;
   }
 });
 
@@ -97,12 +106,14 @@ delete baseConfig.devServer;
 let mode = getArgVal('--mode') ? getArgVal('--mode') : baseConfig.mode;
 
 let webpackConfig = {
+  ...baseConfig,
   mode,
   name: 'uncompressed',
   target: 'web',
   cache: false,
   stats: 'errors',
   output: {
+    ...baseConfig.output,
     clean: mode === 'production'
   },
   performance: {
@@ -110,7 +121,9 @@ let webpackConfig = {
     maxEntrypointSize: 500000
   },
   module:{
+    ...baseConfig.module,
     rules: [
+      ...baseConfig.module.rules,
       /**
        * Default template loader for html is lodash, 
        * lets switch to handlebars
@@ -120,6 +133,11 @@ let webpackConfig = {
         loader: 'handlebars-loader',
         options:{
           rootRelative: process.cwd(),
+          helperDirs: [
+            path.resolve(currentPath, 'helpers', 'logic'),
+            path.resolve(currentPath, 'helpers', 'object'),
+            path.resolve(currentPath, 'helpers', 'string')
+          ],
           partialResolver: function(partial, callback){
               /**
                * All template partials are loaded from the root sample directory
@@ -230,11 +248,11 @@ if( 'serve' === webpackCommand ){
   }
 
   // Page Template and additional plugins
-  webpackConfig.plugins = [
+  webpackConfig.plugins.push(
     new CAWebHTMLPlugin({
         template,
         templateParameters: {
-            scheme: 'false' !== scheme ? scheme : false 
+          scheme: 'false' !== scheme ? scheme : false 
         },
         skipAssets: [
             /.*-rtl.css/, // we skip the Right-to-Left Styles
@@ -246,34 +264,35 @@ if( 'serve' === webpackCommand ){
     }),
     new HtmlWebpackSkipAssetsPlugin(),
     new HtmlWebpackLinkTypePlugin(),
-    ! getArgVal('--no-jshint') ? new JSHintPlugin() : false,
-    ! getArgVal('--no-audit') ? new CSSAuditPlugin() : false,
-    ! getArgVal('--no-a11y') ? new A11yPlugin() : false
-  ]
+    ! flagExists('--no-jshint') ? new JSHintPlugin() : false,
+    ! flagExists('--no-audit') ? new CSSAuditPlugin() : false,
+    ! flagExists('--no-a11y') ? new A11yPlugin() : false
+  )
 }
 
-export default [
-  baseConfig,
-  webpackConfig,
-  mode === 'production' ?
-  {
-    name: 'compressed',
-    dependencies: ['uncompressed'],
-    devtool: false,
-    output: {
-      filename: '[name].min.js',
-      chunkFilename: '[name].min.js?v=[chunkhash]',
-    },
-    plugins: [
-  		new MiniCSSExtractPlugin( { filename: '[name].min.css' } ),
-  		new RtlCssPlugin( { filename: '[name]-rtl.min.css' } ),
-    ],
-    optimization:{
-      minimize: true,
-      minimizer: [
-        `...`,
-        new CssMinimizerPlugin({test: /\.min\.css$/})
-      ]
-    }
-  } : false
-].filter(Boolean);
+/**
+ * Production only
+ */
+if( mode === 'production' ){
+  // Config
+  webpackConfig.name = 'compressed';
+  webpackConfig.devtool = false;
+
+  // Output
+  webpackConfig.output.filename = '[name].min.js';
+  webpackConfig.output.chunkFilename = '[name].min.js?v=[chunkhash]';
+    
+  // Plugins
+  webpackConfig.plugins.push(
+    new MiniCSSExtractPlugin( { filename: '[name].min.css' } ),
+    new RtlCssPlugin( { filename: '[name]-rtl.min.css' } )
+  )
+
+  // Optimization
+  webpackConfig.optimization.minimize = true;
+  webpackConfig.optimization.minimizer.push(
+    new CssMinimizerPlugin({test: /\.min\.css$/})
+  )
+}
+
+export default webpackConfig;

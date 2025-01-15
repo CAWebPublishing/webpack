@@ -2,6 +2,31 @@
    LIST STYLES /src/styles/components/lists.scss
 ----------------------------------------- */
 
+/* We assign the specificity to the defaults as 1-1-1 */
+#page-container ul {
+  list-style-type: disc;
+}
+
+#page-container ul ul {
+  list-style-type: circle;
+}
+
+#page-container ul ul ul {
+  list-style-type: square;
+}
+
+#page-container ol {
+  list-style-type: decimal;
+}
+
+#page-container ol ol{
+  list-style-type: lower-alpha;
+}
+
+#page-container ol ol ol{
+  list-style-type: lower-roman;
+}
+
 .list-overstated,
 .list-understated{
     padding-left: 0;
@@ -106,6 +131,8 @@
     a {
       position: relative;
       display: block;
+      word-wrap: break-word;
+      word-break: break-word;
       text-decoration: none !important;
       color: var(--bs-gray-700, $gray-700);
       padding-bottom: 0.7rem;
