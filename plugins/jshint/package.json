@@ -1,6 +1,6 @@
 {
   "name": "@caweb/jshint-webpack-plugin",
-  "version": "1.0.9",
+  "version": "2.0.0",
   "description": "CAWebPublishing Webpack Plugin to run JSHint",
   "type": "module",
   "main": "index.js",
@@ -12,6 +12,9 @@
     "README.md"
   ],
   "scripts": {
+    "webpack": "webpack",
+    "build": "webpack build --config node_modules/@caweb/html-webpack-plugin/webpack.config.js",
+    "serve": "set NODE_OPTIONS='--no-audit --no-a11y --no-jshint' && webpack serve --config node_modules/@caweb/html-webpack-plugin/webpack.config.js ./scripts/webpack.test.js --merge",
     "test": "echo \"Error: run tests from root\" && exit 0"
   },
   "author": "CAWebPublishing",
@@ -35,11 +38,13 @@
   ],
   "dependencies": {
     "get-all-files": "^5.0.0",
+    "handlebars": "^4.7.8",
     "html-format": "^1.1.7",
-    "jshint": "^2.13.6"
+    "jshint": "^2.13.6",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1"
   },
-  "devDependencies": {
-    "webpack": "^5.96.1",
-    "webpack-cli": "^5.1.4"
+  "peerDependencies": {
+    "@caweb/html-webpack-plugin": "^1.5.18"
   }
 }
