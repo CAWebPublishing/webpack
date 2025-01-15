@@ -14,7 +14,7 @@ Our standard differs from the guidelines in the following ways:
 In your Webpack configuration simply add the plugin to your existing plugin array.
 
 <pre>
-import CSSAuditPlugin from '@caweb/css-audit-webpack-plugin';
+import JSHintPlugin from '@caweb/jshint-webpack-plugin';
 
 export default {
     plugins: [
@@ -22,5 +22,3 @@ export default {
     ]
 }
 </pre>
-
-## Options
