@@ -68,10 +68,12 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
     if( fs.existsSync( path.join(appPath, 'caweb.json') ) ){
 
       let dataFile = JSON.parse( fs.readFileSync( path.join(appPath, 'caweb.json') ) );
-      
+
+      // if there is a dataFile.site we merge the defaultOptions.templateParameters, user options.templateParameters, and the dataFile.site
       if( dataFile.site ){
-        defaultOptions.templateParameters = {
+        opts.templateParameters = {
           ...defaultOptions.templateParameters,
+          ...opts.templateParameters,
           ...dataFile.site
         }
       }
