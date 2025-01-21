@@ -1,3 +1,7 @@
+v1.5.21
+- Updated endsWith logic helper
+- Fixed issue with header top position/page-container margin-top not updating when scrolling when elements exist above the header
+
 v1.5.20
 - Recompiled src files
 
