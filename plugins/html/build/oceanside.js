@@ -6365,22 +6365,47 @@ __webpack_require__.r(__webpack_exports__);
 //@ts-check
 window.addEventListener('load', () => {
   const header = document.querySelector('header');
+  const pageContainer = document.querySelector('#page-container');
   const alerts = document.querySelector('.alerts');
   const utilityHeader = document.querySelector('.utility-header');
-  window.addEventListener('scroll', () => {
+  const resetPosition = () => {
     if (!header) {
       return;
     }
+    let scrollHeights = 0;
+
+    // lets collect the scroll height of any elements above the header.
+    let current = header.previousElementSibling;
+    let miscElementHeights = 0;
+    while (current) {
+      miscElementHeights += current.clientHeight;
+      current = current.previousElementSibling;
+    }
+
     // downscroll code passed the header height
     if (document.body.scrollTop >= header.offsetHeight || document.documentElement.scrollTop >= header.offsetHeight) {
       var _alerts$scrollHeight, _utilityHeader$scroll;
-      // move the header up to the height of the alerts and utility if they exist, 
-      // this will hide the alerts and utility header on scroll
-      header.style.top = `-${((_alerts$scrollHeight = alerts?.scrollHeight) !== null && _alerts$scrollHeight !== void 0 ? _alerts$scrollHeight : 0) + ((_utilityHeader$scroll = utilityHeader?.scrollHeight) !== null && _utilityHeader$scroll !== void 0 ? _utilityHeader$scroll : 0)}px`;
+      // lets add the scroll heights of any alerts
+      scrollHeights += (_alerts$scrollHeight = alerts?.scrollHeight) !== null && _alerts$scrollHeight !== void 0 ? _alerts$scrollHeight : 0;
+
+      // lets add the scroll heights of the utility header
+      scrollHeights += (_utilityHeader$scroll = utilityHeader?.scrollHeight) !== null && _utilityHeader$scroll !== void 0 ? _utilityHeader$scroll : 0;
+
+      // move the header up to the scroll height, minus any elements above the header
+      header.style.top = `-${scrollHeights - miscElementHeights}px`;
     } else {
-      header.style.top = '0';
+      header.style.top = `${miscElementHeights}px`; // reset header top position
     }
-  });
+
+    // we add the misc element heights to the page container as margin-top
+    pageContainer?.setAttribute('style', `margin-top: ${miscElementHeights}px;`);
+  };
+
+  // reset position on scroll
+  window.addEventListener('scroll', resetPosition);
+
+  // reset position on load
+  resetPosition();
 });
 
 /***/ }),
@@ -6657,8 +6682,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_mobile_controls_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/mobile-controls.js */ "./src/scripts/components/mobile-controls.js");
 /* harmony import */ var _components_return_top_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/return-top.js */ "./src/scripts/components/return-top.js");
 /* harmony import */ var _components_external_link_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/external-link.js */ "./src/scripts/components/external-link.js");
-/* harmony import */ var _components_scroll_margin_top_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/scroll-margin-top.js */ "./src/scripts/components/scroll-margin-top.js");
-/* harmony import */ var _components_header_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/header.js */ "./src/scripts/components/header.js");
+/* harmony import */ var _components_header_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/header.js */ "./src/scripts/components/header.js");
+/* harmony import */ var _components_scroll_margin_top_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/scroll-margin-top.js */ "./src/scripts/components/scroll-margin-top.js");
 
 
 
