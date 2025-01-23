@@ -6384,12 +6384,15 @@ window.addEventListener('load', () => {
 
     // downscroll code passed the header height
     if (document.body.scrollTop >= header.offsetHeight || document.documentElement.scrollTop >= header.offsetHeight) {
-      var _alerts$scrollHeight, _utilityHeader$scroll;
       // lets add the scroll heights of any alerts
-      scrollHeights += (_alerts$scrollHeight = alerts?.scrollHeight) !== null && _alerts$scrollHeight !== void 0 ? _alerts$scrollHeight : 0;
+      if (alerts) {
+        scrollHeights += alerts.scrollHeight;
+      }
 
       // lets add the scroll heights of the utility header
-      scrollHeights += (_utilityHeader$scroll = utilityHeader?.scrollHeight) !== null && _utilityHeader$scroll !== void 0 ? _utilityHeader$scroll : 0;
+      if (utilityHeader) {
+        scrollHeights += utilityHeader.scrollHeight;
+      }
 
       // move the header up to the scroll height, minus any elements above the header
       header.style.top = `-${scrollHeights - miscElementHeights}px`;
