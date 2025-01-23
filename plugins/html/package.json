@@ -1,6 +1,6 @@
 {
     "name": "@caweb/html-webpack-plugin",
-    "version": "1.5.21",
+    "version": "1.5.22",
     "description": "CAWebPublishing Sample Page and Configurations",
     "main": "index.js",
     "type": "module",
@@ -118,8 +118,8 @@
     "dependencies": {
         "@caweb/a11y-webpack-plugin": "^1.0.9",
         "@caweb/css-audit-webpack-plugin": "^1.0.12",
-        "@caweb/jshint-webpack-plugin": "^1.0.9",
-        "@wordpress/scripts": "^30.8.1",
+        "@caweb/jshint-webpack-plugin": "^2.0.1",
+        "@wordpress/scripts": "^30.9.0",
         "css-minimizer-webpack-plugin": "^7.0.0",
         "handlebars-loader": "^1.7.3",
         "html-webpack-link-type-plugin": "^1.1.1",

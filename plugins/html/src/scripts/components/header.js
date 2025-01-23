@@ -26,10 +26,14 @@ window.addEventListener('load', () => {
       document.documentElement.scrollTop >= header.offsetHeight
     ) {
       // lets add the scroll heights of any alerts
-      scrollHeights += alerts?.scrollHeight  ?? 0;
+      if( alerts ){
+        scrollHeights += alerts.scrollHeight;
+      }
 
       // lets add the scroll heights of the utility header
-      scrollHeights += utilityHeader?.scrollHeight  ?? 0;
+      if( utilityHeader ){
+        scrollHeights += utilityHeader.scrollHeight;
+      }
 
       // move the header up to the scroll height, minus any elements above the header
       header.style.top = `-${(scrollHeights - miscElementHeights)}px`;
