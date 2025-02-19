@@ -17,7 +17,10 @@ window.addEventListener('load', () => {
     let miscElementHeights = 0;
 
     while( current ){
-      miscElementHeights += current.clientHeight ;
+      // if current is a div, add its height to the miscElementHeights.
+      if( 'DIV' === current.tagName ){
+        miscElementHeights += current.clientHeight ;
+      }
       current = current.previousElementSibling;
     }
 
