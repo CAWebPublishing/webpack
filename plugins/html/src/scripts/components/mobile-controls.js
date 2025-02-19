@@ -3,15 +3,15 @@ window.addEventListener('load', () => {
   const isDesktopWidth = () => window.innerWidth > 992; //Maximum px for mobile width
 
   const mainHeader = document.querySelector('header');
-  const mobileOverlay = mainHeader.querySelector('.mobile-controlled.overlay');
+  const mobileOverlay = mainHeader?.querySelector('.mobile-controlled.overlay');
   
-  const searchContainer = mainHeader.querySelector('.search-container');
+  const searchContainer = mainHeader?.querySelector('.search-container');
 
-  const mainNav = mainHeader.querySelector('.navigation');
+  const mainNav = mainHeader?.querySelector('.navigation');
   const mainNavUl = mainNav?.querySelector('.nav');
 
-  const toggleMenuOpenButton = mainHeader.querySelector('.mobile-control.ca-gov-icon-menu');
-  const toggleMenuCloseButton = mainHeader.querySelector('.mobile-control.ca-gov-icon-close-mark');
+  const toggleMenuOpenButton = mainHeader?.querySelector('.mobile-control.ca-gov-icon-menu');
+  const toggleMenuCloseButton = mainHeader?.querySelector('.mobile-control.ca-gov-icon-close-mark');
 
   const mobileCheck = () => { 
       if( isDesktopWidth() ){
@@ -85,7 +85,7 @@ window.addEventListener('load', () => {
 
 
   // Mobile Overlay is being shown
-  mobileOverlay.addEventListener('shown.bs.collapse', () => {
+  mobileOverlay?.addEventListener('shown.bs.collapse', () => {
     toggleMenuCloseButton.focus();
     mainHeader.classList.add('overlay');
     mainNav?.classList.add('visible');
@@ -95,7 +95,7 @@ window.addEventListener('load', () => {
   });
 
   // Mobile Overlay is hidden
-  mobileOverlay.addEventListener('hide.bs.collapse', () => {
+  mobileOverlay?.addEventListener('hide.bs.collapse', () => {
     toggleMenuOpenButton.focus();
     mainHeader.classList.remove('overlay');
     document.body.classList.remove('overflow-hidden');
