@@ -1,5 +1,6 @@
 v1.5.24
-- Removed statewide alerts
+- Removed statewide alerts link
+-Focus outline color updated from 2ea3f2 to 0D81CE
 
 v1.5.23
 - Fixed issue with header height being affected by non div elements before the header
