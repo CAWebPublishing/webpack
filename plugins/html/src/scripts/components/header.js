@@ -1,12 +1,14 @@
 //@ts-check
-window.addEventListener('load', () => {
-  
+window.addEventListener('DOMContentLoaded', () => {
+  let location_hash = window.location.hash.replace(/(\|)/g, "\\$1");
+  let target = document.querySelector(location_hash);
+
   const header = document.querySelector('header');
   const pageContainer = document.querySelector('#page-container');
   const alerts = document.querySelector('.alerts');
   const utilityHeader = document.querySelector('.utility-header');
 
-  const resetPosition = () => {
+  const compactHeader = () => {
     if (!header) {
       return;
     }
@@ -41,19 +43,27 @@ window.addEventListener('load', () => {
       // move the header up to the scroll height, minus any elements above the header
       header.style.top = `-${(scrollHeights - miscElementHeights)}px`;
 
+      // we add the header height + misc element heights to the page container as margin-top, minus the scroll heights since those get hidden
+      pageContainer?.setAttribute('style', `margin-top: ${(header.offsetHeight + miscElementHeights - scrollHeights)}px;`);
     } else {
       header.style.top = `${miscElementHeights}px`; // reset header top position
+
+      pageContainer?.setAttribute('style', `margin-top: ${miscElementHeights}px;`);
     }
 
-    // we add the misc element heights to the page container as margin-top
-    pageContainer?.setAttribute('style', `margin-top: ${miscElementHeights}px;`);
   };
 
   // reset position on scroll
   window.addEventListener(
-    'scroll', resetPosition
+    'scroll', compactHeader
   );
 
-  // reset position on load
-  resetPosition();
+  // scroll to target
+  if( target ){
+    setTimeout(() => {
+      target.scrollIntoView({
+        behavior: 'smooth'
+      });
+    }, 1000);
+  }
 });
