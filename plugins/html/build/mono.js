@@ -6365,7 +6365,6 @@ __webpack_require__.r(__webpack_exports__);
 //@ts-check
 window.addEventListener('DOMContentLoaded', () => {
   let location_hash = window.location.hash.replace(/(\|)/g, "\\$1");
-  let target = document.querySelector(location_hash);
   const header = document.querySelector('header');
   const pageContainer = document.querySelector('#page-container');
   const alerts = document.querySelector('.alerts');
@@ -6415,9 +6414,10 @@ window.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', compactHeader);
 
   // scroll to target
-  if (target) {
+  if (location_hash) {
+    let target = document.querySelector(location_hash);
     setTimeout(() => {
-      target.scrollIntoView({
+      target?.scrollIntoView({
         behavior: 'smooth'
       });
     }, 1000);
