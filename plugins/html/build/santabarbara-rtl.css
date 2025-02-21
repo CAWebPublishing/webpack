@@ -20449,6 +20449,7 @@ header.global-header {
   position: sticky;
   background-color: var(--bs-white, #fff);
   z-index: 15;
+  top: 0;
   transition: all 0.3s ease;
   width: 100%;
 }
