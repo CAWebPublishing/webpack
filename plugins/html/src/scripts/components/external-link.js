@@ -1,7 +1,7 @@
 //@ts-check
 
 /* EXTERNAL LINK ICON */
-window.addEventListener('load', () => {
+window.addEventListener('DOMContentLoaded', () => {
   const ext = '<span class="ca-gov-icon-external-link" aria-hidden="true"></span><span class="sr-only">opens in a new window</span>';
   
   // Add any exceptions to not render here

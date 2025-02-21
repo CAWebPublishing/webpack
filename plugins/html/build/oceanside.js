@@ -6335,7 +6335,7 @@ __webpack_require__.r(__webpack_exports__);
 //@ts-check
 
 /* EXTERNAL LINK ICON */
-window.addEventListener('load', () => {
+window.addEventListener('DOMContentLoaded', () => {
   const ext = '<span class="ca-gov-icon-external-link" aria-hidden="true"></span><span class="sr-only">opens in a new window</span>';
 
   // Add any exceptions to not render here
@@ -6363,12 +6363,14 @@ window.addEventListener('load', () => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 //@ts-check
-window.addEventListener('load', () => {
+window.addEventListener('DOMContentLoaded', () => {
+  let location_hash = window.location.hash.replace(/(\|)/g, "\\$1");
+  let target = document.querySelector(location_hash);
   const header = document.querySelector('header');
   const pageContainer = document.querySelector('#page-container');
   const alerts = document.querySelector('.alerts');
   const utilityHeader = document.querySelector('.utility-header');
-  const resetPosition = () => {
+  const compactHeader = () => {
     if (!header) {
       return;
     }
@@ -6399,19 +6401,27 @@ window.addEventListener('load', () => {
 
       // move the header up to the scroll height, minus any elements above the header
       header.style.top = `-${scrollHeights - miscElementHeights}px`;
+
+      // we add the header height + misc element heights to the page container as margin-top, minus the scroll heights since those get hidden
+      pageContainer?.setAttribute('style', `margin-top: ${header.offsetHeight + miscElementHeights - scrollHeights}px;`);
     } else {
       header.style.top = `${miscElementHeights}px`; // reset header top position
-    }
 
-    // we add the misc element heights to the page container as margin-top
-    pageContainer?.setAttribute('style', `margin-top: ${miscElementHeights}px;`);
+      pageContainer?.setAttribute('style', `margin-top: ${miscElementHeights}px;`);
+    }
   };
 
   // reset position on scroll
-  window.addEventListener('scroll', resetPosition);
+  window.addEventListener('scroll', compactHeader);
 
-  // reset position on load
-  resetPosition();
+  // scroll to target
+  if (target) {
+    setTimeout(() => {
+      target.scrollIntoView({
+        behavior: 'smooth'
+      });
+    }, 1000);
+  }
 });
 
 /***/ }),
@@ -6424,7 +6434,7 @@ window.addEventListener('load', () => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-window.addEventListener('load', () => {
+window.addEventListener('DOMContentLoaded', () => {
   const isDesktopWidth = () => window.innerWidth > 992; //Maximum px for mobile width
 
   const mainHeader = document.querySelector('header');
@@ -6534,7 +6544,7 @@ window.addEventListener('load', () => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 //@ts-check
-window.addEventListener('load', () => {
+window.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.return-top').forEach(returnTop => returnTop.addEventListener('click', () => {
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
@@ -6580,39 +6590,6 @@ window.addEventListener('load', () => {
       //returnTopButton.classList.add('visible');
     }
   });
-});
-
-/***/ }),
-
-/***/ "./src/scripts/components/scroll-margin-top.js":
-/*!*****************************************************!*\
-  !*** ./src/scripts/components/scroll-margin-top.js ***!
-  \*****************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/**
- * This script is used to add the scroll-margin-top to each element with an id
- * This is used to ensure that the element is not hidden behind the header
- */
-window.addEventListener('load', () => {
-  let mainHeader = document.querySelector('header');
-  if (!mainHeader) {
-    return;
-  }
-
-  // Function to update the scroll-margin-top for each element with an id    
-  const updateScrollMarginTop = () => {
-    // for each element with an id we add the scroll-margin-top
-    document.querySelectorAll('#page-container [id]').forEach(element => element.style.scrollMarginTop = `${mainHeader.offsetHeight}px`);
-  };
-
-  // on resize function (recalculate margin-top)
-  window.addEventListener('resize', updateScrollMarginTop);
-
-  // on load function (recalculate margin-top)
-  updateScrollMarginTop();
 });
 
 /***/ })
@@ -6693,8 +6670,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_return_top_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/return-top.js */ "./src/scripts/components/return-top.js");
 /* harmony import */ var _components_external_link_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/external-link.js */ "./src/scripts/components/external-link.js");
 /* harmony import */ var _components_header_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/header.js */ "./src/scripts/components/header.js");
-/* harmony import */ var _components_scroll_margin_top_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/scroll-margin-top.js */ "./src/scripts/components/scroll-margin-top.js");
-
 
 
 
