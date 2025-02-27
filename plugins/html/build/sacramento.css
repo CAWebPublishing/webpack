@@ -20472,7 +20472,7 @@ footer.keywords ul li {
    /src/styles/components/header.scss
 ----------------------------------------- */
 header.global-header {
-  position: sticky;
+  position: fixed;
   background-color: var(--bs-white, #fff);
   z-index: 15;
   top: 0;
@@ -20502,8 +20502,8 @@ header.global-header #skip-to-content a:focus {
   height: 27px;
 }
 header.global-header::after {
-  content: "";
-  background-color: rgba(0, 0, 0, 0.48);
+  /*content: "";
+  background-color: rgba(0,0,0,.48);
   position: absolute;
   top: 0;
   left: 0;
@@ -20511,7 +20511,7 @@ header.global-header::after {
   height: calc(100vh + 100px);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  transition: opacity .3s ease-in-out, visibility .3s ease-in-out;*/
 }
 header.global-header.overlay::after {
   opacity: 1;
