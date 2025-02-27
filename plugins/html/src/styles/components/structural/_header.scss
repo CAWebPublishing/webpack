@@ -3,7 +3,7 @@
    /src/styles/components/header.scss
 ----------------------------------------- */
 header.global-header{
-  position: sticky;
+  position: fixed;
   background-color: var(--bs-white, $white);
   z-index: 15;
   top: 0;
@@ -36,7 +36,7 @@ header.global-header{
   }
 
   &::after{
-    content: "";
+    /*content: "";
     background-color: rgba(0,0,0,.48);
     position: absolute;
     top: 0;
@@ -45,7 +45,7 @@ header.global-header{
     height: calc(100vh + 100px);
     opacity: 0;
     visibility: hidden;
-    transition: opacity .3s ease-in-out, visibility .3s ease-in-out;
+    transition: opacity .3s ease-in-out, visibility .3s ease-in-out;*/
   }
   
   &.overlay::after{
