@@ -1,3 +1,6 @@
+v1.5.29
+- Added sanity check before scrolling 
+
 v1.5.28
 - Updated npm packages
 
