@@ -1,3 +1,6 @@
+v1.5.28
+- Updated npm packages
+
 v1.5.27
 - Fixed issues with anchor links being hidden behind header still
 - Updated npm packages
