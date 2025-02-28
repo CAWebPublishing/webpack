@@ -6364,10 +6364,21 @@ window.addEventListener('DOMContentLoaded', () => {
 __webpack_require__.r(__webpack_exports__);
 //@ts-check
 window.addEventListener('DOMContentLoaded', () => {
+  let location_hash = window.location.hash.replace(/(\|)/g, "\\$1");
   const header = document.querySelector('header');
   const pageContainer = document.querySelector('#page-container');
   const alerts = document.querySelector('.alerts');
   const utilityHeader = document.querySelector('.utility-header');
+
+  // scroll to target
+  if (location_hash) {
+    let target = document.querySelector(location_hash);
+    setTimeout(() => {
+      target?.scrollIntoView({
+        behavior: 'smooth'
+      });
+    }, 1000);
+  }
   if (!header) {
     return;
   }
