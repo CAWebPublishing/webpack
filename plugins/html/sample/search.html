@@ -25,16 +25,18 @@
     {{/each}}
     {{/if}}
   </head>
-  <body>
-      {{> header }}
+  <body class="page-template-serp">
+      {{> header  }}
       <div id="page-container" class="page-container">
           <div id="main-content" class="main-content" tabindex="-1">
             <main class="main-primary">
-              {{#if htmlWebpackPlugin.options.templateParameters.bodyHtmlSnippet }}
-              {{{ htmlWebpackPlugin.options.templateParameters.bodyHtmlSnippet }}}
-              {{else}}
-              {{> content }}
-              {{/if}}
+              <div class="section">
+                <div class="container">
+                  {{> './structural/search.html' }}
+                  <h1>Search results for: </h1>
+                  <gcse:searchresults-only></gcse:searchresults-only>
+                </div>
+              </div>
             </main>
           </div>
       </div>

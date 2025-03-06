@@ -268,6 +268,35 @@ if( 'serve' === webpackCommand ){
     ! flagExists('--no-audit') ? new CSSAuditPlugin() : false,
     ! flagExists('--no-a11y') ? new A11yPlugin() : false
   )
+
+  // we add the SERP (Search Engine Results Page)
+  // if the caweb.json has a google search id
+  if( fs.existsSync( path.join(appPath, 'caweb.json') ) ){
+    let dataFile = JSON.parse( fs.readFileSync( path.join(appPath, 'caweb.json') ) );
+  
+    if( dataFile.site.google.search ){
+      webpackConfig.plugins.push(
+        new CAWebHTMLPlugin({
+          template: 'search',
+          templateParameters: {
+            scheme: 'false' !== scheme ? scheme : false
+          },
+          filename: 'serp.html',
+          title: 'Search Results Page',
+          skipAssets: [
+            /.*-rtl.css/, // we skip the Right-to-Left Styles
+            /css-audit.*/, // we skip the CSSAudit Files
+            /a11y.*/, // we skip the A11y Files
+            /jshint.*/, // we skip the JSHint Files
+            /font-only.*/, // we skip the font-only Files
+          ]
+        })
+      )
+    }
+    
+  }
+
+  
 }
 
 /**

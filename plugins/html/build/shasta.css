@@ -20750,7 +20750,6 @@ header.global-header .navigation .container .nav-item .dropdown-menu .link-descr
 
 /* -----------------------------------------
    SEARCH 
-   /src/styles/components/structural/search.scss
 ----------------------------------------- */
 .search-container {
   align-self: center;
@@ -20793,6 +20792,12 @@ header.global-header .navigation .container .nav-item .dropdown-menu .link-descr
   outline: solid 2px #0D81CE !important;
   background-color: var(--bs-gray-800, #4a4958);
   border-color: var(--bs-gray-800, #4a4958);
+}
+
+body.page-template-serp .search-container {
+  width: 100%;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 
 /* -----------------------------------------
