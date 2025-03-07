@@ -1,7 +1,7 @@
 /* -----------------------------------------
    SEARCH 
-   /src/styles/components/structural/search.scss
 ----------------------------------------- */
+
 .search-container{
     align-self: center;
     margin-left: auto;
@@ -49,4 +49,12 @@
           }
     }
   
+}
+
+body.page-template-serp{
+    .search-container{
+       width: 100%;
+       margin-top: $spacer * 3;
+       margin-bottom: $spacer * 3;
+    }
 }

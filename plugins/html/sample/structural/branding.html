@@ -8,7 +8,13 @@
                 {{/if}}
             </a>
         </div>
-        {{> './search.html' }}
+        {{#if google.search  }}
+        {{#ifCond 'search' '!==' htmlWebpackPlugin.options.templateParameters.template }}
+
+            {{> './search.html' }}
+                
+        {{/ifCond}}
+        {{/if}}
         <button class="mobile-control toggle-menu ca-gov-icon-menu fs-2" data-bs-toggle="collapse" data-bs-target=".mobile-controlled" aria-expanded="false" aria-controls="mobile-controls" aria-label="Open the navigation menu">
         </button>
     </div>

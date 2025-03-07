@@ -39,7 +39,7 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
 
   // we change some of the html-webpack-plugin defaults
   constructor(opts = {}) {
-    let templates = ['blank', 'default'];
+    let templates = ['blank', 'default', 'search'];
 
     let defaultOptions = {
       title: path.basename( appPath ),
@@ -54,6 +54,7 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
         "viewport": "width=device-width, initial-scale=1.0, maximum-scale=2.0"
       },
       templateParameters: {
+        "template": "default",
         "title": path.basename( appPath ),
         "scheme": "oceanside",
         "logo": "https://caweb.cdt.ca.gov/wp-content/uploads/sites/221/2023/06/caweb-publishing-logo.png"
@@ -65,6 +66,17 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
       defaultOptions.templateParameters.title = opts.title;
     }
 
+    // if template selection is one of ours
+    if( opts.template && templates.includes(opts.template) ){
+      let template = opts.template;
+      // update template file based on template selection 
+      opts.template = path.join( currentPath, 'sample', `${template}.html`);
+      
+      // update default.templateParameters.template to match user options.
+      defaultOptions.templateParameters.template = template;
+    }
+   
+    // if there is a caweb.json file we merge the site data with the templateParameters
     if( fs.existsSync( path.join(appPath, 'caweb.json') ) ){
 
       let dataFile = JSON.parse( fs.readFileSync( path.join(appPath, 'caweb.json') ) );
@@ -78,11 +90,6 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
         }
       }
       
-    }
-
-    // select template file based on template selection if template is one of ours
-    if( opts.template && templates.includes(opts.template) ){
-      opts.template = path.join( currentPath, 'sample', `${opts.template}.html`);
     }
 
     super(deepmerge(defaultOptions, opts));

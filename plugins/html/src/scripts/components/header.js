@@ -3,7 +3,7 @@ window.addEventListener('DOMContentLoaded', () => {
   let location_hash = window.location.hash.replace(/(\|)/g, "\\$1");
 
   const header = document.querySelector('header');
-  const pageContainer = document.querySelector('#page-container');
+  const pageContainer = document.getElementById('page-container');
   const alerts = document.querySelector('.alerts');
   const utilityHeader = document.querySelector('.utility-header');
 
@@ -55,17 +55,23 @@ window.addEventListener('DOMContentLoaded', () => {
       header.style.top = `-${(scrollHeights - miscElementHeights)}px`;
 
       // we add the header height + misc element heights to the page container as margin-top, minus the scroll heights since those get hidden
-      pageContainer?.setAttribute('style', `margin-top: ${(header.clientHeight + miscElementHeights - scrollHeights)}px;`);
+      if( pageContainer ){
+        pageContainer.style.marginTop =  `${(header.clientHeight + miscElementHeights - scrollHeights)}px`;
+      }
     } else {
       // reset header to initial position
       header.style.top = `${miscElementHeights}px`; 
 
-      pageContainer?.setAttribute('style', `margin-top: ${header.clientHeight + miscElementHeights}px;`);
+      if( pageContainer ){
+        pageContainer.style.marginTop =  `${(header.clientHeight + miscElementHeights)}px`;
+      }
     }
 
     // for each element with an id we add the scroll-margin-top
     document.querySelectorAll('#page-container [id]').forEach((element) => {
-      element?.setAttribute('style', `scroll-margin-top: ${header.clientHeight + miscElementHeights - scrollHeights}px;`);
+      if( element instanceof HTMLElement ){
+        element.style.scrollMarginTop = `${header.clientHeight + miscElementHeights - scrollHeights}px`;
+      }
     });
   };
 
