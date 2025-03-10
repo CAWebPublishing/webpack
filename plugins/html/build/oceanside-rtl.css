@@ -20768,7 +20768,7 @@ header.global-header .navigation .container .nav-item .dropdown-menu .link-descr
   border-color: var(--bs-gray-800, #4a4958);
 }
 
-body.page-template-serp .search-container {
+body.page-template-searchpage .search-container {
   width: 100%;
   margin-top: 3rem;
   margin-bottom: 3rem;
