@@ -114,7 +114,8 @@ let webpackConfig = {
   stats: 'errors',
   output: {
     ...baseConfig.output,
-    clean: mode === 'production'
+    clean: mode === 'production',
+    pathinfo: false
   },
   performance: {
     maxAssetSize: 500000,
