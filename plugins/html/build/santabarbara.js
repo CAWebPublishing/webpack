@@ -2,9 +2,6 @@
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./node_modules/bootstrap/dist/js/bootstrap.bundle.js":
-/*!************************************************************!*\
-  !*** ./node_modules/bootstrap/dist/js/bootstrap.bundle.js ***!
-  \************************************************************/
 /***/ (function(module) {
 
 /*!
@@ -6325,9 +6322,6 @@
 /***/ }),
 
 /***/ "./src/scripts/components/external-link.js":
-/*!*************************************************!*\
-  !*** ./src/scripts/components/external-link.js ***!
-  \*************************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6355,9 +6349,6 @@ window.addEventListener('DOMContentLoaded', () => {
 /***/ }),
 
 /***/ "./src/scripts/components/header.js":
-/*!******************************************!*\
-  !*** ./src/scripts/components/header.js ***!
-  \******************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6439,9 +6430,6 @@ window.addEventListener('DOMContentLoaded', () => {
 /***/ }),
 
 /***/ "./src/scripts/components/mobile-controls.js":
-/*!***************************************************!*\
-  !*** ./src/scripts/components/mobile-controls.js ***!
-  \***************************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6548,9 +6536,6 @@ window.addEventListener('DOMContentLoaded', () => {
 /***/ }),
 
 /***/ "./src/scripts/components/return-top.js":
-/*!**********************************************!*\
-  !*** ./src/scripts/components/return-top.js ***!
-  \**********************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6650,9 +6635,6 @@ var __webpack_exports__ = {};
 (() => {
 "use strict";
 var __webpack_exports__ = {};
-/*!**********************************!*\
-  !*** ./src/styles/font-only.css ***!
-  \**********************************/
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
@@ -6661,27 +6643,12 @@ __webpack_require__.r(__webpack_exports__);
 // This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
 (() => {
 "use strict";
-var __webpack_exports__ = {};
-/*!***************************************************!*\
-  !*** ./src/styles/colorschemes/santabarbara.scss ***!
-  \***************************************************/
 __webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-})();
-
-// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
-(() => {
-"use strict";
-/*!******************************!*\
-  !*** ./src/scripts/index.js ***!
-  \******************************/
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var bootstrap_dist_js_bootstrap_bundle_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap/dist/js/bootstrap.bundle.js */ "./node_modules/bootstrap/dist/js/bootstrap.bundle.js");
-/* harmony import */ var _components_mobile_controls_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/mobile-controls.js */ "./src/scripts/components/mobile-controls.js");
-/* harmony import */ var _components_return_top_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/return-top.js */ "./src/scripts/components/return-top.js");
-/* harmony import */ var _components_external_link_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/external-link.js */ "./src/scripts/components/external-link.js");
-/* harmony import */ var _components_header_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/header.js */ "./src/scripts/components/header.js");
+/* harmony import */ var bootstrap_dist_js_bootstrap_bundle_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/bootstrap/dist/js/bootstrap.bundle.js");
+/* harmony import */ var _components_mobile_controls_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./src/scripts/components/mobile-controls.js");
+/* harmony import */ var _components_return_top_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("./src/scripts/components/return-top.js");
+/* harmony import */ var _components_external_link_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("./src/scripts/components/external-link.js");
+/* harmony import */ var _components_header_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("./src/scripts/components/header.js");
 
 
 

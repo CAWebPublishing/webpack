@@ -11,9 +11,8 @@ const pkg = JSON.parse( fs.readFileSync(path.resolve('package.json')) );
 
 let scripts = {
     "webpack": "webpack",
-    "postbuild": "npm run create-entrypoint && npm run generate-json",
+    "postbuild": "npm run create-entrypoint",
     "create-entrypoint": "node ./scripts/create-entrypoints.js",
-    "generate-json": "node ./scripts/icon.js",
     "update-scripts": "node ./scripts/update-scripts.js",
     "new-scheme": "node ./scripts/schemes.js",
     "remove-scheme": "node ./scripts/schemes.js -r",
