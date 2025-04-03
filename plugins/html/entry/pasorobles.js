@@ -10,6 +10,7 @@ const currentPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '
 export default {
     entry: {
         pasorobles: [
+            path.join(currentPath, 'node_modules/@caweb/icon-library/build/font-only.css'),
             path.join(currentPath, '/src/styles/colorschemes/pasorobles.scss'),
 			path.join(currentPath, '/src/scripts/index.js')
         ]

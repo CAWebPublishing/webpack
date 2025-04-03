@@ -39,6 +39,7 @@ const currentPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '
 export default {
     entry: {
         ${scheme}: [
+            path.join(currentPath, 'node_modules/@caweb/icon-library/build/font-only.css'),
             path.join(currentPath, ${correctFiles.join('),\n' + `\t`.repeat(3) + 'path.join(currentPath, ')})
         ]
     }

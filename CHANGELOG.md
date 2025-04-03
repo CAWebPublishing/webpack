@@ -1,3 +1,7 @@
+v1.3.33
+- Changelog changed from txt to md
+- Updated npm packages
+
 v1.3.32
 - Updated npm packages
 

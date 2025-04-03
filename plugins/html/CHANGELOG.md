@@ -1,3 +1,8 @@
+v1.7.2
+- Updated npm packages
+- Added @caweb/icon-library when testing
+- Updated entrypoints 
+
 v1.7.1
 - Updated webpack.config.js
 

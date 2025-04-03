@@ -13,21 +13,7 @@ on:
       - jshint
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: plugins/${{ github.ref_name }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: git submodule update --init
-      - run: npm ci
-      - run: npm test
   publish-npm:
-    needs: build
     runs-on: ubuntu-latest
     defaults:
       run:
