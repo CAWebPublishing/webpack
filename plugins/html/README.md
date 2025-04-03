@@ -60,6 +60,3 @@ There are various different scripts that can be ran
 
 ### Creating Entrypoints
 <code>npm run create-entrypoint</code> - This will generate a webpack entrypoint for each of the colorschemes in the ./src/styles/colorschemes directory.
-
-### Icon JSON 
-<code>npm run generate-json</code> - This will generate an json file based on all the icons in the build/fonts/ directory.
