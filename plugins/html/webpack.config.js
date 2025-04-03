@@ -20,6 +20,7 @@ import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import RtlCssPlugin from 'rtlcss-webpack-plugin';
 import {HtmlWebpackSkipAssetsPlugin} from 'html-webpack-skip-assets-plugin';
 import {HtmlWebpackLinkTypePlugin} from 'html-webpack-link-type-plugin';
+import RemoveEmptyScriptsPlugin from 'webpack-remove-empty-scripts';
 
 import JSHintPlugin from '@caweb/jshint-webpack-plugin';
 import CSSAuditPlugin from '@caweb/css-audit-webpack-plugin';
@@ -110,19 +111,33 @@ let webpackConfig = {
   mode,
   name: 'uncompressed',
   target: 'web',
+  // Turn off caching of generated modules and chunks.
+  // @see https://webpack.js.org/configuration/cache/
   cache: false,
+
   stats: 'errors',
+  
+  // Determine where the created bundles will be outputted.
+  // @see https://webpack.js.org/concepts/#output
   output: {
     ...baseConfig.output,
     clean: mode === 'production',
     pathinfo: false
   },
+
   performance: {
     maxAssetSize: 500000,
     maxEntrypointSize: 500000
   },
+
+  // This option determine how different types of module within the project will be treated.
+  // @see https://webpack.js.org/configuration/module/
   module:{
     ...baseConfig.module,
+    // This option sets up loaders for webpack configuration.
+    // Loaders allow webpack to process various types because by default webpack only
+    // understand JavaScript and JSON files.
+    // @see https://webpack.js.org/concepts/#loaders
     rules: [
       ...baseConfig.module.rules,
       /**
@@ -175,6 +190,23 @@ let webpackConfig = {
         }
       }
     ]
+  },
+  // WordPress already enqueues scripts and makes them available
+  // in global scope so those scripts don't need to be included on the bundle. For webpack
+  // to recognize those files, the global variable needs to be registered as externals.
+  // These allows global variable listed below to be imported into the module.
+  // @see https://webpack.js.org/configuration/externals/#externals
+  externals: {
+    // Third party dependencies.
+    jquery: 'jQuery',
+    underscore: '_',
+    lodash: 'lodash',
+    react: ['vendor', 'React'],
+    'react-dom': ['vendor', 'ReactDOM'],
+    
+    // WordPress dependencies.
+    '@wordpress/hooks': ['vendor', 'wp', 'hooks'],
+
   },
 };
 
@@ -325,4 +357,8 @@ if( mode === 'production' ){
   )
 }
 
+// we remove empty scripts
+webpackConfig.plugins.push(
+  new RemoveEmptyScriptsPlugin()
+);
 export default webpackConfig;
