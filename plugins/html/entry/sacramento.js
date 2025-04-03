@@ -10,6 +10,7 @@ const currentPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '
 export default {
     entry: {
         sacramento: [
+            path.join(currentPath, 'node_modules/@caweb/icon-library/build/font-only.css'),
             path.join(currentPath, '/src/styles/colorschemes/sacramento.scss'),
 			path.join(currentPath, '/src/scripts/index.js')
         ]
