@@ -1,3 +1,6 @@
+v1.7.1
+- Updated webpack.config.js
+
 v1.7.0
 - All references related to icons have been removed from template source code and move to new @caweb/icon-library package
 
