@@ -10,8 +10,8 @@
     }
 }
 
-@mixin outline($size) {
-    outline: $outline-default-style $size $outline-default-color !important;
+@mixin outline($size, $color: $outline-default-color) {
+    outline: $outline-default-style $size $color !important;
 }
 
 @mixin social-media($hover: true){

@@ -1,3 +1,6 @@
+v1.7.3
+- Search button focus outline has been lightened to correct color contrast a11y issue
+
 v1.7.2
 - Updated npm packages
 - Added @caweb/icon-library when testing

@@ -42,7 +42,7 @@
         
             &:hover,
             &:focus {
-                @include outline(2px);
+                @include outline(2px, #72C2F8);
                 background-color: var(--bs-gray-800, $gray-800);
                 border-color: var(--bs-gray-800, $gray-800);
             }
