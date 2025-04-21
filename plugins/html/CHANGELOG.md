@@ -1,3 +1,7 @@
+v1.7.4
+- Increased anchor line-height from 1.5 to 1.75 to correct interactive element not meeting minimum size or spacing 
+- Updated npm packages
+
 v1.7.3
 - Search button focus outline has been lightened to correct color contrast a11y issue
 
