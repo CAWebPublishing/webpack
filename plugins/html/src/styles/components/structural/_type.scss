@@ -36,12 +36,15 @@ a {
   &:focus {
     color: var(--bs-main-darker, $main);
   }
-
+  &:hover:not(.btn),
+  &:focus:not(.btn) {
+    text-decoration: underline;
+  }
   &:focus {
     @include outline(2px);
   }
 }
 
 #page-container a {
-  line-height: 1.75;
+  padding: .5rem 0;
 }
