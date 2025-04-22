@@ -22,7 +22,7 @@
           {{#each social }}
             {{#if this }}
             <li class="nav-item">
-              <a href="{{ this }}" class="nav-link ca-gov-icon-{{ @key }}"></a>
+              <a href="{{ this }}" class="nav-link ca-gov-icon-{{ @key }}"><span class="sr-only">{{ @key }}</span></a>
             </li>
             {{/if}}
           {{/each}}

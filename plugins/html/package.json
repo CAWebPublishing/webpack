@@ -1,6 +1,6 @@
 {
     "name": "@caweb/html-webpack-plugin",
-    "version": "1.7.4",
+    "version": "1.7.5",
     "description": "CAWebPublishing Sample Page and Configurations",
     "main": "index.js",
     "type": "module",
@@ -112,7 +112,7 @@
         "bootstrap-forced-colors-css": "^1.0.7",
         "chalk": "^5.4.1",
         "cross-spawn": "^7.0.6",
-        "fast-xml-parser": "^5.2.0"
+        "fast-xml-parser": "^5.2.1"
     },
     "dependencies": {
         "@caweb/a11y-webpack-plugin": "^1.0.9",

@@ -17860,12 +17860,15 @@ a {
 a:hover, a:focus {
   color: var(--bs-main-darker, #691808);
 }
+a:hover:not(.btn), a:focus:not(.btn) {
+  text-decoration: underline;
+}
 a:focus {
   outline: solid 2px #0D81CE !important;
 }
 
 #page-container a {
-  line-height: 1.75;
+  padding: 0.5rem 0;
 }
 
 /* -----------------------------------------
