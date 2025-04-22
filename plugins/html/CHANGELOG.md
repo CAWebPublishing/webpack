@@ -1,3 +1,9 @@
+v1.7.5 
+- Added sr-only to social share links in the footer template
+- Added text-decoration to a:hover:not(.btn) and a:focus:not(.btn)
+- Removed anchor line-height fix and added padding to anchors to correct interactive element not meeting minimum size or spacing 
+- Updated npm packages
+
 v1.7.4
 - Increased anchor line-height from 1.5 to 1.75 to correct interactive element not meeting minimum size or spacing 
 - Updated npm packages
