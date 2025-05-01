@@ -47,7 +47,7 @@ function processArgs( arr ){
 
   arr.filter(Boolean).map((o) => {
     return o.replaceAll("'", '').split('=').forEach((e => tmp.push(e)))
- })
+  });
 
   return tmp
 }
@@ -94,6 +94,10 @@ baseConfig.module.rules.forEach((rule, i) => {
 // instead we use the Webpack output.clean definition
 baseConfig.plugins.splice(1,1, false);
 
+// We remove the WordPress DependencyExtractionPlugin definition
+// otherwise externals are not available in the global scope
+baseConfig.plugins.pop();
+
 /**
  * we remove the WordPress devServer declaration since we can only have 1 when exporting multiple configurations
  * 
@@ -130,6 +134,14 @@ let webpackConfig = {
     maxEntrypointSize: 500000
   },
 
+  // Determine how modules are resolved.
+  // @see https://webpack.js.org/configuration/resolve/
+  resolve: {
+    // Allows extension to be leave off when importing.
+    // @see https://webpack.js.org/configuration/resolve/#resolveextensions
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '...'],
+  },
+
   // This option determine how different types of module within the project will be treated.
   // @see https://webpack.js.org/configuration/module/
   module:{
@@ -155,42 +167,48 @@ let webpackConfig = {
             path.resolve(currentPath, 'helpers', 'string')
           ],
           partialResolver: function(partial, callback){
-              /**
-               * All template partials are loaded from the root sample directory
-               * if the file doesn't exist we fallback to our sample template partials
-               */
-              let partialPath = path.join( process.cwd(), 'sample' );
-              let partialStructurePath = path.join( partialPath, 'structural' );
+            /**
+             * All template partials are loaded from the root sample directory
+             * if the file doesn't exist we fallback to our sample template partials
+             */
+            let partialPath = path.join( process.cwd(), 'sample' );
+            let partialStructurePath = path.join( partialPath, 'structural' );
 
-              // template parameter specific partials
-              switch( partial ){
-                // header/footer is served from the /sample/structural/ directory
-                case 'footer':
-                case 'header': 
-                  partialPath = fs.existsSync(path.join( partialStructurePath, `/${partial}.html` )) ? path.join( partialStructurePath, `/${partial}.html` ) :
-                  `./structural/${partial}.html`
-                  
-                  break;
-                
-                case 'content': 
-                  // content is served from /sample/index.html
-                  partialPath = fs.existsSync(path.join( partialPath, '/index.html' )) ? path.join( partialPath, '/index.html' ) :
-                  './missing/content.html';
+            // template parameter specific partials
+            switch( partial ){
+              // header/footer is served from the /sample/structural/ directory
+              case 'footer':
+              case 'header': 
+                partialPath = fs.existsSync(path.join( partialStructurePath, `/${partial}.html` )) ? path.join( partialStructurePath, `/${partial}.html` ) :
+                `./structural/${partial}.html`
+              
+              break;
+              
+              case 'content': 
+                // content is served from /sample/index.html
+                partialPath = fs.existsSync(path.join( partialPath, '/index.html' )) ? path.join( partialPath, '/index.html' ) :
+                './missing/content.html';
 
-                  break;
-                
-                // if not a template parameter we let the loader handle it
-                default:
-                  partialPath = partial;
-              }
+                break;
+              
+              // if not a template parameter we let the loader handle it
+              default:
+              partialPath = partial;
+            }
 
-
-              callback(false, partialPath );
+            callback(false, partialPath );
           }
         }
+      },
+      // Handle `.tsx` and `.ts` files.
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       }
     ]
   },
+
   // WordPress already enqueues scripts and makes them available
   // in global scope so those scripts don't need to be included on the bundle. For webpack
   // to recognize those files, the global variable needs to be registered as externals.
@@ -203,11 +221,12 @@ let webpackConfig = {
     lodash: 'lodash',
     react: ['vendor', 'React'],
     'react-dom': ['vendor', 'ReactDOM'],
-    
+
     // WordPress dependencies.
     '@wordpress/hooks': ['vendor', 'wp', 'hooks'],
-
-  },
+    '@wordpress/i18n': ['vendor', 'wp', 'i18n'],
+  
+  }
 };
 
 /**
@@ -217,7 +236,7 @@ if( 'serve' === webpackCommand ){
   const appPath = process.cwd();
   let template = flags.includes('--template') ? getArgVal('--template') : 'default';
   let scheme = flags.includes('--scheme') ? getArgVal('--scheme') : 'oceanside';
-     
+  
   // Dev Server is added
   webpackConfig.devServer = { 
     devMiddleware: {
@@ -283,17 +302,17 @@ if( 'serve' === webpackCommand ){
   // Page Template and additional plugins
   webpackConfig.plugins.push(
     new CAWebHTMLPlugin({
-        template,
-        templateParameters: {
-          scheme: 'false' !== scheme ? scheme : false 
-        },
-        skipAssets: [
-            /.*-rtl.css/, // we skip the Right-to-Left Styles
-            /css-audit.*/, // we skip the CSSAudit Files
-            /a11y.*/, // we skip the A11y Files
-            /jshint.*/, // we skip the JSHint Files
-            /font-only.js/, // we skip the font-only Files
-          ]
+      template,
+      templateParameters: {
+        scheme: 'false' !== scheme ? scheme : false 
+      },
+      skipAssets: [
+        /.*-rtl.css/, // we skip the Right-to-Left Styles
+        /css-audit.*/, // we skip the CSSAudit Files
+        /a11y.*/, // we skip the A11y Files
+        /jshint.*/, // we skip the JSHint Files
+        /font-only.js/, // we skip the font-only Files
+      ]
     }),
     new HtmlWebpackSkipAssetsPlugin(),
     new HtmlWebpackLinkTypePlugin(),
@@ -326,10 +345,8 @@ if( 'serve' === webpackCommand ){
         })
       )
     }
-    
-  }
 
-  
+  }
 }
 
 /**
@@ -343,7 +360,7 @@ if( mode === 'production' ){
   // Output
   webpackConfig.output.filename = '[name].min.js';
   webpackConfig.output.chunkFilename = '[name].min.js?v=[chunkhash]';
-    
+  
   // Plugins
   webpackConfig.plugins.push(
     new MiniCSSExtractPlugin( { filename: '[name].min.css' } ),
@@ -361,4 +378,5 @@ if( mode === 'production' ){
 webpackConfig.plugins.push(
   new RemoveEmptyScriptsPlugin()
 );
+
 export default webpackConfig;

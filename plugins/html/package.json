@@ -1,6 +1,6 @@
 {
     "name": "@caweb/html-webpack-plugin",
-    "version": "1.7.5",
+    "version": "1.7.6",
     "description": "CAWebPublishing Sample Page and Configurations",
     "main": "index.js",
     "type": "module",
@@ -105,8 +105,8 @@
     },
     "homepage": "https://github.com/CAWebPublishing/webpack/plugins/html#readme",
     "devDependencies": {
-        "@caweb/icon-library": "^1.0.1",
-        "@inquirer/prompts": "^7.4.1",
+        "@caweb/icon-library": "^1.1.0",
+        "@inquirer/prompts": "^7.5.0",
         "animate.css": "^4.1.1",
         "bootstrap": "^5.3.5",
         "bootstrap-forced-colors-css": "^1.0.7",
@@ -126,7 +126,7 @@
         "html-webpack-skip-assets-plugin": "^1.0.4",
         "mini-css-extract-plugin": "^2.9.2",
         "rtlcss-webpack-plugin": "^4.0.7",
-        "webpack": "^5.99.6",
+        "webpack": "^5.99.7",
         "webpack-cli": "^6.0.1",
         "webpack-remove-empty-scripts": "^1.0.4"
     }
