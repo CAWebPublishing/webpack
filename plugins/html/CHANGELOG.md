@@ -1,3 +1,10 @@
+v1.7.6
+- Added .tsx rule and ts-loader
+- Added default tsconfig.json config file
+- Removed the WordPress DependencyExtractionPlugin plugin definition
+- Padding to interactive elements changed from .5rem 0 to .5rem
+- Updated npm packages
+
 v1.7.5 
 - Added sr-only to social share links in the footer template
 - Added text-decoration to a:hover:not(.btn) and a:focus:not(.btn)
