@@ -1,3 +1,6 @@
+v1.7.7
+- Padding to interactive elements changed from .5rem to 1rem
+
 v1.7.6
 - Added .tsx rule and ts-loader
 - Added default tsconfig.json config file
