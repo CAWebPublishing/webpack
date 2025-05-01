@@ -1,3 +1,6 @@
+v1.7.8
+- Padding to interactive elements not applied to .et_pb_button and .btn classes
+
 v1.7.7
 - Padding to interactive elements changed from .5rem to 1rem
 
