@@ -1,6 +1,6 @@
 {
     "name": "@caweb/html-webpack-plugin",
-    "version": "1.7.8",
+    "version": "1.7.9",
     "description": "CAWebPublishing Sample Page and Configurations",
     "main": "index.js",
     "type": "module",
@@ -11,6 +11,7 @@
         "sample",
         "index.js",
         "README.md",
+        "tsconfig.json",
         "webpack.config.js"
     ],
     "scripts": {
@@ -126,6 +127,7 @@
         "html-webpack-skip-assets-plugin": "^1.0.4",
         "mini-css-extract-plugin": "^2.9.2",
         "rtlcss-webpack-plugin": "^4.0.7",
+        "ts-loader": "^9.5.2",
         "webpack": "^5.99.7",
         "webpack-cli": "^6.0.1",
         "webpack-remove-empty-scripts": "^1.0.4"
