@@ -1,3 +1,6 @@
+v1.3.40
+- Updated npm packages
+
 v1.3.39
 - Updated npm packages
 

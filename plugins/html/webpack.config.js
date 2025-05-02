@@ -94,10 +94,6 @@ baseConfig.module.rules.forEach((rule, i) => {
 // instead we use the Webpack output.clean definition
 baseConfig.plugins.splice(1,1, false);
 
-// We remove the WordPress DependencyExtractionPlugin definition
-// otherwise externals are not available in the global scope
-baseConfig.plugins.pop();
-
 /**
  * we remove the WordPress devServer declaration since we can only have 1 when exporting multiple configurations
  * 
