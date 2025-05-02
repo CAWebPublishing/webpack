@@ -9,8 +9,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // scroll to target
   if( location_hash ){
-    let target = document.querySelector(location_hash);
+    // location hash has leading #, so we remove it
+    let target = document.getElementById(location_hash.substring(1));
 
+    // if the location hash is not empty, we scroll to the target element
     setTimeout(() => {
       target?.scrollIntoView({
         behavior: 'smooth'

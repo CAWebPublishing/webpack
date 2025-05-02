@@ -1,3 +1,7 @@
+v1.7.9
+- Added the WordPress DependencyExtractionPlugin plugin definition back
+- Added tsconfig.json to list of distributed files
+
 v1.7.8
 - Padding to interactive elements not applied to .et_pb_button and .btn classes
 
