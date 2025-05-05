@@ -1,3 +1,7 @@
+v1.7.10
+- Padding to interactive elements changed from 1rem back to .5rem 0
+- Padding for link grid and side navigation was made !important
+
 v1.7.9
 - Added the WordPress DependencyExtractionPlugin plugin definition back
 - Added tsconfig.json to list of distributed files
