@@ -18656,6 +18656,7 @@ blockquote footer::before {
 .card .card-header .card-title {
   font-size: 1.25rem;
   font-weight: normal;
+  padding: 0;
 }
 .card .card-header .card-title > [class*=ca-gov-icon-] {
   vertical-align: middle;
@@ -18668,10 +18669,10 @@ blockquote footer::before {
 .card .card-header .options .btn:hover, .card .card-header .options .btn:focus {
   background-color: var(--bs-gray-100, #ededef);
 }
-.card .card-header.centered {
+.card .card-header.center {
   justify-content: center;
 }
-.card .card-header.centered .card-title {
+.card .card-header.center .card-title {
   margin-left: auto;
   margin-right: auto;
 }
@@ -18680,6 +18681,12 @@ blockquote footer::before {
 }
 .card .card-header.right .card-title {
   margin-right: 1.125rem;
+}
+.card.card-none {
+  border: none;
+}
+.card.card-none .card-header {
+  border: none;
 }
 .card.card-standout.highlight .card-body:before {
   content: "";
