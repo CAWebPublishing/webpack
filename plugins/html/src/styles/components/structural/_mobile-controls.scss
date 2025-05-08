@@ -114,6 +114,10 @@ header.global-header {
                         .dropdown-menu.show{
                             display: contents;
                         }
+
+                        .link-description{
+                            color: $white !important;
+                        }
                     }
                 }
             }

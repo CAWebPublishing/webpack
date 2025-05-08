@@ -1,6 +1,6 @@
 {
     "name": "@caweb/html-webpack-plugin",
-    "version": "1.7.11",
+    "version": "1.7.12",
     "description": "CAWebPublishing Sample Page and Configurations",
     "main": "index.js",
     "type": "module",
@@ -109,17 +109,17 @@
         "@caweb/icon-library": "^1.1.0",
         "@inquirer/prompts": "^7.5.0",
         "animate.css": "^4.1.1",
-        "bootstrap": "^5.3.5",
+        "bootstrap": "^5.3.6",
         "bootstrap-forced-colors-css": "^1.0.7",
         "chalk": "^5.4.1",
         "cross-spawn": "^7.0.6",
-        "fast-xml-parser": "^5.2.1"
+        "fast-xml-parser": "^5.2.2"
     },
     "dependencies": {
         "@caweb/a11y-webpack-plugin": "^1.0.9",
         "@caweb/css-audit-webpack-plugin": "^1.0.12",
         "@caweb/jshint-webpack-plugin": "^2.0.1",
-        "@wordpress/scripts": "^30.15.0",
+        "@wordpress/scripts": "^30.16.0",
         "css-minimizer-webpack-plugin": "^7.0.2",
         "handlebars-loader": "^1.7.3",
         "html-webpack-link-type-plugin": "^1.1.1",
@@ -128,7 +128,7 @@
         "mini-css-extract-plugin": "^2.9.2",
         "rtlcss-webpack-plugin": "^4.0.7",
         "ts-loader": "^9.5.2",
-        "webpack": "^5.99.7",
+        "webpack": "^5.99.8",
         "webpack-cli": "^6.0.1",
         "webpack-remove-empty-scripts": "^1.0.4"
     }
