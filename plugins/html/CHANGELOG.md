@@ -1,3 +1,6 @@
+v1.7.13
+- Added card-none styles
+
 v1.7.12
 - Added Link Description to sub navigation items
 - Fixed link description color 
