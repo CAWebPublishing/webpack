@@ -16,6 +16,7 @@
         .card-title{
             font-size: 1.25rem;
             font-weight: normal;
+            padding: 0;
 
             > [class*="ca-gov-icon-"]{
                 vertical-align: middle;
@@ -36,7 +37,7 @@
         }
 
         // centered justified header.
-        &.centered{
+        &.center{
             justify-content: center;
             .card-title{
                 margin-left: auto;
@@ -53,6 +54,13 @@
         }
     }
 
+    // None
+    &.card-none{
+        border: none;
+        .card-header{
+            border: none;
+        }
+    }
 
     // Standout
     &.card-standout{
