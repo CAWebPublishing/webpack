@@ -11,6 +11,7 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+        justify-content: space-between;
         
         .card-title{
             font-size: 1.25rem;
@@ -23,8 +24,6 @@
         }
 
         .options{
-            margin-left: auto;
-
             .btn{
                 border-color: var(--bs-border-color-translucent, $border-color);
                 background-color: var(--bs-gray-75, $gray-75);
@@ -33,6 +32,23 @@
                 &:focus{
                     background-color: var(--bs-gray-100, $gray-100);
                 }
+            }
+        }
+
+        // centered justified header.
+        &.centered{
+            justify-content: center;
+            .card-title{
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        // right justified header.
+        &.right{
+            justify-content: end;
+            .card-title{
+                margin-right: $font-size-base;
             }
         }
     }

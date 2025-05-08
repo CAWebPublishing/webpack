@@ -1,3 +1,8 @@
+v1.7.12
+- Added Link Description to sub navigation items
+- Fixed link description color 
+- Added centered and right classes to card/panel headers
+
 v1.7.11
 - Removed hot update files
 
