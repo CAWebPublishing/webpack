@@ -10,7 +10,11 @@
                         <ul class="dropdown-menu">
                             {{#each this.sub }}
                                 <li>
-                                    <a class="dropdown-item nav-link" href="{{ this.url }}">{{ this.label }}</a>
+                                    <a class="dropdown-item nav-link" href="{{ this.url }}">{{ this.label }}
+                                        {{#if this.description }}
+                                        <div class="link-description">{{ this.description }}</div>
+                                        {{/if}}
+                                    </a>
                                 </li>
                             {{/each}}
                         </ul>
