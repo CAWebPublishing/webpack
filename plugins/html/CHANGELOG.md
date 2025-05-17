@@ -1,3 +1,6 @@
+v1.8.0
+- Removed templating and css/js framework out, this is now solely used for Site Generation
+
 v1.7.13
 - Added card-none styles
 

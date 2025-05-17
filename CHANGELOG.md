@@ -1,3 +1,8 @@
+v1.4.0
+- Main Webpack configuration has been moved back
+- handlebars-loader helper files have been introduced
+- tsconfig.json file was added
+
 v1.3.44
 - Updated npm packages
 
