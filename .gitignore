@@ -18,7 +18,7 @@ audit
 # lets not save site data
 caweb.json
 
-# plugins can have built and src assets
+# plugins can have built, src directories.
 !plugins\/**\/build
 !plugins\/**\/src
 
