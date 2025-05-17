@@ -9,19 +9,15 @@ import chalk from 'chalk';
 import deepmerge from 'deepmerge';
 import { fileURLToPath, URL } from 'url';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-/*
-import spawn from 'cross-spawn';
-import { getAllFilesSync } from 'get-all-files'
-import EntryDependency from "webpack/lib/dependencies/EntryDependency.js";
-import fs from 'fs';
 
+/*
 const boldWhite = chalk.bold.white;
 const boldGreen = chalk.bold.green;
 const boldBlue = chalk.bold.hex('#03a7fc');
 */
 const currentPath = path.dirname(fileURLToPath(import.meta.url));
 const appPath = process.cwd();
-
+const templatePath = path.resolve(currentPath, '..', 'template');
 
 /**
  * Launches CAWeb HTML Markup
@@ -35,17 +31,16 @@ const appPath = process.cwd();
  * @typedef {CAWebHTMLPlugin}
  * @extends {HtmlWebpackPlugin}
  */
-class CAWebHTMLPlugin extends HtmlWebpackPlugin{
+class CAWebHtmlWebpackPlugin extends HtmlWebpackPlugin{
 
   // we change some of the html-webpack-plugin defaults
   constructor(opts = {}) {
-    let templates = ['blank', 'default', 'search'];
+    let templates = ['index', 'blank', 'default', 'search'];
 
     let defaultOptions = {
       title: path.basename( appPath ),
-      favicon: fs.existsSync(path.join(appPath, 'sample', 'favicon.ico')) ? path.join(appPath, 'sample', 'favicon.ico') : path.join(currentPath, 'sample', 'favicon.ico'),
       inject: 'body',
-      template: path.join( currentPath, 'sample', 'default.html'),
+      template: path.join( templatePath, 'patterns', 'index.html'),
       scriptLoading: 'blocking',
       meta: {
         "Author": "CAWebPublishing",
@@ -54,13 +49,43 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
         "viewport": "width=device-width, initial-scale=1.0, maximum-scale=2.0"
       },
       templateParameters: {
-        "template": "default",
+        "template": "index",
         "title": path.basename( appPath ),
         "scheme": "oceanside",
-        "logo": "https://caweb.cdt.ca.gov/wp-content/uploads/sites/221/2023/06/caweb-publishing-logo.png"
       },
+      assets: []
     }
 
+    // if there is a favicon.ico file in the media directory we use that
+    // otherwise we fallback to the template favicon.ico
+    defaultOptions.favicon = fs.existsSync(path.join(appPath, 'media', 'favicon.ico')) ?
+      path.join(appPath, 'media', 'favicon.ico') :
+      path.join(templatePath, 'media', 'favicon.ico');
+
+      // the templateParameters.favicon is not set, set it
+    if( ! defaultOptions.templateParameters.favicon ){
+      defaultOptions.templateParameters.favicon = defaultOptions.favicon;
+    }
+
+    // if there is a logo file in the media directory we use that
+    if( fs.existsSync(path.join(appPath, 'media', 'logo.png')) ){
+      defaultOptions.assets.push( path.join(appPath, 'media', 'logo.png') );
+      defaultOptions.templateParameters.logo = '/media/logo.png';
+
+      // otherwise we fallback to the template logo.png
+    }else{
+      // remove the appPath from the templath path
+      // replace all backslashes with forward slashes
+      // this is to make sure the logo.png in the branding.html is in the right place
+      defaultOptions.templateParameters.logo = 
+        path.join(
+          templatePath,
+          'media', 'logo.png'
+        )
+         .replace(appPath, '')
+        .replace(/\\/g, '/');
+    }
+      
     // update templateParameters.title to match user options.
     if( opts.title ){
       defaultOptions.templateParameters.title = opts.title;
@@ -68,9 +93,10 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
 
     // if template selection is one of ours
     if( opts.template && templates.includes(opts.template) ){
-      let template = opts.template;
+      let template = 'default' === opts.template ? 'index' : opts.template;
+      
       // update template file based on template selection 
-      opts.template = path.join( currentPath, 'sample', `${template}.html`);
+      opts.template = path.join( templatePath, 'patterns', `${template}.html`);
       
       // update default.templateParameters.template to match user options.
       defaultOptions.templateParameters.template = template;
@@ -81,12 +107,20 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
 
       let dataFile = JSON.parse( fs.readFileSync( path.join(appPath, 'caweb.json') ) );
 
-      // if there is a dataFile.site we merge the defaultOptions.templateParameters, user options.templateParameters, and the dataFile.site
+      // if there is a dataFile.site 
       if( dataFile.site ){
+
+        // we merge the defaultOptions.templateParameters, user options.templateParameters, and the dataFile.site
         opts.templateParameters = {
           ...defaultOptions.templateParameters,
           ...opts.templateParameters,
           ...dataFile.site
+        }
+
+        // some properties are used in different ways and not as templateParameters
+        // if there is a dataFile.site.favicon we use that
+        if( dataFile.site.favicon ){
+          defaultOptions.favicon = dataFile.site.favicon;
         }
       }
       
@@ -98,8 +132,76 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
 
   apply(compiler) {
     super.apply(compiler);
+
+    compiler.hooks.compilation.tap("CAWebHtmlWebpackPlugin", (compilation) => {
+       /**
+       * Hook into the HtmlWebpackPlugin events
+       * 
+       * @link https://github.com/jantimon/html-webpack-plugin?tab=readme-ov-file#events
+       */
+      HtmlWebpackPlugin.getCompilationHooks(compilation).beforeEmit.tapAsync(
+        "CAWebHtmlWebpackPlugin", 
+        ({html, outputName, plugin}, cb) => {
+          // if the html contains local assets those assets are added to the options.assets array 
+          // and the assets are added to the compilation afterEmit
+          let additionalAssets = html.match(/(src|href)="(.+?)"/g);
+         
+          if( additionalAssets ){
+            additionalAssets.forEach( (asset) => {
+              let ref = asset.replace(/(src|href|=|")/g, '');
+
+              
+              let localFile = ref.startsWith('/') || ref.startsWith('\\') ? 
+                path.join( appPath, ref ) : 
+                ref;
+              
+              // if the asset is a local file 
+              // if the asset is not already in the options.assets array
+              if( 
+                fs.existsSync(localFile) && 
+                fs.lstatSync(localFile).isFile() &&
+                ! this.options.assets.includes(localFile)
+              ){
+                  this.options.assets.push(localFile);
+              }
+            });
+
+            // any references to the node_modules directory are removed
+            // any organizational packages @ are also removed
+            // this might cause some conflicts with packages that are named the same as organiazational packages
+            html = html.replace(/[\\\/]?node_modules[\\\/@]+/g, '/');
+          }
+          
+          // Tell webpack to move on
+          cb(null, {html, outputName, plugin});
+        },
+      );
+
+      HtmlWebpackPlugin.getCompilationHooks(compilation).afterEmit.tapAsync(
+        "CAWebHtmlWebpackPlugin", 
+        ({outputName, plugin}, cb) => {
+
+          // if there are any assets in the options.assets array
+          // we add them to the compilation and emit them
+          this.options.assets.forEach( async (asset) => { 
+            compilation.fileDependencies.add( asset );
+
+            // we remove the appPath from the asset path
+            // we remove the node_modules/@ from the asset path
+            compilation.emitAsset( 
+              asset.replace(appPath, '').replace(/[\\\/]?node_modules[\\\/@]+/g, ''),
+              new compiler.webpack.sources.RawSource( fs.readFileSync(asset) ) 
+            );
+          });
+          
+          // Tell webpack to move on
+          cb(null, {outputName, plugin});
+        },
+      );
+    });
+  
   }
 } // end of class
   
 
-export default CAWebHTMLPlugin;
+export default CAWebHtmlWebpackPlugin;

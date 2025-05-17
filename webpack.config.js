@@ -22,17 +22,22 @@ import {HtmlWebpackSkipAssetsPlugin} from 'html-webpack-skip-assets-plugin';
 import {HtmlWebpackLinkTypePlugin} from 'html-webpack-link-type-plugin';
 import RemoveEmptyScriptsPlugin from 'webpack-remove-empty-scripts';
 
-import JSHintPlugin from '@caweb/jshint-webpack-plugin';
-import CSSAuditPlugin from '@caweb/css-audit-webpack-plugin';
-import A11yPlugin from '@caweb/a11y-webpack-plugin';
+// import JSHintPlugin from '@caweb/jshint-webpack-plugin';
+// import CSSAuditPlugin from '@caweb/css-audit-webpack-plugin';
+// import A11yPlugin from '@caweb/a11y-webpack-plugin';
 
 /**
  * Internal dependencies
  */
-import CAWebHTMLPlugin from './index.js';
+import CAWebHTMLPlugin from '@caweb/html-webpack-plugin';
 
 const webpackCommand = 'build' === process.argv[2] ? 'build' : 'serve' ;
+
+// this is the path to this current file
 const currentPath = path.dirname(fileURLToPath(import.meta.url));
+
+// this is the path to the current project directory
+const appPath = process.cwd();
 
 // flags can be passed via argv0 
 // we also add args from NODE_OPTIONS
@@ -101,6 +106,11 @@ baseConfig.plugins.splice(1,1, false);
  */
 delete baseConfig.devServer;
 
+// we allow the user to pass custom template helpers
+const customTemplateHelpers = fs.existsSync(path.resolve('helpers'), {withFileTypes: true} ) ?
+  fs.readdirSync(path.resolve('helpers'), {withFileTypes: true} ).filter( Dirent => Dirent.isDirectory()  ).map( Dirent => path.resolve(Dirent.parentPath, Dirent.name) ) :
+  [];
+
 // Wordpress ignores the webpack --mode flag
 // if the flag is passed we use that mode 
 // otherwise use whatever Wordpress is using
@@ -161,38 +171,68 @@ let webpackConfig = {
             path.resolve(currentPath, 'helpers', 'logic'),
             path.resolve(currentPath, 'helpers', 'object'),
             path.resolve(currentPath, 'helpers', 'string')
-          ],
+          ].concat( customTemplateHelpers ),
           partialResolver: function(partial, callback){
             /**
-             * All template partials are loaded from the root sample directory
-             * if the file doesn't exist we fallback to our sample template partials
+             * All template partials are loaded from the root directory
+             * if the file doesn't exist we fallback to our template partials
              */
-            let partialPath = path.join( process.cwd(), 'sample' );
-            let partialStructurePath = path.join( partialPath, 'structural' );
+            let fallbackPath = path.join( currentPath, '..', 'template' );
+            let partialDir = '';
 
             // template parameter specific partials
             switch( partial ){
-              // header/footer is served from the /sample/structural/ directory
+              /**
+               * Semantic elements are served from the /semantic/ directory
+               * 
+               * - header
+               * - footer
+               * 
+               * @link https://www.w3schools.com/html/html5_semantic_elements.asp
+               */
+              case 'branding':
               case 'footer':
               case 'header': 
-                partialPath = fs.existsSync(path.join( partialStructurePath, `/${partial}.html` )) ? path.join( partialStructurePath, `/${partial}.html` ) :
-                `./structural/${partial}.html`
-              
-              break;
-              
-              case 'content': 
-                // content is served from /sample/index.html
-                partialPath = fs.existsSync(path.join( partialPath, '/index.html' )) ? path.join( partialPath, '/index.html' ) :
-                './missing/content.html';
+              case 'mobileControls': 
+              case 'navHeader': 
+              case 'utilityHeader': 
+                partialDir = 'semantics';
+                break;
 
+              // content is served from the /content/ directory
+              case 'index': 
+              case 'content': 
+                partialDir = 'content';
+                break;
+
+              // components are served from the /components/ directory
+              case 'alerts':
+                partialDir = 'components';
                 break;
               
-              // if not a template parameter we let the loader handle it
-              default:
-              partialPath = partial;
+              // forms are served from the /forms/ directory
+              case 'searchForm':
+                partialDir = 'forms';
+                break;
+              
+              // tables are served from the /tables/ directory
+              case partial.includes('Table'):
+                partialDir = 'tables';
+                break;
             }
 
-            callback(false, partialPath );
+            if( partialDir ){
+                // we remove the Form from the name
+                // we remove the Table from the name
+                // we change the partial name from camelCase to dash-case
+                partial = partial.replace(/(Form|Table)/, '').replace(/([A-Z])/g, '-$1').toLowerCase();
+
+                partial = fs.existsSync( path.join( appPath, partialDir, `/${partial}.html` )) ? 
+                  path.join( appPath, partialDir, `/${partial}.html` ) :
+                  path.join( fallbackPath, partialDir, `/${partial}.html` )
+            }
+
+            callback(false, partial );
           }
         }
       },
@@ -229,9 +269,12 @@ let webpackConfig = {
  * Serve Only
  */
 if( 'serve' === webpackCommand ){
-  const appPath = process.cwd();
   let template = flags.includes('--template') ? getArgVal('--template') : 'default';
   let scheme = flags.includes('--scheme') ? getArgVal('--scheme') : 'oceanside';
+
+  let host = flags.includes('--host') ? getArgVal('--host') : 'localhost';
+  let port = flags.includes('--port') ? getArgVal('--port') : 9000;
+  let server = flags.includes('--server-type') ? getArgVal('--server-type') : 'http';
   
   // Dev Server is added
   webpackConfig.devServer = { 
@@ -241,30 +284,20 @@ if( 'serve' === webpackCommand ){
     hot: true,
     compress: true,
     allowedHosts: 'auto',
-    host: 'localhost',
-    port: 9000,
-    open: [  'http://localhost:9000' ],
+    server,
+    host,
+    port,
+    open: [  `${server}://${host}:${port}` ],
     static: [
       /**
        * Static files are served from the following files in the following order
        * we don't have to add the build directory since that is the output.path and proxied
-       * public - Default
-       * sample - Allows loading sample files
+       * 
        * node_modules - Allows loading files from other npm packages
-       * src - Allows loading files that aren't compiled
        */
       {
-        directory: path.join(appPath, 'public'),
-      },
-      {
-        directory: path.join(appPath, 'sample'),
-      },
-      {
         directory: path.join(appPath, 'node_modules'),
-      },
-      {
-        directory: path.join(appPath, 'src'),
-      },
+      }
     ],
     proxy:[
       /**
@@ -273,7 +306,7 @@ if( 'serve' === webpackCommand ){
        */
       {
         context: ['/build'],
-        target: 'http://localhost:9000',
+        target: `${server}://${host}:${port}`,
         pathRewrite: {
           '^/build': ''
         },
@@ -284,13 +317,8 @@ if( 'serve' === webpackCommand ){
        */
       {
         context: ['/node_modules'],
-        target: 'http://localhost:9000',
+        target: `${server}://${host}:${port}`,
         pathRewrite: { '^/node_modules': '' },
-      },
-      {
-        context: ['/src'],
-        target: 'http://localhost:9000',
-        pathRewrite: { '^/src': '' },
       }
     ]
   }
@@ -312,9 +340,9 @@ if( 'serve' === webpackCommand ){
     }),
     new HtmlWebpackSkipAssetsPlugin(),
     new HtmlWebpackLinkTypePlugin(),
-    ! flagExists('--no-jshint') ? new JSHintPlugin() : false,
-    ! flagExists('--no-audit') ? new CSSAuditPlugin() : false,
-    ! flagExists('--no-a11y') ? new A11yPlugin() : false
+    //! flagExists('--no-jshint') ? new JSHintPlugin() : false,
+    //! flagExists('--no-audit') ? new CSSAuditPlugin() : false,
+    //! flagExists('--no-a11y') ? new A11yPlugin() : false
   )
 
   // we add the SERP (Search Engine Results Page)
