@@ -1,5 +1,11 @@
+v1.8.1
+- Updated npm packages
+
 v1.8.0
 - Removed templating and css/js framework out, this is now solely used for Site Generation
+- Src/href local files are now moved into the build directory
+- Any references to the node_modules directory are removed
+- Any organizational packages @ are also removed
 
 v1.7.13
 - Added card-none styles
