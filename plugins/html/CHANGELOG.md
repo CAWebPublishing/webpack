@@ -1,3 +1,6 @@
+v1.8.3
+- Updated npm packages
+
 v1.8.2
 - If the @caweb/icon-library css is used the font files are also moved to the build folder
 
