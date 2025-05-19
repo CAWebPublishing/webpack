@@ -37,9 +37,7 @@
   },
   "homepage": "https://github.com/CAWebPublishing/webpack#readme",
   "dependencies": {
-    "@caweb/a11y-webpack-plugin": "^1.0.9",
-    "@caweb/html-webpack-plugin": "^1.8.1",
-    "@caweb/jshint-webpack-plugin": "^2.0.1",
+    "@caweb/html-webpack-plugin": "^1.8.2",
     "@wordpress/scripts": "^30.16.0",
     "css-minimizer-webpack-plugin": "^7.0.2",
     "handlebars-loader": "^1.7.3",
