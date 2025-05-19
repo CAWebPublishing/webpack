@@ -18,6 +18,7 @@ const boldBlue = chalk.bold.hex('#03a7fc');
 const currentPath = path.dirname(fileURLToPath(import.meta.url));
 const appPath = process.cwd();
 const templatePath = path.resolve(currentPath, '..', 'template');
+const iconLibraryPath = path.resolve(currentPath, '..', 'icon-library');
 
 /**
  * Launches CAWeb HTML Markup
@@ -145,7 +146,7 @@ class CAWebHtmlWebpackPlugin extends HtmlWebpackPlugin{
           // if the html contains local assets those assets are added to the options.assets array 
           // and the assets are added to the compilation afterEmit
           let additionalAssets = html.match(/(src|href)="(.+?)"/g);
-         
+
           if( additionalAssets ){
             additionalAssets.forEach( (asset) => {
               let ref = asset.replace(/(src|href|=|")/g, '');
@@ -192,6 +193,31 @@ class CAWebHtmlWebpackPlugin extends HtmlWebpackPlugin{
               asset.replace(appPath, '').replace(/[\\\/]?node_modules[\\\/@]+/g, ''),
               new compiler.webpack.sources.RawSource( fs.readFileSync(asset) ) 
             );
+
+            // if the asset is the @caweb/icon-library font-only.css file we have to also add the font files
+            if( asset.match(/@caweb\/icon-library\/build\/font-only-?.*.css/g) ){
+              let fontPath = path.join( iconLibraryPath, 'build', 'fonts' );
+
+              let fontFiles = fs.readdirSync(fontPath).filter( (file) => { 
+                  return file.endsWith('.woff') || 
+                    file.endsWith('.woff2') || 
+                    file.endsWith('.eot') || 
+                    file.endsWith('.svg') || 
+                    file.endsWith('.ttf');
+                });
+
+              fontFiles.forEach( (file) => {
+                  compilation.fileDependencies.add( file );
+
+                  let filePath = path.join( fontPath, file );
+                  
+                  // we remove the appPath from the asset path
+                  compilation.emitAsset( 
+                    filePath.replace(appPath, '').replace(/[\\\/]?node_modules[\\\/@]+/g, ''),
+                    new compiler.webpack.sources.RawSource( fs.readFileSync(filePath) ) 
+                  );
+              });
+            }
           });
           
           // Tell webpack to move on

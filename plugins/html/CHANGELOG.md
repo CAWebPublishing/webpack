@@ -1,3 +1,6 @@
+v1.8.2
+- Updated template utility links and nav-links references
+
 v1.8.1
 - Updated npm packages
 
