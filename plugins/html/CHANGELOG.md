@@ -1,5 +1,8 @@
+v1.8.3
+- Updated npm packages
+
 v1.8.2
-- Updated template utility links and nav-links references
+- If the @caweb/icon-library css is used the font files are also moved to the build folder
 
 v1.8.1
 - Updated npm packages

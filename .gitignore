@@ -8,6 +8,7 @@
 Thumbs.db
 node_modules
 private
+package-lock.json
 
 # the root doesn't need audit, build, public, or src folders
 build
