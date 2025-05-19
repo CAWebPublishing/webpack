@@ -335,7 +335,6 @@ if( 'serve' === webpackCommand ){
         /css-audit.*/, // we skip the CSSAudit Files
         /a11y.*/, // we skip the A11y Files
         /jshint.*/, // we skip the JSHint Files
-        /font-only.js/, // we skip the font-only Files
       ]
     }),
     new HtmlWebpackSkipAssetsPlugin(),
@@ -350,7 +349,7 @@ if( 'serve' === webpackCommand ){
   if( fs.existsSync( path.join(appPath, 'caweb.json') ) ){
     let dataFile = JSON.parse( fs.readFileSync( path.join(appPath, 'caweb.json') ) );
   
-    if( dataFile.site.google.search ){
+    if( dataFile.site?.google?.search ){
       webpackConfig.plugins.push(
         new CAWebHTMLPlugin({
           template: 'search',
@@ -364,7 +363,6 @@ if( 'serve' === webpackCommand ){
             /css-audit.*/, // we skip the CSSAudit Files
             /a11y.*/, // we skip the A11y Files
             /jshint.*/, // we skip the JSHint Files
-            /font-only.*/, // we skip the font-only Files
           ]
         })
       )
