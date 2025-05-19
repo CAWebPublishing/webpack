@@ -194,6 +194,7 @@ let webpackConfig = {
               case 'footer':
               case 'header': 
               case 'mobileControls': 
+              case 'navFooter':
               case 'navHeader': 
               case 'utilityHeader': 
                 partialDir = 'semantics';
