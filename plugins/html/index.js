@@ -43,16 +43,16 @@ class CAWebHtmlWebpackPlugin extends HtmlWebpackPlugin{
       inject: 'body',
       template: path.join( templatePath, 'patterns', 'index.html'),
       scriptLoading: 'blocking',
-      meta: {
-        "Author": "CAWebPublishing",
-        "Description": "State of California",
-        "Keywords": "California,government",
-        "viewport": "width=device-width, initial-scale=1.0, maximum-scale=2.0"
-      },
       templateParameters: {
         "template": "index",
         "title": path.basename( appPath ),
         "scheme": "oceanside",
+        "meta": {
+          "Author": "CAWebPublishing",
+          "Description": "State of California",
+          "Keywords": "California,government",
+          "viewport": "width=device-width, initial-scale=1.0, maximum-scale=2.0"
+        }
       },
       assets: []
     }
@@ -103,6 +103,17 @@ class CAWebHtmlWebpackPlugin extends HtmlWebpackPlugin{
       defaultOptions.templateParameters.template = template;
     }
    
+    // if the user options has meta tags we merge them with the defaultOptions.templateParameters.meta
+    // and clear the meta key
+    if( opts.meta ){
+      defaultOptions.templateParameters.meta = {
+        ...defaultOptions.templateParameters.meta,
+        ...opts.meta
+      }
+
+      delete opts.meta;
+    }
+
     // if there is a caweb.json file we merge the site data with the templateParameters
     if( fs.existsSync( path.join(appPath, 'caweb.json') ) ){
 
@@ -145,17 +156,30 @@ class CAWebHtmlWebpackPlugin extends HtmlWebpackPlugin{
         ({html, outputName, plugin}, cb) => {
           // if the html contains local assets those assets are added to the options.assets array 
           // and the assets are added to the compilation afterEmit
-          let additionalAssets = html.match(/(src|href)="(.+?)"/g);
+          let srcHrefAssets = html.match(/(src|href)="(.+?)"/g);
+          let styleAssets = html.match(/style=".*url\((\S+)\)/g);
+          
+          let allAssets = [];
 
-          if( additionalAssets ){
-            additionalAssets.forEach( (asset) => {
-              let ref = asset.replace(/(src|href|=|")/g, '');
+          // if the html contains url() in the style attributes
+          if( styleAssets ){
+            styleAssets = styleAssets.map( s => s.replace(/(style=".*url\(|["'()])/g, '') )
+            // |["'\(\)]
+            allAssets = [...allAssets, ...styleAssets];
+          }
 
-              
-              let localFile = ref.startsWith('/') || ref.startsWith('\\') ? 
-                path.join( appPath, ref ) : 
-                ref;
-              
+          // if the html contains src or href attributes
+          if( srcHrefAssets ){  
+            srcHrefAssets = srcHrefAssets.map( s => s.replace(/(src|href|=|")/g, '') );
+
+            allAssets = [...allAssets, ...srcHrefAssets];
+          }
+
+          allAssets.forEach( asset =>{
+              let localFile = asset.startsWith('/') || asset.startsWith('\\') ? 
+                path.join( appPath, asset ) : 
+                asset;
+
               // if the asset is a local file 
               // if the asset is not already in the options.assets array
               if( 
@@ -165,13 +189,12 @@ class CAWebHtmlWebpackPlugin extends HtmlWebpackPlugin{
               ){
                   this.options.assets.push(localFile);
               }
-            });
+          });
 
             // any references to the node_modules directory are removed
             // any organizational packages @ are also removed
             // this might cause some conflicts with packages that are named the same as organiazational packages
             html = html.replace(/[\\\/]?node_modules[\\\/@]+/g, '/');
-          }
           
           // Tell webpack to move on
           cb(null, {html, outputName, plugin});
