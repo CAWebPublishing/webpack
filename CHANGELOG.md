@@ -1,3 +1,6 @@
+v1.4.1
+- updated npm packages
+
 v1.4.0
 - Main Webpack configuration has been moved back
 - handlebars-loader helper files have been introduced, custom helpers can also be used
