@@ -106,10 +106,28 @@ baseConfig.plugins.splice(1,1, false);
  */
 delete baseConfig.devServer;
 
+let customTemplateHelpers = [];
+
 // we allow the user to pass custom template helpers
-const customTemplateHelpers = fs.existsSync(path.resolve('helpers'), {withFileTypes: true} ) ?
-  fs.readdirSync(path.resolve('helpers'), {withFileTypes: true} ).filter( Dirent => Dirent.isDirectory()  ).map( Dirent => path.resolve(Dirent.parentPath, Dirent.name) ) :
-  [];
+
+if( fs.existsSync(path.join(appPath, 'helpers'), {withFileTypes: true} ) ) {
+  // we add the helpers directory
+  customTemplateHelpers = [ path.join(appPath, 'helpers') ];
+  
+  // we add any subdirectories
+  fs.readdirSync(
+      path.join(
+        appPath, 'helpers'
+      ), 
+      {
+        withFileTypes: true, 
+        recursive: true
+      } 
+    )
+    .filter( Dirent => Dirent.isDirectory()  )
+    .map( Dirent => customTemplateHelpers.push( path.resolve(Dirent.parentPath, Dirent.name) ) )
+
+} 
 
 // Wordpress ignores the webpack --mode flag
 // if the flag is passed we use that mode 

@@ -1,6 +1,6 @@
 {
     "name": "@caweb/html-webpack-plugin",
-    "version": "1.8.3",
+    "version": "1.8.4",
     "description": "CAWebPublishing Site Generation HTML Webpack Plugin",
     "main": "index.js",
     "type": "module",
