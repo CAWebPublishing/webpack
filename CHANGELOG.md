@@ -1,3 +1,6 @@
+v1.4.2
+- Added peerDependencies
+
 v1.4.1
 - updated npm packages
 
