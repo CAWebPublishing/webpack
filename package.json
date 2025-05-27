@@ -1,6 +1,6 @@
 {
   "name": "@caweb/webpack",
-  "version": "1.4.0-beta.3",
+  "version": "1.4.3",
   "description": "CAWebPublishing Webpack Configuration",
   "main": "webpack.config.js",
   "files": [
@@ -37,8 +37,7 @@
   },
   "homepage": "https://github.com/CAWebPublishing/webpack#readme",
   "dependencies": {
-    "@caweb/html-webpack-plugin": "^1.8.3",
-    "@wordpress/scripts": "^30.16.0",
+    "@wordpress/scripts": "^30.17.0",
     "css-minimizer-webpack-plugin": "^7.0.2",
     "handlebars-loader": "^1.7.3",
     "html-webpack-link-type-plugin": "^1.1.1",
@@ -46,6 +45,9 @@
     "mini-css-extract-plugin": "^2.9.2",
     "rtlcss-webpack-plugin": "^4.0.7",
     "webpack-dev-server": "^5.2.1",
-    "webpack-remove-empty-scripts": "^1.0.4"
+    "webpack-remove-empty-scripts": "^1.1.1"
+  },
+  "peerDependencies": {
+    "@caweb/html-webpack-plugin": ">= 1.8.5"
   }
 }

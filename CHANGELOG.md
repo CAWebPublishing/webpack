@@ -1,6 +1,16 @@
+v1.4.3
+- Components resolve to templates components/<component> directory path
+- Added new bootstrap helper
+
+v1.4.2
+- Added peerDependencies
+
+v1.4.1
+- updated npm packages
+
 v1.4.0
 - Main Webpack configuration has been moved back
-- handlebars-loader helper files have been introduced
+- handlebars-loader helper files have been introduced, custom helpers can also be used
 - tsconfig.json file was added
 
 v1.3.44

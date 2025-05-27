@@ -106,10 +106,28 @@ baseConfig.plugins.splice(1,1, false);
  */
 delete baseConfig.devServer;
 
+let customTemplateHelpers = [];
+
 // we allow the user to pass custom template helpers
-const customTemplateHelpers = fs.existsSync(path.resolve('helpers'), {withFileTypes: true} ) ?
-  fs.readdirSync(path.resolve('helpers'), {withFileTypes: true} ).filter( Dirent => Dirent.isDirectory()  ).map( Dirent => path.resolve(Dirent.parentPath, Dirent.name) ) :
-  [];
+
+if( fs.existsSync(path.join(appPath, 'helpers'), {withFileTypes: true} ) ) {
+  // we add the helpers directory
+  customTemplateHelpers = [ path.join(appPath, 'helpers') ];
+  
+  // we add any subdirectories
+  fs.readdirSync(
+      path.join(
+        appPath, 'helpers'
+      ), 
+      {
+        withFileTypes: true, 
+        recursive: true
+      } 
+    )
+    .filter( Dirent => Dirent.isDirectory()  )
+    .map( Dirent => customTemplateHelpers.push( path.resolve(Dirent.parentPath, Dirent.name) ) )
+
+} 
 
 // Wordpress ignores the webpack --mode flag
 // if the flag is passed we use that mode 
@@ -168,6 +186,7 @@ let webpackConfig = {
         options:{
           rootRelative: process.cwd(),
           helperDirs: [
+            path.resolve(currentPath, 'helpers', 'bootstrap'),
             path.resolve(currentPath, 'helpers', 'logic'),
             path.resolve(currentPath, 'helpers', 'object'),
             path.resolve(currentPath, 'helpers', 'string')
@@ -207,8 +226,9 @@ let webpackConfig = {
                 break;
 
               // components are served from the /components/ directory
-              case 'alerts':
-                partialDir = 'components';
+              case 'alert':
+              case 'card':
+                partialDir = `components/${partial}`;
                 break;
               
               // forms are served from the /forms/ directory
