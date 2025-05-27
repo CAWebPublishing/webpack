@@ -1,3 +1,7 @@
+v1.4.3
+- Components resolve to templates components/<component> directory path
+- Added new bootstrap helper
+
 v1.4.2
 - Added peerDependencies
 

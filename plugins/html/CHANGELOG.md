@@ -1,3 +1,6 @@
+v1.8.5
+- Updated npm packages
+
 v1.8.4
 - Meta is now passed to templateParameters and removed from top level, the html-webpack-plugin meta tags are missing the self closing forward slash
 - Media that's applied via style attributes using the url function are now emitted to the output directory as well
