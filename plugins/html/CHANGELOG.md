@@ -1,3 +1,9 @@
+v1.8.7
+- Updated npm packages
+
+v1.8.6
+- Updated npm packages
+
 v1.8.5
 - Updated npm packages
 
