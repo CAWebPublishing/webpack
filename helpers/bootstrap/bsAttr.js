@@ -12,7 +12,7 @@ export default function bsAttr(util, opt, options ) {
         case 'spacing':
             util = 'm';
             
-            if( 'string' === typeof options && 'm' === options ){
+            if( 'string' === typeof options && 'p' === options ){
                 util = options;
             };
 
