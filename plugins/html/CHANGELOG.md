@@ -1,3 +1,6 @@
+v1.8.8
+- Removed the title key from the dataFile.site
+
 v1.8.7
 - Updated npm packages
 
