@@ -121,7 +121,12 @@ class CAWebHtmlWebpackPlugin extends HtmlWebpackPlugin{
 
       // if there is a dataFile.site 
       if( dataFile.site ){
-
+        // we remove the title key from the dataFile.site
+        // this is to avoid overwriting the title set in the defaultOptions.templateParameters
+        if( dataFile.site.title ){
+          delete dataFile.site.title;
+        }
+        
         // we merge the defaultOptions.templateParameters, user options.templateParameters, and the dataFile.site
         opts.templateParameters = {
           ...defaultOptions.templateParameters,

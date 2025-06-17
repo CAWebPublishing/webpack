@@ -41,11 +41,31 @@ const appPath = process.cwd();
 
 // flags can be passed via argv0 
 // we also add args from NODE_OPTIONS
-const flags = [].concat(
+let flags = [].concat(
   processArgs(process.argv),
   processArgs(process.argv0.split(' ')),
-  processArgs(process.env.NODE_OPTIONS ? process.env.NODE_OPTIONS.split(' ') : [])
+  processArgs(process.env.NODE_OPTIONS ? process.env.NODE_OPTIONS.split(' ') : []),
 )
+
+const cawebJson = fs.existsSync( path.join(appPath, 'caweb.json') ) ? 
+  JSON.parse(fs.readFileSync(path.join(appPath, 'caweb.json'))) 
+  : {};
+
+// we use the caweb.json file to determine the site domain
+if( cawebJson?.site?.domain ){
+  let siteDomain = new URL(cawebJson.site.domain);
+
+  // only add the flags if the site domain is not localhost
+  if( 'localhost' !== siteDomain.host ){
+    // we add the site domain to the flags
+    flags.push(
+      `--host`, siteDomain.host,
+      '--server-type', siteDomain.protocol.replace(':', ''),
+      '--port', '' !== siteDomain.port ? cawebJson.site.port : 80, // default port is 80
+    );
+  }
+}
+
 
 function processArgs( arr ){
   let tmp = [];
@@ -296,7 +316,7 @@ if( 'serve' === webpackCommand ){
   let host = flags.includes('--host') ? getArgVal('--host') : 'localhost';
   let port = flags.includes('--port') ? getArgVal('--port') : 9000;
   let server = flags.includes('--server-type') ? getArgVal('--server-type') : 'http';
-  
+
   // Dev Server is added
   webpackConfig.devServer = { 
     devMiddleware: {
@@ -367,10 +387,7 @@ if( 'serve' === webpackCommand ){
 
   // we add the SERP (Search Engine Results Page)
   // if the caweb.json has a google search id
-  if( fs.existsSync( path.join(appPath, 'caweb.json') ) ){
-    let dataFile = JSON.parse( fs.readFileSync( path.join(appPath, 'caweb.json') ) );
-  
-    if( dataFile.site?.google?.search ){
+  if( cawebJson.site?.google?.search ){
       webpackConfig.plugins.push(
         new CAWebHTMLPlugin({
           template: 'search',
@@ -387,8 +404,41 @@ if( 'serve' === webpackCommand ){
           ]
         })
       )
-    }
+  }
+  
+  // we add any additional pages
+  let basePageDir = path.join(appPath, 'content', 'pages');
+  if( fs.existsSync(basePageDir, {withFileTypes: true} ) ) {
+    fs.readdirSync(
+      basePageDir, 
+      { withFileTypes: true, recursive: true }
+    )
+    .filter( Dirent => Dirent.isFile() && Dirent.name.endsWith('.html') )
+    .map( Dirent => {
+      let fileTemplate = path.join(Dirent.parentPath, Dirent.name);
+      let p = fs.readFileSync( fileTemplate ).toString();
+      let fileName = fileTemplate.replace(basePageDir, '');
 
+      webpackConfig.plugins.push(
+        new CAWebHTMLPlugin({
+          template,
+          filename: fileName,
+          // replace .html, forward slashes with a space, uppercase the first letter of each word, remove Index
+          // this is to make sure the title is readable
+          // and not just a file name
+          title: fileName.replace(/\.html$/, '').replace(/[\/\\]/g, ' ').replace(/\b\w/g, c => c.toUpperCase()).replace(' Index', ''),
+          templateParameters: {
+            bodyHtmlSnippet: p,
+          },
+          skipAssets: [
+            /.*-rtl.css/, // we skip the Right-to-Left Styles
+            /css-audit.*/, // we skip the CSSAudit Files
+            /a11y.*/, // we skip the A11y Files
+            /jshint.*/, // we skip the JSHint Files
+          ]
+        })
+      )
+    });
   }
 }
 
