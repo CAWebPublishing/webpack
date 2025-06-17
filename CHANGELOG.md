@@ -1,3 +1,7 @@
+v1.5.0
+- Additional pages can now be created by adding html files to the /content/pages/ directory
+- Updated npm packages
+
 v1.4.4
 - Fixed issue with bsAttr helper
 
