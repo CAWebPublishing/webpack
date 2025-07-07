@@ -73,17 +73,10 @@ class JSHintPlugin {
             }
           );
 
-		      const { entry, options, context } = {
-            entry: path.join( this.config.outputFolder, 'jshint.update.js'),
-            options: {
-              name: 'jshint.update'
-            },
-            context: 'jshint'
-          };
-
-          const dep = new EntryDependency(entry);
+          //const dep = new EntryDependency(path.join( this.config.outputFolder, 'jshint.js'));
+          const dep = new EntryDependency(path.resolve( 'src', 'index.js'));
           dep.loc = {
-            name: options.name
+            name: 'jshint'
           };
           
           if( ! fs.existsSync(path.resolve(this.config.outputFolder))){
@@ -91,7 +84,7 @@ class JSHintPlugin {
           }
           
           fs.writeFileSync(
-            path.join(this.config.outputFolder, `jshint.update.js`),
+            path.join(this.config.outputFolder, `jshint.js`),
             `` // required for hot-update to compile on our page, blank script for now
           );
 
@@ -106,9 +99,11 @@ class JSHintPlugin {
               compiler.hooks.make.tapAsync("JSHint Plugin", (compilation, callback) => {
                 
                 compilation.addEntry(
-                context,
+                'jshint',
                 dep, 
-                options, 
+                {
+                  name: 'jshint'
+                }, 
                 err => {
                   callback(err);
                 });
@@ -136,7 +131,7 @@ class JSHintPlugin {
                             'string' === typeof s && // is a string and
                             0 < s.indexOf('.js') && // has a .js reference and
                             0 > s.indexOf('node_modules') && // not referencing node_modules directory
-                            0 > s.indexOf('jshint.update.js') && // not referencing our update javascript
+                            0 > s.indexOf('jshint.js') && // not referencing our update javascript
                             0 > s.indexOf('a11y.update.js') && // not referencing our a11y javascript
                             0 > s.indexOf('audit.update.js') // not referencing our css-audit javascript
                           ){
@@ -154,7 +149,7 @@ class JSHintPlugin {
                   if( result ){
                     // we have to inject the jshint.update.js file into the head in order for the webpack-dev-server scripts to load.
                     let pageContent = fs.readFileSync(path.join(staticDir.directory, `${this.config.outputFilename}.html`))
-
+                    
                     fs.writeFileSync(
                       path.join(staticDir.directory, `${this.config.outputFilename}.html`),
                       pageContent.toString().replace('</head>', `<script src="./jshint.update.js"></script>\n</head>`)

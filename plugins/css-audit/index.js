@@ -24,14 +24,14 @@ const currentPath = path.dirname(fileURLToPath(import.meta.url));
 
 // CSS Audit Plugin
 class CSSAuditPlugin {
-    config = {}
+    config = {};
 
     constructor(opts = {}) {
-
-     // if no outputFolder is defined fallback to the default path
-     if( ! opts.outputFolder ){
-        opts.outputFolder = path.join(currentPath, 'bin', 'auditor', 'public')
-      // path must be absolute
+     
+      // if no outputFolder is defined fallback to the default path
+      if( ! opts.outputFolder ){
+        opts.outputFolder = path.join(process.cwd(), 'audits' )
+      // if outputfolder is set and not absolute
       }else if( ! path.isAbsolute(opts.outputFolder) ){
         opts.outputFolder = path.join(process.cwd(), opts.outputFolder );
       }
@@ -44,21 +44,15 @@ class CSSAuditPlugin {
         directory: this.config.outputFolder,
         watch: true
       }
-      let { devServer, output } = compiler.options;
-      let hostUrl = 'localhost' === devServer.host ? `http://${devServer.host}`: devServer.host;
-      let hostPort = devServer.port;
-
-      if( hostPort && 80 !== hostPort )
-      {
-          hostUrl = `${hostUrl}:${hostPort}`;
-      }
+      let { devServer } = compiler.options;
+      let auditUrl = `${devServer.server}://${devServer.host}:${devServer.port}`;
       
       // if dev server allows for multiple pages to be opened
       // add css-audit.html to open property.
       if( Array.isArray(devServer.open) ){
-        devServer.open.push(`${hostUrl}/${this.config.rewrite ? this.config.rewrite : this.config.filename}.html`)
+        devServer.open.push(`${auditUrl}/${this.config.filename}.html`)
       }else if( 'object' === typeof devServer.open && Array.isArray(devServer.open.target) ){
-        devServer.open.target.push(`${hostUrl}/${this.config.filename}.html`)
+        devServer.open.target.push(`${auditUrl}/${this.config.filename}.html`)
       }
 
       // add our static directory 
@@ -146,7 +140,7 @@ class CSSAuditPlugin {
               )
             }
             
-            console.log(`<i> ${boldGreen('[webpack-dev-middleware] CSS Audit can be viewed at')} ${ boldBlue(new URL(`${hostUrl}/${this.config.filename}.html`).toString())  }`);
+            console.log(`<i> ${boldGreen('[webpack-dev-middleware] CSS Audit can be viewed at')} ${ boldBlue(new URL(`${auditUrl}/${this.config.filename}.html`).toString())  }`);
 
             callback();
           }
@@ -155,6 +149,9 @@ class CSSAuditPlugin {
       });
       
     }
+
+    
+
 
     /**
      * Run WordPress CSS Audit
@@ -191,10 +188,10 @@ class CSSAuditPlugin {
 
       let filesToBeAudited = [];
       let filesWithIssues = [];
- 
+      
       // the css audit tool always outputs to its own public directory
       let defaultOutputPath = path.join(currentPath, 'bin', 'auditor', 'public');
-      
+
       // we always make sure the output folder exists
       fs.mkdirSync( outputFolder, { recursive: true } );
 
@@ -258,7 +255,7 @@ class CSSAuditPlugin {
         important && ! processArgs.includes('--no-important') ? '--important' : '',
         displayNone && ! processArgs.includes('--no-display-none') ? '--display-none' : '',
         selectors && ! processArgs.includes('--no-selectors') ? '--selectors' : '',
-        mediaQueries && ! processArgs.includes('--no-media-queries') ? '--media-queries' : '',
+        // mediaQueries && ! processArgs.includes('--no-media-queries') ? '--media-queries' : '',
         typography && ! processArgs.includes('--no-typography') ? '--typography' : '',
         format  ? `--format=${format}` : '',
         filename ? `--filename=${path.basename(process.cwd())}` : ''
@@ -269,25 +266,27 @@ class CSSAuditPlugin {
           auditArgs.push(`--property-values=${p.replace(' ',',')}`)
         })
       }
-      
+
       let { stdout, stderr } = spawn.sync( 
-        'node ' + resolveBin('@caweb/css-audit-webpack-plugin', {executable: 'auditor'}),
+        'node',
         [
+          resolveBin('@caweb/css-audit-webpack-plugin', {executable: 'auditor'}),
+          // '--',
           ...filesToBeAudited,
           ...auditArgs
         ],
         {
+          shell: false,
           stdio: 'pipe',
           cwd: fs.existsSync(path.join(process.cwd(), 'css-audit.config.cjs')) ? process.cwd() : currentPath
         }
       )
-
+      
       if( stderr && stderr.toString() ){
         console.log( stderr.toString() )
       }
 
       if( stdout && stdout.toString() ){
-          
 
           // rename the file back to the intended file name instead of the project name
           let outputFile = path.join(outputFolder, `${filename}.html`);
@@ -305,7 +304,7 @@ class CSSAuditPlugin {
             )
           }
 
-          let msg = stdout.toString().replace('undefined', '');
+          let msg = stdout.toString().replace('undefined', '').replace('template', 'css audit');
       
           // the command was ran via cli
           if( 'audit' === process.argv[2] ){

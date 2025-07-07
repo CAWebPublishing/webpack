@@ -1,70 +1,39 @@
 {
-  "name": "@caweb/html-webpack-plugin",
-  "version": "1.5.1",
-  "description": "CAWebPublishing Sample Page and Configurations",
-  "main": "index.js",
-  "type": "module",
-  "files": [
-    "build",
-    "entry",
-    "sample",
-    "index.js",
-    "README.md",
-    "webpack.config.js"
-  ],
-  "scripts": {
-    "webpack": "webpack",
-    "build": "npm run build:compressed && npm run build:uncompressed",
-    "build:uncompressed": "webpack build --config ./webpack.config.js ./scripts/create-entrypoints.js --merge --mode development",
-    "build:compressed": "webpack build --config ./webpack.config.js ./scripts/create-entrypoints.js --merge --mode production",
-    "build:oceanside": "npm run build:oceanside:prod && npm run build:oceanside:dev",
-    "build:oceanside:prod": "webpack build --config ./webpack.config.js ./entry/oceanside.js --merge --mode production",
-    "build:oceanside:dev": "webpack build --config ./webpack.config.js ./entry/oceanside.js --merge --mode development",
-    "postbuild": "npm run create-entrypoint && npm run generate-json",
-    "create-entrypoint": "node ./scripts/create-entrypoints.js",
-    "generate-json": "node ./scripts/icon.js",
-    "serve": "webpack serve --config ./webpack.config.js ./entry/oceanside.js ./scripts/webpack.test.js --merge",
-    "serve:quick": "set NODE_OPTIONS='--no-jshint --no-audit --no-a11y' && webpack serve --config ./webpack.config.js ./entry/oceanside.js ./scripts/webpack.test.js --merge",
-    "test": "echo \"Error: run tests from root\" && exit 0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/CAWebPublishing/webpack.git",
-    "directory": "plugins/html"
-  },
-  "keywords": [
-    "caweb",
-    "cagov",
-    "webpack"
-  ],
-  "author": "CAWebPublishing",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/CAWebPublishing/webpack/issues"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "homepage": "https://github.com/CAWebPublishing/webpack/plugins/html#readme",
-  "devDependencies": {
-    "animate.css": "^4.1.1",
-    "bootstrap": "^5.3.3",
-    "bootstrap-forced-colors-css": "^1.0.7",
-    "fast-xml-parser": "^4.5.0",
-    "mini-css-extract-plugin": "^2.9.2",
-    "rtlcss-webpack-plugin": "^4.0.7"
-  },
-  "dependencies": {
-    "@caweb/a11y-webpack-plugin": "^1.0.8",
-    "@caweb/css-audit-webpack-plugin": "^1.0.11",
-    "@caweb/jshint-webpack-plugin": "^1.0.8",
-    "@wordpress/scripts": "^30.4.0",
-    "css-minimizer-webpack-plugin": "^7.0.0",
-    "handlebars-loader": "^1.7.3",
-    "html-webpack-link-type-plugin": "^1.1.1",
-    "html-webpack-plugin": "^5.6.3",
-    "html-webpack-skip-assets-plugin": "^1.0.4",
-    "webpack": "^5.96.1",
-    "webpack-cli": "^5.1.4"
-  }
+    "name": "@caweb/html-webpack-plugin",
+    "version": "1.8.8",
+    "description": "CAWebPublishing Site Generation HTML Webpack Plugin",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "webpack": "webpack",
+        "test": "echo \"Error: run tests from root\" && exit 0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/CAWebPublishing/webpack.git",
+        "directory": "plugins/html"
+    },
+    "keywords": [
+        "caweb",
+        "cagov",
+        "webpack",
+        "html-webpack-plugin"
+    ],
+    "author": "CAWebPublishing",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/CAWebPublishing/webpack/issues"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "homepage": "https://github.com/CAWebPublishing/webpack/plugins/html#readme",
+    "dependencies": {
+        "html-webpack-plugin": "^5.6.3",
+        "webpack": "^5.99.9",
+        "webpack-cli": "^6.0.1"
+    },
+    "peerDependencies": {
+        "@caweb/template": "^1.0.2"
+    }
 }
