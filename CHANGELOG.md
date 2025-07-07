@@ -1,3 +1,6 @@
+v1.5.1
+- Added css-audit-webpack-plugin back in
+
 v1.5.0
 - Additional pages can now be created by adding html files to the /content/pages/ directory
 - Updated npm packages

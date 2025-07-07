@@ -23,7 +23,7 @@ import {HtmlWebpackLinkTypePlugin} from 'html-webpack-link-type-plugin';
 import RemoveEmptyScriptsPlugin from 'webpack-remove-empty-scripts';
 
 // import JSHintPlugin from '@caweb/jshint-webpack-plugin';
-// import CSSAuditPlugin from '@caweb/css-audit-webpack-plugin';
+import CSSAuditPlugin from '@caweb/css-audit-webpack-plugin';
 // import A11yPlugin from '@caweb/a11y-webpack-plugin';
 
 /**
@@ -381,7 +381,7 @@ if( 'serve' === webpackCommand ){
     new HtmlWebpackSkipAssetsPlugin(),
     new HtmlWebpackLinkTypePlugin(),
     //! flagExists('--no-jshint') ? new JSHintPlugin() : false,
-    //! flagExists('--no-audit') ? new CSSAuditPlugin() : false,
+    ! flagExists('--no-audit') ? new CSSAuditPlugin() : false,
     //! flagExists('--no-a11y') ? new A11yPlugin() : false
   )
 
