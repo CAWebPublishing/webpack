@@ -1,3 +1,8 @@
+v1.1.0
+- Updated npm packages
+- Fixed issue with cross-spawn on windows
+- Updated WordPress css-auditor
+
 v1.0.12
 - Update npm packages
 - Added npm devDependencies packages

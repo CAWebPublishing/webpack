@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/CAWebPublishing/webpack#readme",
   "dependencies": {
-    "@wordpress/scripts": "^30.18.0",
+    "@wordpress/scripts": "^30.19.0",
     "css-minimizer-webpack-plugin": "^7.0.2",
     "handlebars-loader": "^1.7.3",
     "html-webpack-link-type-plugin": "^1.1.1",
