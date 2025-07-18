@@ -1,6 +1,6 @@
 {
   "name": "@caweb/webpack",
-  "version": "1.5.1",
+  "version": "1.5.3",
   "description": "CAWebPublishing Webpack Configuration",
   "main": "webpack.config.js",
   "files": [
@@ -40,6 +40,7 @@
     "@wordpress/scripts": "^30.19.0",
     "css-minimizer-webpack-plugin": "^7.0.2",
     "handlebars-loader": "^1.7.3",
+    "html-format": "^1.1.7",
     "html-webpack-link-type-plugin": "^1.1.1",
     "html-webpack-skip-assets-plugin": "^1.0.4",
     "mini-css-extract-plugin": "^2.9.2",
@@ -50,6 +51,7 @@
   "peerDependencies": {
     "@caweb/a11y-webpack-plugin": ">= 1.1.0",
     "@caweb/css-audit-webpack-plugin": ">= 1.1.0",
-    "@caweb/html-webpack-plugin": ">= 1.8.5"
+    "@caweb/html-webpack-plugin": ">= 1.8.5",
+    "@caweb/jshint-webpack-plugin": ">= 2.0.0"
   }
 }
