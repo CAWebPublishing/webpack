@@ -1,3 +1,6 @@
+v1.1.1
+- Added reporter.js to file list to distribute
+
 v1.1.0
 - Added new reporter file to help generating of landing page 
 - Update webpack plugin hook processes
