@@ -1,3 +1,6 @@
+v1.5.3
+- Added jandlebars, html-format, jshint-webpack-plugin npm packages
+
 v1.5.2
 - Added a11y-webpack-plugin back in
 
