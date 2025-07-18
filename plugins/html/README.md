@@ -1,6 +1,6 @@
-This plugin utilizes the HTML Webpack Plugin to launch static generated pages using the CAWeb Template (formerly the California State Template)
+This plugin utilizes the HTML Webpack Plugin to launch static generated pages using the CAWebPublishing Template
 
-<i>This package is inspired by [wp-scripts](https://www.npmjs.com/package/@wordpress/scripts)</i>
+<i>This package is inspired by [html-webpack-plugin](https://www.npmjs.com/package/html-webpack-plugin)</i>
 
 ## Plugins Used
 - [html-webpack-plugin](https://www.npmjs.com/package/html-webpack-plugin)

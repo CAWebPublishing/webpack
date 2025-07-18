@@ -1,3 +1,9 @@
+v2.0.1
+- Updated peerDeps
+
+v2.0.0
+- reporter now uses @caweb/html-webpack-plugin when creating report
+
 v1.0.9
 - Update npm packages
 - Added npm devDependencies packages
