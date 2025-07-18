@@ -14,6 +14,11 @@ import deepmerge from 'deepmerge';
 import chalk from 'chalk';
 import { fileURLToPath, URL } from 'url';
 
+/**
+ * Internal dependencies
+ */
+import { landingPage, reporter } from './reporter.js';
+
 // default configuration
 import {default as DefaultConfig} from './aceconfig.js';
 
@@ -22,138 +27,157 @@ const boldGreen = chalk.bold.green;
 const boldBlue = chalk.bold.hex('#03a7fc');
 const currentPath = path.dirname(fileURLToPath(import.meta.url));
 
+const pluginName = 'CAWebA11yWebpackPlugin';
+
 // IBM Accessibility Checker Plugin
 class A11yPlugin {
     config = {}
 
     constructor(opts = {}) {
-      // outputFolder must be resolved
-      if( opts.outputFolder ){
-        opts.outputFolder = path.join(process.cwd(), opts.outputFolder);
+      // the default publicPath is always the outputFolder
+      DefaultConfig.publicPath = DefaultConfig.outputFolder;
+
+      // the default output folder is always relative to the current working directory.
+      DefaultConfig.outputFolder = path.join( process.cwd(), DefaultConfig.outputFolder );
+
+      // if opts.outputFolder is defined
+      if( opts.outputFolder && ! path.isAbsolute(opts.outputFolder)  ){
+        opts.publicPath = opts.outputFolder;
+
+        // we join the current working directory with the opts.outputFolder
+        opts.outputFolder = path.join( process.cwd(), opts.outputFolder );
       }
-      this.config = deepmerge(
-        DefaultConfig, 
-        {
-          outputFolder: path.join(currentPath, DefaultConfig.outputFolder)
-        },
-        opts
-      );
+      
+      this.config = deepmerge(DefaultConfig, opts);
     }
 
+    
     apply(compiler) {
       const staticDir = {
         directory: this.config.outputFolder,
+        publicPath: encodeURI(this.config.publicPath).replace(':', ''),
         watch: true
       }
 
-      let { devServer, output } = compiler.options;
-      let hostUrl = 'localhost' === devServer.host ? `http://${devServer.host}`: devServer.host;
-      let hostPort = devServer.port;
+      let { devServer } = compiler.options;
+      let auditUrl = `${devServer.server}://${devServer.host}:${devServer.port}`;
+      let nodeModulePath = encodeURI(this.config.publicPath).replace(':', '') + '/node_modules';
+      let pathRewrite = {};
+      pathRewrite[`^${nodeModulePath}`] = '';
+      
+      let proxy = {
+        context: [ nodeModulePath ],
+        target: auditUrl,
+        pathRewrite,
+      };
 
-      if( hostPort && 80 !== hostPort )
-      {
-          hostUrl = `${hostUrl}:${hostPort}`;
+      // we add the proxy to the devServer
+      if( Array.isArray(devServer.proxy) ){
+        devServer.proxy.push(proxy)
+      }else{
+        devServer.proxy = [].concat(devServer.proxy, proxy );
       }
 
-      // if dev server allows for multiple pages to be opened
-      // add outputFilename.html to open property.
-      if( Array.isArray(devServer.open) ){
-        devServer.open.push(`${hostUrl}/${this.config.outputFilename}.html`)
-      }else if( 'object' === typeof devServer.open && Array.isArray(devServer.open.target) ){
-        devServer.open.target.push(`${hostUrl}/${this.config.outputFilename}.html`)
-      }
-
-      // add our static directory 
+      // add our static directory to the devServer
       if( Array.isArray(devServer.static) ){
         devServer.static.push(staticDir)
       }else{
         devServer.static = [].concat(devServer.static, staticDir );
       }
-      
-      // Wait for configuration preset plugins to apply all configure webpack defaults
-      compiler.hooks.initialize.tap('IBM Accessibility Plugin', () => {
+
+      // if dev server allows for multiple pages to be opened
+      // add outputFilename.html to open property.
+      if( Array.isArray(devServer.open) ){
+        devServer.open.push(`${staticDir.publicPath}/${this.config.outputFilename}.html`)
+      }else if( 'object' === typeof devServer.open && Array.isArray(devServer.open.target) ){
+        devServer.open.target.push(`${staticDir.publicPath}/${this.config.outputFilename}.html`)
+      }
+
+      // we always make sure the output folder exists
+      fs.mkdirSync( staticDir.directory, { recursive: true } );
+
+      // Hot Module Replacement
+      if( compiler?.options?.devServer?.hot ){
+        // we create a blank file for the hot update to compile on our page.
+        // this is required for the hot-update to work.
+        fs.writeFileSync(
+          path.join(staticDir.directory, `a11y.update.js`),
+          `` // required for hot-update to compile on our page, blank script for now
+        );
+
+        // we add the entry to the dependency factory during compilation
         compiler.hooks.compilation.tap(
-          "IBM Accessibility Plugin",
+          pluginName,
           (compilation, { normalModuleFactory }) => {
             compilation.dependencyFactories.set(
               EntryDependency,
               normalModuleFactory
             );
+
           }
         );
 
-        const { entry, options, context } = {
-          entry: path.join( this.config.outputFolder, 'a11y.update.js'),
-          options: {
-            name: 'a11y.update'
-          },
-          context: 'a11y'
-        };
+        // we add the entry before the compilation ends
+        compiler.hooks.make.tapAsync(
+          pluginName, 
+          (compilation, callback) => {
+            const { entry, options, context } = {
+            entry: path.join( staticDir.directory, 'a11y.update.js'),
+            options: {
+              name: 'a11y.update'
+            },
+            context: 'a11y'
+          };
 
-        const dep = new EntryDependency(entry);
-        dep.loc = {
-          name: options.name
-        };
-        if( ! fs.existsSync(path.resolve(this.config.outputFolder))){
-          fs.mkdirSync( path.resolve(this.config.outputFolder), {recursive: true} );
-        }
-        
-        fs.writeFileSync(
-          path.join(this.config.outputFolder, `a11y.update.js`),
-          `` // required for hot-update to compile on our page, blank script for now
-        );
-
-
-        compiler.hooks.thisCompilation.tap('IBM Accessibility Plugin',
-          /**
-           * Hook into the webpack compilation
-           * @param {Compilation} compilation
-           */
-          (compilation) => {
-            
-            compiler.hooks.make.tapAsync("IBM Accessibility Plugin", (compilation, callback) => {
-              
-              compilation.addEntry(
-              context,
-              dep, 
-              options, 
-              err => {
-                callback(err);
-              });
+          const dep = new EntryDependency(entry);
+          dep.loc = {
+            name: options.name
+          };
+          
+          compilation.addEntry(
+            context,
+            dep, 
+            options, 
+            err => {
+              callback(err);
             });
+          });
+      }
 
-        });
-
+      compiler.hooks.thisCompilation.tap(pluginName, (compilation) => {
+        // We can audit the html files now that the compilation is done.
+        // we hook into the done hook to run the accessibility checker.
         compiler.hooks.done.tapAsync(
-          'IBM Accessibility Plugin',
-          /**
-           * Hook into the process assets hook
-           * @param {any} _
-           * @param {(err?: Error) => void} callback
-           */
+          pluginName,
           (stats, callback) => {
-              
+
             console.log(`<i> ${boldGreen('[webpack-dev-middleware] Running IBM Accessibility scan...')}`);
 
-            let result = this.a11yCheck('auto' === output.publicPath ? output.path : output.publicPath, this.config );
+            // we check the compilers output.publicPath
+            // if it is not set, we scan the output.path as the publicPath
+            let result = this.a11yCheck(
+              ! compiler.options.output.publicPath || 
+              'auto' === compiler.options.output.publicPath ? 
+                compiler.options.output.path : 
+                compiler.options.output.publicPath,
+              this.config 
+            );
 
-            if( result ){
-              // we have to inject the a11y.update.js file into the head in order for the webpack-dev-server scripts to load.
-              let pageContent = fs.readFileSync(path.join(staticDir.directory, `${this.config.outputFilename}.html`))
+            // if( result ){
+            //   // we have to inject the a11y.update.js file into the head in order for the webpack-dev-server scripts to load.
+            //   // let pageContent = fs.readFileSync(path.join(staticDir.directory, `${this.config.outputFilename}.html`))
               
-              fs.writeFileSync(
-                path.join(staticDir.directory, `${this.config.outputFilename}.html`),
-                pageContent.toString().replace('</head>', `<script src="./a11y.update.js"></script>\n</head>`)
-              )
-            }
+            //   // fs.writeFileSync(
+            //   //   path.join(staticDir.directory, `${this.config.outputFilename}.html`),
+            //   //   pageContent.toString().replace('</head>', `<script src="./a11y.update.js"></script>\n</head>`)
+            //   // )
+            // }
 
-            console.log(`<i> ${boldGreen('[webpack-dev-middleware] IBM Accessibilty Report can be viewed at')} ${ boldBlue(new URL(`${hostUrl}/${this.config.outputFilename}.html`).toString())  }`);
+            console.log(`<i> ${boldGreen('[webpack-dev-middleware] IBM Accessibilty Report can be viewed at')} ${ boldBlue(new URL(`${auditUrl}/${staticDir.publicPath}/${this.config.outputFilename}.html`).toString())  }`);
 
-            callback();
         });
-       
-    });
-    
+      })
+      
     }
 
     /**
@@ -184,6 +208,12 @@ class A11yPlugin {
       outputFilenameTimestamp
     }){
 
+
+      let htmlOutput = outputFormat && outputFormat.includes('html');
+
+      // we remove the html output since we generate our own html based on the json output.
+      // outputFormat = outputFormat.filter(o => 'html' !== o );
+      
       let acheckerArgs = [
         '--ruleArchive',
         ruleArchive,
@@ -202,25 +232,11 @@ class A11yPlugin {
         url
       ];
     
-      let isValid = false;
-
-      if( fs.existsSync( url ) ){
-          if( fs.statSync(url).isDirectory() &&  path.join( url, 'index.html') ){
-              url = path.join( url, 'index.html')
-          }
-          isValid = true;
-      }else{
-          isValid = 'localhost' === new URL(url).hostname || isUrl( url )
-      }
+      let isValid = fs.existsSync( url ) || 'localhost' === new URL(url).hostname || isUrl( url );
+      let isDirectory = fs.existsSync( url ) && fs.statSync(url).isDirectory();
 
       if( isValid ){
-        let originalFileName =  `${fs.existsSync( url ) ?
-          path.resolve(url).replace(':', '_') :
-          url.replace(/http[s]+:\/\//, '')}.html`;
-        let originalJsonFileName =  `${fs.existsSync( url ) ?
-            path.resolve(url).replace(':', '_') :
-            url.replace(/http[s]+:\/\//, '')}.json`;
-
+       
         let outputDir = path.resolve('.',  outputFolder );
 
         let {stderr, stdout}  = spawn.sync( 
@@ -236,27 +252,71 @@ class A11yPlugin {
         }
         
         if( stdout && stdout.toString()){
-          let reportedFile =  path.join(outputDir, originalFileName );
-          let reportedJSon =  path.join(outputDir, originalJsonFileName );
+          let auditIndex = [];
 
-          // if output file name option was passed
-          if( outputFilename ){
+          // we iterate thru the output directory in reverse order,
+          // this way we can remove any empty directories at the end, since files are cycled first.
+          fs.readdirSync(outputDir, {recursive: true}).reverse().forEach( file => {
+            // process each json file file
+            if( fs.statSync(path.join(outputDir, file)).isFile() ){
+              if ( file.startsWith('summary_') ){
+                // remove the summary files
+                fs.rmSync( path.join(outputDir, file) )
+                return;
+              }
 
-              reportedFile =  path.join( outputDir, `${outputFilename}.html` );
-              reportedJSon =  path.join( outputDir, `${outputFilename}.json` );
+              let oldName = file;
+              let newName = file;
 
-              // rename the output files
-              fs.renameSync(path.join(outputDir, originalFileName), reportedFile );
-              fs.renameSync(path.join(outputDir, originalJsonFileName), reportedJSon );
+              // remove the original output directory from the file name
+              newName = isDirectory ? file.replace(url.replace(':', '_'), '') : file;
+              
+              newName = newName.replace(/^\\/, '');
 
+              // for some reason .html files have an extra .html in the name
+              newName = newName.endsWith('.html.html') ? newName.replace('.html.html', '.html') : newName;
+              
+              // if the new name is not the same as the old name.
+              if( newName !== file ){
+                // rename the file
+                fs.renameSync(
+                  path.join(outputDir, oldName ), 
+                  path.join(outputDir, newName) );
+              }
+
+              // we add the file to the audit index
+              if( ! auditIndex.includes(newName) && newName.endsWith('.html') ){
+                auditIndex.push( newName );
+              }
+              
+              // if we are generating html output, we need to generate the html file.
+              if( htmlOutput ){
+                // let jsonObj = JSON.parse(fs.readFileSync(path.join(outputDir, newName)));
+
+                // we generate the html file
+                // reporter( jsonObj, { outputFolder, outputFilename: newName.replace(/\.json$/, '') } );
+              }
+            
+            }else if ( fs.statSync(path.join(outputDir, file)).isDirectory() ){
+              // process each directory
               // delete any empty directories.
-              fs.rmSync( path.join(outputDir, originalFileName.split(path.sep).shift()), {recursive: true} )
-          }
+              if( 0 === fs.readdirSync(path.join(outputDir, file)).length  ){
+                // remove the directory
+                fs.rmSync(path.join(outputDir, file), {recursive: true});
+              }
+            }
 
+          });
+
+          // we generate the landing page.
+          landingPage( auditIndex, {outputFolder, outputFilename} );
+
+          // we generate the .
           if( 'a11y' === process.argv[2] ){
-              console.log( reportedFile )
+              // console.log( reportedFile )
           }else{
-              return reportedFile;
+            return true;
+              // return reportedFile;
           }
         }
       }else{

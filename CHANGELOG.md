@@ -1,3 +1,6 @@
+v1.5.2
+- Added a11y-webpack-plugin back in
+
 v1.5.1
 - Added css-audit-webpack-plugin back in
 
