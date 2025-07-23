@@ -15,6 +15,7 @@
 	"browser": true,
 
 	"globals": {
+		"console": true,
 		"_": false,
 		"Backbone": false,
 		"jQuery": false,
