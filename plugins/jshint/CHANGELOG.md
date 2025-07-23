@@ -1,3 +1,9 @@
+v2.0.2
+- Updated templatePartial locations in reporter
+- Updated default outputfolder location
+- Updated npm packages
+- Removed customrc file
+
 v2.0.1
 - Updated peerDeps
 
