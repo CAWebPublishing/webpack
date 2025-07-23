@@ -1,6 +1,6 @@
 {
   "name": "@caweb/webpack",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "CAWebPublishing Webpack Configuration",
   "main": "webpack.config.js",
   "files": [
@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/CAWebPublishing/webpack#readme",
   "dependencies": {
-    "@wordpress/scripts": "^30.19.0",
+    "@wordpress/scripts": "^30.20.0",
     "css-minimizer-webpack-plugin": "^7.0.2",
     "handlebars-loader": "^1.7.3",
     "html-format": "^1.1.7",

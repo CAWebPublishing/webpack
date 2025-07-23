@@ -1,3 +1,7 @@
+v1.5.4
+- Added jshint auditing back
+- Updated npm packages
+
 v1.5.3
 - Added jandlebars, html-format, jshint-webpack-plugin npm packages
 
