@@ -1,12 +1,13 @@
 {
   "name": "@caweb/jshint-webpack-plugin",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "CAWebPublishing Webpack Plugin to run JSHint",
   "type": "module",
   "main": "index.js",
   "files": [
     "sample",
     ".jshintrc",
+    "jshint.config.js",
     "index.js",
     "reporter.cjs",
     "README.md"
