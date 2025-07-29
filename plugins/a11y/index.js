@@ -173,7 +173,7 @@ class A11yPlugin {
             //   // )
             // }
 
-            console.log(`<i> ${boldGreen('[webpack-dev-middleware] IBM Accessibilty Report can be viewed at')} ${ boldBlue(new URL(`${auditUrl}/${staticDir.publicPath}/${this.config.outputFilename}.html`).toString())  }`);
+            console.log(`<i> ${boldGreen('[webpack-dev-middleware] IBM Accessibilty Report can be viewed at')} ${ boldBlue(new URL(`${auditUrl}${staticDir.publicPath}/${this.config.outputFilename}.html`).toString())  }`);
 
         });
       })

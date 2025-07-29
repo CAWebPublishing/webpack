@@ -1,3 +1,7 @@
+v2.0.0
+- Default configs moved into css-audit.config.js file
+- Output moved to new outputFolder variable
+
 v1.1.0
 - Updated npm packages
 - Fixed issue with cross-spawn on windows

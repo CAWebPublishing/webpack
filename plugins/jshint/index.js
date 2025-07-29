@@ -12,6 +12,9 @@ import deepmerge from 'deepmerge';
 import chalk from 'chalk';
 import { fileURLToPath, URL } from 'url';
 
+// default configuration
+import {default as DefaultConfig} from './jshint.config.js';
+
 const boldWhite = chalk.bold.white;
 const boldGreen = chalk.bold.green;
 const boldBlue = chalk.bold.hex('#03a7fc');
@@ -19,47 +22,70 @@ const currentPath = path.dirname(fileURLToPath(import.meta.url));
 
 // JSHint Plugin
 class JSHintPlugin {
-    config = {
-      outputFilename: 'jshint',
-      outputFolder: path.join(currentPath, 'public'),
-    }
+    config = {}
 
     constructor(opts = {}) {
+      // the default publicPath is always the outputFolder
+      DefaultConfig.publicPath = DefaultConfig.outputFolder;
+
+      // the default output folder is always relative to the current working directory.
+      DefaultConfig.outputFolder = path.join( process.cwd(), DefaultConfig.outputFolder );
+      
       // outputFolder must be resolved
-      if( opts.outputFolder ){
+      if( opts.outputFolder && ! path.isAbsolute(opts.outputFolder)){
+        opts.publicPath = opts.outputFolder;
+
         opts.outputFolder = path.join(process.cwd(), opts.outputFolder);
       }
-      this.config = deepmerge(this.config, opts);
+
+      this.config = deepmerge(DefaultConfig, opts);
     }
 
     apply(compiler) {
       const staticDir = {
         directory: this.config.outputFolder,
+        publicPath: encodeURI(this.config.publicPath).replace(':', ''),
         watch: true
       }
+
       let { devServer } = compiler.options;
-      let hostUrl = 'localhost' === devServer.host ? `http://${devServer.host}`: devServer.host;
-      let hostPort = devServer.port;
+      let auditUrl = `${devServer.server}://${devServer.host}:${devServer.port}`;
 
-      if( hostPort && 80 !== hostPort )
-      {
-          hostUrl = `${hostUrl}:${hostPort}`;
+      // we proxy any node_modules requests made from this directories publicPath
+      let nodeModulePath = encodeURI(this.config.publicPath).replace(':', '') + '/node_modules';
+      let pathRewrite = {};
+      pathRewrite[`^${nodeModulePath}`] = '';
+      
+      let proxy = {
+        context: [ nodeModulePath ],
+        target: auditUrl,
+        pathRewrite,
+      };
+
+      // we add the proxy to the devServer
+      if( Array.isArray(devServer.proxy) ){
+        devServer.proxy.push(proxy)
+      }else{
+        devServer.proxy = [].concat(devServer.proxy, proxy );
       }
 
-      // if dev server allows for multiple pages to be opened
-      // add jshint.html to open property.
-      if( Array.isArray(devServer.open) ){
-        devServer.open.push(`${hostUrl}/${this.config.outputFilename}.html`)
-      }else if( 'object' === typeof devServer.open && Array.isArray(devServer.open.target) ){
-        devServer.open.target.push(`${hostUrl}/${this.config.outputFilename}.html`)
-      }
-
-      // add our static directory 
+      // add our static directory to the devServer
       if( Array.isArray(devServer.static) ){
         devServer.static.push(staticDir)
       }else{
         devServer.static = [].concat(devServer.static, staticDir );
       }
+
+      // if dev server allows for multiple pages to be opened
+      // add outputFilename.html to open property.
+      if( Array.isArray(devServer.open) ){
+        devServer.open.push(`${staticDir.publicPath}/${this.config.outputFilename}.html`)
+      }else if( 'object' === typeof devServer.open && Array.isArray(devServer.open.target) ){
+        devServer.open.target.push(`${staticDir.publicPath}/${this.config.outputFilename}.html`)
+      }
+
+      // we always make sure the output folder exists
+      fs.mkdirSync( staticDir.directory, { recursive: true } );
       
       // Wait for configuration preset plugins to apply all configure webpack defaults
       compiler.hooks.initialize.tap('JSHint Plugin', () => {
@@ -78,10 +104,6 @@ class JSHintPlugin {
           dep.loc = {
             name: 'jshint'
           };
-          
-          if( ! fs.existsSync(path.resolve(this.config.outputFolder))){
-            fs.mkdirSync( path.resolve(this.config.outputFolder), {recursive: true} );
-          }
           
           fs.writeFileSync(
             path.join(this.config.outputFolder, `jshint.js`),
@@ -129,6 +151,7 @@ class JSHintPlugin {
                         source['_source']['_children'].forEach((s, i) => {
                           if( 
                             'string' === typeof s && // is a string and
+                            ! files.includes(path.resolve(s.replace(/[\n\s\S\w]*"(.*)"[\n\s\S\w]*/, '$1'))) && // not already in the files array
                             0 < s.indexOf('.js') && // has a .js reference and
                             0 > s.indexOf('node_modules') && // not referencing node_modules directory
                             0 > s.indexOf('jshint.js') && // not referencing our update javascript
@@ -148,15 +171,15 @@ class JSHintPlugin {
 
                   if( result ){
                     // we have to inject the jshint.update.js file into the head in order for the webpack-dev-server scripts to load.
-                    let pageContent = fs.readFileSync(path.join(staticDir.directory, `${this.config.outputFilename}.html`))
+                    // let pageContent = fs.readFileSync(path.join(staticDir.directory, `${this.config.outputFilename}.html`))
                     
-                    fs.writeFileSync(
-                      path.join(staticDir.directory, `${this.config.outputFilename}.html`),
-                      pageContent.toString().replace('</head>', `<script src="./jshint.update.js"></script>\n</head>`)
-                    )
+                    // fs.writeFileSync(
+                    //   path.join(staticDir.directory, `${this.config.outputFilename}.html`),
+                    //   pageContent.toString().replace('</head>', `<script src="./jshint.update.js"></script>\n</head>`)
+                    // )
                   }
 
-                  console.log(`<i> ${boldGreen('[webpack-dev-middleware] JSHint can be viewed at')} ${ boldBlue(new URL(`${hostUrl}/${this.config.outputFilename}.html`).toString())  }`);
+                  console.log(`<i> ${boldGreen('[webpack-dev-middleware] JSHint can be viewed at')} ${ boldBlue(new URL(`${auditUrl}${staticDir.publicPath}/${this.config.outputFilename}.html`).toString())  }`);
                   
                   callback();
               });

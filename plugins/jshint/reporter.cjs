@@ -4,19 +4,20 @@ const fs = require('fs');
 const htmlFormat = require('html-format');
 const HandleBars = require('handlebars');
 
-const endsWith = require('@caweb/html-webpack-plugin/helpers/logic/endsWith.js');
+const endsWith = require('@caweb/webpack/helpers/logic/endsWith.js');
 
-const templateDir = path.resolve('node_modules', '@caweb', 'html-webpack-plugin', 'sample' );
+const templateDir = path.resolve('node_modules', '@caweb', 'template' );
 
 let templatePartials = {
-  'header': 'structural/header.html',
-  'footer': 'structural/footer.html',
-  '../components/alerts.html': 'components/alerts.html',
-  './utility-header.html': 'structural/utility-header.html',
-  './branding.html': 'structural/branding.html',
-  './mobile-controls.html': 'structural/mobile-controls.html',
-  './navigation.html': 'structural/navigation.html',
-  './search.html': 'structural/search.html'
+  'header': 'semantics/header.html',
+  'footer': 'semantics/footer.html',
+  'utilityHeader': 'semantics/utility-header.html',
+  'branding': 'semantics/branding.html',
+  'mobileControls': 'semantics/mobile-controls.html',
+  'navHeader': 'semantics/nav-header.html',
+  'navFooter': 'semantics/nav-footer.html',
+  'alert': 'components/alert/alert.html',
+  'searchForm': 'forms/search.html'
 }
 
 let sortedReport = {
@@ -265,9 +266,9 @@ function reporter(results, data, opts){
   Object.entries(templatePartials).forEach(([p, f]) => HandleBars.registerPartial(p, fs.readFileSync(path.resolve(templateDir, f )).toString() ) );
 
   // Register custom helpers.
-  HandleBars.registerHelper('endsWith', (w,s,o) => {  return  w.endsWith(s); }  )
+  HandleBars.registerHelper('endsWith', endsWith )
 
-  let template = HandleBars.compile(fs.readFileSync(path.resolve(templateDir, 'default.html')).toString() )
+  let template = HandleBars.compile(fs.readFileSync(path.resolve(templateDir, 'patterns', 'index.html')).toString() )
 
   // write html file
   fs.writeFileSync( 
