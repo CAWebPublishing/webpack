@@ -1,3 +1,6 @@
+v2.0.4
+- Added jshint.config.js to file distribution
+
 v2.0.3
 - Added jshint.config.js file for default configurations
 - Fixed issue with default file location not being relative to the project directory
