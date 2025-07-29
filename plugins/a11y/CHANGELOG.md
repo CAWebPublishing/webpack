@@ -1,3 +1,7 @@
+v2.0.0
+- Removed extra forward slash in url location message
+- Updated npm packages
+
 v1.1.1
 - Added reporter.js to file list to distribute
 

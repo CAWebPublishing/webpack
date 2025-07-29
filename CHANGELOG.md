@@ -1,3 +1,6 @@
+v1.5.5
+- Updated plugins
+
 v1.5.4
 - Added jshint auditing back
 - Updated npm packages
