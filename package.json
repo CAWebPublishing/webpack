@@ -1,6 +1,6 @@
 {
   "name": "@caweb/webpack",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "CAWebPublishing Webpack Configuration",
   "main": "webpack.config.js",
   "files": [
@@ -49,8 +49,8 @@
     "webpack-remove-empty-scripts": "^1.1.1"
   },
   "peerDependencies": {
-    "@caweb/a11y-webpack-plugin": ">= 1.1.0",
-    "@caweb/css-audit-webpack-plugin": ">= 1.1.0",
+    "@caweb/a11y-webpack-plugin": ">= 2.0.0",
+    "@caweb/css-audit-webpack-plugin": ">= 2.0.0",
     "@caweb/html-webpack-plugin": ">= 1.8.5",
     "@caweb/jshint-webpack-plugin": ">= 2.0.0"
   }
