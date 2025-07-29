@@ -35,10 +35,10 @@ export default {
     ],
     failLevels: failLevels.filter(e=>e),
     reportLevels: reportLevels.filter(e=>e),
-    outputFilename: 'a11y',
-    outputFolder: "public",
+    outputFilename: 'reports',
+    outputFolder: "/audits/a11y",
     outputFormat: [
-        'html'
+        'html', 'json'
     ],
     outputFilenameTimestamp: false
 }
