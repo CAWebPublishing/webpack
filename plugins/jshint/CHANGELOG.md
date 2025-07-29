@@ -1,3 +1,7 @@
+v2.0.3
+- Added jshint.config.js file for default configurations
+- Fixed issue with default file location not being relative to the project directory
+
 v2.0.2
 - Updated templatePartial locations in reporter
 - Updated default outputfolder location

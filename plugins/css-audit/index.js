@@ -15,7 +15,7 @@ import chalk from 'chalk';
 import { fileURLToPath, URL } from 'url';
 
 // default configuration
-import {default as DefaultConfig} from './default.config.js';
+import {default as DefaultConfig} from './css-audit.config.js';
 
 const boldWhite = chalk.bold.white;
 const boldGreen = chalk.bold.green;
@@ -27,41 +27,64 @@ class CSSAuditPlugin {
     config = {};
 
     constructor(opts = {}) {
-     
-      // if no outputFolder is defined fallback to the default path
-      if( ! opts.outputFolder ){
-        opts.outputFolder = path.join(process.cwd(), 'audits' )
-      // if outputfolder is set and not absolute
-      }else if( ! path.isAbsolute(opts.outputFolder) ){
-        opts.outputFolder = path.join(process.cwd(), opts.outputFolder );
-      }
+      // the default publicPath is always the outputFolder
+      DefaultConfig.publicPath = DefaultConfig.outputFolder;
 
+      // the default output folder is always relative to the current working directory.
+      DefaultConfig.outputFolder = path.join( process.cwd(), DefaultConfig.outputFolder );
+
+      // if opts.outputFolder is defined
+      if( opts.outputFolder && ! path.isAbsolute(opts.outputFolder)  ){
+        opts.publicPath = opts.outputFolder;
+
+        // we join the current working directory with the opts.outputFolder
+        opts.outputFolder = path.join( process.cwd(), opts.outputFolder );
+      }
+      
       this.config = deepmerge(DefaultConfig, opts);
     }
 
     apply(compiler) {
       const staticDir = {
         directory: this.config.outputFolder,
+        publicPath: encodeURI(this.config.publicPath).replace(':', ''),
         watch: true
       }
+      
       let { devServer } = compiler.options;
       let auditUrl = `${devServer.server}://${devServer.host}:${devServer.port}`;
+      let nodeModulePath = encodeURI(this.config.publicPath).replace(':', '') + '/node_modules';
+      let pathRewrite = {};
+      pathRewrite[`^${nodeModulePath}`] = '';
       
-      // if dev server allows for multiple pages to be opened
-      // add css-audit.html to open property.
-      if( Array.isArray(devServer.open) ){
-        devServer.open.push(`${auditUrl}/${this.config.filename}.html`)
-      }else if( 'object' === typeof devServer.open && Array.isArray(devServer.open.target) ){
-        devServer.open.target.push(`${auditUrl}/${this.config.filename}.html`)
+      let proxy = {
+        context: [ nodeModulePath ],
+        target: auditUrl,
+        pathRewrite,
+      };
+
+      // we add the proxy to the devServer
+      if( Array.isArray(devServer.proxy) ){
+        devServer.proxy.push(proxy)
+      }else{
+        devServer.proxy = [].concat(devServer.proxy, proxy );
       }
 
-      // add our static directory 
+      // add our static directory to the devServer
       if( Array.isArray(devServer.static) ){
         devServer.static.push(staticDir)
       }else{
         devServer.static = [].concat(devServer.static, staticDir );
       }
-      
+
+      // if dev server allows for multiple pages to be opened
+      // add filename.html to open property.
+      if( Array.isArray(devServer.open) ){
+        devServer.open.push(`${staticDir.publicPath}/${this.config.filename}.html`)
+      }else if( 'object' === typeof devServer.open && Array.isArray(devServer.open.target) ){
+        devServer.open.target.push(`${staticDir.publicPath}/${this.config.filename}.html`)
+      }
+
       // we always make sure the output folder exists
       fs.mkdirSync( staticDir.directory, { recursive: true } );
 
@@ -128,7 +151,29 @@ class CSSAuditPlugin {
             })
             console.log(`<i> ${boldGreen('[webpack-dev-middleware] Running CSS Audit...')}`);
 
-            let result = this.audit(files, this.config );
+            let audits = {};
+            this.config.audits.forEach( (audit) => {
+                let key = 'string' === typeof audit ? audit : audit[0];
+                let value = 'string' === typeof audit ? true : audit[1];
+
+                // fix key
+                key = key.replace(/-\w/g, (m) => m[1].toUpperCase());
+
+                // if key already exists, push value to array
+                if( audits.hasOwnProperty(key) ){
+                    audits[key].push(value);
+                }else{
+                    // otherwise, if the audit is an array create a new array with the value
+                    audits[key] = ! Array.isArray(audit) ? value : [value];
+                }
+            });
+
+            let result = this.audit(files, {
+              format: this.config.format,
+              filename: this.config.filename, 
+              outputFolder: this.config.outputFolder, 
+              ...audits,
+            } );
 
             if( result ){
               // we have to inject the css-audit.update.js file into the head in order for the webpack-dev-server scripts to load.
@@ -140,7 +185,7 @@ class CSSAuditPlugin {
               )
             }
             
-            console.log(`<i> ${boldGreen('[webpack-dev-middleware] CSS Audit can be viewed at')} ${ boldBlue(new URL(`${auditUrl}/${this.config.filename}.html`).toString())  }`);
+            console.log(`<i> ${boldGreen('[webpack-dev-middleware] CSS Audit can be viewed at')} ${ boldBlue(new URL(`${auditUrl}${staticDir.publicPath}/${this.config.filename}.html`).toString())  }`);
 
             callback();
           }

@@ -12,6 +12,9 @@ import deepmerge from 'deepmerge';
 import chalk from 'chalk';
 import { fileURLToPath, URL } from 'url';
 
+// default configuration
+import {default as DefaultConfig} from './jshint.config.js';
+
 const boldWhite = chalk.bold.white;
 const boldGreen = chalk.bold.green;
 const boldBlue = chalk.bold.hex('#03a7fc');
@@ -19,14 +22,14 @@ const currentPath = path.dirname(fileURLToPath(import.meta.url));
 
 // JSHint Plugin
 class JSHintPlugin {
-    config = {
-      outputFilename: 'jshint',
-      outputFolder: '/audits/jshint'
-    }
+    config = {}
 
     constructor(opts = {}) {
       // the default publicPath is always the outputFolder
-      this.config.publicPath = this.config.outputFolder;
+      DefaultConfig.publicPath = DefaultConfig.outputFolder;
+
+      // the default output folder is always relative to the current working directory.
+      DefaultConfig.outputFolder = path.join( process.cwd(), DefaultConfig.outputFolder );
       
       // outputFolder must be resolved
       if( opts.outputFolder && ! path.isAbsolute(opts.outputFolder)){
@@ -35,7 +38,7 @@ class JSHintPlugin {
         opts.outputFolder = path.join(process.cwd(), opts.outputFolder);
       }
 
-      this.config = deepmerge(this.config, opts);
+      this.config = deepmerge(DefaultConfig, opts);
     }
 
     apply(compiler) {
@@ -176,7 +179,7 @@ class JSHintPlugin {
                     // )
                   }
 
-                  console.log(`<i> ${boldGreen('[webpack-dev-middleware] JSHint can be viewed at')} ${ boldBlue(new URL(`${auditUrl}/${this.config.outputFilename}.html`).toString())  }`);
+                  console.log(`<i> ${boldGreen('[webpack-dev-middleware] JSHint can be viewed at')} ${ boldBlue(new URL(`${auditUrl}${staticDir.publicPath}/${this.config.outputFilename}.html`).toString())  }`);
                   
                   callback();
               });
