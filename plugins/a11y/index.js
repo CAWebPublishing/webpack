@@ -3,7 +3,6 @@
 /**
  * External dependencies
  */
-import { sync as resolveBin } from 'resolve-bin';
 import spawn from 'cross-spawn';
 import { getAllFilesSync } from 'get-all-files'
 import EntryDependency from "webpack/lib/dependencies/EntryDependency.js";
@@ -240,7 +239,7 @@ class A11yPlugin {
         let outputDir = path.resolve('.',  outputFolder );
 
         let {stderr, stdout}  = spawn.sync( 
-          resolveBin('accessibility-checker', {executable: 'achecker'}),
+          path.resolve(currentPath, '..', '..', 'accessibility-checker', 'bin', 'achecker.js'),
           acheckerArgs,
           {
             stdio: 'pipe'
