@@ -1,3 +1,6 @@
+v2.0.1
+- Updated file distribution list
+
 v2.0.0
 - Default configs moved into css-audit.config.js file
 - Output moved to new outputFolder variable
