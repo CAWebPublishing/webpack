@@ -1,3 +1,6 @@
+v1.5.7
+- mixed-decls deprecation is obsolete, warnings are no longer silenced.
+
 v1.5.6
 - Updated npm packages
 

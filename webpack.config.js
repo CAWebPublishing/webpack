@@ -109,7 +109,7 @@ baseConfig.module.rules.forEach((rule, i) => {
       break;
     case new RegExp(/\.(sc|sa)ss$/).toString():
       rule.use[rule.use.length-1].options.sassOptions = {
-        silenceDeprecations: ['global-builtin', 'import', 'color-functions', 'mixed-decls']
+        silenceDeprecations: ['global-builtin', 'import', 'color-functions']
       };
       break;
   }
