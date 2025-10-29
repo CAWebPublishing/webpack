@@ -1,3 +1,6 @@
+v1.5.6
+- Updated npm packages
+
 v1.5.5
 - Updated plugins
 
