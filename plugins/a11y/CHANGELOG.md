@@ -1,3 +1,6 @@
+v2.0.2
+- Updated npm packages
+
 v2.0.1
 - Resolved issue with accessibilty-checker executable not being found
 

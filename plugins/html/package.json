@@ -1,6 +1,6 @@
 {
     "name": "@caweb/html-webpack-plugin",
-    "version": "1.8.8",
+    "version": "1.8.9",
     "description": "CAWebPublishing Site Generation HTML Webpack Plugin",
     "main": "index.js",
     "type": "module",
@@ -29,11 +29,11 @@
     },
     "homepage": "https://github.com/CAWebPublishing/webpack/plugins/html#readme",
     "dependencies": {
-        "html-webpack-plugin": "^5.6.3",
-        "webpack": "^5.99.9",
+        "html-webpack-plugin": "^5.6.4",
+        "webpack": "^5.102.1",
         "webpack-cli": "^6.0.1"
     },
     "peerDependencies": {
-        "@caweb/template": "^1.0.2"
+        "@caweb/template": "^1.0.6"
     }
 }
