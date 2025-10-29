@@ -1,3 +1,9 @@
+v2.0.2
+- Updated npm packages
+
+v2.0.1
+- Resolved issue with accessibilty-checker executable not being found
+
 v2.0.0
 - Removed extra forward slash in url location message
 - Updated npm packages

@@ -1,3 +1,6 @@
+v2.0.2
+- Update npm packages
+
 v2.0.1
 - Updated file distribution list
 
