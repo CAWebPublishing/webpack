@@ -22,9 +22,9 @@ import {HtmlWebpackSkipAssetsPlugin} from 'html-webpack-skip-assets-plugin';
 import {HtmlWebpackLinkTypePlugin} from 'html-webpack-link-type-plugin';
 import RemoveEmptyScriptsPlugin from 'webpack-remove-empty-scripts';
 
-// import JSHintPlugin from '@caweb/jshint-webpack-plugin';
-// import CSSAuditPlugin from '@caweb/css-audit-webpack-plugin';
-// import A11yPlugin from '@caweb/a11y-webpack-plugin';
+import JSHintPlugin from '@caweb/jshint-webpack-plugin';
+import CSSAuditPlugin from '@caweb/css-audit-webpack-plugin';
+import A11yPlugin from '@caweb/a11y-webpack-plugin';
 
 /**
  * Internal dependencies
@@ -380,9 +380,9 @@ if( 'serve' === webpackCommand ){
     }),
     new HtmlWebpackSkipAssetsPlugin(),
     new HtmlWebpackLinkTypePlugin(),
-    //! flagExists('--no-jshint') ? new JSHintPlugin() : false,
-    //! flagExists('--no-audit') ? new CSSAuditPlugin() : false,
-    //! flagExists('--no-a11y') ? new A11yPlugin() : false
+    ! flagExists('--no-jshint') ? new JSHintPlugin() : false,
+    ! flagExists('--no-audit') ? new CSSAuditPlugin() : false,
+    ! flagExists('--no-a11y') ? new A11yPlugin() : false
   )
 
   // we add the SERP (Search Engine Results Page)

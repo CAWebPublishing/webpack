@@ -1,3 +1,22 @@
+v2.0.2
+- Updated npm packages
+
+v2.0.1
+- Resolved issue with accessibilty-checker executable not being found
+
+v2.0.0
+- Removed extra forward slash in url location message
+- Updated npm packages
+
+v1.1.1
+- Added reporter.js to file list to distribute
+
+v1.1.0
+- Added new reporter file to help generating of landing page 
+- Update webpack plugin hook processes
+- Updated npm packages
+- Added @caweb/template peerDependency
+
 v1.0.9
 - Update npm packages
 - Added npm devDependencies packages

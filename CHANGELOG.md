@@ -1,3 +1,22 @@
+v1.5.6
+- Updated npm packages
+
+v1.5.5
+- Updated plugins
+
+v1.5.4
+- Added jshint auditing back
+- Updated npm packages
+
+v1.5.3
+- Added jandlebars, html-format, jshint-webpack-plugin npm packages
+
+v1.5.2
+- Added a11y-webpack-plugin back in
+
+v1.5.1
+- Added css-audit-webpack-plugin back in
+
 v1.5.0
 - Additional pages can now be created by adding html files to the /content/pages/ directory
 - Updated npm packages

@@ -1,3 +1,18 @@
+v2.0.2
+- Update npm packages
+
+v2.0.1
+- Updated file distribution list
+
+v2.0.0
+- Default configs moved into css-audit.config.js file
+- Output moved to new outputFolder variable
+
+v1.1.0
+- Updated npm packages
+- Fixed issue with cross-spawn on windows
+- Updated WordPress css-auditor
+
 v1.0.12
 - Update npm packages
 - Added npm devDependencies packages
