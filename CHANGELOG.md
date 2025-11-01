@@ -1,3 +1,6 @@
+v1.5.8
+- We no longer have to splice the cleanWebpackPlugin since @wordpress/scripts now uses the webpack clean configuration
+
 v1.5.7
 - mixed-decls deprecation is obsolete, warnings are no longer silenced.
 

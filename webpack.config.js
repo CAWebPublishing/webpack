@@ -115,10 +115,6 @@ baseConfig.module.rules.forEach((rule, i) => {
   }
 });
 
-// we remove the WordPress CleanWebpackPlugin definition
-// instead we use the Webpack output.clean definition
-baseConfig.plugins.splice(1,1, false);
-
 /**
  * we remove the WordPress devServer declaration since we can only have 1 when exporting multiple configurations
  * 
