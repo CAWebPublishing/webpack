@@ -1,6 +1,6 @@
 {
   "name": "@caweb/webpack",
-  "version": "1.5.7",
+  "version": "1.5.8",
   "description": "CAWebPublishing Webpack Configuration",
   "main": "webpack.config.js",
   "files": [
