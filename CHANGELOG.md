@@ -1,3 +1,9 @@
+v1.5.9
+- Added thread-loader before wordpress ts babel-loader
+- Added @babel/plugin-proposal-class-properties after ts babel-loader
+- Added happyPackMode, transpileOnly true to ts-loader
+- Removed vendor from react externals
+
 v1.5.8
 - We no longer have to splice the cleanWebpackPlugin since @wordpress/scripts now uses the webpack clean configuration
 
