@@ -107,11 +107,30 @@ baseConfig.module.rules.forEach((rule, i) => {
         delete rule.issuer;
       }
       break;
+    // silence deprecation warnings from sass
     case new RegExp(/\.(sc|sa)ss$/).toString():
       rule.use[rule.use.length-1].options.sassOptions = {
         silenceDeprecations: ['global-builtin', 'import', 'color-functions']
       };
       break;
+    case new RegExp(/\.m?(j|t)sx?$/).toString():
+      // @since @wordpress/scripts@30.20.0 babel-loader is used for js and ts files
+      
+      // Added the Transform class properties syntax plugin to the babel-loader.
+      // @see https://babeljs.io/docs/en/babel-plugin-proposal-class-properties
+      rule.use[0].options.plugins.push('@babel/plugin-proposal-class-properties');
+
+      // we add thread-loader before the babel-loader
+      // Spawns multiple processes and split work between them. This makes faster build.
+      // @see https://webpack.js.org/loaders/thread-loader/
+      rule.use = [{
+        loader: 'thread-loader',
+        options: {
+          workers: -1,
+        },
+      }].concat(rule.use);        
+
+    break;
   }
 });
 
@@ -276,8 +295,16 @@ let webpackConfig = {
       // Handle `.tsx` and `.ts` files.
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
         exclude: /node_modules/,
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              happyPackMode: true,
+              transpileOnly: true,
+            }
+          }
+        ],
       }
     ]
   },
@@ -289,11 +316,11 @@ let webpackConfig = {
   // @see https://webpack.js.org/configuration/externals/#externals
   externals: {
     // Third party dependencies.
-    jquery: 'jQuery',
     underscore: '_',
+    jquery: 'jQuery',
     lodash: 'lodash',
-    react: ['vendor', 'React'],
-    'react-dom': ['vendor', 'ReactDOM'],
+    react: 'React',
+    'react-dom': 'ReactDOM',
 
     // WordPress dependencies.
     '@wordpress/hooks': ['vendor', 'wp', 'hooks'],
