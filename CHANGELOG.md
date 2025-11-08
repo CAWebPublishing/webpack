@@ -1,3 +1,6 @@
+v1.5.10
+- Added media directory to static directory listing for devServer
+
 v1.5.9
 - Added thread-loader before wordpress ts babel-loader
 - Added @babel/plugin-proposal-class-properties after ts babel-loader
