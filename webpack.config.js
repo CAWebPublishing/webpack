@@ -361,6 +361,15 @@ if( 'serve' === webpackCommand ){
        */
       {
         directory: path.join(appPath, 'node_modules'),
+      },
+      /**
+       * Static files are served from the following files in the following order
+       * we don't have to add the build directory since that is the output.path and proxied
+       * 
+       * node_modules - Allows loading files from other npm packages
+       */
+      {
+        directory: path.join(appPath, 'media'),
       }
     ],
     proxy:[
@@ -383,6 +392,14 @@ if( 'serve' === webpackCommand ){
         context: ['/node_modules'],
         target: `${server}://${host}:${port}`,
         pathRewrite: { '^/node_modules': '' },
+      },
+      /**
+       * We proxy the node_modules and src so they serve from the root
+       */
+      {
+        context: ['/media'],
+        target: `${server}://${host}:${port}`,
+        pathRewrite: { '^/media': '' },
       }
     ]
   }
