@@ -1,3 +1,6 @@
+v1.5.11
+- Updated npm packages 
+
 v1.5.10
 - Added media directory to static directory listing for devServer
 
