@@ -30,6 +30,7 @@ import A11yPlugin from '@caweb/a11y-webpack-plugin';
  * Internal dependencies
  */
 import CAWebHTMLPlugin from '@caweb/html-webpack-plugin';
+import { error } from 'console';
 
 const webpackCommand = 'build' === process.argv[2] ? 'build' : 'serve' ;
 
@@ -110,7 +111,7 @@ baseConfig.module.rules.forEach((rule, i) => {
     // silence deprecation warnings from sass
     case new RegExp(/\.(sc|sa)ss$/).toString():
       rule.use[rule.use.length-1].options.sassOptions = {
-        silenceDeprecations: ['global-builtin', 'import', 'color-functions']
+        silenceDeprecations: ['global-builtin', 'import', 'color-functions', 'if-function']
       };
       break;
     case new RegExp(/\.m?(j|t)sx?$/).toString():
@@ -178,7 +179,9 @@ let webpackConfig = {
   // @see https://webpack.js.org/configuration/cache/
   cache: false,
 
-  stats: 'errors',
+  stats: {
+    errors: true,
+  },
   
   // Determine where the created bundles will be outputted.
   // @see https://webpack.js.org/concepts/#output

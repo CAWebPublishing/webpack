@@ -1,3 +1,6 @@
+v2.0.0
+- Removed webpack dependency
+
 v1.8.8
 - Removed the title key from the dataFile.site
 
