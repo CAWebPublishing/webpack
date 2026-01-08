@@ -1,3 +1,26 @@
+v1.5.12
+- Added configuration testing
+- Fixed stats config value
+- Pinning html-webpack-plugin@5.6.4 due to https://github.com/jantimon/html-webpack-plugin/issues/1881
+
+v1.5.11
+- Updated npm packages 
+
+v1.5.10
+- Added media directory to static directory listing for devServer
+
+v1.5.9
+- Added thread-loader before wordpress ts babel-loader
+- Added @babel/plugin-proposal-class-properties after ts babel-loader
+- Added happyPackMode, transpileOnly true to ts-loader
+- Removed vendor from react externals
+
+v1.5.8
+- We no longer have to splice the cleanWebpackPlugin since @wordpress/scripts now uses the webpack clean configuration
+
+v1.5.7
+- mixed-decls deprecation is obsolete, warnings are no longer silenced.
+
 v1.5.6
 - Updated npm packages
 

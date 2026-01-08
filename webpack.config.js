@@ -30,6 +30,7 @@ import A11yPlugin from '@caweb/a11y-webpack-plugin';
  * Internal dependencies
  */
 import CAWebHTMLPlugin from '@caweb/html-webpack-plugin';
+import { error } from 'console';
 
 const webpackCommand = 'build' === process.argv[2] ? 'build' : 'serve' ;
 
@@ -107,17 +108,32 @@ baseConfig.module.rules.forEach((rule, i) => {
         delete rule.issuer;
       }
       break;
+    // silence deprecation warnings from sass
     case new RegExp(/\.(sc|sa)ss$/).toString():
       rule.use[rule.use.length-1].options.sassOptions = {
-        silenceDeprecations: ['global-builtin', 'import', 'color-functions', 'mixed-decls']
+        silenceDeprecations: ['global-builtin', 'import', 'color-functions', 'if-function']
       };
       break;
+    case new RegExp(/\.m?(j|t)sx?$/).toString():
+      // @since @wordpress/scripts@30.20.0 babel-loader is used for js and ts files
+      
+      // Added the Transform class properties syntax plugin to the babel-loader.
+      // @see https://babeljs.io/docs/en/babel-plugin-proposal-class-properties
+      rule.use[0].options.plugins.push('@babel/plugin-proposal-class-properties');
+
+      // we add thread-loader before the babel-loader
+      // Spawns multiple processes and split work between them. This makes faster build.
+      // @see https://webpack.js.org/loaders/thread-loader/
+      rule.use = [{
+        loader: 'thread-loader',
+        options: {
+          workers: -1,
+        },
+      }].concat(rule.use);        
+
+    break;
   }
 });
-
-// we remove the WordPress CleanWebpackPlugin definition
-// instead we use the Webpack output.clean definition
-baseConfig.plugins.splice(1,1, false);
 
 /**
  * we remove the WordPress devServer declaration since we can only have 1 when exporting multiple configurations
@@ -163,7 +179,9 @@ let webpackConfig = {
   // @see https://webpack.js.org/configuration/cache/
   cache: false,
 
-  stats: 'errors',
+  stats: {
+    errors: true,
+  },
   
   // Determine where the created bundles will be outputted.
   // @see https://webpack.js.org/concepts/#output
@@ -280,8 +298,16 @@ let webpackConfig = {
       // Handle `.tsx` and `.ts` files.
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
         exclude: /node_modules/,
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              happyPackMode: true,
+              transpileOnly: true,
+            }
+          }
+        ],
       }
     ]
   },
@@ -293,11 +319,11 @@ let webpackConfig = {
   // @see https://webpack.js.org/configuration/externals/#externals
   externals: {
     // Third party dependencies.
-    jquery: 'jQuery',
     underscore: '_',
+    jquery: 'jQuery',
     lodash: 'lodash',
-    react: ['vendor', 'React'],
-    'react-dom': ['vendor', 'ReactDOM'],
+    react: 'React',
+    'react-dom': 'ReactDOM',
 
     // WordPress dependencies.
     '@wordpress/hooks': ['vendor', 'wp', 'hooks'],
@@ -338,6 +364,15 @@ if( 'serve' === webpackCommand ){
        */
       {
         directory: path.join(appPath, 'node_modules'),
+      },
+      /**
+       * Static files are served from the following files in the following order
+       * we don't have to add the build directory since that is the output.path and proxied
+       * 
+       * node_modules - Allows loading files from other npm packages
+       */
+      {
+        directory: path.join(appPath, 'media'),
       }
     ],
     proxy:[
@@ -360,6 +395,14 @@ if( 'serve' === webpackCommand ){
         context: ['/node_modules'],
         target: `${server}://${host}:${port}`,
         pathRewrite: { '^/node_modules': '' },
+      },
+      /**
+       * We proxy the node_modules and src so they serve from the root
+       */
+      {
+        context: ['/media'],
+        target: `${server}://${host}:${port}`,
+        pathRewrite: { '^/media': '' },
       }
     ]
   }
