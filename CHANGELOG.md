@@ -1,7 +1,9 @@
+v1.5.13
+- Pinning html-webpack-plugin@5.6.4 due to https://github.com/jantimon/html-webpack-plugin/issues/1881
+
 v1.5.12
 - Added configuration testing
 - Fixed stats config value
-- Pinning html-webpack-plugin@5.6.4 due to https://github.com/jantimon/html-webpack-plugin/issues/1881
 
 v1.5.11
 - Updated npm packages 
