@@ -1,6 +1,6 @@
 {
   "name": "@caweb/jshint-webpack-plugin",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "CAWebPublishing Webpack Plugin to run JSHint",
   "type": "module",
   "main": "index.js",
@@ -46,6 +46,6 @@
     "webpack-cli": "^6.0.1"
   },
   "peerDependencies": {
-    "@caweb/html-webpack-plugin": "^1.8.0"
+    "@caweb/html-webpack-plugin": ">= 2.0.0"
   }
 }

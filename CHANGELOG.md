@@ -1,3 +1,6 @@
+v1.5.14
+- Switch to peerDependency instead
+
 v1.5.13
 - Pinning html-webpack-plugin@5.6.4 due to https://github.com/jantimon/html-webpack-plugin/issues/1881
 
