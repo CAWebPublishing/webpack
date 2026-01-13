@@ -1,3 +1,6 @@
+v1.5.17
+- Repinning html-webpack-plugin@5.6.4 due to https://github.com/jantimon/html-webpack-plugin/issues/1881
+
 v1.5.16
 - Updated npm packages
 

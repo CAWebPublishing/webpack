@@ -1,6 +1,6 @@
 {
   "name": "@caweb/webpack",
-  "version": "1.5.16",
+  "version": "1.5.17",
   "description": "CAWebPublishing Webpack Configuration",
   "main": "webpack.config.js",
   "files": [
@@ -53,7 +53,8 @@
     "@caweb/a11y-webpack-plugin": ">= 2.0.0",
     "@caweb/css-audit-webpack-plugin": ">= 2.0.0",
     "@caweb/html-webpack-plugin": ">= 2.0.0",
-    "@caweb/jshint-webpack-plugin": ">= 2.0.0"
+    "@caweb/jshint-webpack-plugin": ">= 2.0.0",
+    "html-webpack-plugin": ">= 3.0.0 < 5.6.5"
   },
   "devDependencies": {
     "webpack-cli": "^6.0.1"
