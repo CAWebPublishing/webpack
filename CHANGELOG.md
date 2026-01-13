@@ -1,4 +1,7 @@
-v1.5.14
+v1.5.16
+- Updated npm packages
+
+v1.5.15
 - Switch to peerDependency instead
 
 v1.5.13
