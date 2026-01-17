@@ -1,3 +1,6 @@
+v2.0.1
+- Updated npm packages
+
 v2.0.0
 - Removed webpack dependency
 
