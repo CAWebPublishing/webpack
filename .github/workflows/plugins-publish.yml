@@ -4,21 +4,33 @@
 name: Publish Plugins to NPM
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - a11y
       - css-audit
       - html
       - jshint
+  workflow_dispatch:
+    inputs:
+      bypass_needs:
+        description: 'Bypass the needs dependency for create-branch'
+        type: boolean
+        required: false
+        default: false
+      skip_publish:
+        description: 'Skip publishing to NPM'
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   id-token: write  # Required for OIDC
-  contents: read
+  contents: write
 
 jobs:
   publish-npm:
     runs-on: ubuntu-latest
+    if: ${{ inputs.skip_publish != 'true' }}
     defaults:
       run:
         working-directory: plugins/${{ github.ref_name }}
@@ -30,3 +42,26 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: git submodule update --init
       - run: npm publish
+  create-branch:
+    runs-on: ubuntu-latest
+    needs: publish-npm
+    # This condition allows create-branch to run if either:
+    # 1. The workflow was manually dispatched with 'bypass_needs' set to true (from the inputs context)
+    # 2. The prerequisite job 'publish-npm' ran successfully
+    if: ${{ inputs.bypass_needs == 'true' || needs.publish-npm.result == 'success' }}
+    defaults:
+      run:
+        working-directory: plugins/${{ github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org/
+      - name: Get Version
+        id: get_version
+        run: echo "version=$(npm view . version)" >> "$GITHUB_OUTPUT"
+      - name: Create Version Branch
+        run: |
+          git checkout -b "${{ github.ref_name }}-${{ steps.get_version.outputs.version }}" |
+          git push

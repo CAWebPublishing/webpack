@@ -1,3 +1,8 @@
+v1.5.18
+- Unpinning html-webpack-plugin since https://github.com/jantimon/html-webpack-plugin/issues/1881 has been resolved
+- Updated npm packages 
+- Workflows were also updated so that versioned branches are created when npm packages are published 
+
 v1.5.17
 - Repinning html-webpack-plugin@5.6.4 due to https://github.com/jantimon/html-webpack-plugin/issues/1881
 
