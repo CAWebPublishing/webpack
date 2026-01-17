@@ -54,4 +54,4 @@ jobs:
       - name: Create Version Branch
         run: |
           git checkout -b "webpack-${{ steps.get_version.outputs.version }}" |
-          git push
+          git push origin "webpack-${{ steps.get_version.outputs.version }}"
