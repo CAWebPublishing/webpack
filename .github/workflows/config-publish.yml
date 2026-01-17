@@ -27,7 +27,7 @@ permissions:
 jobs:
   publish-npm:
     runs-on: ubuntu-latest
-    if: ${{ inputs.skip_publish != 'true' }}
+    if: ${{ inputs.skip_publish }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -41,7 +41,7 @@ jobs:
     # This condition allows create-branch to run if either:
     # 1. The workflow was manually dispatched with 'bypass_needs' set to true (from the inputs context)
     # 2. The prerequisite job 'publish-npm' ran successfully
-    if: ${{ inputs.bypass_needs == 'true' || needs.publish-npm.result == 'success' }}
+    if: ${{ inputs.bypass_needs || needs.publish-npm.result == 'success' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
