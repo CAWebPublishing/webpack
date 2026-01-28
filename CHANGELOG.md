@@ -1,3 +1,13 @@
+v1.6.2
+- devMiddleware added to devServer
+
+v1.6.1
+- Changed stats values back to true
+
+v1.6.0
+- webpack-merge is now used to merge modified wordpress/scripts config with our base config
+- handlebars-loader, devServer, arguments moved to external files
+
 v1.5.18
 - Unpinning html-webpack-plugin since https://github.com/jantimon/html-webpack-plugin/issues/1881 has been resolved
 - Updated npm packages 

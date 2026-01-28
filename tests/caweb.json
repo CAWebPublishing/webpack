@@ -1,0 +1,54 @@
+{
+    "_comment": "This is a sample caweb.json configuration file for CAWebPublishing projects.",
+    "site": {
+        "domain": "http://localhost:9000",
+        "logo": "./media/logo.png",
+        "favicon": "./media/favicon.ico",
+        "header": {
+            "utility": {
+                "links": []
+            },
+            "nav": [
+                    {
+                        "label": "CAWebPublishing",
+                        "url": "https://caweb.cdt.ca.gov/",
+                        "sub":[]
+                    },
+                    {
+                        "label": "CDT",
+                        "url": "https://cdt.ca.gov/",
+                        "sub": [
+                            {
+                                "label": "Accessibility",
+                                "url": "https://caweb.cdt.ca.gov/accessibility-2/",
+                                "description": "Accessibility"
+                            }
+                        ]
+                    }
+            ]
+        },
+        "footer":{
+            "nav": [
+               {
+                    "label": "Accessibility",
+                    "url": "https://caweb.cdt.ca.gov/accessibility-2/"
+                }
+            ]
+        },
+        "social": {
+            "github": "https://github.com/CAWebPublishing/"
+        },
+        "google": {
+            "search": "<Google Custom Search ID>"
+        },
+        "alerts": [
+            {
+                "icon": "info",
+                "header": "Dev Notice:",
+                "msg": "To see more CAWebPublishing projects, visit our Github Organization.",
+                "url": "https://github.com/CAWebPublishing/",
+                "text": "Visit Github"
+            }
+        ]
+    }
+}

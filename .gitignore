@@ -15,11 +15,14 @@ public
 src
 audit
 
-# lets not save site data
-caweb.json
+# directories used by the template for testing purposes only
+content
+media
+patterns
+semantics
+build
 
-# plugins can have built, src directories.
-!plugins\/**\/build
+# plugins can have build, src directories.
 !plugins\/**\/src
 
 # large/disallowed file types

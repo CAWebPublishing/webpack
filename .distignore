@@ -13,9 +13,14 @@
 .DS_Store
 .*~
 private
-tests
 vendor
 node_modules
 *.sql
 *.tar.gz
 *.zip
+
+# directories used by the template for testing purposes
+content
+media
+patterns
+semantics
