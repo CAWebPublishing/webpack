@@ -180,8 +180,8 @@ let webpackConfig = {
    * @see https://webpack.js.org/configuration/stats/
    */
   stats: {
-    errors: false,
-    errorDetails: false,
+    errors: true,
+    errorDetails: true,
   },
 
 

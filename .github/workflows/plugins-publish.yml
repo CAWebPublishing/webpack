@@ -48,4 +48,4 @@ jobs:
       - name: Create Version Branch
         run: |
           git checkout -b "${{ github.ref_name }}-${{ steps.get_version.outputs.version }}" |
-          git push origin "${{ github.ref_name }}-${{ steps.get_version.outputs.version }}"
+          git push --all origin

@@ -1,3 +1,6 @@
+v1.6.1
+- Changed stats values back to true
+
 v1.6.0
 - webpack-merge is now used to merge modified wordpress/scripts config with our base config
 - handlebars-loader, devServer, arguments moved to external files
