@@ -1,15 +1,12 @@
 {
     "name": "@caweb/html-webpack-plugin",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "description": "CAWebPublishing Site Generation HTML Webpack Plugin",
     "main": "index.js",
     "type": "module",
-    "scripts": {
-        "webpack": "webpack",
-        "serve": "set NODE_OPTIONS='--no-a11y --no-audit --no-jshint' && webpack serve --config ./tests/webpack.tests.js",
-        "test:config": "set NODE_OPTIONS='--no-a11y --no-audit --no- --template=blank' && webpack configtest ./tests/webpack.tests.js",
-        "test": "echo \"Error: run tests from root\" && exit 0"
-    },
+    "author": "CAWebPublishing",
+    "license": "ISC",
+    "homepage": "https://github.com/CAWebPublishing/webpack/plugins/html#readme",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/CAWebPublishing/webpack.git",
@@ -21,20 +18,23 @@
         "webpack",
         "html-webpack-plugin"
     ],
-    "author": "CAWebPublishing",
-    "license": "ISC",
     "bugs": {
         "url": "https://github.com/CAWebPublishing/webpack/issues"
     },
     "publishConfig": {
         "access": "public"
     },
-    "homepage": "https://github.com/CAWebPublishing/webpack/plugins/html#readme",
     "dependencies": {
+        "@caweb/framework": "^1.9.2",
+        "@caweb/icon-library": "^1.1.6",
+        "@caweb/template": "^1.0.12",
         "html-webpack-plugin": "^5.6.6"
     },
-    "peerDependencies": {
-        "@caweb/template": "^1.0.6"
+    "scripts": {
+        "webpack": "webpack",
+        "test:build": "webpack build --config ./node_modules/@caweb/webpack/webpack.config.js",
+        "test:serve": "webpack serve --config ./node_modules/@caweb/webpack/webpack.config.js ./tests/webpack.tests.js --merge",
+        "test": "echo \"Error: run tests from root\" && exit 0"
     },
     "devDependencies": {
         "webpack": "^5.104.1",

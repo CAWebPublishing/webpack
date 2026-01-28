@@ -1,3 +1,6 @@
+v2.0.2
+- No longer emitting src/href/styles assets
+
 v2.0.1
 - Updated npm packages
 

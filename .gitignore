@@ -20,9 +20,9 @@ content
 media
 patterns
 semantics
+build
 
 # plugins can have build, src directories.
-!plugins\/**\/build
 !plugins\/**\/src
 
 # large/disallowed file types
