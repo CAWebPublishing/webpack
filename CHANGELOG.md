@@ -1,3 +1,6 @@
+v1.6.2
+- devMiddleware added to devServer
+
 v1.6.1
 - Changed stats values back to true
 
