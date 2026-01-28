@@ -5,6 +5,9 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
+        "webpack": "webpack",
+        "serve": "set NODE_OPTIONS='--no-a11y --no-audit --no-jshint' && webpack serve --config ./tests/webpack.tests.js",
+        "test:config": "set NODE_OPTIONS='--no-a11y --no-audit --no- --template=blank' && webpack configtest ./tests/webpack.tests.js",
         "test": "echo \"Error: run tests from root\" && exit 0"
     },
     "repository": {
@@ -32,5 +35,9 @@
     },
     "peerDependencies": {
         "@caweb/template": "^1.0.6"
+    },
+    "devDependencies": {
+        "webpack": "^5.104.1",
+        "webpack-cli": "^6.0.1"
     }
 }
