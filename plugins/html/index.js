@@ -59,33 +59,33 @@ class CAWebHtmlWebpackPlugin extends HtmlWebpackPlugin{
 
     // if there is a favicon.ico file in the media directory we use that
     // otherwise we fallback to the template favicon.ico
-    defaultOptions.favicon = fs.existsSync(path.join(appPath, 'media', 'favicon.ico')) ?
-      path.join(appPath, 'media', 'favicon.ico') :
-      path.join(templatePath, 'media', 'favicon.ico');
+    // defaultOptions.favicon = fs.existsSync(path.join(appPath, 'media', 'favicon.ico')) ?
+    //   path.join(appPath, 'media', 'favicon.ico') :
+    //   path.join(templatePath, 'media', 'favicon.ico');
 
-      // the templateParameters.favicon is not set, set it
-    if( ! defaultOptions.templateParameters.favicon ){
-      defaultOptions.templateParameters.favicon = defaultOptions.favicon;
-    }
+    //   // the templateParameters.favicon is not set, set it
+    // if( ! defaultOptions.templateParameters.favicon ){
+    //   defaultOptions.templateParameters.favicon = defaultOptions.favicon;
+    // }
 
     // if there is a logo file in the media directory we use that
-    if( fs.existsSync(path.join(appPath, 'media', 'logo.png')) ){
-      defaultOptions.assets.push( path.join(appPath, 'media', 'logo.png') );
-      defaultOptions.templateParameters.logo = '/media/logo.png';
+    // if( fs.existsSync(path.join(appPath, 'media', 'logo.png')) ){
+    //   defaultOptions.assets.push( path.join(appPath, 'media', 'logo.png') );
+    //   defaultOptions.templateParameters.logo = '/media/logo.png';
 
-      // otherwise we fallback to the template logo.png
-    }else{
-      // remove the appPath from the templath path
-      // replace all backslashes with forward slashes
-      // this is to make sure the logo.png in the branding.html is in the right place
-      defaultOptions.templateParameters.logo = 
-        path.join(
-          templatePath,
-          'media', 'logo.png'
-        )
-         .replace(appPath, '')
-        .replace(/\\/g, '/');
-    }
+    //   // otherwise we fallback to the template logo.png
+    // }else{
+    //   // remove the appPath from the templath path
+    //   // replace all backslashes with forward slashes
+    //   // this is to make sure the logo.png in the branding.html is in the right place
+    //   defaultOptions.templateParameters.logo = 
+    //     path.join(
+    //       templatePath,
+    //       'media', 'logo.png'
+    //     )
+    //      .replace(appPath, '')
+    //     .replace(/\\/g, '/');
+    // }
       
     // update templateParameters.title to match user options.
     if( opts.title ){
