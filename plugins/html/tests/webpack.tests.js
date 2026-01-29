@@ -12,21 +12,13 @@ import path from 'path';
  */
 
 // we import this current plugin to test it
-import CAWebHtmlWebpackPlugin from '../index.js';
+import CAWebHTMLPlugin from '../index.js';
 
 export default {
     plugins: [
-        new CAWebHtmlWebpackPlugin({
+        new CAWebHTMLPlugin({
             templateParameters: {
             }
         })
-    ],
-    devServer: {
-        static: [
-            // we all serving the local template media files for testing
-            {
-                directory: path.join( process.cwd(), '..', 'template', 'media' ),
-            },
-        ]
-    }
+    ]
 };

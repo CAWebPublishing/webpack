@@ -268,7 +268,7 @@ function reporter(results, data, opts){
   // Register custom helpers.
   HandleBars.registerHelper('endsWith', endsWith )
 
-  let template = HandleBars.compile(fs.readFileSync(path.resolve(templateDir, 'patterns', 'index.html')).toString() )
+  let template = HandleBars.compile(fs.readFileSync(path.resolve(templateDir, 'patterns', 'default.html')).toString() )
 
   // write html file
   fs.writeFileSync( 
@@ -278,18 +278,11 @@ function reporter(results, data, opts){
         title,
         scheme: 'oceanside',
         logo: 'https://caweb.cdt.ca.gov/wp-content/uploads/sites/221/2023/06/caweb-publishing-logo.png',
-        htmlWebpackPlugin: {
-          options: {
-            templateParameters: {
-              bodyHtmlSnippet: output.join('\n')
-            }
-          }
-        }
+        partial: output.join('\n'),
       }),
       "  ".repeat(4), 250
     )
   );
-
 
 }
 

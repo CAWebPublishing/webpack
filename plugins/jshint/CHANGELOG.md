@@ -1,3 +1,8 @@
+v2.1.0
+- Plugin name was changed
+- Updated npm packages
+- Added test cases
+
 v2.0.6
 - Updated peerDependency
 

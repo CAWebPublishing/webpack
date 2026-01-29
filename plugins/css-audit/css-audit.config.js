@@ -14,7 +14,6 @@ export default {
     audits: [
         'colors',
         'important',
-        'alphas',
         'display-none',
         'selectors',
         'media-queries',

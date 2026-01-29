@@ -13,8 +13,6 @@ import chalk from 'chalk';
 import { fileURLToPath, URL, pathToFileURL } from 'url';
 import { createRequire } from 'module';
 
-const require = createRequire(import.meta.url);
-
 /**
  * Internal dependencies
  */
@@ -23,10 +21,12 @@ import { landingPage } from './reporter.js';
 // default configuration
 import {default as DefaultConfig} from './aceconfig.js';
 
-const pluginName = 'CAWebA11yWebpackPlugin';
+const require = createRequire(import.meta.url);
+
+const pluginName = 'CAWebA11yPlugin';
 
 // IBM Accessibility Checker Plugin
-class CAWebA11yWebpackPlugin {
+class CAWebA11yPlugin {
     config = {}
 
     constructor(opts = {}) {
@@ -286,4 +286,4 @@ class CAWebA11yWebpackPlugin {
 } // end of class
   
 
-export default CAWebA11yWebpackPlugin;
+export default CAWebA11yPlugin;
