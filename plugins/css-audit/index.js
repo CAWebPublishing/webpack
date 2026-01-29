@@ -5,10 +5,10 @@
  */
 import { sync as resolveBin } from 'resolve-bin';
 import spawn from 'cross-spawn';
-import { getAllFilesSync } from 'get-all-files'
 import EntryDependency from "webpack/lib/dependencies/EntryDependency.js";
+import { flagExists, getArgVal, getAllFlags } from '@caweb/webpack/lib/args.js';
 
-import path from 'path';
+import path, { resolve } from 'path';
 import fs from 'fs';
 import deepmerge from 'deepmerge';
 import chalk from 'chalk';
@@ -22,38 +22,26 @@ const boldGreen = chalk.bold.green;
 const boldBlue = chalk.bold.hex('#03a7fc');
 const currentPath = path.dirname(fileURLToPath(import.meta.url));
 
+const pluginName = 'CAWebCSSAuditPlugin';
+
 // CSS Audit Plugin
-class CSSAuditPlugin {
+class CAWebCSSAuditPlugin {
     config = {};
 
     constructor(opts = {}) {
-      // the default publicPath is always the outputFolder
-      DefaultConfig.publicPath = DefaultConfig.outputFolder;
-
-      // the default output folder is always relative to the current working directory.
-      DefaultConfig.outputFolder = path.join( process.cwd(), DefaultConfig.outputFolder );
-
-      // if opts.outputFolder is defined
-      if( opts.outputFolder && ! path.isAbsolute(opts.outputFolder)  ){
-        opts.publicPath = opts.outputFolder;
-
-        // we join the current working directory with the opts.outputFolder
-        opts.outputFolder = path.join( process.cwd(), opts.outputFolder );
-      }
-      
       this.config = deepmerge(DefaultConfig, opts);
     }
 
     apply(compiler) {
       const staticDir = {
-        directory: this.config.outputFolder,
-        publicPath: encodeURI(this.config.publicPath).replace(':', ''),
+        directory: path.join( process.cwd(), this.config.outputFolder ),
+        publicPath: encodeURI(this.config.outputFolder).replace(':', ''),
         watch: true
       }
       
       let { devServer } = compiler.options;
       let auditUrl = `${devServer.server}://${devServer.host}:${devServer.port}`;
-      let nodeModulePath = encodeURI(this.config.publicPath).replace(':', '') + '/node_modules';
+      let nodeModulePath = encodeURI(staticDir.publicPath) + '/node_modules';
       let pathRewrite = {};
       pathRewrite[`^${nodeModulePath}`] = '';
       
@@ -76,127 +64,94 @@ class CSSAuditPlugin {
       }else{
         devServer.static = [].concat(devServer.static, staticDir );
       }
-
+      
+      // add url to devServer Open
       // if dev server allows for multiple pages to be opened
       // add filename.html to open property.
       if( Array.isArray(devServer.open) ){
-        devServer.open.push(`${staticDir.publicPath}/${this.config.filename}.html`)
+        devServer.open.push(`${auditUrl}${this.config.outputFolder}/${this.config.filename}.html`)
       }else if( 'object' === typeof devServer.open && Array.isArray(devServer.open.target) ){
-        devServer.open.target.push(`${staticDir.publicPath}/${this.config.filename}.html`)
+        devServer.open.target.push(`${auditUrl}${this.config.outputFolder}/${this.config.filename}.html`)
       }
-
-      // we always make sure the output folder exists
-      fs.mkdirSync( staticDir.directory, { recursive: true } );
-
       // Wait for configuration preset plugins to apply all configure webpack defaults
-      compiler.hooks.initialize.tap('CSS Audit Plugin', () => {
-        compiler.hooks.compilation.tap(
-          "CSS Audit Plugin",
-          (compilation, { normalModuleFactory }) => {
-            compilation.dependencyFactories.set(
-              EntryDependency,
-              normalModuleFactory
-            );
-          }
-        );
+      // compiler.hooks.initialize.tap(pluginName, () => {
+      //   compiler.hooks.compilation.tap(
+      //     pluginName,
+      //     (compilation, { normalModuleFactory }) => {
+      //       compilation.dependencyFactories.set(
+      //         EntryDependency,
+      //         normalModuleFactory
+      //       );
+      //     }
+      //   );
 
-        const { entry, options, context } = {
-          entry: path.join(staticDir.directory, 'css-audit.update.js'),
-          options: {
-            name: 'css-audit.update'
-          },
-          context: staticDir.directory
-        };
+      //   // const { entry, options, context } = {
+      //   //   entry: path.join(staticDir.directory, 'css-audit.update.js'),
+      //   //   options: {
+      //   //     name: 'css-audit.update'
+      //   //   },
+      //   //   context: staticDir.directory
+      //   // };
 
-        const dep = new EntryDependency(entry);
-        dep.loc = {
-          name: options.name
-        };
+      //   // const dep = new EntryDependency(entry);
+      //   // dep.loc = {
+      //   //   name: options.name
+      //   // };
         
-        fs.writeFileSync(
-          path.join(staticDir.directory, `css-audit.update.js`),
-          `` // required for hot-update to compile on our page, blank script for now
-        );
+      //   // fs.writeFileSync(
+      //   //   path.join(staticDir.directory, `css-audit.update.js`),
+      //   //   `` // required for hot-update to compile on our page, blank script for now
+      //   // );
 
-        compiler.hooks.thisCompilation.tap('CSS Audit Plugin',
-          /**
-           * Hook into the webpack compilation
-           * @param {Compilation} compilation
-           */
-          (compilation) => {
+      //   // compiler.hooks.thisCompilation.tap(pluginName,
+      //   //   /**
+      //   //    * Hook into the webpack compilation
+      //   //    * @param {Compilation} compilation
+      //   //    */
+      //   //   (compilation) => {
             
-            compiler.hooks.make.tapAsync("CSS Audit Plugin", (compilation, callback) => {
+      //   //     compiler.hooks.make.tapAsync(pluginName, (compilation, callback) => {
               
-              compilation.addEntry(
-              context,
-              dep, 
-              options, 
-              err => {
-                callback(err);
-              });
-            });
+      //   //       compilation.addEntry(
+      //   //       context,
+      //   //       dep, 
+      //   //       options, 
+      //   //       err => {
+      //   //         callback(err);
+      //   //       });
+      //   //     });
             
 
             
-        });
+      //   // });
+      compiler.hooks.thisCompilation.tap(pluginName, (compilation) => {
 
-        compiler.hooks.done.tapAsync('CSS Audit Plugin',
+        compiler.hooks.done.tapAsync(pluginName,
           (stats, callback) => {
-            let files = [];
-            getAllFilesSync(compiler.options.output.path).toArray().forEach(f => {
-                // we skip any Right to Left style sheets
-                if( f.endsWith('.css') && ! f.endsWith('-rtl.css') ){
-                  files.push(f)
-                }
-            })
-            console.log(`<i> ${boldGreen('[webpack-dev-middleware] Running CSS Audit...')}`);
+            console.log('<i> \x1b[32m[webpack-dev-middleware] Running CSS Auditor...\x1b[0m');
+            /**
+             * We run the css audit
+             * 
+             * we scan the output.publicPath if its set and not set to 'auto'
+             * otherwise we scan the output.path
+             */
+            let scanDir = compiler.options.output.publicPath && 'auto' !== compiler.options.output.publicPath ?
+              compiler.options.output.publicPath :
+              compiler.options.output.path;
 
-            let audits = {};
-            this.config.audits.forEach( (audit) => {
-                let key = 'string' === typeof audit ? audit : audit[0];
-                let value = 'string' === typeof audit ? true : audit[1];
+            // get all .css files
+            let files = fs.readdirSync( scanDir, {  recursive: true } ).filter( f => f.endsWith( '.css' ) ).map( f => path.join( scanDir, f ) );
 
-                // fix key
-                key = key.replace(/-\w/g, (m) => m[1].toUpperCase());
-
-                // if key already exists, push value to array
-                if( audits.hasOwnProperty(key) ){
-                    audits[key].push(value);
-                }else{
-                    // otherwise, if the audit is an array create a new array with the value
-                    audits[key] = ! Array.isArray(audit) ? value : [value];
-                }
-            });
-
-            let result = this.audit(files, {
-              format: this.config.format,
-              filename: this.config.filename, 
-              outputFolder: this.config.outputFolder, 
-              ...audits,
-            } );
-
-            if( result ){
-              // we have to inject the css-audit.update.js file into the head in order for the webpack-dev-server scripts to load.
-              let pageContent = fs.readFileSync(path.join(staticDir.directory, `${this.config.filename}.html`))
-              
-              fs.writeFileSync(
-                path.join(staticDir.directory, `${this.config.filename}.html`),
-                pageContent.toString().replace('</head>', `<script src="./css-audit.update.js"></script>\n</head>`)
-              )
+            if( this.audit(files, this.config ) ){
+              console.log(`<i> \x1b[32m[webpack-dev-middleware] CSS Auditor completed successfully. Report can be viewed at \x1b[34m ${new URL(`${auditUrl}${staticDir.publicPath}/${this.config.filename}.html`).toString()}\x1b[0m`);
             }
+
             
-            console.log(`<i> ${boldGreen('[webpack-dev-middleware] CSS Audit can be viewed at')} ${ boldBlue(new URL(`${auditUrl}${staticDir.publicPath}/${this.config.filename}.html`).toString())  }`);
-
-            callback();
-          }
-        )
-
+          });
       });
+      // });
       
     }
-
-    
-
 
     /**
      * Run WordPress CSS Audit
@@ -222,143 +177,107 @@ class CSSAuditPlugin {
       format,
       filename,
       outputFolder,
-      colors,
-      important,
-      displayNone,
-      selectors,
-      mediaQueries,
-      typography,
-      propertyValues
+      audits
     }){
 
-      let filesToBeAudited = [];
-      let filesWithIssues = [];
+      // outputFolder should not be absolute
+      outputFolder = path.isAbsolute(outputFolder) ? path.join( process.cwd(), outputFolder ) : outputFolder;
       
-      // the css audit tool always outputs to its own public directory
-      let defaultOutputPath = path.join(currentPath, 'bin', 'auditor', 'public');
+      // if no  files are passed, exit
+      if( ! files || ! files.length ){
+        console.log( '\x1b[31mNo CSS files found to audit.\nAuditor did not execute.\x1b[0m' );
 
-      // we always make sure the output folder exists
-      fs.mkdirSync( outputFolder, { recursive: true } );
-
-      files.forEach( (paths, i) => {
-        let resolvePath = path.resolve(paths);
-
-        try {
-            // if given path is a directory
-            if( fs.statSync(resolvePath).isDirectory() ){
-
-                // get all .css files
-                getAllFilesSync(resolvePath).toArray().forEach(f => {
-                    if( f.endsWith('.css') ){
-                      filesToBeAudited.push(f)
-                    }
-                })
-            // if given path is a file and a .css file
-            }else if( fs.statSync(paths).isFile() && (paths.endsWith('.css') || paths.endsWith('.scss')) ){
-              filesToBeAudited.push(paths)
-            }
-        // invalid path/file
-        } catch (error) {
-          filesWithIssues.push(paths)
-        }
-
-      });
-
-      if( ! filesToBeAudited.length ){
-        console.log('No file(s) or directory path(s) were given or default directory was not found.')
-        console.log('Auditor did not execute.');
-
+        // ensure the output folder exists before moving files
+        fs.mkdirSync( outputFolder, { recursive: true } );
+        
+        // copy no files sample report
         fs.copyFileSync(
           path.join(currentPath, 'sample', 'no-files.html'),
-          path.join(defaultOutputPath, `${filename}.html`),
+          path.join(outputFolder, `${filename}.html`),
         )
 
-        return false;
+        return;
       }
 
-      /**
-       * We combine process arguments from argv, argv0
-       */
-      const processArgs = [
-        ...process.argv,
-        ...process.argv0.split(' '),
-        
-      ]
-
-      // we also add args from env.NODE_OPTIONS
-      if( process.env.NODE_OPTIONS ){
-        processArgs.push( ...process.env.NODE_OPTIONS.split(' ').filter(e=>e).map((o) => o.replaceAll("'", '')) )
+      // pass all audits except propertyValues since those take a value there may be multiple
+      let propertyValues = [];
+      let auditArgs = audits.map( (audit) => {
+        if('string' === typeof audit) {
+          return `--${audit}`;
+        }else if( Array.isArray(audit) && 'property-values' === audit[0] ){
+          // propertyValues += audit[1].split(',').map( v => v.trim() ).join(',');
+          propertyValues = propertyValues.concat( audit[1].split(',').map( v => v.trim() ) );
+          return false;
+        }
+      }).filter( Boolean );
+      
+      // push property values separately
+      if( propertyValues ){
+        auditArgs.push(`--property-values=${propertyValues.join(',')}`);
       }
- 
+
+      // add the format if set
+      if( format ){
+        auditArgs.push( `--format=${format}` );
+      }
+
       /**
        * the css audit uses the filename for the title, rather than the project name
        * we fix that by passing the project name for the file name
        * then renaming the file to the intended file name.
        */
-      let auditArgs = [
-        colors && ! processArgs.includes('--no-colors') ? '--colors' : '',
-        important && ! processArgs.includes('--no-important') ? '--important' : '',
-        displayNone && ! processArgs.includes('--no-display-none') ? '--display-none' : '',
-        selectors && ! processArgs.includes('--no-selectors') ? '--selectors' : '',
-        // mediaQueries && ! processArgs.includes('--no-media-queries') ? '--media-queries' : '',
-        typography && ! processArgs.includes('--no-typography') ? '--typography' : '',
-        format  ? `--format=${format}` : '',
-        filename ? `--filename=${path.basename(process.cwd())}` : ''
-      ].filter( e => e)
-      
-      if( propertyValues && ! processArgs.includes('--no-property-values') ){
-        propertyValues.forEach((p) => {
-          auditArgs.push(`--property-values=${p.replace(' ',',')}`)
-        })
-      }
+      auditArgs.push( `--filename=${path.basename(process.cwd())}` ); 
 
       let { stdout, stderr } = spawn.sync( 
         'node',
         [
-          resolveBin('@caweb/css-audit-webpack-plugin', {executable: 'auditor'}),
-          // '--',
-          ...filesToBeAudited,
+          resolveBin(currentPath, {executable: 'auditor'}),
+          ...files,
           ...auditArgs
         ],
         {
-          shell: false,
           stdio: 'pipe',
-          cwd: fs.existsSync(path.join(process.cwd(), 'css-audit.config.cjs')) ? process.cwd() : currentPath
+          cwd: path.join( currentPath, 'bin', 'auditor' ), // has to be set to the bin/auditor directory
         }
       )
       
+      // if there was an error with the audit process
       if( stderr && stderr.toString() ){
-        console.log( stderr.toString() )
+        console.log( 'CSS Audit Error: ', stderr.toString() );
       }
 
       if( stdout && stdout.toString() ){
+        // the css audit tool always outputs to its own public directory
+        let defaultOutputPath = path.join(currentPath, 'bin', 'auditor', 'public');
+        
+        // rename the file back to the intended file name instead of the project name
+        fs.renameSync(
+          path.join(defaultOutputPath, `${path.basename(process.cwd())}.html`),
+          path.join(defaultOutputPath, `${filename}.html`)
+        )
 
-          // rename the file back to the intended file name instead of the project name
-          let outputFile = path.join(outputFolder, `${filename}.html`);
+        // ensure the output folder exists before moving files
+        fs.mkdirSync( outputFolder, { recursive: true } );
 
+        // move all files except .gitkeep to the output folder
+        fs.readdirSync( defaultOutputPath ).filter( f => ! f.endsWith('.gitkeep')).forEach( (f) => {
           fs.renameSync(
-            path.join(defaultOutputPath, `${path.basename(process.cwd())}.html`),
-            outputFile
+            path.join( defaultOutputPath, f ),
+            path.join( outputFolder, f )
           )
-          
-          // we also move the style.css as well case the output path is different than the default.
-          if( fs.existsSync( path.join( defaultOutputPath, 'style.css' ) ) ){
-            fs.renameSync(
-              path.join( defaultOutputPath, 'style.css' ),
-              path.join( outputFolder, 'style.css' )
-            )
-          }
+        })
 
-          let msg = stdout.toString().replace('undefined', '').replace('template', 'css audit');
-      
-          // the command was ran via cli
-          if( 'audit' === process.argv[2] ){
-              console.log( msg );
-              console.log( path.resolve(outputFile) )
-          // otherwise it's being applied during the webpack process.
-          }else{
-              return msg;
-          }
+        // clean up the default output message
+        let msg = stdout.toString().replace('undefined', '').replace('template', 'css audit');
+    
+        // the command was ran via cli
+        if( 'audit' === process.argv[2] ){
+            console.log( msg );
+            console.log( path.join(outputFolder, `${filename}.html`) )
+        // otherwise it's being applied during the webpack process.
+        }else{
+            return msg;
+        }
 
       }
       
@@ -367,4 +286,4 @@ class CSSAuditPlugin {
 } // end of class
   
 
-export default CSSAuditPlugin;
+export default CAWebCSSAuditPlugin;

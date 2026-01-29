@@ -1,6 +1,6 @@
 {
   "name": "@caweb/a11y-webpack-plugin",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "CAWebPublishing Webpack Plugin to run Accessibility Scans",
   "type": "module",
   "main": "index.js",
@@ -11,6 +11,8 @@
     "README.md"
   ],
   "scripts": {
+    "webpack": "webpack",
+    "serve": "webpack serve --config ./node_modules/@caweb/webpack/webpack.config.js ./tests/webpack.tests.js --merge",
     "test": "echo \"Error: run tests from root\" && exit 0"
   },
   "author": "CAWebPublishing",
@@ -33,14 +35,13 @@
     "webpack"
   ],
   "dependencies": {
-    "accessibility-checker": "^4.0.9",
+    "@caweb/webpack": "^1.6.3",
+    "accessibility-checker": "^4.0.10",
     "check-valid-url": "^0.1.0"
   },
   "devDependencies": {
-    "webpack": "^5.102.1",
+    "@caweb/html-webpack-plugin": "^2.1.0",
+    "webpack": "^5.104.1",
     "webpack-cli": "^6.0.1"
-  },
-  "peerDependencies": {
-    "@caweb/template": "^1.0.6"
   }
 }

@@ -1,5 +1,14 @@
+v2.1.0
+- Added error handling for if files aren't passed
+- Removed alphas from audits as it doesn't provide any results
+
+v2.0.3
+- Added alphas to audits array
+- Added test cases
+- Updated auditing process 
+
 v2.0.2
-- Update npm packages
+- Updated npm packages
 
 v2.0.1
 - Updated file distribution list
