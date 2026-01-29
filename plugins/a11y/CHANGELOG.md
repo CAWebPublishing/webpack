@@ -1,3 +1,8 @@
+v2.0.3
+- Updated npm packages
+- Updated default configurations
+- A11y report generation has been slightly modified.
+
 v2.0.2
 - Updated npm packages
 
