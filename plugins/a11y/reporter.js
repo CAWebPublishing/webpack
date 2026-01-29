@@ -173,7 +173,7 @@ function initHandleBars(){
   // Register custom helpers.
   HandleBars.registerHelper('endsWith', endsWith )
 
-  return HandleBars.compile(fs.readFileSync(path.resolve(templateDir, 'patterns', 'index.html')).toString() )
+  return HandleBars.compile(fs.readFileSync(path.resolve(templateDir, 'patterns', 'default.html')).toString() )
 
 }
 

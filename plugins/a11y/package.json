@@ -11,6 +11,8 @@
     "README.md"
   ],
   "scripts": {
+    "webpack": "webpack",
+    "serve": "webpack serve --config ./node_modules/@caweb/webpack/webpack.config.js ./tests/webpack.tests.js --merge",
     "test": "echo \"Error: run tests from root\" && exit 0"
   },
   "author": "CAWebPublishing",
@@ -37,6 +39,7 @@
     "check-valid-url": "^0.1.0"
   },
   "devDependencies": {
+    "@caweb/html-webpack-plugin": "^2.0.2",
     "webpack": "^5.104.1",
     "webpack-cli": "^6.0.1"
   }
