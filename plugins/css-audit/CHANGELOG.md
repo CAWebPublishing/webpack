@@ -1,5 +1,10 @@
+v2.0.3
+- Added alphas to audits array
+- Added test cases
+- Updated auditing process 
+
 v2.0.2
-- Update npm packages
+- Updated npm packages
 
 v2.0.1
 - Updated file distribution list

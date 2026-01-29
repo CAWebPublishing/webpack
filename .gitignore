@@ -13,7 +13,7 @@ private
 build
 public
 src
-audit
+audits
 
 # directories used by the template for testing purposes only
 content

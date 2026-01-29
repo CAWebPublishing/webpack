@@ -75,9 +75,6 @@ class CAWebA11yWebpackPlugin {
         devServer.open.target.push(`${auditUrl}${this.config.outputFolder}/${this.config.outputFilename}.html`)
       }
 
-      // we always make sure the output folder is cleared
-      fs.rmSync( staticDir.directory, { recursive: true, force: true } );
-
       // Hot Module Replacement
       // if( compiler?.options?.devServer?.hot ){
       //   // we create a blank file for the hot update to compile on our page.

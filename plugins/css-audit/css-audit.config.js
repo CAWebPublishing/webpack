@@ -9,11 +9,12 @@ export function hasOwnProperty( obj, prop ) {
 
 export default {
     format: 'html',
-	filename: 'index',
+	filename: 'reports',
     outputFolder: '/audits/css',
     audits: [
         'colors',
         'important',
+        'alphas',
         'display-none',
         'selectors',
         'media-queries',
