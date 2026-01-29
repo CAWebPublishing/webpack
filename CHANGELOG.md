@@ -1,3 +1,6 @@
+v1.6.3
+- args now uses node:utils for parsing
+
 v1.6.2
 - devMiddleware added to devServer
 

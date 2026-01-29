@@ -33,9 +33,6 @@ jobs:
   create-branch:
     runs-on: ubuntu-latest
     needs: publish-npm
-    defaults:
-      run:
-        working-directory: plugins/${{ github.ref_name }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

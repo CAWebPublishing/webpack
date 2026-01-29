@@ -13,7 +13,7 @@ private
 build
 public
 src
-audit
+audits
 
 # directories used by the template for testing purposes only
 content
@@ -24,6 +24,9 @@ build
 
 # plugins can have build, src directories.
 !plugins\/**\/src
+
+# ignore the .customrc files
+.customrc
 
 # large/disallowed file types
 # a CDN should be used for these
