@@ -40,7 +40,7 @@
     "check-valid-url": "^0.1.0"
   },
   "devDependencies": {
-    "@caweb/html-webpack-plugin": "^2.0.2",
+    "@caweb/html-webpack-plugin": "^2.1.0",
     "webpack": "^5.104.1",
     "webpack-cli": "^6.0.1"
   }

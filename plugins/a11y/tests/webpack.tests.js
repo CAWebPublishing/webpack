@@ -6,20 +6,20 @@
  * External Dependencies
  */
 import path from 'path';
-import CAWebHtmlWebpackPlugin from '@caweb/html-webpack-plugin';
+import CAWebHTMLPlugin from '@caweb/html-webpack-plugin';
 
 /**
  * Internal Dependencies
  */
-import CAWebA11yWebpackPlugin from '../index.js';
+import CAWebA11yPlugin from '../index.js';
 
 export default {
     plugins: [
 
         // this is used just to generate HTML files for testing
-        new CAWebHtmlWebpackPlugin(),
+        new CAWebHTMLPlugin(),
 
-        new CAWebA11yWebpackPlugin()
+        new CAWebA11yPlugin()
 
     ]
 };
