@@ -16,7 +16,6 @@ import { fileURLToPath, URL } from 'url';
 
 // default configuration
 import {default as DefaultConfig} from './css-audit.config.js';
-import { get } from 'http';
 
 const boldWhite = chalk.bold.white;
 const boldGreen = chalk.bold.green;
@@ -65,7 +64,8 @@ class CAWebCSSAuditPlugin {
       }else{
         devServer.static = [].concat(devServer.static, staticDir );
       }
-
+      
+      // add url to devServer Open
       // if dev server allows for multiple pages to be opened
       // add filename.html to open property.
       if( Array.isArray(devServer.open) ){
@@ -73,7 +73,6 @@ class CAWebCSSAuditPlugin {
       }else if( 'object' === typeof devServer.open && Array.isArray(devServer.open.target) ){
         devServer.open.target.push(`${auditUrl}${this.config.outputFolder}/${this.config.filename}.html`)
       }
-
       // Wait for configuration preset plugins to apply all configure webpack defaults
       // compiler.hooks.initialize.tap(pluginName, () => {
       //   compiler.hooks.compilation.tap(
@@ -143,8 +142,10 @@ class CAWebCSSAuditPlugin {
             // get all .css files
             let files = fs.readdirSync( scanDir, {  recursive: true } ).filter( f => f.endsWith( '.css' ) ).map( f => path.join( scanDir, f ) );
 
-            this.audit(files, this.config );
-            console.log(`<i> \x1b[32m[webpack-dev-middleware] CSS Auditor Report can be viewed at \x1b[34m ${new URL(`${auditUrl}${staticDir.publicPath}/${this.config.outputFilename}.html`).toString()}\x1b[0m`);
+            if( this.audit(files, this.config ) ){
+              console.log(`<i> \x1b[32m[webpack-dev-middleware] CSS Auditor completed successfully. Report can be viewed at \x1b[34m ${new URL(`${auditUrl}${staticDir.publicPath}/${this.config.filename}.html`).toString()}\x1b[0m`);
+            }
+
             
           });
       });
@@ -182,7 +183,22 @@ class CAWebCSSAuditPlugin {
       // outputFolder should not be absolute
       outputFolder = path.isAbsolute(outputFolder) ? path.join( process.cwd(), outputFolder ) : outputFolder;
       
-      
+      // if no  files are passed, exit
+      if( ! files || ! files.length ){
+        console.log( '\x1b[31mNo CSS files found to audit.\nAuditor did not execute.\x1b[0m' );
+
+        // ensure the output folder exists before moving files
+        fs.mkdirSync( outputFolder, { recursive: true } );
+        
+        // copy no files sample report
+        fs.copyFileSync(
+          path.join(currentPath, 'sample', 'no-files.html'),
+          path.join(outputFolder, `${filename}.html`),
+        )
+
+        return;
+      }
+
       // pass all audits except propertyValues since those take a value there may be multiple
       let propertyValues = [];
       let auditArgs = audits.map( (audit) => {
@@ -229,7 +245,6 @@ class CAWebCSSAuditPlugin {
       if( stderr && stderr.toString() ){
         console.log( 'CSS Audit Error: ', stderr.toString() );
       }
-      
 
       if( stdout && stdout.toString() ){
         // the css audit tool always outputs to its own public directory

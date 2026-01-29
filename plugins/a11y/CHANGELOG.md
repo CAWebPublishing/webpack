@@ -1,3 +1,6 @@
+v2.1.0
+- Plugin name has been changed
+
 v2.0.4
 - Added missing @caweb/webpack dependency
 
