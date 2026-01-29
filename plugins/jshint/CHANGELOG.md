@@ -1,3 +1,9 @@
+v2.0.6
+- Updated peerDependency
+
+v2.0.5
+- Updated npm packages
+
 v2.0.4
 - Added jshint.config.js to file distribution
 

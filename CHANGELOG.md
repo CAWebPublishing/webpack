@@ -1,3 +1,53 @@
+v1.6.2
+- devMiddleware added to devServer
+- args now uses node:utils for parsing
+
+v1.6.1
+- Changed stats values back to true
+
+v1.6.0
+- webpack-merge is now used to merge modified wordpress/scripts config with our base config
+- handlebars-loader, devServer, arguments moved to external files
+
+v1.5.18
+- Unpinning html-webpack-plugin since https://github.com/jantimon/html-webpack-plugin/issues/1881 has been resolved
+- Updated npm packages 
+- Workflows were also updated so that versioned branches are created when npm packages are published 
+
+v1.5.17
+- Repinning html-webpack-plugin@5.6.4 due to https://github.com/jantimon/html-webpack-plugin/issues/1881
+
+v1.5.16
+- Updated npm packages
+
+v1.5.15
+- Switch to peerDependency instead
+
+v1.5.13
+- Pinning html-webpack-plugin@5.6.4 due to https://github.com/jantimon/html-webpack-plugin/issues/1881
+
+v1.5.12
+- Added configuration testing
+- Fixed stats config value
+
+v1.5.11
+- Updated npm packages 
+
+v1.5.10
+- Added media directory to static directory listing for devServer
+
+v1.5.9
+- Added thread-loader before wordpress ts babel-loader
+- Added @babel/plugin-proposal-class-properties after ts babel-loader
+- Added happyPackMode, transpileOnly true to ts-loader
+- Removed vendor from react externals
+
+v1.5.8
+- We no longer have to splice the cleanWebpackPlugin since @wordpress/scripts now uses the webpack clean configuration
+
+v1.5.7
+- mixed-decls deprecation is obsolete, warnings are no longer silenced.
+
 v1.5.6
 - Updated npm packages
 

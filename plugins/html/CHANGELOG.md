@@ -1,3 +1,12 @@
+v2.0.2
+- No longer emitting src/href/styles assets
+
+v2.0.1
+- Updated npm packages
+
+v2.0.0
+- Removed webpack dependency
+
 v1.8.8
 - Removed the title key from the dataFile.site
 
