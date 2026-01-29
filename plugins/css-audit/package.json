@@ -1,6 +1,6 @@
 {
   "name": "@caweb/css-audit-webpack-plugin",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "CAWebPublishing Webpack Plugin to run WordPress CSS Audit",
   "type": "module",
   "main": "index.js",
@@ -49,7 +49,7 @@
     "twig": "^1.17.1"
   },
   "devDependencies": {
-    "@caweb/html-webpack-plugin": "^2.0.2",
+    "@caweb/html-webpack-plugin": "^2.1.0",
     "webpack": "^5.104.1",
     "webpack-cli": "^6.0.1"
   }

@@ -1,3 +1,6 @@
+v2.1.0
+- Plugin name was changed
+
 v2.0.2
 - No longer emitting src/href/styles assets
 

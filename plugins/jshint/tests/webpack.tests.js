@@ -11,15 +11,16 @@ import CAWebHTMLPlugin from '@caweb/html-webpack-plugin';
 /**
  * Internal Dependencies
  */
-import CAWebA11yPlugin from '../index.js';
+import CAWebJSHintPlugin from '../index.js';
 
 export default {
+    // entry: './src/index.scss',
     plugins: [
 
         // this is used just to generate HTML files for testing
         new CAWebHTMLPlugin(),
 
-        new CAWebA11yPlugin()
+        new CAWebJSHintPlugin()
 
     ]
 };
