@@ -1,3 +1,6 @@
+v2.1.1
+- Updated npm packages
+
 v2.1.0
 - Plugin name was changed
 
