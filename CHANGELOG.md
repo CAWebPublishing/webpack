@@ -1,3 +1,7 @@
+v1.6.4
+- Added options to the parseArgs function so that it would recognize args passed from the @caweb/cli launch/start command
+- Updated npm packages
+
 v1.6.3
 - args now uses node:utils for parsing
 
