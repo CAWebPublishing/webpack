@@ -32,6 +32,9 @@ jobs:
       - run: npm publish
   create-branch:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: plugins/${{ github.ref_name }}
     needs: publish-npm
     steps:
       - uses: actions/checkout@v4
