@@ -67,6 +67,8 @@ const processAssets = ( assets = [] , type = 'style') => {
     });
 }
   
+const pluginName = 'CAWebHTMLPlugin';
+
 /**
  * Launches CAWeb HTML Markup
  *
@@ -79,7 +81,7 @@ const processAssets = ( assets = [] , type = 'style') => {
  * @typedef {CAWebHTMLPlugin}
  * @extends {HtmlWebpackPlugin}
  */
-class CAWebHtmlWebpackPlugin extends HtmlWebpackPlugin{
+class CAWebHTMLPlugin extends HtmlWebpackPlugin{
 
   // we change some of the html-webpack-plugin defaults
   constructor(opts = {}) {
@@ -200,14 +202,14 @@ class CAWebHtmlWebpackPlugin extends HtmlWebpackPlugin{
   apply(compiler) {
     super.apply(compiler);
 
-    compiler.hooks.compilation.tap("CAWebHtmlWebpackPlugin", (compilation) => {
+    compiler.hooks.compilation.tap(pluginName, (compilation) => {
        /**
        * Hook into the HtmlWebpackPlugin events
        * 
        * @link https://github.com/jantimon/html-webpack-plugin?tab=readme-ov-file#events
        */
       HtmlWebpackPlugin.getCompilationHooks(compilation).beforeEmit.tapAsync(
-        "CAWebHtmlWebpackPlugin", 
+        pluginName, 
         ({html, outputName, plugin}, cb) => {
           // if the html contains local assets those assets are added to the options.assets array 
           // and the assets are added to the compilation afterEmit
@@ -241,7 +243,7 @@ class CAWebHtmlWebpackPlugin extends HtmlWebpackPlugin{
       );
 
       HtmlWebpackPlugin.getCompilationHooks(compilation).afterEmit.tapAsync(
-        "CAWebHtmlWebpackPlugin", 
+        pluginName, 
         ({outputName, plugin}, cb) => {
 
           // if there are any assets in the options.assets array
@@ -292,4 +294,4 @@ class CAWebHtmlWebpackPlugin extends HtmlWebpackPlugin{
 } // end of class
   
 
-export default CAWebHtmlWebpackPlugin;
+export default CAWebHTMLPlugin;
