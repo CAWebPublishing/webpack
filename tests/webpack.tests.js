@@ -35,10 +35,10 @@ JSON.parse(fs.readFileSync(path.join(appPath, 'caweb.json')))
 let caweb = deepmerge( testCaweb, defaultCaweb  );
 
 let templatePath = path.join(appPath, 'node_modules', '@caweb', 'template');
-let template = getArgVal( '--template', path.join(templatePath, 'patterns', 'default.html') );
-let searchTemplate = getArgVal( '--search-template', path.join(templatePath, 'patterns', 'search.html') );
+let template = getArgVal( 'template', path.join(templatePath, 'patterns', 'default.html') );
+let searchTemplate = getArgVal( 'search-template', path.join(templatePath, 'patterns', 'search.html') );
 
-let scheme = getArgVal( '--scheme', 'oceanside' );
+let scheme = getArgVal( 'scheme', 'oceanside' );
 let favicon = caweb?.site?.favicon ?? null;
 
 // // Additional pages directory
@@ -65,7 +65,7 @@ let additionalPages = ! fs.existsSync( basePageDir ) ? [] :
 
             return new HtmlWebpackPlugin({
                 template,
-                filename: dirent.name,
+                filename: fileTemplate.replace(basePageDir, ''),
                 title,
                 templateParameters: {
                     ...caweb.site, // we spread the site data found in the caweb.json file
