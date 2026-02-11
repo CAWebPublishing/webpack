@@ -1,6 +1,6 @@
 {
     "name": "@caweb/html-webpack-plugin",
-    "version": "2.1.0",
+    "version": "2.1.4",
     "description": "CAWebPublishing Site Generation HTML Webpack Plugin",
     "main": "index.js",
     "type": "module",
@@ -25,9 +25,9 @@
         "access": "public"
     },
     "dependencies": {
-        "@caweb/framework": "^1.9.2",
-        "@caweb/icon-library": "^1.1.6",
-        "@caweb/template": "^1.0.12",
+        "@caweb/framework": "^1.9.7",
+        "@caweb/icon-library": "^1.1.7",
+        "@caweb/template": "^1.0.13",
         "html-webpack-plugin": "^5.6.6"
     },
     "scripts": {
@@ -37,7 +37,7 @@
         "test": "echo \"Error: run tests from root\" && exit 0"
     },
     "devDependencies": {
-        "webpack": "^5.104.1",
+        "webpack": "^5.105.1",
         "webpack-cli": "^6.0.1"
     }
 }

@@ -1,3 +1,8 @@
+v1.6.5
+- Added output.publicPath
+- Updated test cases
+- Added head to handlebars-loader
+
 v1.6.4
 - Added options to the parseArgs function so that it would recognize args passed from the @caweb/cli launch/start command
 - Updated npm packages

@@ -103,6 +103,7 @@ let webpackConfig = {
    chunkFilename: isProduction ? '[name].min.js?v=[chunkhash]' : '[name].js?v=[chunkhash]',
    pathinfo: false,
    clean: isProduction,
+   publicPath: '/',
   },
   
   /**
