@@ -117,7 +117,7 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
           Author: "CAWebPublishing",
           Description: "State of California",
           Keywords: "CAWebPublishing, California, government",
-          viewport: "width=device-width, initial-scale=1.0, maximum-scale=2.0"
+          viewport: "width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=2.0"
         },
 
         // array of additional assets to include
@@ -213,29 +213,29 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
         ({html, outputName, plugin}, cb) => {
           // if the html contains local assets those assets are added to the options.assets array 
           // and the assets are added to the compilation afterEmit
-          // let srcHrefAssets = processAssets(html.match(/(src|href)="(.+)"/g));
-          // let styleAssets = processAssets(html.match(/style=".*url\((\S+)\)/g));
-          // let allAssets = [ ...new Set([
-          //     ...srcHrefAssets, 
-          //     ...styleAssets
-          //   ])
-          // ];
+          let srcHrefAssets = processAssets(html.match(/(src|href)="(.+)"/g));
+          let styleAssets = processAssets(html.match(/style=".*url\((\S+)\)/g));
+          let allAssets = [ ...new Set([
+              ...srcHrefAssets, 
+              ...styleAssets
+            ])
+          ];
 
-          // allAssets.forEach( asset =>{
-          //     let localFile = asset.startsWith('/') || asset.startsWith('\\') ? 
-          //       path.join( appPath, asset ) : 
-          //       asset;
+          allAssets.forEach( asset =>{
+              let localFile = asset.startsWith('/') || asset.startsWith('\\') ? 
+                path.join( appPath, asset ) : 
+                asset;
 
-          //     // if the asset is a local file 
-          //     // if the asset is not already in the options.assets array
-          //     if( 
-          //       fs.existsSync(localFile) && 
-          //       fs.lstatSync(localFile).isFile() &&
-          //       ! this.options.assets.includes(localFile)
-          //     ){
-          //         this.options.assets.push(localFile);
-          //     }
-          // });
+              // if the asset is a local file 
+              // if the asset is not already in the options.assets array
+              if( 
+                fs.existsSync(localFile) && 
+                fs.lstatSync(localFile).isFile() &&
+                ! this.options.assets.includes(localFile)
+              ){
+                  this.options.assets.push(localFile);
+              }
+          });
           
           // Tell webpack to move on
           cb(null, {html, outputName, plugin});
@@ -248,41 +248,41 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
 
           // if there are any assets in the options.assets array
           // we add them to the compilation and emit them
-          // this.options.assets.forEach( async (asset) => { 
-          //   compilation.fileDependencies.add( asset );
+          this.options.assets.forEach( async (asset) => { 
+            compilation.fileDependencies.add( asset );
 
-          //   // we remove the appPath from the asset path
-          //   // we remove the node_modules/@ from the asset path
-          //   compilation.emitAsset( 
-          //     asset.replace(appPath, '').replace(/[\\\/]?node_modules[\\\/@]+/g, ''),
-          //     new compiler.webpack.sources.RawSource( fs.readFileSync(asset) ) 
-          //   );
+            // we remove the appPath from the asset path
+            // we remove the node_modules/@ from the asset path
+            compilation.emitAsset( 
+              asset.replace(appPath, '').replace(/[\\\/]?node_modules[\\\/@]+/g, ''),
+              new compiler.webpack.sources.RawSource( fs.readFileSync(asset) ) 
+            );
 
-          //   // if the asset is the @caweb/icon-library font-only.css file we have to also add the font files
-          //   if( asset.match(/@caweb\/icon-library\/build\/font-only-?.*.css/g) ){
-          //     let fontPath = path.join( iconLibraryPath, 'build', 'fonts' );
+            // if the asset is the @caweb/icon-library font-only.css file we have to also add the font files
+            if( asset.match(/@caweb\/icon-library\/build\/font-only-?.*.css/g) ){
+              let fontPath = path.join( iconLibraryPath, 'build', 'fonts' );
 
-          //     let fontFiles = fs.readdirSync(fontPath).filter( (file) => { 
-          //         return file.endsWith('.woff') || 
-          //           file.endsWith('.woff2') || 
-          //           file.endsWith('.eot') || 
-          //           file.endsWith('.svg') || 
-          //           file.endsWith('.ttf');
-          //       });
+              let fontFiles = fs.readdirSync(fontPath).filter( (file) => { 
+                  return file.endsWith('.woff') || 
+                    file.endsWith('.woff2') || 
+                    file.endsWith('.eot') || 
+                    file.endsWith('.svg') || 
+                    file.endsWith('.ttf');
+                });
 
-          //     fontFiles.forEach( (file) => {
-          //         compilation.fileDependencies.add( file );
+              fontFiles.forEach( (file) => {
+                  compilation.fileDependencies.add( file );
 
-          //         let filePath = path.join( fontPath, file );
+                  let filePath = path.join( fontPath, file );
                   
-          //         // we remove the appPath from the asset path
-          //         compilation.emitAsset( 
-          //           filePath.replace(appPath, '').replace(/[\\\/]?node_modules[\\\/@]+/g, ''),
-          //           new compiler.webpack.sources.RawSource( fs.readFileSync(filePath) ) 
-          //         );
-          //     });
-          //   }
-          // });
+                  // we remove the appPath from the asset path
+                  compilation.emitAsset( 
+                    filePath.replace(appPath, '').replace(/[\\\/]?node_modules[\\\/@]+/g, ''),
+                    new compiler.webpack.sources.RawSource( fs.readFileSync(filePath) ) 
+                  );
+              });
+            }
+          });
           
           // Tell webpack to move on
           cb(null, {outputName, plugin});
