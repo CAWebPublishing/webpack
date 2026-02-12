@@ -1,3 +1,6 @@
+v2.1.4
+- Updated npm packages
+
 v2.1.3
 - Updated hook process
 - Updated npm packages
