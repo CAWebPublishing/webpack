@@ -1,3 +1,10 @@
+v2.1.3
+- Updated hook process
+- Updated npm packages
+
+v2.1.2
+- Fixed issue with report not generating on sub pages
+
 v2.1.1
 - Audit now scans the compiler.options.output.path
 - Reporter updated to use @caweb/webpack/lib/handlebars

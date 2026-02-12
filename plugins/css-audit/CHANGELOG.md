@@ -1,4 +1,8 @@
-v2.1.0
+v2.1.2
+- Updated npm packages
+- Updated hook process
+
+v2.1.1
 - Audit now scans the compiler.options.output.path
 
 v2.1.0

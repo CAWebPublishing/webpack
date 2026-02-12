@@ -126,8 +126,8 @@ class CAWebCSSAuditPlugin {
       //   // });
       compiler.hooks.thisCompilation.tap(pluginName, (compilation) => {
 
-        compiler.hooks.done.tapAsync(pluginName,
-          (stats, callback) => {
+        compiler.hooks.done.tap(pluginName,
+          (stats) => {
             console.log('<i> \x1b[32m[webpack-dev-middleware] Running CSS Auditor...\x1b[0m');
 
             // get all .css files in the output directory and subdirectories
@@ -137,10 +137,8 @@ class CAWebCSSAuditPlugin {
               console.log(`<i> \x1b[32m[webpack-dev-middleware] CSS Auditor completed successfully. Report can be viewed at \x1b[34m ${new URL(`${auditUrl}${staticDir.publicPath}/${this.config.filename}.html`).toString()}\x1b[0m`);
             }
 
-            
           });
       });
-      // });
       
     }
 
