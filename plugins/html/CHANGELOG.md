@@ -1,3 +1,20 @@
+v2.1.5
+- Updated npm packages 
+
+v2.1.4
+- Reemitting src/href/styles assets
+- Added minimum-scale=1.0 to viewport
+- Updated npm packages 
+
+v2.1.3
+- Updated npm packages
+
+v2.1.2
+- Updated npm packages
+
+v2.1.1
+- Updated npm packages
+
 v2.1.0
 - Plugin name was changed
 
