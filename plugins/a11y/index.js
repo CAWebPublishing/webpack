@@ -124,29 +124,22 @@ class CAWebA11yPlugin {
       // }
 
       compiler.hooks.thisCompilation.tap(pluginName, (compilation) => {
-        // We can audit the html files now that the compilation is done.
-        // we hook into the done hook to run the accessibility checker.
-        compiler.hooks.done.tapAsync(
+      //   // We can audit the html files now that the compilation is done.
+      //   // we hook into the done hook to run the accessibility checker.
+        compiler.hooks.done.tap(
           pluginName,
-          (stats, callback) => {
+          (stats) => {
 
             console.log('<i> \x1b[32m[webpack-dev-middleware] Running IBM Accessibility scan...\x1b[0m');
             /**
              * We run the accessibility checker
-             * 
-             * we scan the output.publicPath if its set and not set to 'auto'
-             * otherwise we scan the output.path
              */
-            let scanDir = compiler.options.output.publicPath && 'auto' !== compiler.options.output.publicPath ?
-              compiler.options.output.publicPath :
-              compiler.options.output.path;
-
-            this.a11yCheck(
-              scanDir,
+            if( this.a11yCheck(
+              compiler.options.output.path,
               this.config 
-            );
-
-            console.log(`<i> \x1b[32m[webpack-dev-middleware] IBM Accessibilty Report can be viewed at \x1b[34m ${new URL(`${auditUrl}${staticDir.publicPath}/${this.config.outputFilename}.html`).toString()}\x1b[0m`);
+            )){
+              console.log(`<i> \x1b[32m[webpack-dev-middleware] IBM Accessibilty Report can be viewed at \x1b[34m ${new URL(`${auditUrl}${staticDir.publicPath}/${this.config.outputFilename}.html`).toString()}\x1b[0m`);
+            }
 
         });
       })
@@ -243,6 +236,11 @@ class CAWebA11yPlugin {
               // if the fle ends with .json or .html
               if( file.endsWith('.json') || file.endsWith('.html') ){
                 let newName = file.replace( target.replace(':', '_') + '\\', '').replace('.html.html', '.html');
+
+                // make sure the directory exists before renaming the file, if not we create it.
+                if( ! fs.existsSync( path.join(outputFolder, path.dirname(newName)) ) ){
+                  fs.mkdirSync( path.join(outputFolder, path.dirname(newName)), { recursive: true } );
+                }
 
                 // we rename the json/html file to remove the target from the filename
                 fs.renameSync(
