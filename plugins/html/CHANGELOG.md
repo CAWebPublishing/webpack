@@ -1,3 +1,6 @@
+v2.1.5
+- Updated npm packages 
+
 v2.1.4
 - Reemitting src/href/styles assets
 - Added minimum-scale=1.0 to viewport

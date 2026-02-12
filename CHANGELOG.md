@@ -1,3 +1,8 @@
+v1.6.6
+- Added new handlebars file
+- Added historyApiFallback to devServer which directs to /404.html
+- Updated replace helper function
+
 v1.6.5
 - Added output.publicPath
 - Updated test cases

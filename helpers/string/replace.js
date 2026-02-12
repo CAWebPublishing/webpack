@@ -7,7 +7,7 @@ export default function replace(value, search, replace, options){
     }
 
     // if nested content exists
-    if( value.fn && value.fn().length ){
+    if( value && value.fn && value.fn().length ){
         response +=  value.fn().replace(new RegExp(search, "g"), replace);
     }
 
