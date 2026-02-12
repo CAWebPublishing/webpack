@@ -1,3 +1,6 @@
+v1.6.8
+- Removed output.publicPath
+
 v1.6.7
 - Added index to historyApiFallback
 - Updated test cases
