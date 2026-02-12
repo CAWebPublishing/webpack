@@ -1,6 +1,6 @@
 {
   "name": "@caweb/jshint-webpack-plugin",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "CAWebPublishing Webpack Plugin to run JSHint",
   "type": "module",
   "main": "index.js",
@@ -38,16 +38,16 @@
     "webpack"
   ],
   "dependencies": {
-    "@caweb/template": "^1.0.13",
-    "@caweb/webpack": "^1.6.3",
+    "@caweb/template": "^1.0.16",
+    "@caweb/webpack": "^1.6.7",
     "handlebars": "^4.7.8",
     "html-format": "^1.1.7",
     "jshint": "^2.13.6"
   },
   "devDependencies": {
-    "@caweb/html-webpack-plugin": "^2.1.0",
+    "@caweb/html-webpack-plugin": "^2.1.5",
     "get-all-files": "^6.0.0",
-    "webpack": "^5.104.1",
+    "webpack": "^5.105.2",
     "webpack-cli": "^6.0.1"
   }
 }

@@ -15,7 +15,7 @@ import Handlebars from 'handlebars';
 /**
  * Internal Dependencies
 */
-import { getArgVal } from '../lib/args.js';
+import { getArgVal, flags } from '../lib/args.js';
 
 // this is the path to the current project directory
 const appPath = process.cwd();
@@ -36,51 +36,15 @@ let caweb = deepmerge( testCaweb, defaultCaweb  );
 
 let templatePath = path.join(appPath, 'node_modules', '@caweb', 'template');
 let template = getArgVal( 'template', path.join(templatePath, 'patterns', 'default.html') );
-let searchTemplate = getArgVal( 'search-template', path.join(templatePath, 'patterns', 'search.html') );
-
 let scheme = getArgVal( 'scheme', 'oceanside' );
 let favicon = caweb?.site?.favicon ?? null;
 
-// // Additional pages directory
-let basePageDir = path.join(appPath, 'content', 'pages');
-
-let additionalPages = ! fs.existsSync( basePageDir ) ? [] :
-    fs.readdirSync( basePageDir, { withFileTypes: true, recursive: true } )
-        .filter( dirent => dirent.isFile() && (dirent.name.endsWith('.html') || dirent.name.endsWith('.handlebars')) )
-        .map( ( dirent ) => {
-
-            let fileTemplate = path.join( dirent.parentPath, dirent.name );
-            
-            // replace .html, uppercase the first letter of each word
-            // this is to make sure the title is readable
-            // and not just a file name
-            let title = dirent.name.replace('.html', '').replace(/\b\w/g, c => c.toUpperCase());
-            let content = fs.readFileSync( fileTemplate, 'utf-8' );
-            let data = {
-                ...caweb.site,
-                scheme
-            };
-            let compiler = Handlebars.compile( content );
-            let compiledContent = compiler(data);
-
-            return new HtmlWebpackPlugin({
-                template,
-                filename: fileTemplate.replace(basePageDir, ''),
-                title,
-                templateParameters: {
-                    ...caweb.site, // we spread the site data found in the caweb.json file
-                    scheme,
-                    partial: compiledContent,
-                },
-
-            });
-        });
 
 export default {
     plugins: [
         // this plugin generates the main landing page using the template found in patterns/index.html
         new HtmlWebpackPlugin({
-            template,
+            template: path.resolve(template),
             favicon,
             templateParameters: {
                 ...caweb.site, // we spread the site data found in the caweb.json file
@@ -88,19 +52,5 @@ export default {
             }
         }),
 
-        // this plugin generates Search Results page using the template found in patterns/search.html
-        caweb?.site?.google?.search ? new HtmlWebpackPlugin({
-            template: searchTemplate,
-            favicon,
-            filename: 'serp.html',
-            title: 'Search Results Page',
-            templateParameters: {
-                ...caweb.site, // we spread the site data found in the caweb.json file
-                scheme 
-            },
-        }) : false,
-
-        // this plugin generates additional pages under content/pages directory using the template found in patterns/index.html
-        ...additionalPages
     ].filter(Boolean)
 };
