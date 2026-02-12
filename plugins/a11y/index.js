@@ -133,16 +133,9 @@ class CAWebA11yPlugin {
             console.log('<i> \x1b[32m[webpack-dev-middleware] Running IBM Accessibility scan...\x1b[0m');
             /**
              * We run the accessibility checker
-             * 
-             * we scan the output.publicPath if its set and not set to 'auto'
-             * otherwise we scan the output.path
              */
-            let scanDir = compiler.options.output.publicPath && 'auto' !== compiler.options.output.publicPath ?
-              compiler.options.output.publicPath :
-              compiler.options.output.path;
-
             this.a11yCheck(
-              scanDir,
+              compiler.options.output.path,
               this.config 
             );
 

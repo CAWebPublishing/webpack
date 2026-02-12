@@ -1,3 +1,17 @@
+v1.6.6
+- Added new handlebars file
+- Added historyApiFallback to devServer which directs to /404.html
+- Updated replace helper function
+
+v1.6.5
+- Added output.publicPath
+- Updated test cases
+- Added head to handlebars-loader
+
+v1.6.4
+- Added options to the parseArgs function so that it would recognize args passed from the @caweb/cli launch/start command
+- Updated npm packages
+
 v1.6.3
 - args now uses node:utils for parsing
 
