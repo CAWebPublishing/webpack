@@ -129,18 +129,9 @@ class CAWebCSSAuditPlugin {
         compiler.hooks.done.tapAsync(pluginName,
           (stats, callback) => {
             console.log('<i> \x1b[32m[webpack-dev-middleware] Running CSS Auditor...\x1b[0m');
-            /**
-             * We run the css audit
-             * 
-             * we scan the output.publicPath if its set and not set to 'auto'
-             * otherwise we scan the output.path
-             */
-            let scanDir = compiler.options.output.publicPath && 'auto' !== compiler.options.output.publicPath ?
-              compiler.options.output.publicPath :
-              compiler.options.output.path;
 
-            // get all .css files
-            let files = fs.readdirSync( scanDir, {  recursive: true } ).filter( f => f.endsWith( '.css' ) ).map( f => path.join( scanDir, f ) );
+            // get all .css files in the output directory and subdirectories
+            let files = fs.readdirSync( compiler.options.output.path, {  recursive: true } ).filter( f => f.endsWith( '.css' ) ).map( f => path.join( compiler.options.output.path, f ) );
 
             if( this.audit(files, this.config ) ){
               console.log(`<i> \x1b[32m[webpack-dev-middleware] CSS Auditor completed successfully. Report can be viewed at \x1b[34m ${new URL(`${auditUrl}${staticDir.publicPath}/${this.config.filename}.html`).toString()}\x1b[0m`);

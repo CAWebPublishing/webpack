@@ -3,25 +3,10 @@
  */
 import path from 'path';
 import fs from 'fs';
-import HandleBars from 'handlebars';
 import htmlFormat from 'html-format';
-
-import endsWith from '@caweb/webpack/helpers/logic/endsWith.js';
-
+import HandleBars from '@caweb/webpack/lib/handlebars.js';
 
 const templateDir = path.resolve( 'node_modules', '@caweb', 'template' );
-
-let templatePartials = {
-  'header': 'semantics/header.html',
-  'footer': 'semantics/footer.html',
-  'utilityHeader': 'semantics/utility-header.html',
-  'branding': 'semantics/branding.html',
-  'mobileControls': 'semantics/mobile-controls.html',
-  'navHeader': 'semantics/nav-header.html',
-  'navFooter': 'semantics/nav-footer.html',
-  'alert': 'components/alert/alert.html',
-  'searchForm': 'forms/search.html'
-}
 
 let sortedReport = {
   errors: [],
@@ -163,18 +148,6 @@ function addBreakdown({
     ${ unusedList.length ? `<ol>${unusedList.join('\n')}</ol>` : '' }
     </div>
     </section>`;
-}
-
-function initHandleBars(){
-  // Register partials.
-  Object.entries(templatePartials).forEach(([p, f]) => HandleBars.registerPartial(p, fs.readFileSync(path.resolve(templateDir, f )).toString() ) );
-
-  
-  // Register custom helpers.
-  HandleBars.registerHelper('endsWith', endsWith )
-
-  return HandleBars.compile(fs.readFileSync(path.resolve(templateDir, 'patterns', 'default.html')).toString() )
-
 }
 
 /**
@@ -348,17 +321,16 @@ function landingPage(data, opts ){
     '<table class="table"><thead><tr><th>Page Auditted</th><th>Audit</th></thead><tbody>',
     ...data.sort().map(file => {
       // remove the .json extension from the file name
-      file = file.replace(/\.json$/, '');
+      // we also replace backslashes with forward slashes for better readability
+      file = file.replace(/\.json$/, '').replace(/\\/g, '/'); 
 
-      return `<tr><td><a href="/${file}" target="_blank">/${file}</a></td><td><a href="${file}" target="_blank">${file}</a></td></tr>`
+      return `<tr><td><a href="${file}" target="_blank">${file}</a></td><td><a href="${file}" target="_blank">${file}</a></td></tr>`
     }),
     '</tbody></table>',
     '</div></div></div>'
   )
 
-  HandleBars.registerPartial('index', output.join('\n') );
-
-  let template = initHandleBars();
+  let template = HandleBars.compile(fs.readFileSync(path.resolve(templateDir, 'patterns', 'default.html')).toString() )
 
   fs.mkdirSync( outputFolder, {recursive: true} );
   
@@ -369,19 +341,12 @@ function landingPage(data, opts ){
       template({
         title: `${title} for ${process.cwd().split('\\').pop()}`,
         scheme: 'oceanside',
-        assets: [ 
-        fs.existsSync( path.join(outputFolder, 'a11y.update.js' ) ) ? 
-          'a11y.update.js' : '' // if the hot module update file exists, add it
-        ].filter(Boolean)
+        partial: output.join('\n'),
       }),
       "  ".repeat(4), 250
     )
   );
 
-}
-
-function capitalCase(str){
-  return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
 export {
