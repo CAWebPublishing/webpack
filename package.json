@@ -1,6 +1,6 @@
 {
   "name": "@caweb/webpack",
-  "version": "1.6.6",
+  "version": "1.6.7",
   "description": "CAWebPublishing Webpack Configuration",
   "main": "webpack.config.js",
   "files": [
@@ -47,7 +47,7 @@
     "html-webpack-skip-assets-plugin": "^1.0.4",
     "thread-loader": "^4.0.4",
     "ts-loader": "^9.5.4",
-    "webpack": "^5.105.1",
+    "webpack": "^5.105.2",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.3",
     "webpack-merge": "^6.0.1",
