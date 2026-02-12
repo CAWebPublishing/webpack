@@ -26,6 +26,7 @@ const templatePath = path.join( 'node_modules', '@caweb', 'template');
 const iconLibraryPath = path.join( 'node_modules', '@caweb', 'icon-library');
 
 const allowedAssetExts = [
+  '.js', '.css',
   '.png', '.jpg', '.jpeg', '.gif', '.svg',
   '.bmp', '.gif', '.ico', 
   '.woff', '.woff2', '.eot', '.ttf', '.otf'
@@ -33,38 +34,19 @@ const allowedAssetExts = [
 
 // function to process assets from regex matches
 const processAssets = ( assets = [] , type = 'style') => {
-  let temp = [];
-
-  if( ! assets ){
-    return temp;
-  }
-
-  if( 'style' === type ){
-    temp = assets
-      .map( a => {
-          return a
-          .replace(/(style=".*url\(\s*)(\S+)\s*\)/g, '$2') // get url() content
-          .replace(/((src|href)=")(\S+)".*/g, '$3') // remove src=" or href="
-          // .replace(/['"]/g, '') // remove quotes
-        })
-  } else {
-    temp = assets // map to extract just the asset file
-    .map( a => {
-      return a
-      .replace(/((src|href)=")/g, '') // remove src=" or href="
-      // .replace(/".*/g, '') // remove anything after the first "
-    })
-  }
-  
-  return temp
-    // filter to only include local files with allowed extensions
-    .filter( asset => {
+  return assets.map( asset => {
+    return asset
+      .replace(/[\w]+="/, '') // remove src=" or href=" or style="
+      .replace(/"$/, '') // remove trailing "
+  })
+  .filter( asset => {
       let ext = path.extname( asset ).toLowerCase();
       let localFile = fs.existsSync( path.join( appPath, asset ) ) 
 
       return localFile && allowedAssetExts.includes( ext );
 
-    });
+  })
+
 }
   
 const pluginName = 'CAWebHTMLPlugin';
@@ -212,31 +194,24 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
         pluginName, 
         ({html, outputName, plugin}, cb) => {
           // if the html contains local assets those assets are added to the options.assets array 
-          // and the assets are added to the compilation afterEmit
-          let srcHrefAssets = processAssets(html.match(/(src|href)="(.+)"/g));
-          let styleAssets = processAssets(html.match(/style=".*url\((\S+)\)/g));
-          let allAssets = [ ...new Set([
-              ...srcHrefAssets, 
-              ...styleAssets
-            ])
-          ];
+          let allAssets = processAssets(html.match(/(src|href|style)="(.+?)"/g));
 
           allAssets.forEach( asset =>{
-              let localFile = asset.startsWith('/') || asset.startsWith('\\') ? 
-                path.join( appPath, asset ) : 
-                asset;
-
-              // if the asset is a local file 
-              // if the asset is not already in the options.assets array
-              if( 
-                fs.existsSync(localFile) && 
-                fs.lstatSync(localFile).isFile() &&
-                ! this.options.assets.includes(localFile)
-              ){
-                  this.options.assets.push(localFile);
-              }
+            // we add the asset to the compilation file dependencies so webpack watches it for changes
+            // compilation.fileDependencies.add( path.join( appPath, asset ) );
+            
+              compilation.emitAsset( 
+                // we remove the appPath from the asset path
+                // we remove the node_modules/@ from the asset path
+                asset.replace(appPath, '').replace(/[\\\/]?node_modules[\\\/@]+/g, ''),
+                new compiler.webpack.sources.RawSource( fs.readFileSync(path.join( appPath, asset ) ) ) 
+              );
+                
           });
           
+          
+
+          // compilation.fileDependencies.add( allAssets[0] );
           // Tell webpack to move on
           cb(null, {html, outputName, plugin});
         },
@@ -245,43 +220,43 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
       HtmlWebpackPlugin.getCompilationHooks(compilation).afterEmit.tapAsync(
         pluginName, 
         ({outputName, plugin}, cb) => {
-
           // if there are any assets in the options.assets array
           // we add them to the compilation and emit them
           this.options.assets.forEach( async (asset) => { 
-            compilation.fileDependencies.add( asset );
+            // console.log( asset );
+            // compilation.fileDependencies.add( asset );
 
-            // we remove the appPath from the asset path
-            // we remove the node_modules/@ from the asset path
-            compilation.emitAsset( 
-              asset.replace(appPath, '').replace(/[\\\/]?node_modules[\\\/@]+/g, ''),
-              new compiler.webpack.sources.RawSource( fs.readFileSync(asset) ) 
-            );
+            // // we remove the appPath from the asset path
+            // // we remove the node_modules/@ from the asset path
+            // compilation.emitAsset( 
+            //   asset.replace(appPath, '').replace(/[\\\/]?node_modules[\\\/@]+/g, ''),
+            //   new compiler.webpack.sources.RawSource( fs.readFileSync(asset) ) 
+            // );
 
-            // if the asset is the @caweb/icon-library font-only.css file we have to also add the font files
-            if( asset.match(/@caweb\/icon-library\/build\/font-only-?.*.css/g) ){
-              let fontPath = path.join( iconLibraryPath, 'build', 'fonts' );
+            // // if the asset is the @caweb/icon-library font-only.css file we have to also add the font files
+            // if( asset.match(/@caweb\/icon-library\/build\/font-only-?.*.css/g) ){
+            //   let fontPath = path.join( iconLibraryPath, 'build', 'fonts' );
 
-              let fontFiles = fs.readdirSync(fontPath).filter( (file) => { 
-                  return file.endsWith('.woff') || 
-                    file.endsWith('.woff2') || 
-                    file.endsWith('.eot') || 
-                    file.endsWith('.svg') || 
-                    file.endsWith('.ttf');
-                });
+            //   let fontFiles = fs.readdirSync(fontPath).filter( (file) => { 
+            //       return file.endsWith('.woff') || 
+            //         file.endsWith('.woff2') || 
+            //         file.endsWith('.eot') || 
+            //         file.endsWith('.svg') || 
+            //         file.endsWith('.ttf');
+            //     });
 
-              fontFiles.forEach( (file) => {
-                  compilation.fileDependencies.add( file );
+            //   fontFiles.forEach( (file) => {
+            //       compilation.fileDependencies.add( file );
 
-                  let filePath = path.join( fontPath, file );
+            //       let filePath = path.join( fontPath, file );
                   
-                  // we remove the appPath from the asset path
-                  compilation.emitAsset( 
-                    filePath.replace(appPath, '').replace(/[\\\/]?node_modules[\\\/@]+/g, ''),
-                    new compiler.webpack.sources.RawSource( fs.readFileSync(filePath) ) 
-                  );
-              });
-            }
+            //       // we remove the appPath from the asset path
+            //       compilation.emitAsset( 
+            //         filePath.replace(appPath, '').replace(/[\\\/]?node_modules[\\\/@]+/g, ''),
+            //         new compiler.webpack.sources.RawSource( fs.readFileSync(filePath) ) 
+            //       );
+            //   });
+            // }
           });
           
           // Tell webpack to move on

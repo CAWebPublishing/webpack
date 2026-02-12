@@ -1,3 +1,9 @@
+v1.6.7
+- Added index to historyApiFallback
+- Updated test cases
+- Added more options to the args parser
+- Updated npm packages
+
 v1.6.6
 - Added new handlebars file
 - Added historyApiFallback to devServer which directs to /404.html
