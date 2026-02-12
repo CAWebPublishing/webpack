@@ -193,7 +193,7 @@ class CAWebJSHintPlugin {
       
       // if no  files are passed, exit
       if( ! files || ! files.length ){
-        console.log( '\x1b[31mNo CSS files found to audit.\nAuditor did not execute.\x1b[0m' );
+        console.log( '\x1b[31mNo JS files found to audit.\nAuditor did not execute.\x1b[0m' );
 
         // ensure the output folder exists before moving files
         fs.mkdirSync( outputFolder, { recursive: true } );
