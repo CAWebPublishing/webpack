@@ -1,3 +1,7 @@
+v2.1.3
+- Updated hook process
+- Updated npm packages
+
 v2.1.2
 - Fixed issue with report not generating on sub pages
 

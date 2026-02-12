@@ -1,3 +1,7 @@
+v2.1.6
+- Fixed issue with the way additional assets were being emitted
+- Updated npm packages 
+
 v2.1.5
 - Updated npm packages 
 
