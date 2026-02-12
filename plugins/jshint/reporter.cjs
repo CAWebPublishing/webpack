@@ -2,23 +2,9 @@
 const path = require('path');
 const fs = require('fs');
 const htmlFormat = require('html-format');
-const HandleBars = require('handlebars');
-
-const endsWith = require('@caweb/webpack/helpers/logic/endsWith.js');
+const HandleBars = require('@caweb/webpack/lib/handlebars.js').default;
 
 const templateDir = path.resolve('node_modules', '@caweb', 'template' );
-
-let templatePartials = {
-  'header': 'semantics/header.html',
-  'footer': 'semantics/footer.html',
-  'utilityHeader': 'semantics/utility-header.html',
-  'branding': 'semantics/branding.html',
-  'mobileControls': 'semantics/mobile-controls.html',
-  'navHeader': 'semantics/nav-header.html',
-  'navFooter': 'semantics/nav-footer.html',
-  'alert': 'components/alert/alert.html',
-  'searchForm': 'forms/search.html'
-}
 
 let sortedReport = {
   errors: [],
@@ -262,12 +248,6 @@ function reporter(results, data, opts){
 
   fs.mkdirSync( outputFolder, {recursive: true} );
 
-  // Register partials.
-  Object.entries(templatePartials).forEach(([p, f]) => HandleBars.registerPartial(p, fs.readFileSync(path.resolve(templateDir, f )).toString() ) );
-
-  // Register custom helpers.
-  HandleBars.registerHelper('endsWith', endsWith )
-
   let template = HandleBars.compile(fs.readFileSync(path.resolve(templateDir, 'patterns', 'default.html')).toString() )
 
   // write html file
@@ -277,7 +257,7 @@ function reporter(results, data, opts){
       template({
         title,
         scheme: 'oceanside',
-        logo: 'https://caweb.cdt.ca.gov/wp-content/uploads/sites/221/2023/06/caweb-publishing-logo.png',
+        logo: '/media/logo.png',
         partial: output.join('\n'),
       }),
       "  ".repeat(4), 250
