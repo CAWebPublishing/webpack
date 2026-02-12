@@ -31,7 +31,7 @@ import {HtmlWebpackSkipAssetsPlugin} from 'html-webpack-skip-assets-plugin';
 /**
  * Internal dependencies
 */
-import { flags, flagExists, getArgVal, addFlag } from './lib/args.js';
+import { getArgVal } from './lib/args.js';
 import handlebarsLoaderOptions from './lib/loader.js';
 import { addToServer, getServer, updateTarget } from './lib/server.js';
 
