@@ -1,3 +1,10 @@
+v2.1.2
+- Updated npm packages
+- Updated hook process
+
+v2.1.1
+- Audit now scans the compiler.options.output.path
+
 v2.1.0
 - Added error handling for if files aren't passed
 - Removed alphas from audits as it doesn't provide any results

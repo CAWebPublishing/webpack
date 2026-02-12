@@ -161,7 +161,7 @@ class CAWebJSHintPlugin {
                 //   path.join(staticDir.directory, `${this.config.outputFilename}.html`),
                 //   pageContent.toString().replace('</head>', `<script src="./jshint.update.js"></script>\n</head>`)
                 // )
-                console.log(`<i> '[webpack-dev-middleware] JSHint can be viewed at' ${ new URL(`${auditUrl}${staticDir.publicPath}/${this.config.outputFilename}.html`).toString() }`);
+                console.log(`<i> \x1b[32m[webpack-dev-middleware] JSHint can be viewed at \x1b[34m ${ new URL(`${auditUrl}${staticDir.publicPath}/${this.config.outputFilename}.html`).toString() }\x1b[0m`);
               }
   
               
@@ -193,7 +193,7 @@ class CAWebJSHintPlugin {
       
       // if no  files are passed, exit
       if( ! files || ! files.length ){
-        console.log( '\x1b[31mNo CSS files found to audit.\nAuditor did not execute.\x1b[0m' );
+        console.log( '\x1b[31mNo JS files found to audit.\nAuditor did not execute.\x1b[0m' );
 
         // ensure the output folder exists before moving files
         fs.mkdirSync( outputFolder, { recursive: true } );

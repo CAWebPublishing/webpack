@@ -1,3 +1,11 @@
+v2.1.2
+- Updated npm packages
+- Updated hook process
+
+v2.1.1
+- Audit now scans the compiler.options.output.path
+- Reporter updated to use @caweb/webpack/lib/handlebars
+
 v2.1.0
 - Plugin name was changed
 - Updated npm packages
