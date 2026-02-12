@@ -1,6 +1,6 @@
 {
   "name": "@caweb/a11y-webpack-plugin",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "CAWebPublishing Webpack Plugin to run Accessibility Scans",
   "type": "module",
   "main": "index.js",
@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@caweb/html-webpack-plugin": "^2.1.5",
-    "webpack": "^5.105.1",
+    "webpack": "^5.105.2",
     "webpack-cli": "^6.0.1"
   }
 }
