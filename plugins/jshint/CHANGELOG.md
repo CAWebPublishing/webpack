@@ -1,3 +1,9 @@
+v2.1.4
+- Updated reporter so when no errors are found the report isnt just blank
+
+v2.1.3
+- Updated npm packages
+
 v2.1.2
 - Updated npm packages
 - Updated hook process

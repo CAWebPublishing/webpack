@@ -199,14 +199,19 @@ class CAWebHTMLPlugin extends HtmlWebpackPlugin{
           allAssets.forEach( asset =>{
             // we add the asset to the compilation file dependencies so webpack watches it for changes
             // compilation.fileDependencies.add( path.join( appPath, asset ) );
-            
+            let fn = asset.replace(appPath, '').replace(/[\\\/]?node_modules[\\\/@]+/g, '')
+
+            // if the asset hasn't already been emitted, we emit this prevents the error where multiple assets emit to the same filename
+            if( ! compilation.getAssets().map( (asset) => asset.name).includes( fn ) ){
               compilation.emitAsset( 
                 // we remove the appPath from the asset path
                 // we remove the node_modules/@ from the asset path
                 asset.replace(appPath, '').replace(/[\\\/]?node_modules[\\\/@]+/g, ''),
                 new compiler.webpack.sources.RawSource( fs.readFileSync(path.join( appPath, asset ) ) ) 
               );
-                
+
+            }
+            
           });
           
           

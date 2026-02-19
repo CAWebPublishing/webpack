@@ -1,3 +1,9 @@
+v2.1.8
+- Added check before files are emitted, this prevents error where multiple files emit the same filename
+
+v2.1.7
+- Updated npm packages 
+
 v2.1.6
 - Fixed issue with the way additional assets were being emitted
 - Updated npm packages 

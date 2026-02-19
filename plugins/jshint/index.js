@@ -239,7 +239,7 @@ class CAWebJSHintPlugin {
         '--reporter',
         path.join(currentPath, 'reporter.cjs')
       ]
-      
+
       let { stdout, stderr } = spawn.sync( 
         'jshint',
         [
