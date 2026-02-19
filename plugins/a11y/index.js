@@ -235,7 +235,11 @@ class CAWebA11yPlugin {
               
               // if the fle ends with .json or .html
               if( file.endsWith('.json') || file.endsWith('.html') ){
-                let newName = file.replace( target.replace(':', '_') + '\\', '').replace('.html.html', '.html');
+                
+                // the auditor replace : with _
+                // Mac prefix the target with a forward slash, we can remove that
+                let reg = new RegExp(`[\\\\/]*${ target.replace(':', '_').replace(/^\//, '') }[\\\\/]?` );
+                let newName = file.replace( reg, '').replace('.html.html', '.html');
 
                 // make sure the directory exists before renaming the file, if not we create it.
                 if( ! fs.existsSync( path.join(outputFolder, path.dirname(newName)) ) ){
