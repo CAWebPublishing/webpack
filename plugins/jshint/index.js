@@ -4,8 +4,7 @@
  * External dependencies
  */
 import spawn from 'cross-spawn';
-import { getAllFilesSync } from 'get-all-files'
-import EntryDependency from "webpack/lib/dependencies/EntryDependency.js";
+// import EntryDependency from "webpack/lib/dependencies/EntryDependency.js";
 import path from 'path';
 import fs from 'fs';
 import deepmerge from 'deepmerge';
@@ -239,7 +238,7 @@ class CAWebJSHintPlugin {
         '--reporter',
         path.join(currentPath, 'reporter.cjs')
       ]
-      
+
       let { stdout, stderr } = spawn.sync( 
         'jshint',
         [
