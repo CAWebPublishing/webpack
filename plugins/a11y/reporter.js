@@ -322,9 +322,12 @@ function landingPage(data, opts ){
     ...data.sort().map(file => {
       // remove the .json extension from the file name
       // we also replace backslashes with forward slashes for better readability
-      file = file.replace(/\.json$/, '').replace(/\\/g, '/'); 
+      file = file.replace(/\\/g, '/'); 
 
-      return `<tr><td><a href="${file}" target="_blank">${file}</a></td><td><a href="${file}" target="_blank">${file}</a></td></tr>`
+      // we can skip the reports.html'
+      if( 'reports.html' !== file ){
+        return `<tr><td><a href="/${file}" target="_blank">${file}</a></td><td><a href="${file}" target="_blank">${file}</a></td></tr>`
+      }
     }),
     '</tbody></table>',
     '</div></div></div>'

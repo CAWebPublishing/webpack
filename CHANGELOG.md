@@ -1,3 +1,6 @@
+v1.6.9
+- Args now also process CAWEB_NODE_OPTIONS, unknown flags cant be passed via NODE_OPTIONS when on Mac
+
 v1.6.8
 - Removed output.publicPath
 
