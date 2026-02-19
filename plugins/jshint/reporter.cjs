@@ -12,7 +12,7 @@ let sortedReport = {
   info: []
 };
 
-let title = `JSHint Report for ${process.cwd().split('\\').pop()}`;
+let title = `JSHint Report for ${path.basename(process.cwd())}`;
 
 let output = [];
 
@@ -152,11 +152,11 @@ function addBreakdown({
 /**
  * JSHint Reporter
  * 
- * @param {*} results 
- * @param {*} data 
+ * @param {*} results An array of failed files or empty if no errors found.
+ * @param {*} data An array of errored files.
  * @param {*} opts 
  */
-function reporter(results, data, opts){
+function reporter(results, data){
   let outputFolder = process.env.JSHINT_OUTPUT_DIR ? 
     path.resolve( process.env.JSHINT_OUTPUT_DIR ) : 
     path.join(__dirname, 'public')
@@ -168,53 +168,59 @@ function reporter(results, data, opts){
 
   try{
 
-    // process results.
-    results.forEach((result) => {
-      var file = result.file;
-      var error = result.error;
-
-      // add error to sorted report array
-      switch( error.code.charAt(0) ){
-        case 'E': // errors
-          sortedReport.errors.push({...error, file: file})
-          break;
-        case 'I': // info
-          sortedReport.info.push({...error, file: file})
-          break;
-        case 'W': // warnings
-          sortedReport.warnings.push({...error, file: file})
-          break;
-      }
-
-      fileList.push(
-        `<li class="text-break mb-4"><a href="#${ file.replace(/[\\:\.]/g, '-').toLowerCase() }">${file}</a></li>`
-      )
-
-      fileSummary.push(
-        `<li class="mb-3"><a href="#${ file.replace(/[\\:\.]/g, '-').toLowerCase( )}">${file}</a>: line ${error.line}, col ${error.character}, ${error.reason}</li>`
-      )
-
-    })
-
-    data.forEach((d) => {
-      fileBreakdown.push( addBreakdown(d) );
-    })
-
-
-    for(let [category] of Object.entries(sortedReport) ){
-      if( sortedReport[category].length ){
-        let cCase = capitalCase(category);
-        // if there is just 1, drop the plural 
-        if( 1 === sortedReport[category].length ){
-          cCase = cCase.slice(0, -1)
+    // if there were failed files.
+    if( results.length ){
+      // process results.
+      results.forEach((result) => {
+        var error = result.error;
+        var file = result.file;
+        
+        // add error to sorted report array
+        switch( error.code.charAt(0) ){
+          case 'E': // errors
+            sortedReport.errors.push({...error, file: file})
+            break;
+          case 'I': // info
+            sortedReport.info.push({...error, file: file})
+            break;
+          case 'W': // warnings
+            sortedReport.warnings.push({...error, file: file})
+            break;
         }
-        summaryHeader.push(`${sortedReport[category].length} ${cCase} Detected`)
+        
+        fileList.push(
+          `<li class="text-break mb-4"><a href="#${ file.replace(/[\\:\.]/g, '-').toLowerCase() }">${file}</a></li>`
+        )
+  
+        fileSummary.push(
+          `<li class="mb-3"><a href="#${ file.replace(/[\\:\.]/g, '-').toLowerCase( )}">${file}</a>: line ${error.line}, col ${error.character}, ${error.reason}</li>`
+        )
+      
+      })
+      
+      // Add failed files breakdown
+      data.forEach((d) => {
+        fileBreakdown.push( addBreakdown(d) );
+      })
+
+      // The summary shows in the order of the entries and displays how many are detected. 
+      for(let [category] of Object.entries(sortedReport) ){
+        if( sortedReport[category].length ){
+          let cCase = capitalCase(category);
+          // if there is just 1, drop the plural 
+          if( 1 === sortedReport[category].length ){
+            cCase = cCase.slice(0, -1)
+          }
+          summaryHeader.push(`${sortedReport[category].length} ${cCase} Detected`)
+        }
       }
+    }else{
+      // no errors were found
+      fileList.push( '<li>No files.</li>');
+      fileSummary.push('<li>All files successfully processed without errors.</li>')
     }
 
-
-    fileList = Array.from( new Set( fileList ) );
-
+    // Construct output
     output.push(
       `<h1 class="page-title my-4">${title}</h1>`,
       '<div class="container">',
@@ -245,6 +251,7 @@ function reporter(results, data, opts){
     process.stderr.write(err.toString())
     process.exit(1)
   }
+
 
   fs.mkdirSync( outputFolder, {recursive: true} );
 
