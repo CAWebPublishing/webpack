@@ -16,7 +16,7 @@
     "webpack": "webpack",
     "gen:wp": "node lib/webpack.wp.configurator.js",
     "test:config": "webpack configtest",
-    "test:serve": "cross-env NODE_OPTIONS='--template ./patterns/default.html --search-template ./patterns/search.html' webpack serve --config ./webpack.config.js ./tests/webpack.tests.js --merge",
+    "test:serve": "cross-env CAWEB_NODE_OPTIONS='--template ./patterns/default.html --search-template ./patterns/search.html' webpack serve --config ./webpack.config.js ./tests/webpack.tests.js --merge",
     "test": "echo \\\"Error: run tests from root\\\" && exit 0"
   },
   "repository": {
