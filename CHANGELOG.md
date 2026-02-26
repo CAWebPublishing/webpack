@@ -1,4 +1,4 @@
-v1.7.0
+v2.0.0
 - @wordpress/scripts:31.5.0 has to many vulnerabilities with npm audit so it is now only a dev dependency, we still use the @wordpress/scripts/config/webpack.config.js as the base configuartion but we write out an ESM file instead.
 - @babel/plugin-proposal-class-properties is deprecated switched to @babel/plugin-transform-class-properties
 - Added missing dependency packages
