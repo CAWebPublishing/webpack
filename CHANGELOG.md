@@ -1,3 +1,7 @@
+v1.7.0
+- @wordpress/scripts:31.5.0 has to many vulnerabilities with npm audit so it is now only a dev dependency, we still use the @wordpress/scripts/config/webpack.config.js as the base configuartion but we write out an ESM file instead.
+- @babel/plugin-proposal-class-properties is deprecated switched to @babel/plugin-transform-class-properties
+
 v1.6.9
 - Args now also process CAWEB_NODE_OPTIONS, unknown flags cant be passed via NODE_OPTIONS when on Mac
 
