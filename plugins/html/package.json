@@ -27,7 +27,7 @@
     "dependencies": {
         "@caweb/framework": "^1.9.10",
         "@caweb/icon-library": "^1.1.7",
-        "@caweb/template": "^1.0.17",
+        "@caweb/template": "^1.0.18",
         "html-webpack-plugin": "^5.6.6"
     },
     "scripts": {
