@@ -9,24 +9,16 @@
 /**
  * External Dependencies
  */
-// import baseConfig from '@wordpress/scripts/config/webpack.config.js';
-import baseConfig from './lib/webpack.wp.config.js';
+import baseConfig from './webpack.wp.config.js';
+
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 // webpack plugins
 import { merge } from 'webpack-merge';
-// import MiniCSSExtractPlugin from 'mini-css-extract-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import RemoveEmptyScriptsPlugin from 'webpack-remove-empty-scripts';
-import {HtmlWebpackSkipAssetsPlugin} from 'html-webpack-skip-assets-plugin';
-// import RtlCssPlugin from 'rtlcss-webpack-plugin';
-// import {HtmlWebpackLinkTypePlugin} from 'html-webpack-link-type-plugin';
-
-// import JSHintPlugin from '@caweb/jshint-webpack-plugin';
-// import CSSAuditPlugin from '@caweb/css-audit-webpack-plugin';
-// import A11yPlugin from '@caweb/a11y-webpack-plugin';
 
 /**
  * Internal dependencies
@@ -49,7 +41,7 @@ let caweb = fs.existsSync( path.join(appPath, 'caweb.json') ) ?
   JSON.parse(fs.readFileSync(path.join(appPath, 'caweb.json'))) 
   : {};
 
-let mode = getArgVal('--mode') ? getArgVal('--mode') : baseConfig.mode;
+let mode = getArgVal('mode', 'development');
 let isProduction = mode === 'production';
 let devServer = false;
 
@@ -102,7 +94,8 @@ let webpackConfig = {
    filename: isProduction ? '[name].min.js' : '[name].js',
    chunkFilename: isProduction ? '[name].min.js?v=[chunkhash]' : '[name].js?v=[chunkhash]',
    pathinfo: false,
-   clean: isProduction
+   clean: isProduction,
+   path: path.resolve( process.cwd(), 'build' )
   },
   
   /**
@@ -164,7 +157,6 @@ let webpackConfig = {
    * Devtool Configuration
    * WordPress by default uses 'source-map' for devtool which affects build and rebuild speed.
    * For development we switch to 'eval' which is much faster.
-   * For production we turn off devtool completely.
    * @see https://webpack.js.org/configuration/devtool/#devtool
    */
   devtool: isProduction ? 'source-map' : 'eval',
@@ -221,14 +213,14 @@ let webpackConfig = {
     new RemoveEmptyScriptsPlugin(),
 
     // certain files can be skipped when serving
-    new HtmlWebpackSkipAssetsPlugin({
-      skipAssets: [
-          /.*-rtl.css/, // we skip the Right-to-Left Styles
-          /css-audit.*/, // we skip the CSSAudit Files
-          /a11y.*/, // we skip the A11y Files
-          /jshint.*/, // we skip the JSHint Files
-        ]
-    }),
+    // new HtmlWebpackSkipAssetsPlugin({
+    //   skipAssets: [
+    //       /.*-rtl.css/, // we skip the Right-to-Left Styles
+    //       /css-audit.*/, // we skip the CSSAudit Files
+    //       /a11y.*/, // we skip the A11y Files
+    //       /jshint.*/, // we skip the JSHint Files
+    //     ]
+    // }),
   ],
   
   /**

@@ -1,3 +1,6 @@
+v2.1.9
+- Updated npm packages 
+
 v2.1.8
 - Added check before files are emitted, this prevents error where multiple files emit the same filename
 
