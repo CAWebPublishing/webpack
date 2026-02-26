@@ -82,6 +82,7 @@ if( 'serve' === webpackCommand ){
 
 // main webpack configuration object
 let webpackConfig = {
+  entry: path.join( process.cwd(), 'src', 'index.js' ),
   mode,
   // target: 'web',
   name: isProduction ? 'compressed' : 'uncompressed',
