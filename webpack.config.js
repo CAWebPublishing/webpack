@@ -155,14 +155,6 @@ let webpackConfig = {
   },
   
   /**
-   * Devtool Configuration
-   * WordPress by default uses 'source-map' for devtool which affects build and rebuild speed.
-   * For development we switch to 'eval' which is much faster.
-   * @see https://webpack.js.org/configuration/devtool/#devtool
-   */
-  devtool: isProduction ? 'source-map' : 'eval',
-  
-  /**
    * Turn off caching of generated modules and chunks.
    * @see https://webpack.js.org/configuration/cache/
    */

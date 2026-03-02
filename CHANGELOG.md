@@ -1,4 +1,9 @@
+v2.0.3
+- Removed devtool, Wordpress already sets it to source-map
+- Updated npm packages
+
 v2.0.2
+
 - Switch to minimist for argument parsing
 - Added Nav partials to loader/handlebars
 
