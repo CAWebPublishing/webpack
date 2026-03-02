@@ -18,7 +18,6 @@ import { fileURLToPath } from 'url';
 // webpack plugins
 import { merge } from 'webpack-merge';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
-import RemoveEmptyScriptsPlugin from 'webpack-remove-empty-scripts';
 
 /**
  * Internal dependencies
@@ -201,21 +200,6 @@ let webpackConfig = {
   
   },
 
-  plugins: [
-    // we remove empty scripts
-    new RemoveEmptyScriptsPlugin(),
-
-    // certain files can be skipped when serving
-    // new HtmlWebpackSkipAssetsPlugin({
-    //   skipAssets: [
-    //       /.*-rtl.css/, // we skip the Right-to-Left Styles
-    //       /css-audit.*/, // we skip the CSSAudit Files
-    //       /a11y.*/, // we skip the A11y Files
-    //       /jshint.*/, // we skip the JSHint Files
-    //     ]
-    // }),
-  ],
-  
   /**
    * DevServer is only added during 'serve' command
    * 
