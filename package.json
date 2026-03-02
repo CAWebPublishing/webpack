@@ -1,6 +1,6 @@
 {
   "name": "@caweb/webpack",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "CAWebPublishing Webpack Configuration",
   "main": "webpack.config.js",
   "files": [
@@ -43,9 +43,9 @@
     "@wordpress/dependency-extraction-webpack-plugin": "^6.40.0",
     "@wordpress/postcss-plugins-preset": "^5.40.0",
     "babel-loader": "^10.0.0",
-    "copy-webpack-plugin": "^13.0.1",
+    "copy-webpack-plugin": "^14.0.0",
     "css-loader": "^7.1.4",
-    "css-minimizer-webpack-plugin": "^7.0.4",
+    "css-minimizer-webpack-plugin": "^8.0.0",
     "deepmerge": "^4.3.1",
     "fast-glob": "^3.3.3",
     "handlebars": "^4.7.8",
@@ -53,6 +53,7 @@
     "html-format": "^1.1.7",
     "html-webpack-plugin": "^5.6.6",
     "mini-css-extract-plugin": "^2.10.0",
+    "minimist": "^1.2.8",
     "postcss-loader": "^8.2.1",
     "react-refresh": "^0.18.0",
     "read-package-up": "^12.0.0",
@@ -64,8 +65,7 @@
     "webpack": "^5.105.3",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.3",
-    "webpack-merge": "^6.0.1",
-    "webpack-remove-empty-scripts": "^1.1.1"
+    "webpack-merge": "^6.0.1"
   },
   "devDependencies": {
     "@wordpress/scripts": "^31.5.0",

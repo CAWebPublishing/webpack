@@ -1,3 +1,8 @@
+v2.0.4
+- Added minimisit
+- Updated npm packages
+- Removed webpack empty scripts plugin
+
 v2.0.3
 - Removed devtool, Wordpress already sets it to source-map
 - Updated npm packages
