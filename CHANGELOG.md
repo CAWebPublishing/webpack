@@ -1,3 +1,7 @@
+v2.0.2
+- Switch to minimist for argument parsing
+- Added Nav partials to loader/handlebars
+
 v2.0.1
 - Added default entry as src/index.js
 
