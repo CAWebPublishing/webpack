@@ -1,3 +1,6 @@
+v2.0.5
+- Added isScheme handlebars helper function
+
 v2.0.4
 - Added minimisit
 - Updated npm packages
