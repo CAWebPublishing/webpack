@@ -18,7 +18,6 @@ import { fileURLToPath } from 'url';
 // webpack plugins
 import { merge } from 'webpack-merge';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
-import RemoveEmptyScriptsPlugin from 'webpack-remove-empty-scripts';
 
 /**
  * Internal dependencies
@@ -82,6 +81,7 @@ if( 'serve' === webpackCommand ){
 
 // main webpack configuration object
 let webpackConfig = {
+  entry: path.join( process.cwd(), 'src', 'index.js' ),
   mode,
   // target: 'web',
   name: isProduction ? 'compressed' : 'uncompressed',
@@ -154,14 +154,6 @@ let webpackConfig = {
   },
   
   /**
-   * Devtool Configuration
-   * WordPress by default uses 'source-map' for devtool which affects build and rebuild speed.
-   * For development we switch to 'eval' which is much faster.
-   * @see https://webpack.js.org/configuration/devtool/#devtool
-   */
-  devtool: isProduction ? 'source-map' : 'eval',
-  
-  /**
    * Turn off caching of generated modules and chunks.
    * @see https://webpack.js.org/configuration/cache/
    */
@@ -208,21 +200,6 @@ let webpackConfig = {
   
   },
 
-  plugins: [
-    // we remove empty scripts
-    new RemoveEmptyScriptsPlugin(),
-
-    // certain files can be skipped when serving
-    // new HtmlWebpackSkipAssetsPlugin({
-    //   skipAssets: [
-    //       /.*-rtl.css/, // we skip the Right-to-Left Styles
-    //       /css-audit.*/, // we skip the CSSAudit Files
-    //       /a11y.*/, // we skip the A11y Files
-    //       /jshint.*/, // we skip the JSHint Files
-    //     ]
-    // }),
-  ],
-  
   /**
    * DevServer is only added during 'serve' command
    * 

@@ -9,8 +9,6 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import deepmerge from 'deepmerge';
-import Handlebars from 'handlebars';
 
 /**
  * Internal Dependencies
@@ -29,10 +27,10 @@ let testCaweb = JSON.parse( fs.readFileSync( path.join(currentPath, 'caweb.json'
 // we read the app caweb.json file if it exists
 let defaultCaweb = fs.existsSync( path.join(appPath, 'caweb.json') ) ? 
 JSON.parse(fs.readFileSync(path.join(appPath, 'caweb.json'))) 
-: {};
+: null;
 
 // merge the two caweb.json files, with the project data taking precedence
-let caweb = deepmerge( testCaweb, defaultCaweb  );
+let caweb = defaultCaweb ?? testCaweb;
 
 let templatePath = path.join(appPath, 'node_modules', '@caweb', 'template');
 let template = getArgVal( 'template', path.join(templatePath, 'patterns', 'default.html') );

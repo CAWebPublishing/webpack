@@ -1,3 +1,6 @@
+v2.1.6
+- Updated npm packages
+
 v2.1.5
 - Mac prefixs the name with a forward slash which was removd
 

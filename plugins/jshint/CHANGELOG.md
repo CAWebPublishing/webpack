@@ -1,3 +1,6 @@
+v2.1.5
+- Updated npm packages
+
 v2.1.4
 - Updated reporter so when no errors are found the report isnt just blank
 
