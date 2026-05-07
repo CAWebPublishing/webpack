@@ -1,3 +1,6 @@
+v2.0.6
+- Updated npm packages
+
 v2.0.5
 - Added isScheme handlebars helper function
 
