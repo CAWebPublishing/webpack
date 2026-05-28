@@ -57,14 +57,23 @@ if( 'serve' === webpackCommand ){
 
       // only add the flags if the site domain is not localhost
       if( 'localhost' !== siteDomain.hostname ){
+        let protocol = siteDomain.protocol.replace(':', '');
+
         addToServer( 'host', siteDomain.hostname );
-        addToServer( 'server', siteDomain.protocol.replace(':', '') );
+        addToServer( 'server', protocol );
         
-        // only add the port if it is specified
+        // if the port is specified in the URL we use that. 
         if( '' !== siteDomain.port ){
           addToServer( 'port', siteDomain.port );
+        // if not specified we use the default port 80 for http and 443 for https 
+      } else {
+          if( 'http' === protocol ){
+              addToServer( 'port', 80 );
+          } else if( 'https' === protocol ){
+              addToServer( 'port', 443 );
+          }
         }
-
+       
         updateTarget( siteDomain.href );
       }
 
