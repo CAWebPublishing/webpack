@@ -1,6 +1,6 @@
 {
   "name": "@caweb/webpack",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "CAWebPublishing Webpack Configuration",
   "main": "webpack.config.js",
   "files": [
@@ -12,6 +12,7 @@
     "tsconfig.json"
   ],
   "type": "module",
+  "node": ">=22.11.0",
   "scripts": {
     "webpack": "webpack",
     "gen:wp": "node lib/webpack.wp.configurator.js",
@@ -38,10 +39,10 @@
   },
   "homepage": "https://github.com/CAWebPublishing/webpack#readme",
   "dependencies": {
-    "@babel/plugin-transform-class-properties": "^7.28.6",
-    "@wordpress/babel-preset-default": "^8.45.0",
-    "@wordpress/dependency-extraction-webpack-plugin": "^6.45.0",
-    "@wordpress/postcss-plugins-preset": "^5.45.0",
+    "@babel/plugin-transform-class-properties": "^7.29.7",
+    "@wordpress/babel-preset-default": "^8.47.0",
+    "@wordpress/dependency-extraction-webpack-plugin": "^6.47.0",
+    "@wordpress/postcss-plugins-preset": "^5.47.0",
     "babel-loader": "^10.1.1",
     "copy-webpack-plugin": "^14.0.0",
     "css-loader": "^7.1.4",
@@ -57,23 +58,23 @@
     "postcss-loader": "^8.2.1",
     "react-refresh": "^0.18.0",
     "read-package-up": "^12.0.0",
-    "sass": "^1.99.0",
-    "sass-loader": "^16.0.7",
+    "sass": "^1.100.0",
+    "sass-loader": "^17.0.0",
     "source-map-loader": "^5.0.0",
     "thread-loader": "^4.0.4",
     "ts-loader": "^9.5.7",
-    "webpack": "^5.106.2",
-    "webpack-cli": "^7.0.2",
-    "webpack-dev-server": "^5.2.3",
+    "webpack": "^5.107.2",
+    "webpack-cli": "^7.0.3",
+    "webpack-dev-server": "^5.2.4",
     "webpack-merge": "^6.0.1"
   },
   "devDependencies": {
-    "@wordpress/scripts": "^32.1.0",
+    "@wordpress/scripts": "^32.3.0",
     "cross-env": "^10.1.0",
     "prettier": "^3.8.3"
   },
   "overrides": {
     "minimatch": "^10.2.4",
-    "webpack-dev-server": "^5.2.3"
+    "webpack-dev-server": "^5.2.4"
   }
 }
