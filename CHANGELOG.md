@@ -1,3 +1,6 @@
+v2.0.8
+- Updated port for the webpack-dev-server, we weren't setting the port correctly when a domain was passed via caweb.json
+
 v2.0.7
 - Updated npm packages
 - Added node requirement to match sass-loader reqs
