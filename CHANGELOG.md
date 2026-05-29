@@ -3,7 +3,7 @@ v2.0.8
 
 v2.0.7
 - Updated npm packages
-- Added node requirement to match sass-loader reqs
+- Added node>=22.11.0 requirement to match sass-loader reqs
 
 v2.0.6
 - Updated npm packages
