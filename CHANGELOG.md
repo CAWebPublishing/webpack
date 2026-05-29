@@ -1,3 +1,13 @@
+v2.0.8
+- Updated port for the webpack-dev-server, we weren't setting the port correctly when a domain was passed via caweb.json
+
+v2.0.7
+- Updated npm packages
+- Added node>=22.11.0 requirement to match sass-loader reqs
+
+v2.0.6
+- Updated npm packages
+
 v2.0.5
 - Added isScheme handlebars helper function
 
