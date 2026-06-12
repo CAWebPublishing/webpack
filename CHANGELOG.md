@@ -1,3 +1,11 @@
+v2.0.10
+- Updated npm packages
+- Added .filter(Boolean) to all array entries in webpack.wp.config.js
+- Added hot argument check back to hasFastReact variable
+
+v2.0.9
+- Updated npm packages
+
 v2.0.8
 - Updated port for the webpack-dev-server, we weren't setting the port correctly when a domain was passed via caweb.json
 
