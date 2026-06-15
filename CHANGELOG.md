@@ -1,3 +1,6 @@
+v2.0.12
+- Updated @babel/plugin-proposal-class-properties to @babel/plugin-transform-class-properties
+
 v2.0.11
 - Added jsx rules from Divi 
 - Added @babel/preset-env @babel/preset-react packages
