@@ -158,7 +158,54 @@ let webpackConfig = {
             }
           }
         ],
-      }
+      },
+      // Handle `.jsx` files.
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: [
+
+          // Spawns multiple processes and split work between them. This makes faster build.
+          // @see https://webpack.js.org/loaders/thread-loader/
+          {
+            loader: 'thread-loader',
+            options: {
+              workers: - 1,
+            },
+          },
+
+          // Transpiles JavaScript files using Babel. Translates newer syntax with less support
+          // into older syntax with more support so the project can use newer syntax and have
+          // them automatically translated into older syntax for compatibility suppoert.
+          // @see https://www.npmjs.com/package/babel-loader
+          // @see https://babeljs.io/
+          {
+            loader: 'babel-loader',
+            options: {
+              compact: false,
+              presets: [
+
+                // Preset that adds configuration for handling latest JavaScript syntax.
+                // @see https://babeljs.io/docs/en/babel-preset-env
+                ['@babel/preset-env', {
+                  modules: false,
+                  targets: '> 5%',
+                }],
+
+                // Preset that added configuration for handling react & JSX.
+                // @see https://babeljs.io/docs/en/babel-preset-react
+                '@babel/preset-react',
+              ],
+              plugins: [
+                // Transform class properties syntax.
+                // @see https://babeljs.io/docs/en/babel-plugin-proposal-class-properties
+                '@babel/plugin-proposal-class-properties',
+              ],
+              cacheDirectory: false,
+            },
+          }
+        ]
+      },
     ]
   },
   
