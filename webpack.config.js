@@ -199,7 +199,7 @@ let webpackConfig = {
               plugins: [
                 // Transform class properties syntax.
                 // @see https://babeljs.io/docs/en/babel-plugin-proposal-class-properties
-                '@babel/plugin-proposal-class-properties',
+                '@babel/plugin-transform-class-properties',
               ],
               cacheDirectory: false,
             },
