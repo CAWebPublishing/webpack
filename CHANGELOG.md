@@ -1,3 +1,8 @@
+v2.0.11
+- Added jsx rules from Divi 
+- Added @babel/preset-env @babel/preset-react packages
+- Removed the added thread-loader that we added to WordPress jsx rule
+
 v2.0.10
 - Updated npm packages
 - Added .filter(Boolean) to all array entries in webpack.wp.config.js
