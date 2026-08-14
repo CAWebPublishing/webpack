@@ -1,3 +1,8 @@
+v2.0.13
+- Updated npm packages
+- Added terser-webpack-plugin package
+- Updated wp webpack configurator to allow @svgr/webpack since @wordpress/scripts is using require.resolve
+
 v2.0.12
 - Updated @babel/plugin-proposal-class-properties to @babel/plugin-transform-class-properties
 
