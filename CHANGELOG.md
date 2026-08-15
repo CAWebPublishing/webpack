@@ -1,3 +1,6 @@
+v2.0.15
+- Added ts package which is needed for ts-loader to function properly
+
 v2.0.14
 - Rolled back babel packages back to stable v7
 
