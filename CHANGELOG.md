@@ -1,3 +1,6 @@
+v2.0.14
+- Rolled back babel packages back to stable v7
+
 v2.0.13
 - Updated npm packages
 - Added terser-webpack-plugin package
