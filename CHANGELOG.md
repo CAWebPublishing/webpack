@@ -1,3 +1,6 @@
+v2.0.17
+- Updated npm packages, except for @babel plugins which will remain at v7
+
 v2.0.16
 - Added ts package which is needed for ts-loader to function properly
 
