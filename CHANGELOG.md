@@ -1,3 +1,36 @@
+v2.0.17
+- Updated npm packages, except for @babel plugins which will remain at v7
+
+v2.0.16
+- Added ts package which is needed for ts-loader to function properly
+
+v2.0.15
+- Added ts package which is needed for ts-loader to function properly
+
+v2.0.14
+- Rolled back babel packages back to stable v7
+
+v2.0.13
+- Updated npm packages
+- Added terser-webpack-plugin package
+- Updated wp webpack configurator to allow @svgr/webpack since @wordpress/scripts is using require.resolve
+
+v2.0.12
+- Updated @babel/plugin-proposal-class-properties to @babel/plugin-transform-class-properties
+
+v2.0.11
+- Added jsx rules from Divi 
+- Added @babel/preset-env @babel/preset-react packages
+- Removed the added thread-loader that we added to WordPress jsx rule
+
+v2.0.10
+- Updated npm packages
+- Added .filter(Boolean) to all array entries in webpack.wp.config.js
+- Added hot argument check back to hasFastReact variable
+
+v2.0.9
+- Updated npm packages
+
 v2.0.8
 - Updated port for the webpack-dev-server, we weren't setting the port correctly when a domain was passed via caweb.json
 
