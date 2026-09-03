@@ -18,7 +18,6 @@ import { fileURLToPath } from 'url';
 // webpack plugins
 import { merge } from 'webpack-merge';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
-import RemoveEmptyScriptsPlugin from 'webpack-remove-empty-scripts';
 
 /**
  * Internal dependencies
@@ -58,14 +57,23 @@ if( 'serve' === webpackCommand ){
 
       // only add the flags if the site domain is not localhost
       if( 'localhost' !== siteDomain.hostname ){
+        let protocol = siteDomain.protocol.replace(':', '');
+
         addToServer( 'host', siteDomain.hostname );
-        addToServer( 'server', siteDomain.protocol.replace(':', '') );
+        addToServer( 'server', protocol );
         
-        // only add the port if it is specified
+        // if the port is specified in the URL we use that. 
         if( '' !== siteDomain.port ){
           addToServer( 'port', siteDomain.port );
+        // if not specified we use the default port 80 for http and 443 for https 
+      } else {
+          if( 'http' === protocol ){
+              addToServer( 'port', 80 );
+          } else if( 'https' === protocol ){
+              addToServer( 'port', 443 );
+          }
         }
-
+       
         updateTarget( siteDomain.href );
       }
 
@@ -82,6 +90,7 @@ if( 'serve' === webpackCommand ){
 
 // main webpack configuration object
 let webpackConfig = {
+  entry: path.join( process.cwd(), 'src', 'index.js' ),
   mode,
   // target: 'web',
   name: isProduction ? 'compressed' : 'uncompressed',
@@ -149,17 +158,56 @@ let webpackConfig = {
             }
           }
         ],
-      }
+      },
+      // Handle `.jsx` files.
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: [
+
+          // Spawns multiple processes and split work between them. This makes faster build.
+          // @see https://webpack.js.org/loaders/thread-loader/
+          {
+            loader: 'thread-loader',
+            options: {
+              workers: - 1,
+            },
+          },
+
+          // Transpiles JavaScript files using Babel. Translates newer syntax with less support
+          // into older syntax with more support so the project can use newer syntax and have
+          // them automatically translated into older syntax for compatibility suppoert.
+          // @see https://www.npmjs.com/package/babel-loader
+          // @see https://babeljs.io/
+          {
+            loader: 'babel-loader',
+            options: {
+              compact: false,
+              presets: [
+
+                // Preset that adds configuration for handling latest JavaScript syntax.
+                // @see https://babeljs.io/docs/en/babel-preset-env
+                ['@babel/preset-env', {
+                  modules: false,
+                  targets: '> 5%',
+                }],
+
+                // Preset that added configuration for handling react & JSX.
+                // @see https://babeljs.io/docs/en/babel-preset-react
+                '@babel/preset-react',
+              ],
+              plugins: [
+                // Transform class properties syntax.
+                // @see https://babeljs.io/docs/en/babel-plugin-proposal-class-properties
+                '@babel/plugin-transform-class-properties',
+              ],
+              cacheDirectory: false,
+            },
+          }
+        ]
+      },
     ]
   },
-  
-  /**
-   * Devtool Configuration
-   * WordPress by default uses 'source-map' for devtool which affects build and rebuild speed.
-   * For development we switch to 'eval' which is much faster.
-   * @see https://webpack.js.org/configuration/devtool/#devtool
-   */
-  devtool: isProduction ? 'source-map' : 'eval',
   
   /**
    * Turn off caching of generated modules and chunks.
@@ -208,21 +256,6 @@ let webpackConfig = {
   
   },
 
-  plugins: [
-    // we remove empty scripts
-    new RemoveEmptyScriptsPlugin(),
-
-    // certain files can be skipped when serving
-    // new HtmlWebpackSkipAssetsPlugin({
-    //   skipAssets: [
-    //       /.*-rtl.css/, // we skip the Right-to-Left Styles
-    //       /css-audit.*/, // we skip the CSSAudit Files
-    //       /a11y.*/, // we skip the A11y Files
-    //       /jshint.*/, // we skip the JSHint Files
-    //     ]
-    // }),
-  ],
-  
   /**
    * DevServer is only added during 'serve' command
    * 

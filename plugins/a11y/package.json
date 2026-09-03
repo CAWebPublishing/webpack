@@ -1,6 +1,6 @@
 {
   "name": "@caweb/a11y-webpack-plugin",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "description": "CAWebPublishing Webpack Plugin to run Accessibility Scans",
   "type": "module",
   "main": "index.js",
@@ -35,13 +35,20 @@
     "webpack"
   ],
   "dependencies": {
-    "@caweb/webpack": "^2.0.0",
-    "accessibility-checker": "^4.0.12",
+    "@caweb/webpack": "^2.0.17",
+    "accessibility-checker": "^4.0.31",
     "check-valid-url": "^0.1.0"
   },
   "devDependencies": {
-    "@caweb/html-webpack-plugin": "^2.1.9",
-    "webpack": "^5.105.3",
-    "webpack-cli": "^6.0.1"
+    "@caweb/html-webpack-plugin": "^2.1.20",
+    "webpack": "^5.110.3",
+    "webpack-cli": "^7.2.3"
+  },
+  "allowScripts": {
+    "accessibility-checker@4.0.31": true,
+    "core-js@3.50.0": true,
+    "chromedriver@152.0.3": true,
+    "puppeteer@25.9.0": true,
+    "@parcel/watcher@2.6.0": true
   }
 }
