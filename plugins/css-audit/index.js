@@ -5,8 +5,6 @@
  */
 import { sync as resolveBin } from 'resolve-bin';
 import spawn from 'cross-spawn';
-import EntryDependency from "webpack/lib/dependencies/EntryDependency.js";
-import { flagExists, getArgVal, getAllFlags } from '@caweb/webpack/lib/args.js';
 
 import path, { resolve } from 'path';
 import fs from 'fs';
@@ -73,57 +71,7 @@ class CAWebCSSAuditPlugin {
       }else if( 'object' === typeof devServer.open && Array.isArray(devServer.open.target) ){
         devServer.open.target.push(`${auditUrl}${this.config.outputFolder}/${this.config.filename}.html`)
       }
-      // Wait for configuration preset plugins to apply all configure webpack defaults
-      // compiler.hooks.initialize.tap(pluginName, () => {
-      //   compiler.hooks.compilation.tap(
-      //     pluginName,
-      //     (compilation, { normalModuleFactory }) => {
-      //       compilation.dependencyFactories.set(
-      //         EntryDependency,
-      //         normalModuleFactory
-      //       );
-      //     }
-      //   );
-
-      //   // const { entry, options, context } = {
-      //   //   entry: path.join(staticDir.directory, 'css-audit.update.js'),
-      //   //   options: {
-      //   //     name: 'css-audit.update'
-      //   //   },
-      //   //   context: staticDir.directory
-      //   // };
-
-      //   // const dep = new EntryDependency(entry);
-      //   // dep.loc = {
-      //   //   name: options.name
-      //   // };
-        
-      //   // fs.writeFileSync(
-      //   //   path.join(staticDir.directory, `css-audit.update.js`),
-      //   //   `` // required for hot-update to compile on our page, blank script for now
-      //   // );
-
-      //   // compiler.hooks.thisCompilation.tap(pluginName,
-      //   //   /**
-      //   //    * Hook into the webpack compilation
-      //   //    * @param {Compilation} compilation
-      //   //    */
-      //   //   (compilation) => {
-            
-      //   //     compiler.hooks.make.tapAsync(pluginName, (compilation, callback) => {
-              
-      //   //       compilation.addEntry(
-      //   //       context,
-      //   //       dep, 
-      //   //       options, 
-      //   //       err => {
-      //   //         callback(err);
-      //   //       });
-      //   //     });
-            
-
-            
-      //   // });
+      
       compiler.hooks.thisCompilation.tap(pluginName, (compilation) => {
 
         compiler.hooks.done.tap(pluginName,

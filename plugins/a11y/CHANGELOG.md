@@ -1,3 +1,6 @@
+v2.1.8
+- Updated npm packages
+- Removed commented code
 
 v2.1.7
 - Updated npm packages

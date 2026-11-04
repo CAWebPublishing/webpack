@@ -4,7 +4,6 @@
  * External dependencies
  */
 import spawn from 'cross-spawn';
-import EntryDependency from "webpack/lib/dependencies/EntryDependency.js";
 import path from 'path';
 import { isUrl, isValidUrl } from 'check-valid-url';
 import fs from 'fs';
@@ -74,54 +73,6 @@ class CAWebA11yPlugin {
       }else if( 'object' === typeof devServer.open && Array.isArray(devServer.open.target) ){
         devServer.open.target.push(`${auditUrl}${this.config.outputFolder}/${this.config.outputFilename}.html`)
       }
-
-      // Hot Module Replacement
-      // if( compiler?.options?.devServer?.hot ){
-      //   // we create a blank file for the hot update to compile on our page.
-      //   // this is required for the hot-update to work.
-      //   fs.writeFileSync(
-      //     path.join(staticDir.directory, `a11y.update.js`),
-      //     `` // required for hot-update to compile on our page, blank script for now
-      //   );
-
-      //   // we add the entry to the dependency factory during compilation
-      //   compiler.hooks.compilation.tap(
-      //     pluginName,
-      //     (compilation, { normalModuleFactory }) => {
-      //       compilation.dependencyFactories.set(
-      //         EntryDependency,
-      //         normalModuleFactory
-      //       );
-
-      //     }
-      //   );
-
-      //   // we add the entry before the compilation ends
-      //   compiler.hooks.make.tapAsync(
-      //     pluginName, 
-      //     (compilation, callback) => {
-      //       const { entry, options, context } = {
-      //       entry: path.join( staticDir.directory, 'a11y.update.js'),
-      //       options: {
-      //         name: 'a11y.update'
-      //       },
-      //       context: 'a11y'
-      //     };
-
-      //     const dep = new EntryDependency(entry);
-      //     dep.loc = {
-      //       name: options.name
-      //     };
-          
-      //     compilation.addEntry(
-      //       context,
-      //       dep, 
-      //       options, 
-      //       err => {
-      //         callback(err);
-      //       });
-      //     });
-      // }
 
       compiler.hooks.thisCompilation.tap(pluginName, (compilation) => {
       //   // We can audit the html files now that the compilation is done.
