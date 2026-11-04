@@ -4,7 +4,6 @@
  * External dependencies
  */
 import spawn from 'cross-spawn';
-// import EntryDependency from "webpack/lib/dependencies/EntryDependency.js";
 import path from 'path';
 import fs from 'fs';
 import deepmerge from 'deepmerge';
@@ -74,45 +73,7 @@ class CAWebJSHintPlugin {
         devServer.open.target.push(`${auditUrl}${this.config.outputFolder}/${this.config.outputFilename}.html`)
       }
         
-      // Wait for configuration preset plugins to apply all configure webpack defaults
-      // compiler.hooks.initialize.tap('JSHint Plugin', () => {
-      //     compiler.hooks.compilation.tap(
-      //       "JSHint Plugin",
-      //       (compilation, { normalModuleFactory }) => {
-      //         compilation.dependencyFactories.set(
-      //           EntryDependency,
-      //           normalModuleFactory
-      //         );
-      //       }
-      //     );
-
-      //     //const dep = new EntryDependency(path.join( this.config.outputFolder, 'jshint.js'));
-      //     const dep = new EntryDependency(path.resolve( 'src', 'index.js'));
-      //     dep.loc = {
-      //       name: 'jshint'
-      //     };
-          
-      //     fs.writeFileSync(
-      //       path.join(this.config.outputFolder, `jshint.js`),
-      //       `` // required for hot-update to compile on our page, blank script for now
-      //     );
-      // });
-      
       compiler.hooks.thisCompilation.tap(pluginName,(compilation) => {
-          
-          // compiler.hooks.make.tapAsync(pluginName, (compilation, callback) => {
-            
-          //   compilation.addEntry(
-          //   'jshint',
-          //   dep, 
-          //   {
-          //     name: 'jshint'
-          //   }, 
-          //   err => {
-          //     callback(err);
-          //   });
-          // });
-  
 
           // process assets and run the jshint on appropriate assets.
           
